@@ -1,0 +1,107 @@
+/* =========================================================
+   TOKENS: todas las decisiones de diseño viven acá.
+   Los componentes usan solo los ROLES (--color-*), nunca los
+   valores crudos de la paleta.
+   ========================================================= */
+
+/* ---------- Paleta v2: valores tomados del lugar ---------- */
+:root {
+  /* El complejo: cal, monte y Uritorco (el eje, calmo) */
+  --cal: #F4ECDF;        /* revoque de cal de Misky Wayra */
+  --arena: #E4D5BC;
+  --monte: #5B6130;      /* oliva del monte */
+  --uritorco: #615D3A;   /* caqui del cerro */
+  --tinta: #2B2119;      /* texto */
+
+  /* Sumac Mayu: la casa de adobe naranja */
+  --teja-clara: #F1D2B6;
+  --adobe: #9C4219;      /* terracota del adobe */
+  --agapanto: #4B4D9E;   /* azul violáceo de los agapantos */
+  --brasa: #4A1E0E;
+
+  /* Misky Wayra: la casa redonda de techo verde */
+  --cielo: #CFE0EC;
+  --techo: #2B6A4E;      /* verde del techo */
+  --viento: #2D5F8A;     /* azul del cielo de la sierra */
+  --noche: #1E2140;
+}
+
+/* ---------- Roles: tema por defecto (el complejo) ---------- */
+:root,
+[data-theme="tierra"] {
+  --color-bg: var(--cal);            /* fondo de página, compartido */
+  --color-text: var(--tinta);        /* texto, compartido */
+  --color-surface: var(--arena);     /* superficies claras grandes */
+  --color-primary: var(--monte);     /* links, botones */
+  --color-accent: var(--uritorco);   /* detalles */
+  --color-deep: var(--tinta);        /* títulos, fondos oscuros */
+  --color-on-color: var(--cal);      /* texto sobre primary/accent/deep */
+}
+
+/* ---------- Temas: solo cambian los roles ---------- */
+[data-theme="mayu"] {
+  --color-surface: var(--teja-clara);
+  --color-primary: var(--adobe);
+  --color-accent: var(--agapanto);
+  --color-deep: var(--brasa);
+}
+
+[data-theme="wayra"] {
+  --color-surface: var(--cielo);
+  --color-primary: var(--techo);
+  --color-accent: var(--viento);
+  --color-deep: var(--noche);
+}
+
+/* ---------- Tipografía ---------- */
+:root {
+  /* Las variables --font-fraunces y --font-figtree las genera Astro
+     (Fonts API), con fuentes de respaldo ya incluidas */
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-figtree);
+
+  /* Escala fluida: crece con la pantalla, entre un mínimo y un máximo */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --step-2: clamp(1.56rem, 1.4rem + 0.8vw, 2rem);
+  --step-3: clamp(1.95rem, 1.7rem + 1.25vw, 2.67rem);
+  --step-4: clamp(2.44rem, 2rem + 2vw, 3.55rem);
+  --step-5: clamp(3.05rem, 2.4rem + 3.2vw, 4.74rem);
+
+  --leading-body: 1.6;
+  --leading-tight: 1.15;
+  --measure: 65ch; /* largo máximo de línea para lectura */
+}
+
+/* ---------- Espaciado ---------- */
+:root {
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Separación entre secciones: fluida */
+  --space-section: clamp(3rem, 2rem + 5vw, 7rem);
+}
+
+/* ---------- Layout ---------- */
+:root {
+  --axis-width: 72rem;                              /* ancho máximo del eje */
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);      /* margen lateral */
+  --radius: 0.75rem;                                /* provisorio */
+
+  /* Altura del divisor Alero: más bajo en mobile para que la curva
+     quede más plana; subir el máximo lo hace más pronunciado */
+  --alero-alto: clamp(1.5rem, 0.25rem + 6vw, 7.5rem);
+
+  /* Breakpoints (referencia: CSS no permite variables en @media)
+     mobile  < 40rem
+     tablet  40rem – 64rem
+     desktop ≥ 64rem */
+}

@@ -1,0 +1,40 @@
+---
+import { Font } from 'astro:assets';
+import Nav from '../components/Nav.astro';
+import '../styles/tokens.css';
+import '../styles/reset.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  theme?: 'wayra' | 'mayu';
+}
+
+const { title, description, theme } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Font cssVariable="--font-fraunces" preload />
+    <Font cssVariable="--font-figtree" preload />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body data-theme={theme}>
+    <Nav />
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>Misky Wayra, Capilla del Monte, Córdoba</p>
+      <a href="https://wa.me/549XXXXXXXXXX">WhatsApp</a>
+    </footer>
+  </body>
+</html>

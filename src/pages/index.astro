@@ -1,17 +1,65 @@
 ---
-
+import Base from '../layouts/Base.astro';
+import Alero from '../components/Alero.astro';
+import Hero from '../components/Hero.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base
+  title="Misky Wayra: cabañas de adobe en Capilla del Monte"
+  description="[Descripción de 150 caracteres para Google]"
+>
+  <Hero />
+
+  <section class="complejo banda">
+    <h2>El complejo</h2>
+    <p>[La tierra, el adobe, quiénes somos, los espacios compartidos]</p>
+  </section>
+  <Alero flip />
+
+  <section class="cabanas">
+    <h2>Nuestras cabañas</h2>
+
+    <article data-theme="mayu">
+      <h3>Sumac Mayu</h3>
+      <p>[Río hermoso: una frase sobre esta cabaña]</p>
+      <a href="/cabanas/sumac-mayu">Conocer Sumac Mayu</a>
+    </article>
+
+    <article data-theme="wayra">
+      <h3>Misky Wayra</h3>
+      <p>[Viento dulce: una frase sobre esta cabaña]</p>
+      <a href="/cabanas/misky-wayra">Conocer Misky Wayra</a>
+    </article>
+  </section>
+
+  <section class="comparacion">
+    <h2>Las dos cabañas de un vistazo</h2>
+    <!-- Mirrored table: attribute in the center, one cottage per side -->
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Sumac Mayu</th>
+          <td></td>
+          <th scope="col">Misky Wayra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>[x]</td><th scope="row">Huéspedes</th><td>[x]</td></tr>
+        <tr><td>[x]</td><th scope="row">Dormitorios</th><td>[x]</td></tr>
+        <tr><td>[x]</td><th scope="row">Camas</th><td>[x]</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="alrededores">
+    <h2>Alrededores</h2>
+    <p>[Uritorco, Los Terrones, Ongamira, el cielo nocturno]</p>
+    <a href="/alrededores">Explorar los alrededores</a>
+  </section>
+
+  <Alero />
+  <section class="contacto banda">
+    <h2>Consultá disponibilidad</h2>
+    <a href="https://wa.me/549XXXXXXXXXX">Escribinos por WhatsApp</a>
+  </section>
+</Base>

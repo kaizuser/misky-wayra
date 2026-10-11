@@ -1,0 +1,54 @@
+---
+/**
+ * Alero: divisor de secciones con la forma del alero de Sumac Mayu.
+ * Simétrico: más alto en el eje, cae hacia los bordes.
+ *
+ * Uso:
+ *   <Alero />        → antes de una sección con fondo (.banda)
+ *   <Alero flip />   → después de una .banda, para volver al fondo de página
+ *   <Alero cap />    → la forma inversa: rellena lo que queda ARRIBA de la curva.
+ *                      Sirve para "techar" una foto con el alero (ver Hero.astro)
+ */
+interface Props {
+  /** Color del relleno. Por defecto, la superficie del tema actual. */
+  fill?: string;
+  /** Da vuelta la forma: el color queda arriba y la curva cuelga. */
+  flip?: boolean;
+  /** Rellena la zona de arriba de la curva (las esquinas), no la de abajo. */
+  cap?: boolean;
+}
+
+const { fill = 'var(--color-surface)', flip = false, cap = false } = Astro.props;
+
+const curva =
+  'M0 80 L0 74 C120 73 220 68 300 64 C380 60 420 56 480 48 C560 37 640 6 720 6 C800 6 880 37 960 48 C1020 56 1060 60 1140 64 C1220 68 1320 73 1440 74 L1440 80 Z';
+const techo =
+  'M0 0 L1440 0 L1440 74 C1320 73 1220 68 1140 64 C1060 60 1020 56 960 48 C880 37 800 6 720 6 C640 6 560 37 480 48 C420 56 380 60 300 64 C220 68 120 73 0 74 Z';
+---
+
+<svg
+  class:list={['alero', { flip }]}
+  viewBox="0 0 1440 80"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    style={`fill: ${fill}`}
+    d={cap ? techo : curva}
+  />
+</svg>
+
+<style>
+  .alero {
+    display: block;
+    width: 100%;
+    /* La altura se define en tokens.css (--alero-alto) */
+    height: var(--alero-alto);
+    margin-block: -1px; /* evita líneas finas entre el SVG y la sección */
+  }
+
+  .flip {
+    transform: scaleY(-1);
+  }
+</style>

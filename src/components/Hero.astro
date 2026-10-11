@@ -1,0 +1,157 @@
+---
+import { Picture } from 'astro:assets';
+import Alero from './Alero.astro';
+import sumac from '../assets/home/hero-sumac.jpg';
+import misky from '../assets/home/hero-misky.jpg';
+---
+
+<section class="hero">
+  <div class="texto">
+    <h1>Cabañas de adobe en Capilla del Monte</h1>
+    <p>[Una frase sobre el lugar]</p>
+  </div>
+
+  <!-- Las dos casas, una a cada lado del eje. El hueco entre ellas es el parante. -->
+  <div class="fotos">
+    <a class="lado sumac" href="/cabanas/sumac-mayu" data-theme="mayu">
+      <Picture
+        src={sumac}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1600]}
+        sizes="(min-width: 40rem) 50vw, 100vw"
+        alt="Fachada de Sumac Mayu: casa de adobe con cúpula, alero ondulado y un gran ventanal en arco"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="etiqueta">Sumac Mayu</span>
+    </a>
+
+    <a class="lado misky" href="/cabanas/misky-wayra" data-theme="wayra">
+      <Picture
+        src={misky}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1600]}
+        sizes="(min-width: 40rem) 50vw, 100vw"
+        alt="Misky Wayra: casa redonda de techo verde rodeada de árboles, con las sierras detrás"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="etiqueta">Misky Wayra</span>
+    </a>
+
+    <!-- El alero "techa" las fotos arriba; abajo, la curva entra a la sección siguiente -->
+    <div class="borde arriba" aria-hidden="true">
+      <Alero cap fill="var(--color-bg)" />
+    </div>
+    <div class="borde abajo" aria-hidden="true">
+      <Alero />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-inline: 0;    /* las fotos van de borde a borde */
+    padding-block-end: 0;
+  }
+
+  .texto {
+    padding-inline: var(--gutter);
+    padding-block-end: var(--space-xl);
+  }
+
+  .texto > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  /* ---------- Las fotos ---------- */
+  .fotos {
+    --parante: 6px; /* ancho de la línea del eje entre las dos casas */
+
+    position: relative;
+    display: grid;
+    gap: var(--parante);
+    margin-block-start: 0;
+    background: var(--color-bg); /* el gap deja ver este color: el parante */
+
+    /* Mobile: apiladas, Sumac arriba y Misky abajo */
+    grid-template-columns: 1fr;
+  }
+
+  .lado {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 4 / 3; /* mobile */
+  }
+
+  .lado :global(picture),
+  .lado :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .lado :global(img) {
+    object-fit: cover;
+  }
+
+  /* Encuadre de cada foto: mantiene cada casa centrada al recortar */
+  .sumac :global(img) { object-position: 42% 45%; }
+  .misky :global(img) { object-position: 64% 45%; }
+
+  .lado:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: -6px;
+  }
+
+  /* Nombre de cada casa, encima del borde inferior */
+  .etiqueta {
+    position: absolute;
+    left: 50%;
+    bottom: calc(var(--alero-alto) + var(--space-s));
+    transform: translateX(-50%);
+    padding: var(--space-2xs) var(--space-m);
+    border-radius: 999px;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    white-space: nowrap;
+  }
+
+  /* ---------- Bordes con forma de alero ---------- */
+  .borde {
+    position: absolute;
+    inset-inline: 0;
+    z-index: 1;
+    pointer-events: none; /* los clics pasan a las fotos */
+  }
+
+  .arriba { top: -1px; }
+  .abajo { bottom: -1px; }
+
+  /* ---------- Tablet y desktop: una al lado de la otra ---------- */
+  @media (min-width: 40rem) {
+    .fotos {
+      grid-template-columns: 1fr 1fr;
+      height: clamp(24rem, 70svh, 48rem);
+      transition: grid-template-columns 600ms ease;
+    }
+
+    .lado {
+      aspect-ratio: auto;
+    }
+  }
+
+  /* Desktop con mouse: la casa sobre la que pasás crece un poco */
+  @media (min-width: 64rem) and (hover: hover) {
+    .fotos:has(.sumac:hover) { grid-template-columns: 1.3fr 1fr; }
+    .fotos:has(.misky:hover) { grid-template-columns: 1fr 1.3fr; }
+
+    /* También crece al pasar por su nombre en la navegación */
+    :global(body:has(.eje [data-theme='mayu']:hover)) .fotos { grid-template-columns: 1.3fr 1fr; }
+    :global(body:has(.eje [data-theme='wayra']:hover)) .fotos { grid-template-columns: 1fr 1.3fr; }
+  }
+</style>
