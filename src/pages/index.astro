@@ -67,7 +67,7 @@ const borde = feston(24, 92);
           </th>
           <td></td>
           <th scope="col" data-theme={derecha.data.tema}>
-            <svg class="ventanita redonda" viewBox="0 0 200 200" aria-hidden="true">
+            <svg class="ventanita redonda" viewBox="-12 -12 224 224" aria-hidden="true">
               <path d={borde} />
             </svg>
             <span class="nombre">{derecha.data.nombre}</span>
@@ -125,13 +125,14 @@ const borde = feston(24, 92);
 
   /* ---------- Frente a frente ---------- */
   table {
-    width: min(100%, 46rem);
+    width: min(100%, 52rem);
     margin-inline: auto;
+    margin-block-start: var(--space-xl);
     border-collapse: collapse;
   }
 
   thead th {
-    padding: 0 var(--space-s) var(--space-m);
+    padding: 0 var(--space-xl) var(--space-l);
     vertical-align: bottom;
     color: var(--color-primary);
   }
@@ -185,8 +186,8 @@ const borde = feston(24, 92);
 
   /* Cada dato se alinea hacia el eje; el nombre de la fila va en el centro */
   tbody td {
-    width: 42%;
-    padding: var(--space-xs) var(--space-s);
+    width: 40%;
+    padding: var(--space-m) var(--space-xl);
     border-block-start: 1px solid var(--color-surface);
     font-family: var(--font-display);
     font-size: var(--step-1);
@@ -202,7 +203,7 @@ const borde = feston(24, 92);
   }
 
   tbody th {
-    padding: var(--space-xs) var(--space-2xs);
+    padding: var(--space-m) var(--space-2xs);
     border-block-start: 1px solid var(--color-surface);
     font-size: var(--step--1);
     font-weight: 500;
@@ -217,7 +218,7 @@ const borde = feston(24, 92);
     flex-wrap: wrap;
     gap: var(--space-xs) var(--space-xl);
     max-width: none;
-    margin-block-start: var(--space-l);
+    margin-block-start: var(--space-xl);
   }
 
   .conocer a {
@@ -230,9 +231,18 @@ const borde = feston(24, 92);
   .conocer a:last-child::after { content: ' →'; }
 
   @media (width < 40rem) {
+    thead th,
+    tbody td {
+      padding-inline: var(--space-2xs);
+    }
+
     tbody td {
       font-size: var(--step-0);
-      padding-inline: var(--space-2xs);
+      padding-block: var(--space-s);
+    }
+
+    tbody th {
+      padding-block: var(--space-s);
     }
 
     tbody th {
