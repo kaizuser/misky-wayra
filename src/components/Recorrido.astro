@@ -115,9 +115,17 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
   // al subir, así que cuando una llega al final se la saca y queda su estado natural
   // (que es el dibujo completo). Al llegar al fondo de la página, todo queda trazado.
   const nombres = new Set(['trazar', 'florecer', 'aparecer', 'llegar', 'girar']);
-  let pendientes = document
-    .getAnimations()
-    .filter((a): a is CSSAnimation => a instanceof CSSAnimation && nombres.has(a.animationName));
+  let pendientes: CSSAnimation[] = [];
+
+  // Las animaciones vivas en este momento. Se vuelven a contar al cruzar el breakpoint:
+  // en desktop aparecen trazos que en mobile no existen (el lado izquierdo de las volutas).
+  function contar() {
+    pendientes = document
+      .getAnimations()
+      .filter((a): a is CSSAnimation => a instanceof CSSAnimation && nombres.has(a.animationName));
+    addEventListener('scroll', alScrollear, { passive: true });
+    revisar();
+  }
 
   function revisar() {
     pendientes = pendientes.filter((a) => {
@@ -138,8 +146,10 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
     });
   }
 
-  addEventListener('scroll', alScrollear, { passive: true });
-  revisar();
+  // Mismo breakpoint que el CSS de desktop (64rem). Se espera un cuadro para que
+  // el navegador cree las animaciones nuevas antes de contarlas.
+  matchMedia('(width >= 64rem)').addEventListener('change', () => requestAnimationFrame(contar));
+  contar();
 </script>
 
 <style>
@@ -330,6 +340,38 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
   .foto :global(img) {
     object-fit: cover;
     object-position: var(--encuadre);
+  }
+
+  /* Al pasar el mouse, cada casa reacciona en su elemento (solo con mouse: en el
+     celular, tocar una foto la va a abrir en pantalla completa) */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .foto :global(img) {
+      transition: scale 1.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    /* Sumac: se acerca despacio, como el agua que se asienta */
+    [data-forma='mayu'] .foto:hover :global(img) {
+      scale: 1.06;
+    }
+
+    /* Misky: se mece apenas y el festón gira, como con una ráfaga */
+    [data-forma='wayra'] .foto:hover :global(img) {
+      scale: 1.03;
+      animation: mecer 2.6s ease-in-out;
+    }
+
+    [data-forma='wayra'] .feston {
+      transition: rotate 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    [data-forma='wayra'] .ventana:hover .feston {
+      rotate: 8deg;
+    }
+
+    @keyframes mecer {
+      30% { rotate: -0.8deg; }
+      65% { rotate: 0.6deg; }
+    }
   }
 
   .pendiente {
