@@ -4,9 +4,12 @@
  * Una línea sobre el eje une las paradas y se dibuja a medida que bajás.
  * Las paradas alternan de lado (texto / foto) alrededor del eje.
  * Entre parada y parada, sobre la línea, florece una voluta (ver lib/volutas.ts).
+ * Después de la última, la línea termina en el cierre: una voluta más grande, espejada
+ * también hacia abajo, como un adorno de esquina. Es el "y de vuelta afuera" del viaje.
  *
  * Cada casa se mueve distinto:
- * - mayu (Sumac, agua): la línea ondula y es continua; el contenido sube desde abajo, como el agua.
+ * - mayu (Sumac, agua): la línea ondula y es continua; el contenido llega de costado y subiendo,
+ *   en diagonal, como agua que fluye hacia el eje.
  * - wayra (Misky, viento): la línea es recta y entrecortada, como ráfagas; el contenido llega
  *   de costado, empujado hacia el eje.
  */
@@ -82,17 +85,25 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
             )}
           </div>
 
-          {i < paradas.length - 1 && (
-            <svg class="voluta" viewBox="-125 -45 250 90" aria-hidden="true">
-              <circle class="nudo" r="1.6" />
-              {trazos.map((d) => (
-                <>
-                  <path class="der" d={d} pathLength="1" />
-                  <path class="izq" d={d} pathLength="1" />
-                </>
-              ))}
-            </svg>
-          )}
+          <svg
+            class:list={['voluta', { cierre: i === paradas.length - 1 }]}
+            viewBox="-125 -45 250 90"
+            aria-hidden="true"
+          >
+            <circle class="nudo" r="1.6" />
+            {trazos.map((d) => (
+              <>
+                <path class="der" d={d} pathLength="1" />
+                <path class="izq" d={d} pathLength="1" />
+                {i === paradas.length - 1 && (
+                  <>
+                    <path class="der abajo" d={d} pathLength="1" />
+                    <path class="izq abajo" d={d} pathLength="1" />
+                  </>
+                )}
+              </>
+            ))}
+          </svg>
         </li>
       ))
     }
@@ -136,6 +147,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
     --linea: 2px;
     --marca: 3rem;
     --entre: 7rem; /* hueco entre paradas, donde florecen las volutas */
+    --cierre: calc(var(--entre) * 1.2); /* distancia de la última parada al cierre */
 
     position: relative;
     margin: 0;
@@ -143,6 +155,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
     list-style: none;
     display: grid;
     gap: var(--entre);
+    padding-block-end: calc(var(--cierre) * 2); /* lugar para el cierre, más alto */
   }
 
   /* La línea del eje que une las paradas. Es una máscara sobre el color del tema:
@@ -152,7 +165,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
     content: '';
     position: absolute;
-    inset-block: 0;
+    inset-block: 0 var(--cierre); /* termina en el nudo del cierre */
     left: calc(var(--marca) / 2 - var(--ancho) / 2);
     width: var(--ancho);
     background: var(--color-accent);
@@ -194,6 +207,23 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
   [data-forma='wayra'] .voluta path { stroke-width: 0.75; }
 
   .voluta .nudo { fill: var(--color-accent); }
+
+  /* El cierre: más grande, y espejado hacia abajo */
+  .voluta.cierre {
+    top: calc(100% + var(--cierre));
+    width: min(36rem, 260vw);
+  }
+  .voluta .abajo { transform: scaleY(-1); }
+  .voluta .izq.abajo { transform: scale(-1, -1); }
+
+  /* En Sumac el cierre es más alto (los rulos de la ola cruzarían a su espejo,
+     así que las dos mitades se separan): baja un poco más */
+  [data-forma='mayu'] ol { --cierre: calc(var(--entre) * 1.45); }
+
+  [data-forma='mayu'] .cierre .der { transform: translateY(-14px); }
+  [data-forma='mayu'] .cierre .izq { transform: scaleX(-1) translateY(-14px); }
+  [data-forma='mayu'] .cierre .der.abajo { transform: scaleY(-1) translateY(-14px); }
+  [data-forma='mayu'] .cierre .izq.abajo { transform: scale(-1, -1) translateY(-14px); }
 
   /* El lado izquierdo es el espejo del derecho; en mobile la línea va pegada
      al borde y solo florece hacia la derecha */
@@ -389,9 +419,9 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
         animation-range: entry 0% cover 30%;
       }
 
-      /* Sumac: sube desde abajo, como el agua */
+      /* Sumac: llega de costado y subiendo, como agua que fluye */
       [data-forma='mayu'] .parada {
-        --desde: 0 2.5rem;
+        --desde: 3rem 1.5rem;
       }
 
       /* Misky: llega de costado, empujado hacia el eje */
@@ -432,11 +462,16 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
     animation: none !important;
   }
 
-  /* Desktop, Misky: cada lado llega desde afuera hacia el eje */
+  /* Desktop: cada lado llega desde afuera hacia el eje */
   @media (width >= 64rem) {
     [data-forma='wayra'] .parada:nth-child(odd) > .texto,
     [data-forma='wayra'] .parada:nth-child(even) > .fotos {
       --desde: -3rem 0;
+    }
+
+    [data-forma='mayu'] .parada:nth-child(odd) > .texto,
+    [data-forma='mayu'] .parada:nth-child(even) > .fotos {
+      --desde: -3rem 1.5rem;
     }
   }
 </style>
