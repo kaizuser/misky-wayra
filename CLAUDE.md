@@ -194,9 +194,10 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 ### Pages (sketches with placeholders in brackets)
 - **index** (rebuilt Oct 24, 2026): `<Hero />` → `<Alero />` → **Entre las dos, el parque** (`.banda`, the complex: `<Encuentro />` + park text from the family) → `<Alero flip />` → **Frente a frente** (one mirrored `<table>`: Sumac column left, Misky right, row names on the axis; data comes from the collection, including the `propio` field; small window glyphs, arch and scalloped circle, above each name; links to both pages) → **Lo que comparten** (shared spaces as one typographic line, link to the Galería) → `<Alero />` → **¿Cuándo venís?** (`<Consultar class="banda">` + address with the Maps link).
 - **cabanas/[slug]:** see the "Cottage pages" section.
-- **galeria:** "Galería de fotos": everything that is not on a cottage page, grouped: El parque, La pileta, Los espacios compartidos, Las vistas. Sketch; photos pending (`page-galeria`).
+- **Off-axis pages look off-axis** (Oct 24, 2026): Galería and Ubicación y contacto are left-aligned and asymmetric (eyebrow + light h1), unlike the centered axis pages.
+- **galeria:** "Galería de fotos": everything that is not on a cottage page, grouped: El parque, La pileta, Los espacios compartidos, Las vistas. Each group: short true description + a four-photo composition mixing both houses' windows (a tall arch spanning two rows, a circle, a rectangle, a wide panoramic last one); on desktop text and photos sit side by side, mirrored every other group. Placeholders "Foto en camino" until the photos arrive (`page-galeria`).
 - **ubicacion-y-contacto** also has "Qué hay cerca" (Cerro Uritorco, Los Terrones, Ongamira, El pueblo, El cielo de noche), the content of the old Alrededores page, kept for visitors and SEO.
-- **ubicacion-y-contacto:** address, static map + "Abrir en Google Maps" link, how to get there, WhatsApp / phone / Instagram.
+- **ubicacion-y-contacto:** Dónde estamos (the address large, "Abrir en Google Maps", "Copiar la dirección" with a "Copiado" status; the copy button only appears if the clipboard API exists) → Cómo llegar (`<dl>`, placeholders) → Qué hay cerca as a trail (the hero's dashed line with one node per place, placeholders) → Escribinos (`.banda`: WhatsApp button, phone and Instagram placeholders). No static map yet.
 
 **WhatsApp format:** `https://wa.me/549` + area code without 0 + number without 15, `?text=` + `encodeURIComponent(...)`. Phone: `tel:+549...`.
 
@@ -439,5 +440,5 @@ Small moments, each tied to the place. Ordered by impact vs effort.
 4. **Photo captions with real details:** "La cocina mira al Uritorco", "El adobe se hizo a mano, capa por capa" (only true facts). Turns the gallery into a story.
 5. **Warm microcopy in voseo everywhere:** buttons, empty states, WhatsApp messages, errors.
 6. **Done — Themed 404 page:** "Te perdiste en el monte" (`src/pages/404.astro`, `noindex`): the hero's dashed path forks into two branches, one to each house (arch and scalloped-circle glyphs), plus "Volver al inicio".
-7. **Copy the address with one tap,** with a small "Copiado" confirmation.
+7. **Done — Copy the address with one tap,** with a small "Copiado" confirmation (Ubicación y contacto).
 8. **A local wink:** at night (with the living-page clock, section 12), a tiny light crosses the sky once, a nod to the Uritorco's UFO lore. Optional.

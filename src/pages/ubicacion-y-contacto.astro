@@ -1,43 +1,261 @@
 ---
+/**
+ * Ubicación y contacto: una página práctica, fuera del eje. Por eso no es simétrica:
+ * todo se alinea a la izquierda, y "Qué hay cerca" es un sendero (la línea punteada del inicio).
+ */
 import Base from '../layouts/Base.astro';
 import { SITIO, mapsUrl, whatsappUrl } from '../config';
+
+const cerca = [
+  { nombre: 'El Cerro Uritorco', texto: '[Qué es, cuánto se tarda en subir, cuándo ir]' },
+  { nombre: 'Los Terrones', texto: '[Qué es, cuándo ir]' },
+  { nombre: 'Ongamira', texto: '[Qué es, cuándo ir]' },
+  { nombre: 'El pueblo', texto: '[La calle techada, los murales, dónde comer]' },
+  { nombre: 'El cielo de noche', texto: '[Astroturismo: dónde y cuándo mirar]' },
+];
 ---
 
 <Base
   title="Ubicación y contacto: Misky Wayra, Capilla del Monte"
-  description="[Descripción de 150 caracteres para Google]"
+  description="Cómo llegar a Misky Wayra, en Barrio Valentí, Capilla del Monte, Córdoba. Qué hay cerca y cómo escribirnos por WhatsApp para consultar."
 >
-  <section class="hero">
+  <section class="encabezado">
+    <p class="antetitulo">{SITIO.localidad}</p>
     <h1>Ubicación y contacto</h1>
   </section>
 
-  <section class="ubicacion">
+  <section class="donde">
     <h2>Dónde estamos</h2>
-    <address>{SITIO.direccion}, {SITIO.localidad}</address>
-    <div>[mapa estático]</div>
-    <a href={mapsUrl}>Abrir en Google Maps</a>
+    <address>
+      <span id="direccion">{SITIO.calle}, {SITIO.barrio}</span>
+      <span class="localidad">{SITIO.localidad}</span>
+    </address>
+    <div class="acciones">
+      <a class="boton" href={mapsUrl}>Abrir en Google Maps</a>
+      <button class="copiar" type="button" data-texto={`${SITIO.direccion}, ${SITIO.localidad}`} hidden>
+        Copiar la dirección
+      </button>
+      <span class="aviso" role="status"></span>
+    </div>
   </section>
 
-  <section class="como-llegar">
+  <section class="llegar">
     <h2>Cómo llegar</h2>
-    <p>[Indicaciones desde Córdoba capital]</p>
+    <dl>
+      <dt>Desde Córdoba capital</dt>
+      <dd>[Ruta, distancia y tiempo en auto]</dd>
+      <dt>En micro</dt>
+      <dd>[Empresas y dónde bajarse]</dd>
+      <dt>El último tramo</dt>
+      <dd>[Del centro de Capilla del Monte a Barrio Valentí]</dd>
+    </dl>
   </section>
 
   <section class="cerca">
     <h2>Qué hay cerca</h2>
-    <p>[Cerro Uritorco: qué es, distancia desde las cabañas, cuándo ir]</p>
-    <p>[Los Terrones]</p>
-    <p>[Ongamira]</p>
-    <p>[El pueblo: calle techada, murales, gastronomía]</p>
-    <p>[El cielo de noche: astroturismo, Puesto Pavón]</p>
+    <ol class="sendero">
+      {
+        cerca.map((lugar) => (
+          <li>
+            <h3>{lugar.nombre}</h3>
+            <p>{lugar.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
-  <section class="contacto">
-    <h2>Contacto</h2>
-    <ul>
-      <li><a href={whatsappUrl('Hola! Quería hacer una consulta sobre Misky Wayra')}>WhatsApp</a></li>
-      <li><a href="tel:+549XXXXXXXXXX">[Teléfono]</a></li>
-      <li><a href="https://instagram.com/[usuario]">Instagram</a></li>
+  <section class="contacto banda">
+    <h2>Escribinos</h2>
+    <p>La forma más rápida es WhatsApp: te respondemos nosotros, la familia.</p>
+    <a class="boton" href={whatsappUrl('Hola! Quería hacer una consulta sobre las cabañas')}>Escribinos por WhatsApp</a>
+    <ul class="canales">
+      <li>Teléfono: <a href="tel:+549XXXXXXXXXX">[número]</a></li>
+      <li>Instagram: <a href="https://instagram.com/">[usuario]</a></li>
     </ul>
   </section>
 </Base>
+
+<script>
+  // Copiar la dirección con un toque, con un "Copiado" que se va solo.
+  // El botón solo aparece si el navegador permite copiar.
+  const boton = document.querySelector<HTMLButtonElement>('.copiar');
+  const aviso = document.querySelector<HTMLElement>('.aviso');
+  if (boton && aviso && navigator.clipboard) {
+    boton.hidden = false;
+    let espera: number;
+    boton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(boton.dataset.texto ?? '');
+        aviso.textContent = 'Copiado';
+      } catch {
+        aviso.textContent = 'No se pudo copiar';
+      }
+      clearTimeout(espera);
+      espera = window.setTimeout(() => (aviso.textContent = ''), 2500);
+    });
+  }
+</script>
+
+<style>
+  /* ---------- Fuera del eje: todo a la izquierda ---------- */
+  section {
+    text-align: start;
+  }
+
+  section :global(p) {
+    margin-inline: 0;
+  }
+
+  .antetitulo {
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .encabezado {
+    padding-block-end: 0;
+  }
+
+  .encabezado h1 {
+    font-weight: 300;
+  }
+
+  /* ---------- Dónde estamos ---------- */
+  address {
+    display: grid;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .localidad {
+    font-size: var(--step-1);
+    color: var(--color-primary);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s);
+    margin-block-start: var(--space-m);
+  }
+
+  .boton,
+  .copiar {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-l);
+    border-radius: 999px;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .boton {
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    border: 0;
+  }
+
+  .boton:hover {
+    background: var(--color-deep);
+  }
+
+  .copiar {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid currentColor;
+  }
+
+  .aviso {
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  /* ---------- Cómo llegar ---------- */
+  .llegar dl {
+    display: grid;
+    gap: var(--space-3xs) var(--space-l);
+    max-width: 48rem;
+  }
+
+  .llegar dt {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    margin-block-start: var(--space-s);
+  }
+
+  @media (width >= 40rem) {
+    .llegar dl {
+      grid-template-columns: 14rem 1fr;
+      align-items: baseline;
+    }
+
+    .llegar dt {
+      margin-block-start: 0;
+    }
+  }
+
+  /* ---------- Qué hay cerca: un sendero ---------- */
+  .sendero {
+    --nudo: 0.75rem;
+
+    position: relative;
+    display: grid;
+    gap: var(--space-l);
+    max-width: 40rem;
+    margin: var(--space-l) 0 0;
+    padding: 0 0 0 var(--space-xl);
+    list-style: none;
+  }
+
+  /* La línea punteada del camino */
+  .sendero::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.6em 0.6em;
+    left: calc(var(--nudo) / 2);
+    border-left: 1.5px dashed color-mix(in srgb, var(--color-text) 35%, transparent);
+  }
+
+  .sendero li {
+    position: relative;
+  }
+
+  /* Un nudo por lugar */
+  .sendero li::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-xl));
+    top: 0.55em;
+    width: var(--nudo);
+    height: var(--nudo);
+    border-radius: 50%;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-primary);
+  }
+
+  .sendero h3 {
+    font-size: var(--step-2);
+  }
+
+  .sendero p {
+    margin-block-start: var(--space-3xs);
+  }
+
+  /* ---------- Escribinos ---------- */
+  .contacto > * + * {
+    margin-block-start: var(--space-m);
+  }
+
+  .canales {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+</style>

@@ -1,38 +1,145 @@
 ---
+/**
+ * Galería de fotos: todo lo que no está en la página de cada cabaña.
+ * El parque, la pileta, los espacios compartidos y las vistas.
+ * Es del complejo (de las dos casas), así que mezcla las dos ventanas: el arco de Sumac
+ * y el círculo de Misky, con fotos rectangulares. Cada grupo alterna su composición.
+ * Por ahora, placeholders: las fotos se suman con `page-galeria` (en src/assets/galeria/).
+ */
 import Base from '../layouts/Base.astro';
+
+const grupos = [
+  { titulo: 'El parque', texto: 'Algarrobos, el olivo, agaves y los senderos de cemento verde con piedras rosadas.' },
+  { titulo: 'La pileta', texto: 'La pileta con su muro de piedra y los dos decks, uno con pérgola de media sombra.' },
+  { titulo: 'Los espacios compartidos', texto: 'El fogón, la parrilla, la glorieta de jazmín y la pérgola con la parra.' },
+  { titulo: 'Las vistas', texto: 'El Uritorco y las sierras, desde el parque.' },
+];
 ---
 
-<!--
-  Galería de fotos: todo lo que no está en la página de cada cabaña.
-  El parque, la pileta, los espacios compartidos y las vistas.
-  Boceto: las fotos se suman con `page-galeria` (fotos en src/assets/galeria/).
--->
 <Base
   title="Galería de fotos: Misky Wayra, Capilla del Monte"
-  description="[Descripción de 150 caracteres para Google]"
+  description="Fotos del parque, la pileta, los espacios compartidos y la vista al Uritorco de las cabañas Misky Wayra, en Capilla del Monte, Córdoba."
 >
-  <section class="hero">
+  <section class="encabezado">
+    <p class="antetitulo">Lo que comparten las dos casas</p>
     <h1>Galería de fotos</h1>
-    <p>[Una frase: el parque, la pileta y el monte que rodea a las dos casas]</p>
   </section>
 
-  <section>
-    <h2>El parque</h2>
-    <p>[Fotos del parque: algarrobos, olivo, agaves, senderos]</p>
-  </section>
-
-  <section>
-    <h2>La pileta</h2>
-    <p>[Fotos de la pileta y los decks]</p>
-  </section>
-
-  <section>
-    <h2>Los espacios compartidos</h2>
-    <p>[Fogón, parrilla, glorieta con jazmín, pérgola con parra]</p>
-  </section>
-
-  <section>
-    <h2>Las vistas</h2>
-    <p>[El Uritorco y las sierras desde el parque]</p>
-  </section>
+  {
+    grupos.map((grupo, i) => (
+      <section class:list={['grupo', { espejo: i % 2 === 1 }]}>
+        <div class="texto">
+          <h2>{grupo.titulo}</h2>
+          <p>{grupo.texto}</p>
+        </div>
+        <div class="fotos">
+          <div class="foto arco">Foto en camino</div>
+          <div class="foto redonda">Foto en camino</div>
+          <div class="foto">Foto en camino</div>
+          <div class="foto">Foto en camino</div>
+        </div>
+      </section>
+    ))
+  }
 </Base>
+
+<style>
+  section {
+    text-align: start;
+  }
+
+  section :global(p) {
+    margin-inline: 0;
+  }
+
+  .antetitulo {
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .encabezado {
+    padding-block-end: 0;
+  }
+
+  .encabezado h1 {
+    font-weight: 300;
+  }
+
+  /* ---------- Cada grupo: texto y una composición de cuatro fotos ---------- */
+  .grupo {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  .texto p {
+    margin-block-start: var(--space-xs);
+    max-width: 30ch;
+  }
+
+  .fotos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+    align-items: end;
+  }
+
+  .foto {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-deep);
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    text-align: center;
+  }
+
+  /* El arco de Sumac: alto, ocupa dos filas */
+  .arco {
+    grid-row: span 2;
+    aspect-ratio: 3 / 4.6;
+    border-radius: 50% 50% var(--radius) var(--radius) / 30% 30% var(--radius) var(--radius);
+  }
+
+  /* El círculo de Misky */
+  .redonda {
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
+  /* La última, apaisada: cierra la composición (y le sienta a las vistas) */
+  .foto:last-child {
+    grid-column: span 2;
+    aspect-ratio: 8 / 3;
+  }
+
+  /* ---------- Desktop: texto a un costado, fotos al otro; un grupo sí y otro no, espejado ---------- */
+  @media (width >= 64rem) {
+    .grupo {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      align-items: center;
+      column-gap: var(--space-2xl);
+    }
+
+    .fotos {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .espejo .texto {
+      order: 2;
+    }
+
+    .espejo {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+
+    /* En los grupos espejados, el arco pasa al otro extremo */
+    .espejo .arco {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+    }
+  }
+</style>
