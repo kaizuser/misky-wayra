@@ -5,6 +5,7 @@
  */
 import Base from '../layouts/Base.astro';
 import { feston } from '../lib/formas';
+import { ruta } from '../lib/rutas';
 
 const borde = feston(24, 92);
 ---
@@ -26,14 +27,14 @@ const borde = feston(24, 92);
     </svg>
 
     <div class="casas">
-      <a href="/cabanas/sumac-mayu/" data-theme="mayu">
+      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">
         <svg class="ventanita" viewBox="0 0 40 50" aria-hidden="true">
           <path d="M2,48 V20 A18,18 0 0 1 38,20 V48 Z" />
           <path d="M20,4 V48" />
         </svg>
         Sumac Mayu
       </a>
-      <a href="/cabanas/misky-wayra/" data-theme="wayra">
+      <a href={ruta('/cabanas/misky-wayra/')} data-theme="wayra">
         <svg class="ventanita redonda" viewBox="-12 -12 224 224" aria-hidden="true">
           <path d={borde} />
         </svg>
@@ -41,7 +42,7 @@ const borde = feston(24, 92);
       </a>
     </div>
 
-    <a class="volver" href="/">Volver al inicio</a>
+    <a class="volver" href={ruta('/')}>Volver al inicio</a>
   </section>
 </Base>
 

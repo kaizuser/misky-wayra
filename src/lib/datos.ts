@@ -5,6 +5,7 @@
  */
 import type { CollectionEntry } from 'astro:content';
 import { SITIO, hayWhatsapp, mapsUrl } from '../config';
+import { ruta } from './rutas';
 
 const direccion = {
   '@type': 'PostalAddress',
@@ -14,16 +15,16 @@ const direccion = {
   addressCountry: 'AR',
 };
 
-const idNegocio = (sitio: URL) => new URL('/#complejo', sitio).href;
+const idNegocio = (sitio: URL) => new URL(ruta('/#complejo'), sitio).href;
 
 function unidad(cabana: CollectionEntry<'cabanas'>, sitio: URL) {
   const d = cabana.data;
   return {
     '@type': 'Accommodation',
-    '@id': new URL(`/cabanas/${cabana.id}/#casa`, sitio).href,
+    '@id': new URL(ruta(`/cabanas/${cabana.id}/#casa`), sitio).href,
     name: d.nombre,
     description: d.seoDescription,
-    url: new URL(`/cabanas/${cabana.id}/`, sitio).href,
+    url: new URL(ruta(`/cabanas/${cabana.id}/`), sitio).href,
     floorSize: { '@type': 'QuantitativeValue', value: d.datos.superficie, unitCode: 'MTK' },
     numberOfBedrooms: d.datos.dormitorios,
     amenityFeature: d.comodidades.map((nombre) => ({ '@type': 'LocationFeatureSpecification', name: nombre, value: true })),
@@ -39,7 +40,7 @@ export function negocio(cabanas: CollectionEntry<'cabanas'>[], sitio: URL) {
     name: SITIO.nombre,
     description:
       'Dos cabañas de adobe hechas a mano en Capilla del Monte, Córdoba, en un parque de 3.000 m² con vista al Uritorco.',
-    url: new URL('/', sitio).href,
+    url: new URL(ruta('/'), sitio).href,
     address: direccion,
     hasMap: mapsUrl,
     ...(hayWhatsapp && { telephone: `+${SITIO.whatsapp}` }),

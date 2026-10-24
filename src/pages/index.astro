@@ -8,6 +8,7 @@ import Consultar from '../components/Consultar.astro';
 import { SITIO, mapsUrl } from '../config';
 import { feston } from '../lib/formas';
 import { negocio } from '../lib/datos';
+import { ruta } from '../lib/rutas';
 
 // Frente a frente: Sumac a la izquierda (orden 1), Misky a la derecha (orden 2)
 const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -91,8 +92,8 @@ const borde = feston(24, 92);
       </tbody>
     </table>
     <p class="conocer">
-      <a href={`/cabanas/${izquierda.id}/`} data-theme={izquierda.data.tema}>Conocer {izquierda.data.nombre}</a>
-      <a href={`/cabanas/${derecha.id}/`} data-theme={derecha.data.tema}>Conocer {derecha.data.nombre}</a>
+      <a href={ruta(`/cabanas/${izquierda.id}/`)} data-theme={izquierda.data.tema}>Conocer {izquierda.data.nombre}</a>
+      <a href={ruta(`/cabanas/${derecha.id}/`)} data-theme={derecha.data.tema}>Conocer {derecha.data.nombre}</a>
     </p>
   </section>
 
@@ -102,7 +103,7 @@ const borde = feston(24, 92);
     <ul>
       {compartido.map((espacio) => <li>{espacio}</li>)}
     </ul>
-    <a href="/galeria/">Ver la galería de fotos</a>
+    <a href={ruta('/galeria/')}>Ver la galería de fotos</a>
   </section>
 
   <Alero />

@@ -397,7 +397,7 @@ Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--vient
 | `seo-code` | Section 8, in code. |
 | `seo-google-profile` | Google Business Profile + review system. Can start now. |
 | `seo-search-console` | After the domain exists. |
-| `deploy` | `.com.ar` domain (NIC Argentina) and hosting; check the host supports Node 26 builds (24 works too). |
+| `deploy` | `.com.ar` domain (NIC Argentina) and final hosting. **Preview done (Oct 24, 2026):** GitHub Pages at https://kaizuser.github.io/misky-wayra/, built by `.github/workflows/vista-previa.yml` on every push to master (Node 24). It builds with `SITIO_URL`, `SITIO_BASE=/misky-wayra` and `VISTA_PREVIA=1` (noindex + `robots.txt` Disallow). Every internal link goes through `ruta()` in `src/lib/rutas.ts` so the subfolder works; locally and on the final domain the base is `/`. To build the preview locally: `SITIO_URL=https://kaizuser.github.io SITIO_BASE=/misky-wayra VISTA_PREVIA=1 npm run build` (outDir must be on the same disk as the project). |
 
 ---
 

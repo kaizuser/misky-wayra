@@ -3,7 +3,10 @@ import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://miskywayra.com.ar', // provisorio hasta definir el dominio
+  // Dominio y subcarpeta. La vista previa de GitHub Pages los cambia por variables de entorno
+  // (ver .github/workflows/vista-previa.yml); en la máquina y en el dominio final, la raíz.
+  site: process.env.SITIO_URL ?? 'https://miskywayra.com.ar', // provisorio hasta definir el dominio
+  base: process.env.SITIO_BASE ?? '/',
   // Todas las URLs terminan en barra, como las genera el build (carpeta/index.html):
   // links, canonical y sitemap coinciden y el host no tiene que redirigir
   trailingSlash: 'always',

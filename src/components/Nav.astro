@@ -10,22 +10,23 @@
  */
 import Emblema from './Emblema.astro';
 import { whatsappUrl } from '../config';
+import { ruta } from '../lib/rutas';
 
-const ruta = Astro.url.pathname; // siempre con barra final (trailingSlash: 'always')
-const actual = (href: string) => (ruta === href ? 'page' : undefined);
+const aqui = Astro.url.pathname; // con la base y siempre con barra final (trailingSlash: 'always')
+const actual = (href: string) => (aqui === href ? 'page' : undefined);
 
 const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra');
 ---
 
 <header class="cabecera">
   <nav class="eje" aria-label="Cabañas">
-    <a class="ala" href="/cabanas/sumac-mayu/" data-theme="mayu" aria-current={actual('/cabanas/sumac-mayu/')}>
+    <a class="ala" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>
       Sumac Mayu
     </a>
-    <a class="cupula" href="/" aria-label="Misky Wayra, inicio" aria-current={actual('/')}>
+    <a class="cupula" href={ruta('/')} aria-label="Misky Wayra, inicio" aria-current={actual(ruta('/'))}>
       <Emblema />
     </a>
-    <a class="ala" href="/cabanas/misky-wayra/" data-theme="wayra" aria-current={actual('/cabanas/misky-wayra/')}>
+    <a class="ala" href={ruta('/cabanas/misky-wayra/')} data-theme="wayra" aria-current={actual(ruta('/cabanas/misky-wayra/'))}>
       Misky Wayra
     </a>
   </nav>
@@ -38,14 +39,14 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
   </button>
   <nav id="utilidades" class="utilidades" popover aria-label="Información">
     <ul>
-      <li><a href="/galeria/" aria-current={actual('/galeria/')}>Galería</a></li>
-      <li><a href="/ubicacion-y-contacto/" aria-current={actual('/ubicacion-y-contacto/')}>Ubicación y contacto</a></li>
+      <li><a href={ruta('/galeria/')} aria-current={actual(ruta('/galeria/'))}>Galería</a></li>
+      <li><a href={ruta('/ubicacion-y-contacto/')} aria-current={actual(ruta('/ubicacion-y-contacto/'))}>Ubicación y contacto</a></li>
     </ul>
   </nav>
 </header>
 
 <nav class="pulgar" aria-label="Accesos rápidos">
-  <a class="ala" href="/cabanas/sumac-mayu/" data-theme="mayu" aria-current={actual('/cabanas/sumac-mayu/')}>
+  <a class="ala" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>
     Sumac Mayu
   </a>
   <a class="consultar" href={whatsapp} aria-label="Consultar por WhatsApp">
@@ -53,7 +54,7 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
       <path d="M5 18.5V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H9z" />
     </svg>
   </a>
-  <a class="ala" href="/cabanas/misky-wayra/" data-theme="wayra" aria-current={actual('/cabanas/misky-wayra/')}>
+  <a class="ala" href={ruta('/cabanas/misky-wayra/')} data-theme="wayra" aria-current={actual(ruta('/cabanas/misky-wayra/'))}>
     Misky Wayra
   </a>
 </nav>

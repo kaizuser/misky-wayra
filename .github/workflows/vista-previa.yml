@@ -1,0 +1,53 @@
+# Vista previa en GitHub Pages: cada push a master compila el sitio y lo publica en
+# https://kaizuser.github.io/misky-wayra/ para que la familia y otros lo revisen.
+# Es una vista previa: no se indexa en Google (VISTA_PREVIA=1).
+# Requisito, una sola vez: Settings → Pages → Source: GitHub Actions.
+name: Vista previa
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo deploy a la vez; si llega otro push, el anterior se cancela
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          SITIO_URL: https://kaizuser.github.io
+          SITIO_BASE: /misky-wayra
+          VISTA_PREVIA: '1'
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  publicar:
+    needs: compilar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
