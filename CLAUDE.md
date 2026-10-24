@@ -10,7 +10,7 @@ Paste this file at the start of a new conversation to resume work.
 ### v0.1 — Balance point (October 11, 2026)
 The project reached stability: the concept, the design system and the main structure are agreed and working. From here on the work is **polishing what exists**, not redefining it.
 
-**Agreed and built at this point:** the axis concept (Sumac left, the complex at the center, Misky right); palette v2 and the role/theme system; Fraunces + Figtree; full-bleed layout with `.banda`; the `Alero` eave divider; hero B1 (two houses, eave edges, hover growth); the functional nav with the temporary emblem, the off-axis menu and the mobile thumb bar; the page sketches; this file.
+**Agreed and built at this point:** the axis concept (Sumac left, the complex at the center, Misky right); palette v2 (now v3) and the role/theme system; Fraunces + Figtree; full-bleed layout with `.banda`; the `Alero` eave divider; hero B1 (two houses, eave edges, hover growth); the functional nav with the temporary emblem, the off-axis menu and the mobile thumb bar; the page sketches; this file.
 
 **Rule from here:** the **structure is fixed**: pages, sections and their order, the left / center / right axis, components and what each one does. **Redesigns are welcome**: shape, look and feel of any piece can change (e.g. a new shape for the nav, same functionality). If the structure itself ever needs to change, discuss it first and record why in section 10.
 
@@ -56,6 +56,7 @@ Spelling used by the family: **Sumac Mayu** and **Misky Wayra** (not the standar
 **The shape language comes from Sumac's façade:**
 - **The eave (alero):** thick organic curve, highest at the center, drooping at the ends. Used as the section divider.
 - **The arch:** the glazed window under the eave. Its central mullion is literally the site's axis.
+- **Misky's own shape: the circle.** Misky is a round house with a scalloped roof trim, so its window is round with a scalloped (festón) green edge. Sumac = arch + eave, Misky = circle + scallop. Each side of the axis has its own shape (added Oct 24, 2026: before, every shape came from Sumac and the right side read as "the same in green").
 - **The stone base** and the **garden paths** (green cement + pink stones): future textures/patterns.
 
 **Elements:** earth at the center; Sumac = water (mayu), Misky = wind (wayra). Water is the weaker link: the only visible water is the pool (no river/stream confirmed). Motion language idea: flowing for water, drifting for wind.
@@ -89,6 +90,8 @@ Spelling used by the family: **Sumac Mayu** and **Misky Wayra** (not the standar
 
 Built in (no install): `astro:assets` images, `astro/zod`, Fonts API, `<ClientRouter />` view transitions, CSP API.
 
+**CSS minifier:** `astro.config.mjs` sets `vite.build.cssMinify: 'esbuild'`. Vite 8's default (lightningcss) folds `animation-timeline` into the `animation` shorthand, which Chrome rejects, so every scroll-driven animation (trip line, stops, nav) silently disappeared in the build while working in `dev`. If scroll animations break after an upgrade, grep `dist/_astro/*.css` for `animation-timeline`.
+
 `.prettierrc` uses `prettier-plugin-astro` with an override `parser: "astro"` for `*.astro`. `package.json` has `"check": "astro check"`.
 
 Suggested: add `.node-version` with `26` at the repo root.
@@ -103,7 +106,7 @@ astro.config.mjs        site (placeholder https://miskywayra.com.ar), sitemap, f
 src/
 ├── assets/home/
 │   ├── hero-sumac.jpg    IMG_0389 (original file)
-│   └── hero-misky.jpg    IMG_0416 (original file, temporary until the hero pair is reshot)
+│   └── hero-misky.jpg    IMG_6442 (ground level, under the algarrobo, brick path to the gallery)
 ├── assets/cabanas/
 │   ├── sumac-mayu/adobe.jpg      IMG_0400
 │   └── sumac-mayu/jardin.jpg     IMG_0388
@@ -112,7 +115,7 @@ src/
 │   ├── Recorrido.astro   the trip: numbered stops along a line on the axis, alternating sides, arch-masked photos, "Foto en camino" placeholder
 │   ├── Alero.astro     eave divider; props fill, flip, cap (cap fills the area ABOVE the curve)
 │   ├── Emblema.astro   temporary emblem (Sumac with dome), full color, variante completo|compacto, unique gradient IDs per instance
-│   ├── Hero.astro      hero B1: title on cream + two-photo band with eave edges
+│   ├── Hero.astro      home hero "La historia": story title + two chapters (Misky round window, Sumac arch) joined by a path on the axis
 │   └── Nav.astro       functional nav: sticky eave bar + emblem dome, utility links off-axis (popover on small screens), mobile thumb bar
 public/favicon.svg      compact emblem, square viewBox
 ├── layouts/Base.astro  <html>/<head>, fonts, CSS imports, header, footer, data-theme on <body>
@@ -147,7 +150,7 @@ Folder is `cabanas` (no ñ): ñ in URLs gets percent-encoded when shared.
 - **Current page:** `aria-current="page"` computed from `Astro.url.pathname`; the active wing is underlined.
 - **Utility links:** one `<nav popover>`: visible as small links on desktop (≥ 64rem, author CSS overrides the UA popover styles); behind a round menu button below 64rem (native popover: light dismiss, Esc, no JS).
 - **Mobile (< 40rem):** top shows only the emblem; a fixed thumb bar at the bottom: Sumac Mayu | WhatsApp in a raised circle (the dome, `--color-primary`) | Misky Wayra. `body` gets bottom padding so the bar never hides content. WhatsApp icon is a generic chat bubble (don't reproduce the WhatsApp logo).
-- **Nav ↔ hero:** hovering a cottage name in the nav grows that half of the hero (`:global(body:has(...))` in `Hero.astro`).
+- **Nav ↔ hero:** hovering a cottage name in the nav zooms that house's photo in the hero (and turns Misky's scalloped edge slightly, the wind) via `:global(body:has(...))` in `Hero.astro`.
 
 ### Cottage pages (`cabanas/[slug].astro`) — "the trip"
 The developer's direction: each cottage page is a **trip / a path** that takes the visitor from outside into the house's interior, its magic and essence, and back out. (This redefined the cottage page sections; the rest of the site's structure is unchanged.)
@@ -170,7 +173,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 
 ### Page transitions (`ux-details` 1 and 2) — done
 - Native **cross-document view transitions**, no JavaScript: `@view-transition { navigation: auto; }` in `global.css`, only with `prefers-reduced-motion: no-preference`. Unsupported browsers (Firefox) just navigate normally.
-- The home hero halves and each cottage hero share `view-transition-name: casa-sumac-mayu` / `casa-misky-wayra` → the half expands into the cottage hero (and back). Photos use `object-fit: cover` during the morph.
+- The home hero photos and each cottage hero share `view-transition-name: casa-sumac-mayu` / `casa-misky-wayra`. **The window opens:** the new photo arrives with its window's shape (`clip-path: inset(0 round 50%)` for Misky, the arch for Sumac) and opens to the full rectangle while it grows (750ms); the old photo fades in 200ms. The cottage hero's eave edges fade in at 400ms, once the window is almost open. Photos use `object-fit: cover` during the morph.
 - The whole page cross-fades, so theme colors blend between pages. Duration 550ms, soft ease-out.
 - `Nav` (`cabecera`, `pulgar`) has its own names so it stays still while the page changes.
 - The sister card has no transition name on purpose (an off-screen morph would fly down the page).
@@ -196,23 +199,22 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 
 ## 5. Design system
 
-### Palette v2 (taken from the real place, saturation toned down)
+### Palette v3: the earth and one color per house (Oct 24, 2026)
+
+Reduced from v2 at the developer's request (the hero mockup's restraint felt more characterful). One shared ground and surface for the whole site; each house brings only its color and its shadow.
 
 | Group | Token | Hex | Source |
 |---|---|---|---|
 | Complex (center) | `--cal` | `#F4ECDF` | Misky's lime plaster. Page background everywhere. |
-| | `--arena` | `#E4D5BC` | |
+| | `--arena` | `#E4D5BC` | The only surface (bands), on every page |
 | | `--monte` | `#5B6130` | Olive of the monte |
-| | `--uritorco` | `#615D3A` | Khaki of the mountain |
 | | `--tinta` | `#2B2119` | Text (warm dark brown, never black) |
-| Sumac Mayu (left) | `--teja-clara` | `#F1D2B6` | |
-| | `--adobe` | `#9C4219` | Terracotta adobe |
-| | `--agapanto` | `#4B4D9E` | Agapanthus blue-violet (its water accent) |
+| Sumac Mayu (left) | `--adobe` | `#9C4219` | Terracotta adobe |
 | | `--brasa` | `#4A1E0E` | |
-| Misky Wayra (right) | `--cielo` | `#CFE0EC` | |
-| | `--techo` | `#2B6A4E` | Green roof |
-| | `--viento` | `#2D5F8A` | Sierra sky blue |
-| | `--noche` | `#1E2140` | |
+| Misky Wayra (right) | `--techo` | `#2A674C` | Green roof (darkened from v2's `#2B6A4E` to pass 4.5:1 on arena) |
+| | `--sombra` | `#183A2C` | The green in the shade of the trees |
+
+Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--viento`, `--noche`. The pastel surfaces (teja-clara, cielo) read generic; the blue accents split each side into two colors. Trade-off: the water (agapanto) and wind (viento) accents are gone; elements now live in shape and motion, not color.
 
 **Roles** (components only use roles, never raw colors): `--color-bg`, `--color-text`, `--color-surface`, `--color-primary`, `--color-accent`, `--color-deep`, `--color-on-color`.
 
@@ -220,20 +222,20 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 |---|---|---|---|
 | bg | cal | cal | cal |
 | text | tinta | tinta | tinta |
-| surface | arena | teja-clara | cielo |
+| surface | arena | arena | arena |
 | primary | monte | adobe | techo |
-| accent | uritorco | agapanto | viento |
-| deep | tinta | brasa | noche |
+| accent | monte | adobe | techo |
+| deep | tinta | brasa | sombra |
 | on-color | cal | cal | cal |
 
 `data-theme` works on any element (custom properties inherit): `<body>` on cottage pages, cards on the home page, nav links.
 
-**Contrast guarantee (verified):** every primary and accent ≥ 4.5:1 on `cal` and on its own side's surface; text on every surface > 10:1.
+**Contrast (verified):** on cal: monte 5.6, adobe 5.6, techo 5.7; on arena: monte 4.55, adobe 4.53, techo 4.63; text and deeps > 8.6:1 everywhere.
 
 **Color protocol:** components use roles only; ~60% surface / 30% theme / 10% accent; 4.5:1 for text, 3:1 for large text/UI; the WhatsApp button uses `--color-primary`, never WhatsApp green; the home center is always the complex theme.
 
 ### Typography
-- **Fraunces** (headings): soft, slightly irregular variable serif, feels handmade like the house. Used large, light weights. (Its SOFT axis isn't configured; the standard Fonts API setup loads weights 300–700.)
+- **Fraunces** (headings): soft, slightly irregular variable serif, feels handmade like the house. Used large, light weights. The served file is Fontsource's full-axes variable font (wght, opsz, SOFT, WONK). `body` sets `font-variation-settings: 'SOFT' 100` (inherited; Figtree ignores it): rounded, hand-made terminals.
 - **Figtree** (body): clean, friendly, rounded details, readable on small phones, full Spanish characters.
 - Why not system fonts: Android (most visitors) lacks the serif stack → inconsistent brand.
 - Fluid scale `--step--1` … `--step-5` with `clamp()`. h1 = step 5, h2 = step 3, h3 = step 1, body = step 0. Headings weight 500, color `--color-deep`. Measure 65ch.
@@ -304,7 +306,8 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 | IMG_0388 | Sumac angled, pool corner, agapanthus and flowers in front | Sumac page / shared spaces |
 | IMG_0387 | Sumac with granite stone wall in the foreground, shallow focus | Sumac page; stone texture reference |
 | IMG_0400 | Sumac close-up: adobe wall, wooden corbels, stone base, glass door | Sumac page; `texture-adobe` / `pattern-path` reference |
-| IMG_0416 | Misky round house, green roof, Uritorco and sierras behind; shot from Sumac's roof; water tank tower, car, hose | **Hero, Misky half (temporary).** Weak: higher viewpoint than Sumac's photo, distractions. |
+| IMG_6442 | Misky at ground level, framed by an algarrobo branch: scalloped roof trim, tile band (azulejos) over the stone base, gallery with table, brick path and a green arched trellis leading in, pool glimpse at the right | **Hero (Misky's round window) and Misky's cottage hero** since Oct 24, 2026. Small water tank on the roof. |
+| IMG_0416 | Misky round house, green roof, Uritorco and sierras behind; shot from Sumac's roof; water tank tower, car, hose | Was the Misky hero until Oct 24, 2026. Galería (Las vistas) at most. |
 | IMG_0436 | Misky from above with tank tower and car | Backup only |
 | IMG_0439 | Misky + Uritorco + Sumac's orange roof in the foreground + pool deck | Galería (El parque / Las vistas) |
 | IMG_0431 | Uritorco centered, large sky, garden, people on the deck in a corner | Galería (Las vistas), strong opener for the page (was the first home hero, rejected as too minimal) |
@@ -329,6 +332,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 - **Emblem traced from IMG_0389, mass-and-void with dome + seam + drooping eave + plinth** — still not expressive enough; developer didn't connect with it.
 - **Hero: single arch with the Uritorco photo** — too minimalistic; doesn't show the houses.
 - **Hero: one arch split in two (Sumac | Misky) with a mullion** — the arch is too small and the shape didn't connect.
+- **Hero B1** (title on cream + full-bleed band of two photos with eave edges, hovered side grows): built and used until Oct 24, 2026, replaced by "La historia". Felt too generic ("too AI-generated"): centered, symmetric, no idea driving the layout.
 - **Hero option B2** (photos fill the first screen, title on a plaque over the seam) — B1 was preferred.
 - **"No standalone gallery page"** was reversed by the developer: the Alrededores page became the **Galería de fotos** (grounds, pool, shared spaces, views). Cottage pages keep only the cottage and its interiors. The surroundings content moved to "Qué hay cerca" in Ubicación y contacto.
 - **Title over the sky** — white clouds behind the title kill contrast; a dark scrim would spoil the sky. Title goes on the cream background (or on a cream plaque).
@@ -347,7 +351,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 | `ux-details-1-2` | Hero → cottage morph and cross-page color fade (native view transitions). |
 | `config` | `src/config.ts`: one place for WhatsApp number, address, Maps link. |
 | `identity-buildings` | Sumac = orange adobe house (left), Misky = round green-roof house (right), complex = Misky Wayra. |
-| `palette-v2` | Section 5. |
+| `palette-v3` | Section 5 (reduced from v2). |
 | `type-final` | Fraunces + Figtree via Fonts API. |
 | `layout-full-bleed` | Full-width sections, content on the axis, `.banda`. |
 | `shape-eave` | `Alero.astro`, pronounced, `--alero-alto` token. |
@@ -355,7 +359,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 ### In progress
 | Name | Status |
 |---|---|
-| `home-hero` | **Option B1 chosen and built.** Title + phrase on cream; below, a full-bleed band with Sumac (left) and Misky (right), separated by a 6px cream gap (the mullion, `--parante`). Top edge: `<Alero cap>` in the page color, so the photos rise toward the center like the eave. Bottom edge: `<Alero>` in arena, flowing into El complejo. Each half is a link to its cottage with a cream pill label in its theme color. Mobile: stacked (Sumac above, Misky below), 4:3 each. Tablet/desktop: side by side, height `clamp(24rem, 70svh, 48rem)`. Desktop with mouse: hovered side grows to 1.3fr (animated `grid-template-columns`). Pending: final phrase, photo grade, reshoot of the pair, crops tuning, link to `mobile-switch`, view transition to the cottage page. Option B2 (photos fill the first screen + title on a cream plaque on the seam) was the alternative. |
+| `home-hero` | **"La historia" chosen and built (Oct 24, 2026), replaces B1.** Eyebrow "Cabañas de adobe en Capilla del Monte" (keeps the keywords), h1 *"Todo empezó en Misky Wayra."* left-aligned, a short intro. Then two chapters: **I · La primera casa** (Misky, right, round window with a scalloped green edge) and **II · La que vino después** (Sumac, left, arch with the eave on top and the mullion in the center). Desktop: two columns, a dashed line on the axis joins them, the story continues next to Sumac ("Después, del otro lado del parque, se levantó Sumac Mayu." + family line + WhatsApp button). Mobile: stacked, Misky aligned right, Sumac left, a dashed S-curve between them. Hover: photo zooms, Misky's scallops turn slightly. The path draws itself while scrolling (desktop: the axis line, `scroll(root)` over the first 60vh; mobile: the S-curve, `view()`), revealed with `clip-path` so the dashes don't stretch. Pending: the family line, photo grade. |
 | `emblem-arch` | **Temporary emblem in use** (developer's `Frame.svg`, see Emblem). The definitive emblem is still open: more expressive, low noise; maybe a designer. When it changes, only `Emblema.astro` and `public/favicon.svg` change. |
 
 ### Unaddressed

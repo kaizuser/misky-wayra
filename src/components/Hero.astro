@@ -1,163 +1,378 @@
 ---
+/**
+ * Hero del inicio: la historia. "Todo empezó en Misky Wayra."
+ * Las dos casas son dos capítulos unidos por un camino sobre el eje:
+ * I · Misky Wayra (la primera, a la derecha) en su ventana redonda con el festón del techo;
+ * II · Sumac Mayu (la que vino después, a la izquierda) en su arco con el alero.
+ * Cada foto comparte view-transition-name con el hero de su cabaña: al navegar, la ventana se abre.
+ */
 import { Picture } from 'astro:assets';
-import Alero from './Alero.astro';
 import sumac from '../assets/home/hero-sumac.jpg';
 import misky from '../assets/home/hero-misky.jpg';
+import { whatsappUrl } from '../config';
+
+/** Borde festoneado: n semicírculos alrededor de un círculo de radio r (viewBox 0 0 200 200) */
+function feston(n: number, r: number) {
+  const semi = (r * Math.sin(Math.PI / n)).toFixed(2);
+  const puntos = Array.from({ length: n + 1 }, (_, i) => {
+    const a = (2 * Math.PI * i) / n - Math.PI / 2;
+    return `${(100 + r * Math.cos(a)).toFixed(2)},${(100 + r * Math.sin(a)).toFixed(2)}`;
+  });
+  return `M${puntos[0]} ${puntos.slice(1).map((p) => `A${semi},${semi} 0 0 1 ${p}`).join(' ')} Z`;
+}
 ---
 
 <section class="hero">
-  <div class="texto">
-    <h1>Cabañas de adobe en Capilla del Monte</h1>
-    <p>[Una frase sobre el lugar]</p>
+  <div class="relato">
+    <p class="antetitulo">Cabañas de adobe en Capilla del Monte</p>
+    <h1>Todo empezó en <em data-theme="wayra">Misky&nbsp;Wayra.</em></h1>
+    <p class="bajada">
+      Dos casas de adobe hechas a mano, en un parque frente al Uritorco. Una redonda, con techo
+      verde. La otra, con cúpula y un ventanal en arco.
+    </p>
   </div>
 
-  <!-- Las dos casas, una a cada lado del eje. El hueco entre ellas es el parante. -->
-  <div class="fotos">
-    <a class="lado sumac" href="/cabanas/sumac-mayu" data-theme="mayu">
-      <Picture
-        src={sumac}
-        formats={['avif', 'webp']}
-        widths={[640, 1024, 1600, 2048]}
-        sizes="(min-width: 40rem) 50vw, 100vw"
-        alt="Fachada de Sumac Mayu: casa de adobe con cúpula, alero ondulado y un gran ventanal en arco"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <span class="etiqueta">Sumac Mayu</span>
-    </a>
+  <!-- I · La primera casa -->
+  <a class="capitulo misky" href="/cabanas/misky-wayra" data-theme="wayra">
+    <span class="ventana">
+      <svg class="feston" viewBox="0 0 200 200" aria-hidden="true">
+        <path d={feston(30, 92)} fill="currentColor"></path>
+      </svg>
+      <span class="foto">
+        <Picture
+          src={misky}
+          formats={['avif', 'webp']}
+          widths={[640, 1024, 1600, 2048]}
+          sizes="(min-width: 40rem) 27rem, 70vw"
+          alt="Misky Wayra: casa redonda de techo verde con guarda de azulejos, bajo un algarrobo"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </span>
+    </span>
+    <span class="rotulo">
+      <span class="numero">I · La primera casa</span>
+      <span class="nombre">Misky Wayra</span>
+      <span class="significado">Viento dulce</span>
+    </span>
+  </a>
 
-    <a class="lado misky" href="/cabanas/misky-wayra" data-theme="wayra">
-      <Picture
-        src={misky}
-        formats={['avif', 'webp']}
-        widths={[640, 1024, 1600, 2048]}
-        sizes="(min-width: 40rem) 50vw, 100vw"
-        alt="Misky Wayra: casa redonda de techo verde rodeada de árboles, con las sierras detrás"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <span class="etiqueta">Misky Wayra</span>
-    </a>
+  <!-- En mobile, el camino baja en curva de una casa a la otra -->
+  <svg class="curva" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M78,0 C78,55 22,45 22,100" vector-effect="non-scaling-stroke"></path>
+  </svg>
 
-    <!-- El alero "techa" las fotos arriba; abajo, la curva entra a la sección siguiente -->
-    <div class="borde arriba" aria-hidden="true">
-      <Alero cap fill="var(--color-bg)" />
-    </div>
-    <div class="borde abajo" aria-hidden="true">
-      <Alero />
-    </div>
+  <!-- II · La que vino después -->
+  <a class="capitulo sumac" href="/cabanas/sumac-mayu" data-theme="mayu">
+    <span class="ventana">
+      <svg class="alero" viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M0,112 C40,70 150,10 300,8 C450,10 560,70 600,112 C585,124 560,118 540,104 C470,58 390,40 300,40 C210,40 130,58 60,104 C40,118 15,124 0,112 Z"
+          fill="currentColor"></path>
+      </svg>
+      <span class="foto">
+        <Picture
+          src={sumac}
+          formats={['avif', 'webp']}
+          widths={[640, 1024, 1600, 2048]}
+          sizes="(min-width: 40rem) 29rem, 70vw"
+          alt="Fachada de Sumac Mayu: casa de adobe con cúpula, alero ondulado y un gran ventanal en arco"
+          loading="eager"
+        />
+      </span>
+    </span>
+    <span class="rotulo">
+      <span class="numero">II · La que vino después</span>
+      <span class="nombre">Sumac Mayu</span>
+      <span class="significado">Río hermoso</span>
+    </span>
+  </a>
+
+  <div class="despues">
+    <p class="sigue">
+      Después, del otro lado del parque, se levantó <span data-theme="mayu">Sumac Mayu</span>.
+    </p>
+    <p>[Una frase de la familia sobre por qué la hicieron, o cómo.]</p>
+    <a class="boton" href={whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra')}>
+      Consultá disponibilidad
+    </a>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-inline: 0;    /* las fotos van de borde a borde */
-    padding-block-end: 0;
-  }
-
-  .texto {
-    padding-inline: var(--gutter);
-    padding-block-end: var(--space-xl);
-  }
-
-  .texto > * + * {
-    margin-block-start: var(--space-s);
-  }
-
-  /* ---------- Las fotos ---------- */
-  .fotos {
-    --parante: 6px; /* ancho de la línea del eje entre las dos casas */
+    --camino: 1.5px dashed color-mix(in srgb, var(--color-text) 35%, transparent);
 
     position: relative;
     display: grid;
-    gap: var(--parante);
-    margin-block-start: 0;
-    background: var(--color-bg); /* el gap deja ver este color: el parante */
-
-    /* Mobile: apiladas, Sumac arriba y Misky abajo */
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    text-align: start;
   }
 
-  .lado {
+  .hero p {
+    margin-inline: 0;
+  }
+
+  /* ---------- El relato ---------- */
+  .relato {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .antetitulo {
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  h1 {
+    font-weight: 350;
+    font-size: clamp(3rem, 1.8rem + 4.4vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+  }
+
+  h1 em {
+    font-weight: 400;
+    color: var(--color-primary);
+  }
+
+  .bajada {
+    max-width: 30ch;
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  /* ---------- Los capítulos: una casa por lado ---------- */
+  .capitulo {
+    display: grid;
+    gap: var(--space-s);
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+
+  .misky { justify-items: end; margin-block-start: var(--space-2xl); }
+  .sumac { justify-items: start; }
+
+  .ventana {
     position: relative;
     display: block;
-    overflow: hidden;
-    text-decoration: none;
-    aspect-ratio: 4 / 3; /* mobile */
   }
 
-  .lado :global(picture),
-  .lado :global(img) {
+  .foto {
+    display: block;
+    overflow: hidden;
+  }
+
+  .foto :global(picture),
+  .foto :global(img) {
     display: block;
     width: 100%;
     height: 100%;
   }
 
-  .lado :global(img) {
+  .foto :global(img) {
     object-fit: cover;
+    transition: scale 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  /* Encuadre de cada foto: mantiene cada casa centrada al recortar */
-  .sumac :global(img) { object-position: 42% 45%; }
-  .misky :global(img) { object-position: 64% 45%; }
-
-  /* Mismo nombre que la foto del hero de cada cabaña: al navegar, se expande */
-  .sumac { view-transition-name: casa-sumac-mayu; }
-  .misky { view-transition-name: casa-misky-wayra; }
-
-  .lado:focus-visible {
-    outline: 3px solid var(--color-primary);
-    outline-offset: -6px;
+  /* Misky: ventana redonda dentro del festón del techo */
+  .misky .ventana {
+    width: min(70vw, 27rem);
+    aspect-ratio: 1;
   }
 
-  /* Nombre de cada casa, encima del borde inferior */
-  .etiqueta {
+  .feston {
     position: absolute;
-    left: 50%;
-    bottom: calc(var(--alero-alto) + var(--space-s));
-    transform: translateX(-50%);
-    padding: var(--space-2xs) var(--space-m);
-    border-radius: 999px;
-    background: var(--color-bg);
-    color: var(--color-primary);
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-    white-space: nowrap;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: rotate 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  /* ---------- Bordes con forma de alero ---------- */
-  .borde {
+  .misky .foto {
     position: absolute;
-    inset-inline: 0;
+    inset: 7%; /* el festón asoma alrededor */
+    border-radius: 50%;
+    view-transition-name: casa-misky-wayra;
+  }
+
+  .misky .foto :global(img) { object-position: 46% 60%; }
+
+  /* Sumac: arco con el alero encima y el parante en el centro */
+  .sumac .ventana {
+    width: min(70vw, 29rem);
+    margin-block-start: var(--space-l);
+    margin-inline-start: 7%; /* lugar para las puntas del alero */
+  }
+
+  .alero {
+    position: absolute;
     z-index: 1;
-    pointer-events: none; /* los clics pasan a las fotos */
+    left: -7%;
+    top: -5%;
+    width: 114%;
+    height: 18%;
   }
 
-  /* Los bordes tienen nombre propio: durante la transición entre páginas
-     se quedan sobre la foto, así la foto nunca se ve como un rectángulo */
-  .arriba { top: -1px; view-transition-name: borde-arriba; }
-  .abajo { bottom: -1px; view-transition-name: borde-abajo; }
+  .sumac .foto {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 50% 50% 0.375rem 0.375rem / 38% 38% 0.375rem 0.375rem;
+    view-transition-name: casa-sumac-mayu;
+  }
 
-  /* ---------- Tablet y desktop: una al lado de la otra ---------- */
+  .sumac .foto::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: 3px;
+    translate: -50%;
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  }
+
+  .sumac .foto :global(img) { object-position: 42% 45%; }
+
+  /* Rótulo de cada casa */
+  .rotulo {
+    display: grid;
+    justify-items: inherit;
+    gap: var(--space-3xs);
+    padding-inline: var(--space-2xs);
+  }
+
+  .numero {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step--1);
+  }
+
+  .nombre {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.1;
+  }
+
+  .significado {
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-deep);
+  }
+
+  /* Al pasar: la foto se acerca; en Misky, el viento gira apenas el festón */
+  .capitulo:hover .foto :global(img) { scale: 1.04; }
+  .misky:hover .feston { rotate: 6deg; }
+
+  /* También al pasar por su nombre en la navegación */
+  :global(body:has(.eje [data-theme='wayra']:hover)) .misky .foto :global(img),
+  :global(body:has(.eje [data-theme='mayu']:hover)) .sumac .foto :global(img) { scale: 1.04; }
+  :global(body:has(.eje [data-theme='wayra']:hover)) .feston { rotate: 6deg; }
+
+  .capitulo:focus-visible {
+    outline-offset: 6px;
+  }
+
+  /* ---------- El camino entre las dos (mobile) ---------- */
+  .curva {
+    width: 100%;
+    height: 5rem;
+    margin-block: var(--space-s);
+    overflow: visible;
+  }
+
+  .curva path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--color-text) 35%, transparent);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 6;
+  }
+
+  /* ---------- Y después ---------- */
+  .despues {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-s);
+    margin-block-start: var(--space-2xl);
+  }
+
+  .sigue {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--step-3);
+    line-height: var(--leading-tight);
+  }
+
+  .sigue span { color: var(--color-primary); }
+
+  .boton {
+    margin-block-start: var(--space-xs);
+    padding: var(--space-xs) var(--space-l);
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    text-decoration: none;
+  }
+
+  .boton:hover { background: var(--color-deep); }
+
+  /* ---------- Tablet y desktop: dos columnas y el eje en el medio ---------- */
   @media (min-width: 40rem) {
-    .fotos {
-      grid-template-columns: 1fr 1fr;
-      height: clamp(24rem, 70svh, 48rem);
-      transition: grid-template-columns 600ms ease;
+    .hero {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(2rem, 6vw, 6rem);
+      align-items: center;
     }
 
-    .lado {
-      aspect-ratio: auto;
+    /* El camino: una línea punteada sobre el eje, de una casa a la otra */
+    .hero::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 30%;
+      bottom: 22%;
+      border-left: var(--camino);
     }
+
+    .curva { display: none; }
+
+    .misky {
+      justify-items: center;
+      margin-block-start: 0;
+    }
+
+    .sumac {
+      justify-items: center;
+      margin-block-start: var(--space-2xl);
+    }
+
+    .misky .ventana { width: min(100%, 27rem); }
+    .sumac .ventana { width: min(86%, 29rem); margin-inline-start: 0; }
+
+    .despues { margin-block-start: var(--space-2xl); }
   }
 
-  /* Desktop con mouse: la casa sobre la que pasás crece un poco */
-  @media (min-width: 64rem) and (hover: hover) {
-    .fotos:has(.sumac:hover) { grid-template-columns: 1.3fr 1fr; }
-    .fotos:has(.misky:hover) { grid-template-columns: 1fr 1.3fr; }
+  /* ---------- El camino se dibuja al bajar (como en el recorrido) ----------
+     Se descubre con clip-path, no con scale, para que los puntos no se estiren. */
+  @supports (animation-timeline: scroll()) {
+    .hero::before {
+      animation: dibujar linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 60vh;
+    }
 
-    /* También crece al pasar por su nombre en la navegación */
-    :global(body:has(.eje [data-theme='mayu']:hover)) .fotos { grid-template-columns: 1.3fr 1fr; }
-    :global(body:has(.eje [data-theme='wayra']:hover)) .fotos { grid-template-columns: 1fr 1.3fr; }
+    .curva {
+      animation: dibujar linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+
+    @keyframes dibujar {
+      from { clip-path: inset(0 0 100% 0); }
+      to { clip-path: inset(0); }
+    }
   }
 </style>

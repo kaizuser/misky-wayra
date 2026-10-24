@@ -5,6 +5,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://miskywayra.com.ar', // provisorio hasta definir el dominio
   integrations: [sitemap()],
+  vite: {
+    build: {
+      // lightningcss (default in Vite 8) folds `animation-timeline` into the `animation`
+      // shorthand, which Chrome rejects: scroll-driven animations vanish in the build.
+      cssMinify: 'esbuild',
+    },
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),

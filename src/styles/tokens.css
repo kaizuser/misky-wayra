@@ -4,26 +4,23 @@
    valores crudos de la paleta.
    ========================================================= */
 
-/* ---------- Paleta v2: valores tomados del lugar ---------- */
+/* ---------- Paleta v3: la tierra y un color por casa ----------
+   Fondo cal y superficie arena para todo el sitio; cada casa aporta
+   solo su color y su sombra. Menos colores, más carácter. */
 :root {
-  /* El complejo: cal, monte y Uritorco (el eje, calmo) */
+  /* El complejo: la tierra (el eje, calmo) */
   --cal: #F4ECDF;        /* revoque de cal de Misky Wayra */
-  --arena: #E4D5BC;
+  --arena: #E4D5BC;      /* la única superficie */
   --monte: #5B6130;      /* oliva del monte */
-  --uritorco: #615D3A;   /* caqui del cerro */
   --tinta: #2B2119;      /* texto */
 
   /* Sumac Mayu: la casa de adobe naranja */
-  --teja-clara: #F1D2B6;
   --adobe: #9C4219;      /* terracota del adobe */
-  --agapanto: #4B4D9E;   /* azul violáceo de los agapantos */
   --brasa: #4A1E0E;
 
   /* Misky Wayra: la casa redonda de techo verde */
-  --cielo: #CFE0EC;
-  --techo: #2B6A4E;      /* verde del techo */
-  --viento: #2D5F8A;     /* azul del cielo de la sierra */
-  --noche: #1E2140;
+  --techo: #2A674C;      /* verde del techo (4.6:1 sobre arena) */
+  --sombra: #183A2C;     /* el verde a la sombra de los árboles */
 }
 
 /* ---------- Roles: tema por defecto (el complejo) ---------- */
@@ -31,26 +28,24 @@
 [data-theme="tierra"] {
   --color-bg: var(--cal);            /* fondo de página, compartido */
   --color-text: var(--tinta);        /* texto, compartido */
-  --color-surface: var(--arena);     /* superficies claras grandes */
+  --color-surface: var(--arena);     /* superficies claras grandes, compartida */
   --color-primary: var(--monte);     /* links, botones */
-  --color-accent: var(--uritorco);   /* detalles */
+  --color-accent: var(--monte);      /* detalles (igual al primary) */
   --color-deep: var(--tinta);        /* títulos, fondos oscuros */
   --color-on-color: var(--cal);      /* texto sobre primary/accent/deep */
 }
 
-/* ---------- Temas: solo cambian los roles ---------- */
+/* ---------- Temas: cada casa cambia solo su color ---------- */
 [data-theme="mayu"] {
-  --color-surface: var(--teja-clara);
   --color-primary: var(--adobe);
-  --color-accent: var(--agapanto);
+  --color-accent: var(--adobe);
   --color-deep: var(--brasa);
 }
 
 [data-theme="wayra"] {
-  --color-surface: var(--cielo);
   --color-primary: var(--techo);
-  --color-accent: var(--viento);
-  --color-deep: var(--noche);
+  --color-accent: var(--techo);
+  --color-deep: var(--sombra);
 }
 
 /* ---------- Tipografía ---------- */

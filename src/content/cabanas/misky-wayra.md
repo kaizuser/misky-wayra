@@ -9,8 +9,8 @@ frase: Donde empezó todo. Adobe, cal y un techo verde bajo los cerros.
 
 foto:
   src: ../../assets/home/hero-misky.jpg
-  alt: Misky Wayra, casa redonda de techo verde rodeada de árboles, con las sierras detrás
-  encuadre: 64% 45%
+  alt: Misky Wayra, casa redonda de techo verde con guarda de azulejos, bajo un algarrobo, con un camino de ladrillo hacia la galería
+  encuadre: 50% 62%
 
 datos:
   superficie: 80
