@@ -10,16 +10,7 @@ import { Picture } from 'astro:assets';
 import sumac from '../assets/home/hero-sumac.jpg';
 import misky from '../assets/home/hero-misky.jpg';
 import { whatsappUrl } from '../config';
-
-/** Borde festoneado: n semicírculos alrededor de un círculo de radio r (viewBox 0 0 200 200) */
-function feston(n: number, r: number) {
-  const semi = (r * Math.sin(Math.PI / n)).toFixed(2);
-  const puntos = Array.from({ length: n + 1 }, (_, i) => {
-    const a = (2 * Math.PI * i) / n - Math.PI / 2;
-    return `${(100 + r * Math.cos(a)).toFixed(2)},${(100 + r * Math.sin(a)).toFixed(2)}`;
-  });
-  return `M${puntos[0]} ${puntos.slice(1).map((p) => `A${semi},${semi} 0 0 1 ${p}`).join(' ')} Z`;
-}
+import { feston } from '../lib/formas';
 ---
 
 <section class="hero">

@@ -149,7 +149,9 @@ main article > * + * { margin-block-start: var(--space-s); }
 
 /* La ventana se abre: del inicio a la cabaña, la foto llega con la forma de su
    ventana (redonda en Misky, arco en Sumac) y se abre hasta el rectángulo del hero
-   mientras crece. La foto vieja se va enseguida, así no se ven dos superpuestas. */
+   mientras crece. La apertura la hace la propia página (CabanaHero, al cargar):
+   la imagen nueva de la transición es en vivo, así que la muestra tal cual.
+   La foto vieja se va enseguida, así no se ven dos superpuestas. */
 ::view-transition-group(casa-sumac-mayu),
 ::view-transition-group(casa-misky-wayra) {
   animation-duration: 750ms;
@@ -160,20 +162,17 @@ main article > * + * { margin-block-start: var(--space-s); }
   animation-duration: 200ms;
 }
 
-::view-transition-new(casa-misky-wayra) {
-  animation: vt-abrir-redonda 750ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
+::view-transition-new(casa-misky-wayra),
 ::view-transition-new(casa-sumac-mayu) {
-  animation: vt-abrir-arco 750ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: none;
 }
 
-@keyframes vt-abrir-redonda {
+@keyframes abrir-redonda {
   from { clip-path: inset(0 round 50%); }
   to { clip-path: inset(0 round 0); }
 }
 
-@keyframes vt-abrir-arco {
+@keyframes abrir-arco {
   from { clip-path: inset(0 round 50% 50% 0.375rem 0.375rem / 38% 38% 0.375rem 0.375rem); }
   to { clip-path: inset(0 round 0); }
 }

@@ -37,10 +37,11 @@ const consultar = whatsappUrl(`Hola! Quería consultar disponibilidad en ${d.nom
     frase={d.frase}
     foto={d.foto}
     transicion={`casa-${cabana.id}`}
+    tema={d.tema}
   />
 
   <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
-  <Recorrido paradas={d.recorrido} />
+  <Recorrido paradas={d.recorrido} tema={d.tema} />
 
   <section class="al-parque">
     <p>

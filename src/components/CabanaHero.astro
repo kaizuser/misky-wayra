@@ -3,6 +3,10 @@
  * Hero de cada cabaña: la llegada.
  * La foto tiene el mismo view-transition-name que su mitad en el hero de la home,
  * así al navegar la foto se expande y se convierte en este hero.
+ *
+ * La llegada: la foto se abre desde la ventana de su casa (redonda en Misky, arco en Sumac)
+ * hasta el rectángulo del hero. Pasa al cargar la página, sola, así se ve igual si venís
+ * del inicio (dentro de la transición) o directo desde un link de WhatsApp.
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -14,12 +18,13 @@ interface Props {
   frase: string;
   foto: { src: ImageMetadata; alt: string; encuadre: string };
   transicion: string;
+  tema: 'mayu' | 'wayra';
 }
 
-const { nombre, significado, frase, foto, transicion } = Astro.props;
+const { nombre, significado, frase, foto, transicion, tema } = Astro.props;
 ---
 
-<section class="cabana-hero">
+<section class="cabana-hero" data-forma={tema}>
   <div class="texto">
     <p class="significado">{significado}</p>
     <h1>{nombre}</h1>
@@ -91,6 +96,12 @@ const { nombre, significado, frase, foto, transicion } = Astro.props;
   .foto :global(img) {
     object-fit: cover;
     object-position: var(--encuadre);
+  }
+
+  /* La ventana se abre (keyframes en global.css, compartidos con la transición) */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-forma='wayra'] .foto { animation: abrir-redonda 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    [data-forma='mayu'] .foto { animation: abrir-arco 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   }
 
   .borde {
