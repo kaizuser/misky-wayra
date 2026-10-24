@@ -438,6 +438,6 @@ Small moments, each tied to the place. Ordered by impact vs effort.
 3. **Sections enter softly while scrolling:** subtle fade + rise in pure CSS (already used in the trip); the eave dividers could grow from flat to curved as they come into view.
 4. **Photo captions with real details:** "La cocina mira al Uritorco", "El adobe se hizo a mano, capa por capa" (only true facts). Turns the gallery into a story.
 5. **Warm microcopy in voseo everywhere:** buttons, empty states, WhatsApp messages, errors.
-6. **Themed 404 page:** "Te perdiste en el monte", with a way back to the home and to both cottages.
+6. **Done — Themed 404 page:** "Te perdiste en el monte" (`src/pages/404.astro`, `noindex`): the hero's dashed path forks into two branches, one to each house (arch and scalloped-circle glyphs), plus "Volver al inicio".
 7. **Copy the address with one tap,** with a small "Copiado" confirmation.
 8. **A local wink:** at night (with the living-page clock, section 12), a tiny light crosses the sky once, a nod to the Uritorco's UFO lore. Optional.
