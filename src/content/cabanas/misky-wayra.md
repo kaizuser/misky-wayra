@@ -4,7 +4,7 @@ significado: Viento dulce
 tema: wayra
 orden: 2
 seoTitle: La casa Misky Wayra, cabaña de adobe en Capilla del Monte
-seoDescription: La primera casa del complejo. Adobe, 80 m², dos dormitorios y galería con parrilla, para hasta 5 personas, en un parque con vista a los cerros.
+seoDescription: La primera casa del complejo. Adobe, 80 m², dos dormitorios y galería con parrilla, para 4 o 5 personas, en un parque con vista a los cerros.
 frase: Donde empezó todo. Adobe, cal y un techo verde bajo los cerros.
 
 foto:

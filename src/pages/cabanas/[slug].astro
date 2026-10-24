@@ -6,6 +6,7 @@ import Alero from '../../components/Alero.astro';
 import CabanaHero from '../../components/CabanaHero.astro';
 import Recorrido from '../../components/Recorrido.astro';
 import Consultar from '../../components/Consultar.astro';
+import { alojamiento } from '../../lib/datos';
 
 export async function getStaticPaths() {
   const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -28,7 +29,13 @@ const { cabana, hermana } = Astro.props;
 const d = cabana.data;
 ---
 
-<Base title={d.seoTitle} description={d.seoDescription} theme={d.tema}>
+<Base
+  title={d.seoTitle}
+  description={d.seoDescription}
+  theme={d.tema}
+  imagen={d.foto}
+  jsonLd={alojamiento(cabana, Astro.site!)}
+>
   <!-- 1. La llegada -->
   <CabanaHero
     nombre={d.nombre}
@@ -45,7 +52,7 @@ const d = cabana.data;
   <section class="al-parque">
     <p>
       El parque, la pileta y los espacios compartidos te esperan en la
-      <a href="/galeria"> galería de fotos</a>.
+      <a href="/galeria/"> galería de fotos</a>.
     </p>
   </section>
 
@@ -75,7 +82,7 @@ const d = cabana.data;
   <!-- 5. Del otro lado del eje -->
   <aside class="hermana" data-theme={hermana.data.tema}>
     <p class="antetitulo">Del otro lado del eje</p>
-    <a class="tarjeta" href={`/cabanas/${hermana.id}`}>
+    <a class="tarjeta" href={`/cabanas/${hermana.id}/`}>
       <figure style={`--encuadre: ${hermana.data.foto.encuadre}`}>
         <Picture
           src={hermana.data.foto.src}

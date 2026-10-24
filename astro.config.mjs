@@ -4,6 +4,9 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://miskywayra.com.ar', // provisorio hasta definir el dominio
+  // Todas las URLs terminan en barra, como las genera el build (carpeta/index.html):
+  // links, canonical y sitemap coinciden y el host no tiene que redirigir
+  trailingSlash: 'always',
   integrations: [sitemap()],
   vite: {
     build: {
