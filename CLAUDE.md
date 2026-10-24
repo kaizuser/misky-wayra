@@ -175,6 +175,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 - `Nav` (`cabecera`, `pulgar`) has its own names so it stays still while the page changes.
 - The sister card has no transition name on purpose (an off-screen morph would fly down the page).
 - The eave edges (`.borde.arriba` / `.borde.abajo` in `Hero` and `CabanaHero`) have their own names (`borde-arriba`, `borde-abajo`), so they stay on top of the photo during the morph. Without them the photo showed as a plain rectangle and the curved edges popped in at the end (fixed).
+- The home halves and the cottage hero use the same `widths` (`[640, 1024, 1600, 2048]`) so the destination photo can come from cache. `Base.astro` adds Speculation Rules (`prerender`, `moderate` = on hover) for `/cabanas/*`, so in Chrome the cottage page and its photo are ready before the click. Without that, the morph started before the photo had loaded and landed on an empty frame. Test transitions with `build` + `preview`, never in `dev`.
 - To inspect a transition frame by frame: Chrome DevTools → More tools → Animations → set speed to 10%.
 
 ### Emblem (temporary, `Emblema.astro`)
@@ -288,7 +289,7 @@ Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewri
 ## 9. Photos
 
 **General rules:**
-- Use **originals** in `src/assets/...` (never WhatsApp-compressed copies; send them as documents or via Drive). Astro generates AVIF/WebP sizes.
+- Start from **originals** (never WhatsApp-compressed copies; send them as documents or via Drive). Originals live in `fotos-originales/` (gitignored, same folder structure). `src/assets/...` holds masters resized to 2560px max (JPEG q88, via sharp): 8 MB 4032px originals made `astro dev` re-encode for ~1.5–5s per image on every request. Astro generates AVIF/WebP sizes from the masters.
 - The current edits are heavily saturated/HDR → apply **one consistent, warmer, less saturated grade** to everything used on the site. Side-by-side photos (hero) must match exactly.
 - Remove distractions where possible: blue hose on the grass, the car in the carport, neighbors' tile roofs.
 - The orange roof edge in the foreground of the aerial shots can work as a frame ("you're standing on the adobe house").

@@ -1,7 +1,6 @@
 ---
 import { Font } from 'astro:assets';
 import Nav from '../components/Nav.astro';
-import { whatsappUrl } from '../config';
 import '../styles/tokens.css';
 import '../styles/reset.css';
 import '../styles/global.css';
@@ -25,6 +24,11 @@ const { title, description, theme } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <!-- Al pasar el mouse por un link a una cabaña, Chrome la prepara de antemano:
+         la foto ya está cargada cuando arranca la transición. Otros navegadores lo ignoran. -->
+    <script type="speculationrules" is:inline>
+      { "prerender": [{ "where": { "href_matches": "/cabanas/*" }, "eagerness": "moderate" }] }
+    </script>
   </head>
   <body data-theme={theme}>
     <Nav />
