@@ -67,18 +67,6 @@ main section > * + *,
 main aside > * + *,
 main article > * + * { margin-block-start: var(--space-s); }
 
-/* ---------- Inicio: las dos cabañas espejadas ---------- */
-.cabanas { display: grid; gap: var(--space-l); }
-
-.cabanas article {
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  padding: var(--space-xl) var(--space-l);
-}
-
-.comparacion table { margin-inline: auto; border-collapse: collapse; }
-.comparacion th, .comparacion td { padding: var(--space-2xs) var(--space-m); }
-
 /* ---------- Cabaña: detalles simétricos ---------- */
 .detalles dl {
   display: grid;
@@ -90,12 +78,14 @@ main article > * + * { margin-block-start: var(--space-s); }
 .detalles dt { text-align: right; }
 .detalles dd { text-align: left; }
 
-/* ---------- Responsive ---------- */
-@media (min-width: 40rem) {
-  .cabanas { grid-template-columns: 1fr 1fr; }
-  .cabanas h2 { grid-column: 1 / -1; }
-}
 
+
+
+/* Ya dibujado (scripts/trazado.ts): sin animación, queda el estado natural, que es el completo */
+.quieto,
+.quieto::before {
+  animation: none !important;
+}
 
 /* ---------- Transiciones entre páginas (sin JavaScript) ----------
    El navegador anima el cambio de página: los colores se funden y las fotos

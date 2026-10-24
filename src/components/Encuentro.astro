@@ -1,0 +1,62 @@
+---
+/**
+ * El encuentro: en el centro del eje, el complejo. A la izquierda florece la ola de Sumac
+ * y a la derecha la ráfaga de Misky, desde un mismo nudo. Donde el agua y el viento se juntan.
+ * Se dibuja al bajar y queda dibujado (scripts/trazado.ts).
+ */
+import { voluta } from '../lib/volutas';
+
+const agua = voluta('mayu');
+const viento = voluta('wayra');
+---
+
+<svg class="encuentro" viewBox="-125 -45 250 90" aria-hidden="true">
+  <g class="lado" data-theme="mayu">
+    {agua.map((d) => <path class="izq" d={d} pathLength="1" />)}
+  </g>
+  <g class="lado wayra" data-theme="wayra">
+    {viento.map((d) => <path d={d} pathLength="1" />)}
+  </g>
+  <circle class="nudo" r="2" />
+</svg>
+
+<script>
+  import '../scripts/trazado';
+</script>
+
+<style>
+  .encuentro {
+    display: block;
+    width: min(30rem, 100%);
+    height: auto;
+    margin-inline: auto;
+    overflow: visible;
+  }
+
+  path {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 1.1;
+    stroke-linecap: round;
+  }
+
+  .wayra path { stroke-width: 0.85; }
+  .izq { transform: scaleX(-1); }
+  .nudo { fill: var(--color-text); }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      path {
+        stroke-dasharray: 1 1;
+        animation: florecer linear both;
+        animation-timeline: view();
+        animation-range: entry 30% cover 50%;
+      }
+
+      @keyframes florecer {
+        from { stroke-dashoffset: 1; }
+        to { stroke-dashoffset: 0; }
+      }
+    }
+  }
+</style>

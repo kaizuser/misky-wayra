@@ -1,67 +1,271 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Alero from '../components/Alero.astro';
 import Hero from '../components/Hero.astro';
-import { whatsappUrl } from '../config';
+import Encuentro from '../components/Encuentro.astro';
+import Consultar from '../components/Consultar.astro';
+import { SITIO, mapsUrl } from '../config';
+import { feston } from '../lib/formas';
+
+// Frente a frente: Sumac a la izquierda (orden 1), Misky a la derecha (orden 2)
+const [izquierda, derecha] = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
+
+const filas = [
+  { nombre: 'Superficie', dato: (c: typeof izquierda) => `${c.data.datos.superficie} m²` },
+  { nombre: 'Huéspedes', dato: (c: typeof izquierda) => c.data.datos.huespedes },
+  { nombre: 'Dormitorios', dato: (c: typeof izquierda) => String(c.data.datos.dormitorios) },
+  { nombre: 'Camas', dato: (c: typeof izquierda) => c.data.datos.camas },
+  { nombre: 'Lo propio', dato: (c: typeof izquierda) => c.data.propio },
+];
+
+const compartido = [
+  'La pileta, en temporada',
+  'los decks',
+  'el fogón',
+  'la parrilla',
+  'la glorieta de jazmín',
+  'la pérgola con la parra',
+  'los frutales y los algarrobos',
+  'la vista al Uritorco',
+];
+
+const borde = feston(24, 92);
 ---
 
 <Base
   title="Misky Wayra: cabañas de adobe en Capilla del Monte"
-  description="[Descripción de 150 caracteres para Google]"
+  description="Dos cabañas de adobe hechas a mano en Capilla del Monte, Córdoba, en un parque de 3.000 m² con vista al Uritorco. Consultá disponibilidad por WhatsApp."
 >
   <Hero />
 
+  <!-- El complejo: el centro del eje -->
   <Alero />
   <section class="complejo banda">
-    <h2>El complejo</h2>
-    <p>[La tierra, el adobe, quiénes somos, los espacios compartidos]</p>
+    <Encuentro />
+    <h2>Entre las dos, el parque</h2>
+    <p>
+      Las dos casas comparten un parque de 3.000 m² en Barrio Valentí, con frutales y árboles
+      autóctonos, y una vista abierta a los cerros. En temporada, también la pileta.
+    </p>
   </section>
   <Alero flip />
 
-  <section class="cabanas">
-    <h2>Nuestras cabañas</h2>
-
-    <article data-theme="mayu">
-      <h3>Sumac Mayu</h3>
-      <p>[Río hermoso: una frase sobre esta cabaña]</p>
-      <a href="/cabanas/sumac-mayu">Conocer Sumac Mayu</a>
-    </article>
-
-    <article data-theme="wayra">
-      <h3>Misky Wayra</h3>
-      <p>[Viento dulce: una frase sobre esta cabaña]</p>
-      <a href="/cabanas/misky-wayra">Conocer Misky Wayra</a>
-    </article>
-  </section>
-
-  <section class="comparacion">
-    <h2>Las dos cabañas de un vistazo</h2>
-    <!-- Mirrored table: attribute in the center, one cottage per side -->
+  <!-- Las dos casas, espejadas sobre el eje -->
+  <section class="frente" aria-labelledby="frente-titulo">
+    <h2 id="frente-titulo">Frente a frente</h2>
     <table>
       <thead>
         <tr>
-          <th scope="col">Sumac Mayu</th>
+          <th scope="col" data-theme={izquierda.data.tema}>
+            <svg class="ventanita" viewBox="0 0 40 50" aria-hidden="true">
+              <path d="M2,48 V20 A18,18 0 0 1 38,20 V48 Z" />
+              <path class="parante" d="M20,4 V48" />
+            </svg>
+            <span class="nombre">{izquierda.data.nombre}</span>
+            <span class="significado">{izquierda.data.significado}</span>
+          </th>
           <td></td>
-          <th scope="col">Misky Wayra</th>
+          <th scope="col" data-theme={derecha.data.tema}>
+            <svg class="ventanita redonda" viewBox="0 0 200 200" aria-hidden="true">
+              <path d={borde} />
+            </svg>
+            <span class="nombre">{derecha.data.nombre}</span>
+            <span class="significado">{derecha.data.significado}</span>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>[x]</td><th scope="row">Huéspedes</th><td>[x]</td></tr>
-        <tr><td>[x]</td><th scope="row">Dormitorios</th><td>[x]</td></tr>
-        <tr><td>[x]</td><th scope="row">Camas</th><td>[x]</td></tr>
+        {
+          filas.map((fila) => (
+            <tr>
+              <td>{fila.dato(izquierda)}</td>
+              <th scope="row">{fila.nombre}</th>
+              <td>{fila.dato(derecha)}</td>
+            </tr>
+          ))
+        }
       </tbody>
     </table>
+    <p class="conocer">
+      <a href={`/cabanas/${izquierda.id}`} data-theme={izquierda.data.tema}>Conocer {izquierda.data.nombre}</a>
+      <a href={`/cabanas/${derecha.id}`} data-theme={derecha.data.tema}>Conocer {derecha.data.nombre}</a>
+    </p>
   </section>
 
-  <section class="galeria">
-    <h2>El parque</h2>
-    <p>[Tres mil metros cuadrados de monte, la pileta y los espacios compartidos]</p>
+  <!-- Lo que comparten: el anticipo de la galería -->
+  <section class="compartido">
+    <h2>Lo que comparten</h2>
+    <ul>
+      {compartido.map((espacio) => <li>{espacio}</li>)}
+    </ul>
     <a href="/galeria">Ver la galería de fotos</a>
   </section>
 
   <Alero />
-  <section class="contacto banda">
-    <h2>Consultá disponibilidad</h2>
-    <a href={whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra')}>Escribinos por WhatsApp</a>
-  </section>
+  <Consultar
+    class="banda"
+    titulo="¿Cuándo venís?"
+    mensaje="Hola! Quería consultar disponibilidad en las cabañas para "
+    boton="Escribinos por WhatsApp"
+  >
+    <p class="direccion">
+      Estamos en {SITIO.direccion}, {SITIO.localidad}. <a href={mapsUrl}>Cómo llegar</a>
+    </p>
+  </Consultar>
 </Base>
+
+<style>
+  /* ---------- El complejo ---------- */
+  .complejo p {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    max-width: 34ch;
+  }
+
+  /* ---------- Frente a frente ---------- */
+  table {
+    width: min(100%, 46rem);
+    margin-inline: auto;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    padding: 0 var(--space-s) var(--space-m);
+    vertical-align: bottom;
+    color: var(--color-primary);
+  }
+
+  /* Los nombres, como los datos, se alinean hacia el eje */
+  thead th:first-child { text-align: end; }
+  thead th:last-child { text-align: start; }
+
+  .ventanita {
+    width: 2.25rem;
+    height: auto;
+    margin-block-end: var(--space-2xs);
+  }
+
+  thead th:first-child .ventanita { margin-inline-start: auto; }
+
+  .ventanita path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .ventanita .parante {
+    stroke-width: 1.5;
+  }
+
+  .ventanita.redonda path {
+    stroke-width: 8;
+  }
+
+  thead .nombre,
+  thead .significado {
+    display: block;
+  }
+
+  thead .nombre {
+    font-family: var(--font-display);
+    font-weight: var(--peso-titulo);
+    font-size: var(--step-2);
+    line-height: 1.1;
+  }
+
+  thead .significado {
+    margin-block-start: var(--space-3xs);
+    font-size: var(--step--1);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-deep);
+  }
+
+  /* Cada dato se alinea hacia el eje; el nombre de la fila va en el centro */
+  tbody td {
+    width: 42%;
+    padding: var(--space-xs) var(--space-s);
+    border-block-start: 1px solid var(--color-surface);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  tbody td:first-child {
+    text-align: end;
+  }
+
+  tbody td:last-child {
+    text-align: start;
+  }
+
+  tbody th {
+    padding: var(--space-xs) var(--space-2xs);
+    border-block-start: 1px solid var(--color-surface);
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .conocer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-xl);
+    max-width: none;
+    margin-block-start: var(--space-l);
+  }
+
+  .conocer a {
+    font-family: var(--font-display);
+    font-weight: var(--peso-titulo);
+    font-size: var(--step-1);
+  }
+
+  .conocer a:first-child::before { content: '← '; }
+  .conocer a:last-child::after { content: ' →'; }
+
+  @media (width < 40rem) {
+    tbody td {
+      font-size: var(--step-0);
+      padding-inline: var(--space-2xs);
+    }
+
+    tbody th {
+      white-space: normal;
+      letter-spacing: 0.06em;
+    }
+  }
+
+  /* ---------- Lo que comparten ---------- */
+  .compartido ul {
+    max-width: 40rem;
+    margin-inline: auto;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .compartido li {
+    display: inline;
+  }
+
+  .compartido li:not(:last-child)::after {
+    content: ' · ';
+    color: var(--color-primary);
+  }
+
+  .compartido li:last-child::after {
+    content: '.';
+  }
+
+  /* ---------- Contacto ---------- */
+  .direccion {
+    font-size: var(--step-0);
+  }
+</style>

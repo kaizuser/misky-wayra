@@ -1,0 +1,68 @@
+---
+/**
+ * Cómo reservar: los tres pasos de la familia y el botón de WhatsApp con un mensaje armado.
+ * Lo usan el inicio (para el complejo) y cada cabaña (con su nombre en el mensaje).
+ */
+import { whatsappUrl } from '../config';
+
+interface Props {
+  titulo: string;
+  mensaje: string;
+  boton: string;
+  /** clases extra para la sección (por ejemplo, "banda") */
+  class?: string;
+}
+
+const { titulo, mensaje, boton, class: clase } = Astro.props;
+---
+
+<section class:list={['consultar', clase]}>
+  <h2>{titulo}</h2>
+  <slot />
+  <ol class="pasos">
+    <li><strong>Escribinos</strong> por WhatsApp con las fechas y cuántos son.</li>
+    <li>
+      <strong>Confirmás</strong> con una seña del 40% por transferencia. Te pedimos DNI y domicilio
+      para hacerte la factura.
+    </li>
+    <li><strong>El resto</strong> lo abonás al llegar, al tipo de cambio oficial del día.</li>
+  </ol>
+  <a class="boton" href={whatsappUrl(mensaje)}>{boton}</a>
+</section>
+
+<style>
+  .pasos {
+    display: grid;
+    gap: var(--space-xs);
+    max-width: 30rem;
+    margin-inline: auto;
+    padding: 0;
+    list-style: none;
+    counter-reset: paso;
+  }
+
+  .pasos li {
+    counter-increment: paso;
+  }
+
+  .pasos li::before {
+    content: counter(paso) '. ';
+    font-family: var(--font-display);
+    color: var(--color-accent);
+  }
+
+  .boton {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-l);
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .boton:hover {
+    background: var(--color-deep);
+  }
+</style>

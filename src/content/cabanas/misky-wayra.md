@@ -14,16 +14,19 @@ foto:
 
 datos:
   superficie: 80
-  huespedes: Hasta 5
+  huespedes: 4 o 5
   dormitorios: 2
   camas: 1 king size y 2 de una plaza
 
+propio: Galería con mesa de campo y parrilla
+
 comodidades:
+  - Televisor
   - WiFi exclusivo
   - Streaming incluido
   - Cocina equipada con horno eléctrico
   - Salamandra Ñuke
-  - Calefacción en todos los ambientes
+  - Placa de calor en cada ambiente
   - Galería con mesa de campo
   - Parrilla
   - Pileta en temporada

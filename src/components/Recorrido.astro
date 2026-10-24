@@ -111,45 +111,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 </section>
 
 <script>
-  // Lo que ya se dibujó queda dibujado: las animaciones atadas al scroll retroceden
-  // al subir, así que cuando una llega al final se la saca y queda su estado natural
-  // (que es el dibujo completo). Al llegar al fondo de la página, todo queda trazado.
-  const nombres = new Set(['trazar', 'florecer', 'aparecer', 'llegar', 'girar']);
-  let pendientes: CSSAnimation[] = [];
-
-  // Las animaciones vivas en este momento. Se vuelven a contar al cruzar el breakpoint:
-  // en desktop aparecen trazos que en mobile no existen (el lado izquierdo de las volutas).
-  function contar() {
-    pendientes = document
-      .getAnimations()
-      .filter((a): a is CSSAnimation => a instanceof CSSAnimation && nombres.has(a.animationName));
-    addEventListener('scroll', alScrollear, { passive: true });
-    revisar();
-  }
-
-  function revisar() {
-    pendientes = pendientes.filter((a) => {
-      if (a.effect?.getComputedTiming().progress !== 1) return true;
-      (a.effect as KeyframeEffect).target?.classList.add('quieto');
-      return false;
-    });
-    if (pendientes.length === 0) removeEventListener('scroll', alScrollear);
-  }
-
-  let esperando = false;
-  function alScrollear() {
-    if (esperando) return;
-    esperando = true;
-    requestAnimationFrame(() => {
-      esperando = false;
-      revisar();
-    });
-  }
-
-  // Mismo breakpoint que el CSS de desktop (64rem). Se espera un cuadro para que
-  // el navegador cree las animaciones nuevas antes de contarlas.
-  matchMedia('(width >= 64rem)').addEventListener('change', () => requestAnimationFrame(contar));
-  contar();
+  import '../scripts/trazado';
 </script>
 
 <style>
@@ -496,12 +458,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
         }
       }
     }
-  }
-
-  /* Ya dibujado: sin animación, queda el estado natural (completo) */
-  .quieto,
-  .quieto::before {
-    animation: none !important;
   }
 
   /* Desktop: cada lado llega desde afuera hacia el eje */

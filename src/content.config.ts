@@ -27,6 +27,8 @@ const cabanas = defineCollection({
         dormitorios: z.number(),
         camas: z.string(),
       }),
+      /** lo que solo tiene esta casa, en una línea (fila "Lo propio" del inicio) */
+      propio: z.string(),
       comodidades: z.array(z.string()),
       recorrido: z.array(
         z.object({

@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import Alero from '../../components/Alero.astro';
 import CabanaHero from '../../components/CabanaHero.astro';
 import Recorrido from '../../components/Recorrido.astro';
-import { whatsappUrl } from '../../config';
+import Consultar from '../../components/Consultar.astro';
 
 export async function getStaticPaths() {
   const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -26,7 +26,6 @@ interface Props {
 
 const { cabana, hermana } = Astro.props;
 const d = cabana.data;
-const consultar = whatsappUrl(`Hola! Quería consultar disponibilidad en ${d.nombre} para `);
 ---
 
 <Base title={d.seoTitle} description={d.seoDescription} theme={d.tema}>
@@ -67,15 +66,11 @@ const consultar = whatsappUrl(`Hola! Quería consultar disponibilidad en ${d.nom
   <Alero flip />
 
   <!-- 4. Consultar -->
-  <section class="consultar">
-    <h2>¿Te imaginás acá?</h2>
-    <ol class="pasos">
-      <li><strong>Escribinos</strong> por WhatsApp con las fechas y cuántos son.</li>
-      <li><strong>Confirmás</strong> con una seña del 40% por transferencia.</li>
-      <li><strong>El resto</strong> lo abonás al llegar.</li>
-    </ol>
-    <a class="boton" href={consultar}>Consultar por {d.nombre}</a>
-  </section>
+  <Consultar
+    titulo="¿Te imaginás acá?"
+    mensaje={`Hola! Quería consultar disponibilidad en ${d.nombre} para `}
+    boton={`Consultar por ${d.nombre}`}
+  />
 
   <!-- 5. Del otro lado del eje -->
   <aside class="hermana" data-theme={hermana.data.tema}>
@@ -125,42 +120,6 @@ const consultar = whatsappUrl(`Hola! Quería consultar disponibilidad en ${d.nom
     border-radius: 999px;
     background: var(--color-bg);
     font-size: var(--step--1);
-  }
-
-  /* ---------- Consultar ---------- */
-  .pasos {
-    display: grid;
-    gap: var(--space-xs);
-    max-width: 30rem;
-    margin-inline: auto;
-    padding: 0;
-    list-style: none;
-    counter-reset: paso;
-  }
-
-  .pasos li {
-    counter-increment: paso;
-  }
-
-  .pasos li::before {
-    content: counter(paso) '. ';
-    font-family: var(--font-display);
-    color: var(--color-accent);
-  }
-
-  .boton {
-    display: inline-block;
-    padding: var(--space-xs) var(--space-l);
-    border-radius: 999px;
-    background: var(--color-primary);
-    color: var(--color-on-color);
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-    text-decoration: none;
-  }
-
-  .boton:hover {
-    background: var(--color-deep);
   }
 
   /* ---------- La cabaña hermana ---------- */

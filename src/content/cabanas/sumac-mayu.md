@@ -18,12 +18,15 @@ datos:
   dormitorios: 3
   camas: 1 king size y 4 de una plaza
 
+propio: Playroom de 50 m² e invernadero
+
 comodidades:
+  - Televisor
   - WiFi exclusivo
   - Streaming incluido
   - Cocina equipada
   - Salamandra
-  - Playroom
+  - Playroom de 50 m²
   - Pérgola con asientos
   - Parrilla
   - Invernadero
