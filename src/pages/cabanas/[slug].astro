@@ -1,0 +1,224 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Alero from '../../components/Alero.astro';
+import CabanaHero from '../../components/CabanaHero.astro';
+import Recorrido from '../../components/Recorrido.astro';
+import { whatsappUrl } from '../../config';
+
+export async function getStaticPaths() {
+  const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
+
+  return cabanas.map((cabana) => ({
+    params: { slug: cabana.id },
+    props: {
+      cabana,
+      hermana: cabanas.find((otra) => otra.id !== cabana.id)!,
+    },
+  }));
+}
+
+interface Props {
+  cabana: CollectionEntry<'cabanas'>;
+  hermana: CollectionEntry<'cabanas'>;
+}
+
+const { cabana, hermana } = Astro.props;
+const d = cabana.data;
+const consultar = whatsappUrl(`Hola! Quería consultar disponibilidad en ${d.nombre} para `);
+---
+
+<Base title={d.seoTitle} description={d.seoDescription} theme={d.tema}>
+  <!-- 1. La llegada -->
+  <CabanaHero
+    nombre={d.nombre}
+    significado={d.significado}
+    frase={d.frase}
+    foto={d.foto}
+    transicion={`casa-${cabana.id}`}
+  />
+
+  <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
+  <Recorrido paradas={d.recorrido} />
+
+  <section class="al-parque">
+    <p>
+      El parque, la pileta y los espacios compartidos te esperan en la
+      <a href="/galeria"> galería de fotos</a>.
+    </p>
+  </section>
+
+  <!-- 3. De un vistazo -->
+  <Alero />
+  <section class="detalles banda">
+    <h2>De un vistazo</h2>
+    <dl>
+      <dt>Superficie</dt><dd>{d.datos.superficie} m²</dd>
+      <dt>Huéspedes</dt><dd>{d.datos.huespedes}</dd>
+      <dt>Dormitorios</dt><dd>{d.datos.dormitorios}</dd>
+      <dt>Camas</dt><dd>{d.datos.camas}</dd>
+    </dl>
+    <ul class="comodidades">
+      {d.comodidades.map((comodidad) => <li>{comodidad}</li>)}
+    </ul>
+  </section>
+  <Alero flip />
+
+  <!-- 4. Consultar -->
+  <section class="consultar">
+    <h2>¿Te imaginás acá?</h2>
+    <ol class="pasos">
+      <li><strong>Escribinos</strong> por WhatsApp con las fechas y cuántos son.</li>
+      <li><strong>Confirmás</strong> con una seña del 40% por transferencia.</li>
+      <li><strong>El resto</strong> lo abonás al llegar.</li>
+    </ol>
+    <a class="boton" href={consultar}>Consultar por {d.nombre}</a>
+  </section>
+
+  <!-- 5. Del otro lado del eje -->
+  <aside class="hermana" data-theme={hermana.data.tema}>
+    <p class="antetitulo">Del otro lado del eje</p>
+    <a class="tarjeta" href={`/cabanas/${hermana.id}`}>
+      <figure style={`--encuadre: ${hermana.data.foto.encuadre}`}>
+        <Picture
+          src={hermana.data.foto.src}
+          alt={hermana.data.foto.alt}
+          formats={['avif', 'webp']}
+          widths={[400, 800]}
+          sizes="(min-width: 40rem) 24rem, 90vw"
+        />
+      </figure>
+      <span class="significado">{hermana.data.significado}</span>
+      <span class="nombre">{hermana.data.nombre}</span>
+    </a>
+  </aside>
+</Base>
+
+<style>
+  /* ---------- Hacia la galería ---------- */
+  .al-parque {
+    padding-block-start: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+  }
+
+  /* ---------- De un vistazo ---------- */
+  .detalles dl {
+    max-width: 26rem;
+  }
+
+  .comodidades {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+    max-width: 40rem;
+    margin-inline: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .comodidades li {
+    padding: var(--space-3xs) var(--space-s);
+    border-radius: 999px;
+    background: var(--color-bg);
+    font-size: var(--step--1);
+  }
+
+  /* ---------- Consultar ---------- */
+  .pasos {
+    display: grid;
+    gap: var(--space-xs);
+    max-width: 30rem;
+    margin-inline: auto;
+    padding: 0;
+    list-style: none;
+    counter-reset: paso;
+  }
+
+  .pasos li {
+    counter-increment: paso;
+  }
+
+  .pasos li::before {
+    content: counter(paso) '. ';
+    font-family: var(--font-display);
+    color: var(--color-accent);
+  }
+
+  .boton {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-l);
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .boton:hover {
+    background: var(--color-deep);
+  }
+
+  /* ---------- La cabaña hermana ---------- */
+  .hermana {
+    padding-block-start: 0;
+  }
+
+  .antetitulo {
+    font-size: var(--step--1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  .tarjeta {
+    display: grid;
+    justify-items: stretch;
+    text-align: center;
+    gap: var(--space-2xs);
+    max-width: 24rem;
+    margin-inline: auto;
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+
+  .tarjeta figure {
+    width: 100%;
+    margin: 0 0 var(--space-s);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 50% 50% var(--radius) var(--radius) / 35% 35% var(--radius) var(--radius);
+  }
+
+  .tarjeta :global(picture),
+  .tarjeta :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tarjeta :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre);
+    transition: scale 600ms ease;
+  }
+
+  .tarjeta:hover :global(img) {
+    scale: 1.04;
+  }
+
+  .tarjeta .significado {
+    font-size: var(--step--1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .tarjeta .nombre {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { SITIO, mapsUrl, whatsappUrl } from '../config';
 ---
 
 <Base
@@ -12,9 +13,9 @@ import Base from '../layouts/Base.astro';
 
   <section class="ubicacion">
     <h2>Dónde estamos</h2>
-    <address>[Dirección], Capilla del Monte, Córdoba</address>
+    <address>{SITIO.direccion}, {SITIO.localidad}</address>
     <div>[mapa estático]</div>
-    <a href="https://maps.google.com/?q=[coordenadas]">Abrir en Google Maps</a>
+    <a href={mapsUrl}>Abrir en Google Maps</a>
   </section>
 
   <section class="como-llegar">
@@ -22,10 +23,19 @@ import Base from '../layouts/Base.astro';
     <p>[Indicaciones desde Córdoba capital]</p>
   </section>
 
+  <section class="cerca">
+    <h2>Qué hay cerca</h2>
+    <p>[Cerro Uritorco: qué es, distancia desde las cabañas, cuándo ir]</p>
+    <p>[Los Terrones]</p>
+    <p>[Ongamira]</p>
+    <p>[El pueblo: calle techada, murales, gastronomía]</p>
+    <p>[El cielo de noche: astroturismo, Puesto Pavón]</p>
+  </section>
+
   <section class="contacto">
     <h2>Contacto</h2>
     <ul>
-      <li><a href="https://wa.me/549XXXXXXXXXX">WhatsApp</a></li>
+      <li><a href={whatsappUrl('Hola! Quería hacer una consulta sobre Misky Wayra')}>WhatsApp</a></li>
       <li><a href="tel:+549XXXXXXXXXX">[Teléfono]</a></li>
       <li><a href="https://instagram.com/[usuario]">Instagram</a></li>
     </ul>

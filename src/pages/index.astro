@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Alero from '../components/Alero.astro';
 import Hero from '../components/Hero.astro';
+import { whatsappUrl } from '../config';
 ---
 
 <Base
@@ -51,15 +52,15 @@ import Hero from '../components/Hero.astro';
     </table>
   </section>
 
-  <section class="alrededores">
-    <h2>Alrededores</h2>
-    <p>[Uritorco, Los Terrones, Ongamira, el cielo nocturno]</p>
-    <a href="/alrededores">Explorar los alrededores</a>
+  <section class="galeria">
+    <h2>El parque</h2>
+    <p>[Tres mil metros cuadrados de monte, la pileta y los espacios compartidos]</p>
+    <a href="/galeria">Ver la galería de fotos</a>
   </section>
 
   <Alero />
   <section class="contacto banda">
     <h2>Consultá disponibilidad</h2>
-    <a href="https://wa.me/549XXXXXXXXXX">Escribinos por WhatsApp</a>
+    <a href={whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra')}>Escribinos por WhatsApp</a>
   </section>
 </Base>

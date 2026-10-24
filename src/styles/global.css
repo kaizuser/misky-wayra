@@ -88,3 +88,57 @@ main article > * + * { margin-block-start: var(--space-s); }
   .cabanas { grid-template-columns: 1fr 1fr; }
   .cabanas h2 { grid-column: 1 / -1; }
 }
+
+
+/* ---------- Transiciones entre páginas (sin JavaScript) ----------
+   El navegador anima el cambio de página: los colores se funden y las fotos
+   con el mismo view-transition-name se transforman una en la otra.
+   Navegadores sin soporte simplemente cambian de página. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 550ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Las fotos se recortan en vez de deformarse mientras cambian de tamaño */
+::view-transition-old(casa-sumac-mayu),
+::view-transition-new(casa-sumac-mayu),
+::view-transition-old(casa-misky-wayra),
+::view-transition-new(casa-misky-wayra) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+}
+
+/* Orden de las capas durante la transición.
+   Por defecto, una foto que existe en una sola de las dos páginas (la otra casa)
+   se dibuja arriba de todo como un rectángulo. Los bordes de alero y la nav
+   van siempre por encima, así ninguna foto pierde su forma. */
+::view-transition-group(borde-arriba),
+::view-transition-group(borde-abajo) {
+  z-index: 2;
+}
+
+::view-transition-group(cabecera),
+::view-transition-group(pulgar) {
+  z-index: 3;
+}
+
+/* La casa que existe en una sola de las dos páginas no viaja con los bordes:
+   al irse desaparece enseguida, y al llegar aparece cuando los bordes ya se acomodaron */
+::view-transition-old(casa-sumac-mayu):only-child,
+::view-transition-old(casa-misky-wayra):only-child {
+  animation-duration: 90ms;
+}
+
+::view-transition-new(casa-sumac-mayu):only-child,
+::view-transition-new(casa-misky-wayra):only-child {
+  animation-delay: 450ms;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}

@@ -1,0 +1,107 @@
+---
+/**
+ * Hero de cada cabaña: la llegada.
+ * La foto tiene el mismo view-transition-name que su mitad en el hero de la home,
+ * así al navegar la foto se expande y se convierte en este hero.
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Alero from './Alero.astro';
+
+interface Props {
+  nombre: string;
+  significado: string;
+  frase: string;
+  foto: { src: ImageMetadata; alt: string; encuadre: string };
+  transicion: string;
+}
+
+const { nombre, significado, frase, foto, transicion } = Astro.props;
+---
+
+<section class="cabana-hero">
+  <div class="texto">
+    <p class="significado">{significado}</p>
+    <h1>{nombre}</h1>
+    <p class="frase">{frase}</p>
+  </div>
+
+  <div class="franja">
+    <figure class="foto" style={`view-transition-name: ${transicion}; --encuadre: ${foto.encuadre}`}>
+      <Picture
+        src={foto.src}
+        alt={foto.alt}
+        formats={['avif', 'webp']}
+        widths={[640, 1024, 1600, 2000]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </figure>
+    <div class="borde arriba" aria-hidden="true"><Alero cap fill="var(--color-bg)" /></div>
+    <div class="borde abajo" aria-hidden="true"><Alero fill="var(--color-bg)" /></div>
+  </div>
+</section>
+
+<style>
+  .cabana-hero {
+    padding-inline: 0;
+    padding-block-end: 0;
+  }
+
+  .texto {
+    padding-inline: var(--gutter);
+    padding-block-end: var(--space-xl);
+  }
+
+  .texto > * + * {
+    margin-block-start: var(--space-xs);
+  }
+
+  .significado {
+    font-size: var(--step--1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .frase {
+    font-size: var(--step-1);
+  }
+
+  /* (no se llama .banda: esa clase global le pondría fondo de color) */
+  .franja {
+    position: relative;
+    margin-block-start: 0;
+  }
+
+  .foto {
+    margin: 0;
+    height: clamp(20rem, 62svh, 42rem);
+    overflow: hidden;
+  }
+
+  .foto :global(picture),
+  .foto :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .foto :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre);
+  }
+
+  .borde {
+    position: absolute;
+    inset-inline: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Los bordes tienen nombre propio: durante la transición entre páginas
+     se quedan sobre la foto, así la foto nunca se ve como un rectángulo */
+  .arriba { top: -1px; view-transition-name: borde-arriba; }
+  .abajo { bottom: -1px; view-transition-name: borde-abajo; }
+</style>

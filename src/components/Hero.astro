@@ -101,6 +101,10 @@ import misky from '../assets/home/hero-misky.jpg';
   .sumac :global(img) { object-position: 42% 45%; }
   .misky :global(img) { object-position: 64% 45%; }
 
+  /* Mismo nombre que la foto del hero de cada cabaña: al navegar, se expande */
+  .sumac { view-transition-name: casa-sumac-mayu; }
+  .misky { view-transition-name: casa-misky-wayra; }
+
   .lado:focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: -6px;
@@ -129,8 +133,10 @@ import misky from '../assets/home/hero-misky.jpg';
     pointer-events: none; /* los clics pasan a las fotos */
   }
 
-  .arriba { top: -1px; }
-  .abajo { bottom: -1px; }
+  /* Los bordes tienen nombre propio: durante la transición entre páginas
+     se quedan sobre la foto, así la foto nunca se ve como un rectángulo */
+  .arriba { top: -1px; view-transition-name: borde-arriba; }
+  .abajo { bottom: -1px; view-transition-name: borde-abajo; }
 
   /* ---------- Tablet y desktop: una al lado de la otra ---------- */
   @media (min-width: 40rem) {

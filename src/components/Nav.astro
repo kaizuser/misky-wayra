@@ -9,13 +9,12 @@
  *   cabañas y WhatsApp en el centro.
  */
 import Emblema from './Emblema.astro';
+import { whatsappUrl } from '../config';
 
 const ruta = Astro.url.pathname.replace(/\/$/, '') || '/';
 const actual = (href: string) => (ruta === href ? 'page' : undefined);
 
-const whatsapp =
-  'https://wa.me/549XXXXXXXXXX?text=' +
-  encodeURIComponent('Hola! Quería consultar disponibilidad en Misky Wayra');
+const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra');
 ---
 
 <header class="cabecera">
@@ -39,7 +38,7 @@ const whatsapp =
   </button>
   <nav id="utilidades" class="utilidades" popover aria-label="Información">
     <ul>
-      <li><a href="/alrededores" aria-current={actual('/alrededores')}>Alrededores</a></li>
+      <li><a href="/galeria" aria-current={actual('/galeria')}>Galería</a></li>
       <li><a href="/ubicacion-y-contacto" aria-current={actual('/ubicacion-y-contacto')}>Ubicación y contacto</a></li>
     </ul>
   </nav>
@@ -62,6 +61,7 @@ const whatsapp =
 <style>
   /* ---------- Cabecera ---------- */
   .cabecera {
+    view-transition-name: cabecera; /* queda quieta al cambiar de página */
     position: sticky;
     top: 0;
     z-index: 20;
@@ -245,6 +245,7 @@ const whatsapp =
     }
 
     .pulgar {
+      view-transition-name: pulgar;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;

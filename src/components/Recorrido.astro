@@ -1,0 +1,231 @@
+---
+/**
+ * El recorrido: la cabaña contada como un camino, de afuera hacia adentro y de vuelta afuera.
+ * Una línea sobre el eje une las paradas y se dibuja a medida que bajás.
+ * Las paradas alternan de lado (texto / foto) alrededor del eje.
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Foto {
+  src: ImageMetadata;
+  alt: string;
+  encuadre: string;
+}
+
+interface Props {
+  paradas: { titulo: string; texto: string; fotos: Foto[] }[];
+}
+
+const { paradas } = Astro.props;
+const numero = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section class="recorrido" aria-label="Recorrido por la cabaña">
+  <ol>
+    {
+      paradas.map((parada, i) => (
+        <li class="parada">
+          <span class="marca" aria-hidden="true">
+            {numero(i)}
+          </span>
+
+          <div class="texto">
+            <h2>{parada.titulo}</h2>
+            <p>{parada.texto}</p>
+          </div>
+
+          <div class="fotos">
+            {parada.fotos.length > 0 ? (
+              parada.fotos.map((foto, j) => (
+                <figure class:list={['foto', { principal: j === 0 }]} style={`--encuadre: ${foto.encuadre}`}>
+                  <Picture
+                    src={foto.src}
+                    alt={foto.alt}
+                    formats={['avif', 'webp']}
+                    widths={[400, 800, 1200]}
+                    sizes="(min-width: 64rem) 30rem, 90vw"
+                  />
+                </figure>
+              ))
+            ) : (
+              <div class="foto principal pendiente">
+                <span>Foto en camino</span>
+              </div>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .recorrido ol {
+    --linea: 2px;
+    --marca: 3rem;
+
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-3xl);
+  }
+
+  /* La línea del eje que une las paradas */
+  .recorrido ol::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: calc(var(--marca) / 2 - var(--linea) / 2);
+    width: var(--linea);
+    background: var(--color-accent);
+    opacity: 0.5;
+    transform-origin: top;
+  }
+
+  .parada {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--marca) 1fr;
+    grid-template-areas:
+      'marca texto'
+      '.     fotos';
+    column-gap: var(--space-m);
+    row-gap: var(--space-l);
+    text-align: start;
+  }
+
+  .marca {
+    grid-area: marca;
+    display: grid;
+    place-items: center;
+    width: var(--marca);
+    height: var(--marca);
+    border: var(--linea) solid var(--color-accent);
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    z-index: 1;
+  }
+
+  .texto {
+    grid-area: texto;
+  }
+
+  .texto > * + * {
+    margin-block-start: var(--space-s);
+  }
+
+  .texto p {
+    margin-inline: 0;
+  }
+
+  .fotos {
+    grid-area: fotos;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s);
+  }
+
+  .foto {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    aspect-ratio: 1;
+  }
+
+  /* La foto principal de cada parada, en forma de arco */
+  .foto.principal {
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 5;
+    border-radius: 50% 50% var(--radius) var(--radius) / 30% 30% var(--radius) var(--radius);
+  }
+
+  .foto :global(picture),
+  .foto :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .foto :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre);
+  }
+
+  .pendiente {
+    display: grid;
+    place-items: center;
+    background: var(--color-surface);
+    color: var(--color-deep);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    opacity: 0.8;
+  }
+
+  /* ---------- Desktop: la línea en el eje, paradas alternadas ---------- */
+  @media (width >= 64rem) {
+    .recorrido ol::before {
+      left: calc(50% - var(--linea) / 2);
+    }
+
+    .parada {
+      grid-template-columns: 1fr var(--marca) 1fr;
+      grid-template-areas: 'texto marca fotos';
+      column-gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .parada:nth-child(even) {
+      grid-template-areas: 'fotos marca texto';
+    }
+
+    /* El texto se alinea hacia el eje */
+    .parada:nth-child(odd) .texto {
+      text-align: end;
+    }
+
+    .parada:nth-child(odd) .texto p {
+      margin-inline-start: auto;
+    }
+
+    .fotos {
+      width: 100%;
+      max-width: 30rem;
+    }
+
+    .parada:nth-child(even) .fotos {
+      justify-self: end;
+    }
+  }
+
+  /* ---------- Movimiento: la línea se dibuja y las paradas aparecen ---------- */
+  @supports (animation-timeline: view()) {
+    .recorrido ol::before {
+      animation: trazar linear both;
+      animation-timeline: view();
+      animation-range: entry 20% exit 60%;
+    }
+
+    .parada {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    @keyframes trazar {
+      from { transform: scaleY(0); }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        translate: 0 2rem;
+      }
+    }
+  }
+</style>
