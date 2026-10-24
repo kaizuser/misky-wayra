@@ -189,3 +189,26 @@ main article > * + * { margin-block-start: var(--space-s); }
 ::view-transition-old(borde-abajo):only-child {
   animation-duration: 150ms;
 }
+
+/* ---------- Fotos en grande (PhotoSwipe) ----------
+   El visor se agrega al final del body, así que toma los colores del tema de la página */
+.pswp.pswp { /* doble clase: el CSS de PhotoSwipe se carga después y pisaría las variables */
+  --pswp-bg: var(--color-deep);
+  --pswp-icon-color: var(--cal);
+  --pswp-icon-color-secondary: var(--color-deep);
+}
+
+/* El epígrafe va sobre un degradé oscuro, para que se lea sobre cualquier foto */
+.pswp__epigrafe {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--space-2xl) var(--gutter) max(var(--space-m), env(safe-area-inset-bottom));
+  background: linear-gradient(to bottom, transparent, rgb(43 33 25 / 0.75));
+  color: var(--cal);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  text-align: center;
+  text-wrap: balance;
+  pointer-events: none;
+}

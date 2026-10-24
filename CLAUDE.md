@@ -392,7 +392,7 @@ Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--vient
 | `content-cerca` | Texts for "Qué hay cerca" in Ubicación y contacto (what it is, distance from the cottages, when to go). |
 | `page-galeria` | Build the Galería: photos in `src/assets/galeria/` grouped by space, editorial layout (arch-masked feature photos + smaller ones), PhotoSwipe on tap, captions, lazy loading. |
 | `photos-missing` | Section 9 list, hero pair first. |
-| `gallery` | Wire PhotoSwipe on the trip's photos (tap → full screen with caption), loaded only on cottage pages. Add an optional `caption` field per photo in the schema. |
+| `gallery` | **Done (Oct 24, 2026)** for the trip: `src/scripts/lightbox.ts` (PhotoSwipe lightbox, Spanish UI, swipe through every photo in `[data-galeria]`, full-size WebP ≤2048px from `getImage`). Optional `epigrafe` per photo in the schema (falls back to `alt`), shown on a dark gradient. Background = `--color-deep` of the page theme (`.pswp.pswp` beats PhotoSwipe's own CSS). Weight: launcher 5 KB gz on cottage pages; the viewer (17 KB gz) loads on the first tap. The Galería will reuse it: `data-galeria` on the container, `a.ampliar` around each photo. Also fixed: `.recorrido { overflow-x: clip }`, the sideways arrival made mobile pages wider than the screen while stops were arriving. |
 | `ux-details` | See section 13 (items 3–8 pending). |
 | `seo-code` | Section 8, in code. |
 | `seo-google-profile` | Google Business Profile + review system. Can start now. |

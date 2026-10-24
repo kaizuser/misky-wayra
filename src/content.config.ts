@@ -10,6 +10,7 @@ const cabanas = defineCollection({
       src: image(),
       alt: z.string().min(10, 'Cada foto necesita un texto alternativo descriptivo'),
       encuadre: z.string().default('50% 50%'), // object-position al recortar
+      epigrafe: z.string().optional(), // texto al verla en grande (si falta, se usa el alt)
     });
 
     return z.object({
