@@ -19,7 +19,8 @@ const { title, description, theme } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Font cssVariable="--font-fraunces" preload />
+    <!-- Solo la recta: la itálica se descarga cuando una página la usa -->
+    <Font cssVariable="--font-fraunces" preload={[{ style: 'normal' }]} />
     <Font cssVariable="--font-figtree" preload />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>

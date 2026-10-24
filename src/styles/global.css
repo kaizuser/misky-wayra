@@ -11,14 +11,18 @@ body {
   font-family: var(--font-body);
   /* Fraunces suave: terminaciones redondeadas, como hecha a mano. Se hereda;
      Figtree no tiene el eje SOFT y lo ignora. */
-  font-variation-settings: 'SOFT' 100;
+  font-variation-settings: 'SOFT' var(--suavidad);
   font-size: var(--step-0);
   line-height: var(--leading-body);
 }
 
+/* Cada tema redefine --suavidad; la propiedad se vuelve a declarar para que tome su valor
+   (font-variation-settings se hereda ya calculada) */
+[data-theme] { font-variation-settings: 'SOFT' var(--suavidad); }
+
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: var(--peso-titulo);
   line-height: var(--leading-tight);
   color: var(--color-deep);
 }

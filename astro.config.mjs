@@ -18,7 +18,7 @@ export default defineConfig({
       name: 'Fraunces',
       cssVariable: '--font-fraunces',
       weights: ['300 700'],
-      styles: ['normal'],
+      styles: ['normal', 'italic'], // la itálica real; solo se descarga donde se usa
       subsets: ['latin'],
       fallbacks: ['Georgia', 'serif'],
     },

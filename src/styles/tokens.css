@@ -33,6 +33,10 @@
   --color-accent: var(--monte);      /* detalles (igual al primary) */
   --color-deep: var(--tinta);        /* títulos, fondos oscuros */
   --color-on-color: var(--cal);      /* texto sobre primary/accent/deep */
+
+  /* Carácter de la letra (Fraunces): peso de títulos y nombres, y suavidad (eje SOFT) */
+  --peso-titulo: 500;
+  --suavidad: 100;
 }
 
 /* ---------- Temas: cada casa cambia solo su color ---------- */
@@ -40,12 +44,16 @@
   --color-primary: var(--adobe);
   --color-accent: var(--adobe);
   --color-deep: var(--brasa);
+  --peso-titulo: 620;  /* arcilla: más pesada y blanda */
+  --suavidad: 100;
 }
 
 [data-theme="wayra"] {
   --color-primary: var(--techo);
   --color-accent: var(--techo);
   --color-deep: var(--sombra);
+  --peso-titulo: 380;  /* aire: más liviana */
+  --suavidad: 50;
 }
 
 /* ---------- Tipografía ---------- */

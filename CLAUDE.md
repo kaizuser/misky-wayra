@@ -235,7 +235,7 @@ Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--vient
 **Color protocol:** components use roles only; ~60% surface / 30% theme / 10% accent; 4.5:1 for text, 3:1 for large text/UI; the WhatsApp button uses `--color-primary`, never WhatsApp green; the home center is always the complex theme.
 
 ### Typography
-- **Fraunces** (headings): soft, slightly irregular variable serif, feels handmade like the house. Used large, light weights. The served file is Fontsource's full-axes variable font (wght, opsz, SOFT, WONK). `body` sets `font-variation-settings: 'SOFT' 100` (inherited; Figtree ignores it): rounded, hand-made terminals.
+- **Fraunces** (headings): soft, slightly irregular variable serif, feels handmade like the house. Used large, light weights. The served file is Fontsource's full-axes variable font (wght, opsz, SOFT, WONK). `body` and every `[data-theme]` set `font-variation-settings: 'SOFT' var(--suavidad)` (re-declared per theme because the property inherits already computed; Figtree ignores it). **Each house has its type trait** (Oct 24, 2026): headings and names use `font-weight: var(--peso-titulo)`. Complex 500 / SOFT 100; Sumac = clay, 620 / SOFT 100 (heavier, softer); Misky = air, 380 / SOFT 50 (lighter). **Real italic** is loaded (`styles: ['normal', 'italic']`, +146 KB) but only the upright is preloaded (`preload={[{ style: 'normal' }]}` in `Base.astro`); the italic downloads only on pages that use it (today the home: the h1 *Misky Wayra.* and the chapter numbers). Before this, italics were synthesized (slanted upright).
 - **Figtree** (body): clean, friendly, rounded details, readable on small phones, full Spanish characters.
 - Why not system fonts: Android (most visitors) lacks the serif stack → inconsistent brand.
 - Fluid scale `--step--1` … `--step-5` with `clamp()`. h1 = step 5, h2 = step 3, h3 = step 1, body = step 0. Headings weight 500, color `--color-deep`. Measure 65ch.
@@ -332,6 +332,7 @@ Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--vient
 - **Emblem traced from IMG_0389, mass-and-void with dome + seam + drooping eave + plinth** — still not expressive enough; developer didn't connect with it.
 - **Hero: single arch with the Uritorco photo** — too minimalistic; doesn't show the houses.
 - **Hero: one arch split in two (Sumac | Misky) with a mullion** — the arch is too small and the shape didn't connect.
+- **Fraunces `WONK` axis for Sumac** (Oct 24, 2026): the served file has the axis (0–1, default 1) but it changes nothing in the upright styles at any optical size (measured: identical glyphs and widths). Its wonky forms live in the italic. Replaced by the clay/air weight + SOFT trait.
 - **Hero B1** (title on cream + full-bleed band of two photos with eave edges, hovered side grows): built and used until Oct 24, 2026, replaced by "La historia". Felt too generic ("too AI-generated"): centered, symmetric, no idea driving the layout.
 - **Hero option B2** (photos fill the first screen, title on a plaque over the seam) — B1 was preferred.
 - **"No standalone gallery page"** was reversed by the developer: the Alrededores page became the **Galería de fotos** (grounds, pool, shared spaces, views). Cottage pages keep only the cottage and its interiors. The surroundings content moved to "Qué hay cerca" in Ubicación y contacto.
