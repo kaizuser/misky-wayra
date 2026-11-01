@@ -144,7 +144,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
           })}
         </div>
       ) : parada.disposicion === 'escalones' ? (
-        // Escalones: dos escaleras paralelas, pegadas, que bajan de izquierda a derecha por el
+        // Escalones: dos escaleras paralelas, pegadas, que bajan de derecha a izquierda por el
         // centro. Cada escalón tiene dos fotos lado a lado (una de cada escalera).
         <div class="escalones">
           {[0, 1, 2].map((escalon) => (
@@ -163,7 +163,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                         alt={foto.alt}
                         formats={['avif', 'webp']}
                         widths={[400, 700, 1000]}
-                        sizes="(min-width: 40rem) 20vw, 45vw"
+                        sizes="(min-width: 40rem) 22vw, 45vw"
                       />
                     )}
                   </figure>
@@ -497,12 +497,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 
-  /* ---------- Escalones: dos escaleras paralelas que bajan de izquierda a derecha ----------
-     Sobre el 80% del ancho: cada escalón es un par de fotos (20vw cada una, 4:5) con un
-     espacio chico entre ellas; cada escalón se corre a la derecha y baja, del borde
-     izquierdo de la composición al derecho, así las dos escaleras pasan por el centro. */
+  /* ---------- Escalones: dos escaleras paralelas que bajan de derecha a izquierda ----------
+     Sobre el 80% del ancho: cada escalón es un par de fotos (22vw cada una, 4:5) con un
+     espacio chico entre ellas; cada escalón se corre a la izquierda y baja, del borde
+     derecho de la composición al izquierdo, así las dos escaleras pasan por el centro.
+     Va de derecha a izquierda porque el texto anterior está pegado a la izquierda: zigzag. */
   .escalones {
-    --foto: 20vw;   /* ancho de cada foto */
+    --foto: 22vw;   /* ancho de cada foto */
     --entre: 1.2vw; /* espacio entre las dos escaleras */
     --ancho: 80vw;  /* ancho de la composición */
 
@@ -517,7 +518,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     display: flex;
     gap: var(--entre);
     width: calc(2 * var(--foto) + var(--entre));
-    margin-inline-start: calc(var(--i) * (var(--ancho) - 2 * var(--foto) - var(--entre)) / 2);
+    margin-inline-start: calc((2 - var(--i)) * (var(--ancho) - 2 * var(--foto) - var(--entre)) / 2);
   }
 
   .escalones .foto {
