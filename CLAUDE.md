@@ -99,6 +99,8 @@ Built in (no install): `astro:assets` images, `astro/zod`, Fonts API, `<ClientRo
 
 **CSS minifier:** `astro.config.mjs` sets `vite.build.cssMinify: 'esbuild'`. Vite 8's default (lightningcss) folds `animation-timeline` into the `animation` shorthand, which Chrome rejects, so every scroll-driven animation (trip line, stops, nav) silently disappeared in the build while working in `dev`. If scroll animations break after an upgrade, grep `dist/_astro/*.css` for `animation-timeline`.
 
+**One dev server per project (Astro 7):** if a dev server is already running, `npm run dev` doesn't start a new one; it just points to the existing one ("Dev server already running at …"). A forgotten server keeps stale content and config (on Nov 1, 2026 one left running since Oct 24 hid the new texts and broke images). Check with `npx astro dev status`, stop with `npx astro dev stop`, then start again. Claude: stop any dev/preview server you start when you're done with it.
+
 `.prettierrc` uses `prettier-plugin-astro` with an override `parser: "astro"` for `*.astro`. `package.json` has `"check": "astro check"`.
 
 Suggested: add `.node-version` with `26` at the repo root.
