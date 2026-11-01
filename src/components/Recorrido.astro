@@ -19,7 +19,7 @@
 import { Picture, getImage } from 'astro:assets';
 import 'photoswipe/style.css';
 import type { ImageMetadata } from 'astro';
-import { voluta } from '../lib/volutas';
+import { voluta, centroVertical } from '../lib/volutas';
 import { feston } from '../lib/formas';
 
 interface Foto {
@@ -36,6 +36,8 @@ interface Props {
 
 const { paradas, tema } = Astro.props;
 const trazos = voluta(tema);
+// Las volutas entre paradas se centran por su dibujo, no por el nudo; el cierre ya es simétrico
+const cajaVoluta = `-125 ${(centroVertical(tema) - 45).toFixed(1)} 250 90`;
 const borde = feston(30, 92);
 
 const numero = (i: number) => String(i + 1).padStart(2, '0');
@@ -113,7 +115,7 @@ const grandes = await Promise.all(
 
           <svg
             class:list={['voluta', { cierre: i === paradas.length - 1 }]}
-            viewBox="-125 -45 250 90"
+            viewBox={i === paradas.length - 1 ? '-125 -45 250 90' : cajaVoluta}
             aria-hidden="true"
           >
             <circle class="nudo" r="1.6" />

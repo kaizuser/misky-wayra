@@ -42,16 +42,31 @@ function trazo({ x, y, ang, len, k0 = 0, k1, exp = 1 }: Trazo) {
 const aPath = (pts: [number, number][]) =>
   'M' + pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' L');
 
-/** Los trazos del lado derecho del eje; el izquierdo es su espejo (scaleX(-1) en CSS). */
-export function voluta(tema: 'mayu' | 'wayra'): string[] {
+/** Los puntos de cada trazo del lado derecho del eje */
+function puntos(tema: 'mayu' | 'wayra'): [number, number][][] {
   if (tema === 'mayu') {
     const ola = trazo({ x: 4, y: 0, ang: 18, len: 210, k0: 0.012, k1: -0.13 });
     const [ex, ey] = ola[Math.round(ola.length * 0.42)];
     const espuma = trazo({ x: ex, y: ey, ang: 30, len: 46, k0: 0.02, k1: 0.2 });
-    return [aPath(ola), aPath(espuma)];
+    return [ola, espuma];
   }
 
   const larga = trazo({ x: 4, y: -5, ang: -5, len: 150, k0: 0.002, k1: -0.28, exp: 6 });
   const corta = trazo({ x: 4, y: 5, ang: 8, len: 90, k0: 0.003, k1: -0.26, exp: 6 });
-  return [aPath(larga), aPath(corta)];
+  return [larga, corta];
+}
+
+/** Los trazos del lado derecho del eje; el izquierdo es su espejo (scaleX(-1) en CSS). */
+export function voluta(tema: 'mayu' | 'wayra'): string[] {
+  return puntos(tema).map(aPath);
+}
+
+/**
+ * El centro vertical del dibujo. Las volutas no son simétricas (los rulos pesan arriba):
+ * centrando el viewBox en este punto, quedan a la misma distancia de la foto de arriba
+ * que de la de abajo, aunque el nudo (y = 0) se corra un poco.
+ */
+export function centroVertical(tema: 'mayu' | 'wayra'): number {
+  const ys = puntos(tema).flat().map(([, y]) => y);
+  return (Math.min(...ys) + Math.max(...ys)) / 2;
 }
