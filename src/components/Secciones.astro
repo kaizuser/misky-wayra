@@ -23,7 +23,7 @@ interface Props {
     titulo: string;
     disposicion?: string;
     titular?: string;
-    nota?: { titulo: string; subtitulo: string };
+    nota?: { titulo: string; subtitulo: string; estilo: 'centrada' | 'final' };
     fotos: Foto[];
   }[];
 }
@@ -152,7 +152,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.nota && (
         // Texto corto debajo de las fotos: entra como el texto principal
-        <div class="nota">
+        <div class:list={['nota', parada.nota.estilo]}>
           <p class="nota-titulo" data-revelar>{parada.nota.titulo}</p>
           <p class="nota-subtitulo" data-revelar>{parada.nota.subtitulo}</p>
         </div>
@@ -346,6 +346,34 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
   .seccion:has(.nota) {
     padding-block-end: calc(var(--space-3xl) * 2);
+  }
+
+  /* Final: como el cierre de la referencia. Alineada a la izquierda, un poco más adentro
+     que el margen; título muy grande en dos renglones y un párrafo ancho de cuatro */
+  .nota.final {
+    justify-items: start;
+    gap: 3.5rem;
+    margin-inline-start: 5vw;
+    text-align: start;
+  }
+
+  .final .nota-titulo {
+    max-width: 7.5em;
+    font-size: clamp(3rem, 1.4rem + 5.2vw, 6.25rem);
+    line-height: 0.92;
+    text-wrap: initial;
+  }
+
+  .final .nota-subtitulo {
+    max-width: 40rem;
+    line-height: 1.55;
+  }
+
+  @media (width < 40rem) {
+    .nota.final {
+      margin-inline-start: 0;
+      gap: var(--space-l);
+    }
   }
 
   /* ---------- Cinco: tres arriba, dos abajo centradas en los huecos ----------

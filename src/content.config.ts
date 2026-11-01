@@ -48,7 +48,10 @@ const cabanas = defineCollection({
           /** Título expresivo antes de las fotos (formato secciones): la palabra como forma */
           titular: z.enum(['escalera']).optional(),
           /** Texto corto centrado debajo de las fotos (formato secciones): un título y un subtítulo */
-          nota: z.object({ titulo: z.string(), subtitulo: z.string() }).optional(),
+          /** centrada: corta, en el medio; final: grande, alineada a la izquierda (como el cierre de la referencia) */
+          nota: z
+            .object({ titulo: z.string(), subtitulo: z.string(), estilo: z.enum(['centrada', 'final']).default('centrada') })
+            .optional(),
           fotos: z.array(foto).default([]),
         }),
       ),
