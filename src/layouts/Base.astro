@@ -64,6 +64,20 @@ const ogUrl = new URL(og.src, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
 
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify({ image: ogUrl.href, ...jsonLd })} />}
+    <!-- Volver de una cabaña a otra página: las fotos no viajan (la del hero de la cabaña
+         "caería" desde arriba hasta su ventana). La transición se marca como "volver" y
+         global.css anula el viaje; la página solo se funde. Tiene que correr antes del
+         primer cuadro, por eso es un script clásico en el head. -->
+    <script is:inline>
+      addEventListener('pagereveal', (e) => {
+        if (!e.viewTransition) return;
+        const desde = (window.navigation && navigation.activation && navigation.activation.from && navigation.activation.from.url) || document.referrer;
+        if (!desde) return;
+        if (new URL(desde).pathname.includes('/cabanas/') && !location.pathname.includes('/cabanas/')) {
+          e.viewTransition.types.add('volver');
+        }
+      });
+    </script>
     <!-- Al pasar el mouse por un link a una cabaña, Chrome la prepara de antemano:
          la foto ya está cargada cuando arranca la transición. Otros navegadores lo ignoran. -->
     <script

@@ -148,6 +148,13 @@ main article > * + * { margin-block-start: var(--space-s); }
   animation-duration: 750ms;
 }
 
+/* Al volver de una cabaña (tipo "volver", lo marca Base.astro), las fotos no viajan:
+   cada una aparece directamente en su lugar mientras la página se funde */
+:active-view-transition-type(volver)::view-transition-group(casa-sumac-mayu),
+:active-view-transition-type(volver)::view-transition-group(casa-misky-wayra) {
+  animation: none;
+}
+
 @keyframes vt-aparecer {
   from { opacity: 0; }
 }
