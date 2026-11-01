@@ -174,6 +174,13 @@ The developer's direction: each cottage page is a **trip / a path** that takes t
 
 Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewritten from the family's WhatsApp descriptions: voseo, short, factual, no prices.
 
+### Cottage pages, new format "secciones" (in progress since Nov 1, 2026, Sumac first)
+The developer's redesign: the trip structure stays (same stops, in order), but each stop becomes a **section told with 3–4 photos** in its own composition, with almost no text. Reference: wolnylas.pl (screenshots in `pagina-especifica/`, not committed). **Text is reduced to the minimum:** only the main text after the hero; section titles exist only for screen readers (`.solo-lectores`). Special expressive titles (rotated/scattered letters, as in the reference's "Domki"/"Atrakcje") are planned for specific moments, later. Misky stays on the old "camino" format until Sumac is done.
+- `formato: secciones` in the cottage `.md` switches `[slug].astro` to `Secciones.astro` (else `Recorrido.astro`). Each stop has `disposicion`: `abanico` | `trio` | `cruz` | `panoramica` | `par`. `principal: { frase, texto }` (lorem ipsum for now).
+- **Main text:** a big centered phrase in **Instrument Serif** (`--font-principal`; condensed high-contrast serif, the closest free match to the reference; loaded without preload, only where used) in the house color, and a small paragraph in Figtree. Both rise from below with a very subtle fade, scroll-linked (`view()`), the paragraph after the phrase. Reduced motion: fade only.
+- **Compositions (to build one by one):** `abanico` = three tall photos at staggered heights that start overlapped and open outward and upward while scrolling, still slightly overlapped at the end (must match the reference); `trio` = three equal tall photos in a row; `cruz` = four photos (a tall one on each side, two stacked in the middle) arriving from below one by one with a fade; `panoramica` and `par` = new ones. Gray placeholders until photos arrive. Mobile: simpler arrangements, same essence and section structure.
+- The volutas and patterns will be reimplemented in this format (not deleted).
+
 ### Cottage facts (from the family's texts)
 - Address: **Los Alazanes 1077, Barrio Valentí, Capilla del Monte**. Park of **3,000 m²** with fruit and native trees, panoramic view of the hills. Pool in season (shared).
 - **Misky Wayra:** adobe, 80 m², 2 bedrooms (king size + two single beds), full kitchen with electric oven, living-dining with TV, exclusive WiFi and streaming at no cost, Ñuke salamandra stove + heaters in every room, gallery with a large country table and barbecue, independent entrance, covered parking, alarm, bedding and towels included. Up to 4–5 guests.

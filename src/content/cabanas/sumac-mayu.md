@@ -36,8 +36,19 @@ comodidades:
   - Cochera techada
   - Alarma
 
+formato: secciones
+
+# Provisorio: lorem ipsum con el largo aproximado del texto final
+principal:
+  frase: Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+  texto: >-
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur.
+
 recorrido:
   - titulo: La casa
+    disposicion: abanico
     texto: >-
       Sumac Mayu está hecha de adobe, un material natural que la mantiene fresca en verano
       y cálida en invierno. Ciento cuarenta metros cuadrados de formas suaves, una cúpula
@@ -47,26 +58,31 @@ recorrido:
         alt: Pared de adobe de Sumac Mayu con ménsulas de madera, base de piedra y puerta vidriada
 
   - titulo: Adentro
+    disposicion: trio
     texto: >-
       Un living comedor amplio para quedarse. La salamandra calienta los días fríos, y para
       las noches tranquilas hay televisor, WiFi exclusivo y las principales plataformas de
       streaming, sin cargo.
 
   - titulo: La cocina
+    disposicion: cruz
     texto: >-
       Completamente equipada, con todos los electrodomésticos, para cocinar como en casa.
 
   - titulo: El descanso
+    disposicion: panoramica
     texto: >-
       Tres dormitorios: uno con cama king size y dos con camas de una plaza, amplias y
       cómodas. La ropa de cama y las toallas están incluidas.
 
   - titulo: El playroom
+    disposicion: par
     texto: >-
       Cincuenta metros cuadrados extra, con sillones, para jugar, leer o simplemente
       juntarse.
 
   - titulo: Afuera
+    disposicion: abanico
     texto: >-
       Una pérgola con asientos para estar al aire libre, la parrilla para el asado y un
       pequeño invernadero. La entrada es independiente, con cochera techada.

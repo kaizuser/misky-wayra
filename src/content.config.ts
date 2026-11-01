@@ -31,10 +31,20 @@ const cabanas = defineCollection({
       /** lo que solo tiene esta casa, en una línea (fila "Lo propio" del inicio) */
       propio: z.string(),
       comodidades: z.array(z.string()),
+      /**
+       * Cómo se muestra el recorrido:
+       * - camino: la línea sobre el eje con una parada por foto (el formato original)
+       * - secciones: una sección por parada, con 3–4 fotos en una composición propia y casi sin texto
+       */
+      formato: z.enum(['camino', 'secciones']).default('camino'),
+      /** El texto principal después del hero (formato secciones): una frase grande y un párrafo */
+      principal: z.object({ frase: z.string(), texto: z.string() }).optional(),
       recorrido: z.array(
         z.object({
           titulo: z.string(),
           texto: z.string(),
+          /** La composición de fotos de la parada (formato secciones) */
+          disposicion: z.enum(['abanico', 'trio', 'cruz', 'panoramica', 'par']).optional(),
           fotos: z.array(foto).default([]),
         }),
       ),

@@ -20,6 +20,16 @@ export default defineConfig({
   },
   fonts: [
     {
+      // Los textos principales grandes (formato secciones): serif condensada de alto contraste
+      provider: fontProviders.fontsource(),
+      name: 'Instrument Serif',
+      cssVariable: '--font-instrument',
+      weights: ['400'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['Georgia', 'serif'],
+    },
+    {
       provider: fontProviders.fontsource(),
       name: 'Fraunces',
       cssVariable: '--font-fraunces',

@@ -62,6 +62,7 @@
      (Fonts API), con fuentes de respaldo ya incluidas */
   --font-display: var(--font-fraunces);
   --font-body: var(--font-figtree);
+  --font-principal: var(--font-instrument); /* textos principales grandes */
 
   /* Escala fluida: crece con la pantalla, entre un mínimo y un máximo */
   --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);

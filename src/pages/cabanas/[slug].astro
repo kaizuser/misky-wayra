@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import Alero from '../../components/Alero.astro';
 import CabanaHero from '../../components/CabanaHero.astro';
 import Recorrido from '../../components/Recorrido.astro';
+import Secciones from '../../components/Secciones.astro';
 import Consultar from '../../components/Consultar.astro';
 import { alojamiento } from '../../lib/datos';
 import { ruta } from '../../lib/rutas';
@@ -47,7 +48,13 @@ const d = cabana.data;
   />
 
   <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
-  <Recorrido paradas={d.recorrido} tema={d.tema} />
+  {
+    d.formato === 'secciones' ? (
+      <Secciones principal={d.principal} paradas={d.recorrido} />
+    ) : (
+      <Recorrido paradas={d.recorrido} tema={d.tema} />
+    )
+  }
 
   <section class="al-parque">
     <p>

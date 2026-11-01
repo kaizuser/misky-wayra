@@ -1,0 +1,137 @@
+---
+/**
+ * El recorrido en secciones (formato "secciones"): después del hero, el texto principal,
+ * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
+ * composición (abanico, trío, cruz, panorámica, par) y su propia forma de llegar al bajar.
+ * El título de cada sección queda para lectores de pantalla y buscadores.
+ *
+ * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
+ * rectángulos grises con la cantidad de fotos de su composición.
+ */
+import type { ImageMetadata } from 'astro';
+
+interface Foto {
+  src: ImageMetadata;
+  alt: string;
+  encuadre: string;
+}
+
+interface Props {
+  principal?: { frase: string; texto: string };
+  paradas: { titulo: string; disposicion?: string; fotos: Foto[] }[];
+}
+
+const { principal, paradas } = Astro.props;
+
+/** Cuántas fotos lleva cada composición */
+const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panoramica: 3, par: 2 };
+---
+
+{
+  principal && (
+    <section class="principal">
+      <p class="frase">{principal.frase}</p>
+      <p class="texto">{principal.texto}</p>
+    </section>
+  )
+}
+
+{
+  paradas.map((parada) => (
+    <section class="seccion" data-disposicion={parada.disposicion}>
+      <h2 class="solo-lectores">{parada.titulo}</h2>
+      <div class="composicion">
+        {Array.from({ length: cuantas[parada.disposicion ?? 'trio'] ?? 3 }, () => (
+          <div class="foto pendiente" />
+        ))}
+      </div>
+    </section>
+  ))
+}
+
+<script>
+  import '../scripts/trazado';
+</script>
+
+<style>
+  /* ---------- El texto principal ---------- */
+  .principal {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-xl);
+    padding-block: var(--space-3xl);
+  }
+
+  .frase {
+    max-width: 15em;
+    margin: 0;
+    font-family: var(--font-principal);
+    font-size: clamp(2.6rem, 1.2rem + 5.4vw, 6.25rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    color: var(--color-primary);
+  }
+
+  .texto {
+    max-width: 40ch;
+    margin: 0;
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--color-text) 85%, transparent);
+  }
+
+  /* Entran desde abajo, muy de a poco, con un fundido; primero la frase, después el texto */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .frase,
+      .texto {
+        animation: subir linear both;
+        animation-timeline: view();
+      }
+
+      .frase { animation-range: entry 0% cover 35%; }
+      .texto { animation-range: entry 15% cover 45%; }
+
+      @keyframes subir {
+        from {
+          opacity: 0;
+          translate: 0 2.5rem;
+        }
+      }
+    }
+
+    /* Reducir movimiento: solo el fundido */
+    @media (prefers-reduced-motion: reduce) {
+      .frase,
+      .texto {
+        animation: aparecer linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 35%;
+      }
+
+      @keyframes aparecer {
+        from { opacity: 0; }
+      }
+    }
+  }
+
+  /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
+  .seccion {
+    padding-block: var(--space-2xl);
+  }
+
+  .composicion {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-s);
+  }
+
+  .pendiente {
+    flex: 1;
+    max-width: 22rem;
+    aspect-ratio: 3 / 4;
+    background: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
+  }
+</style>
