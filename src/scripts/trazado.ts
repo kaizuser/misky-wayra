@@ -2,6 +2,7 @@
 // al subir; cuando una llega al final se le pone .quieto (global.css: sin animación), y queda
 // su estado natural, que es el dibujo completo. Al llegar al fondo de la página, todo queda trazado.
 // Las de scroll(root) (la nav, el camino del hero) no se tocan: esas sí van y vuelven.
+// Tampoco lo que está dentro de [data-repetir]: esas entradas se repiten cada vez que se vuelve a pasar.
 
 let pendientes: CSSAnimation[] = [];
 
@@ -10,7 +11,12 @@ let pendientes: CSSAnimation[] = [];
 function contar() {
   pendientes = document
     .getAnimations()
-    .filter((a): a is CSSAnimation => a instanceof CSSAnimation && a.timeline instanceof ViewTimeline);
+    .filter(
+      (a): a is CSSAnimation =>
+        a instanceof CSSAnimation &&
+        a.timeline instanceof ViewTimeline &&
+        !((a.effect as KeyframeEffect).target as Element | null)?.closest('[data-repetir]'),
+    );
   addEventListener('scroll', alScrollear, { passive: true });
   revisar();
 }

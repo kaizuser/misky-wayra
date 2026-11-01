@@ -29,7 +29,7 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
 
 {
   principal && (
-    <section class="principal">
+    <section class="principal" data-repetir>
       <p class="frase">{principal.frase}</p>
       <p class="texto">{principal.texto}</p>
     </section>
@@ -82,7 +82,8 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
     color: color-mix(in srgb, var(--color-text) 85%, transparent);
   }
 
-  /* Entran desde abajo, muy de a poco, con un fundido; primero la frase, después el texto */
+  /* Entran desde abajo con un fundido; primero la frase, después el texto.
+     Se repite cada vez que se vuelve a pasar (data-repetir: trazado.ts no la fija) */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .frase,
@@ -91,13 +92,13 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
         animation-timeline: view();
       }
 
-      .frase { animation-range: entry 0% cover 35%; }
-      .texto { animation-range: entry 15% cover 45%; }
+      .frase { animation-range: entry 0% cover 30%; }
+      .texto { animation-range: entry 10% cover 38%; }
 
       @keyframes subir {
         from {
           opacity: 0;
-          translate: 0 2.5rem;
+          translate: 0 4.5rem;
         }
       }
     }
