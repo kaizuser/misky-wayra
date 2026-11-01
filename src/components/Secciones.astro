@@ -19,7 +19,13 @@ interface Foto {
 
 interface Props {
   principal?: { frase: string; texto: string };
-  paradas: { titulo: string; disposicion?: string; titular?: string; fotos: Foto[] }[];
+  paradas: {
+    titulo: string;
+    disposicion?: string;
+    titular?: string;
+    nota?: { titulo: string; subtitulo: string };
+    fotos: Foto[];
+  }[];
 }
 
 const { principal, paradas } = Astro.props;
@@ -112,6 +118,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
           {Array.from({ length: cuantas[parada.disposicion ?? 'fila'] ?? 3 }, () => (
             <div class="foto pendiente" />
           ))}
+        </div>
+      )}
+      {parada.nota && (
+        // Texto corto debajo de las fotos: entra como el texto principal
+        <div class="nota">
+          <p class="nota-titulo" data-revelar>{parada.nota.titulo}</p>
+          <p class="nota-subtitulo" data-revelar>{parada.nota.subtitulo}</p>
         </div>
       )}
     </section>
@@ -268,6 +281,41 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       width: auto;
       margin-inline: 0;
     }
+  }
+
+  /* ---------- Nota: título y subtítulo centrados, debajo de las fotos ----------
+     Como el texto principal, pero más chica y con menos texto. Después, más aire
+     antes de la sección siguiente. */
+  .nota {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    margin-block-start: var(--space-3xl);
+    text-align: center;
+  }
+
+  .nota-titulo {
+    max-width: 16em;
+    margin: 0;
+    font-family: var(--font-principal);
+    font-size: clamp(2.2rem, 1rem + 3.6vw, 4.25rem);
+    line-height: 1.02;
+    text-wrap: balance;
+    color: var(--color-primary);
+  }
+
+  .nota-subtitulo {
+    --retraso: 0.15s;
+
+    max-width: 38ch;
+    margin: 0;
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--color-text) 85%, transparent);
+  }
+
+  .seccion:has(.nota) {
+    padding-block-end: calc(var(--space-3xl) * 2);
   }
 
   /* ---------- Cinco: tres arriba, dos abajo centradas en los huecos ----------

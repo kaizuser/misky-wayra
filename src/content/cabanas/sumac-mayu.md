@@ -60,6 +60,9 @@ recorrido:
   - titulo: Adentro
     disposicion: cinco
     titular: escalera
+    nota:
+      titulo: Lorem ipsum dolor sit amet, consectetur adipiscing.
+      subtitulo: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam.
     texto: >-
       Un living comedor amplio para quedarse. La salamandra calienta los días fríos, y para
       las noches tranquilas hay televisor, WiFi exclusivo y las principales plataformas de
