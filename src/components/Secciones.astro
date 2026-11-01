@@ -348,12 +348,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     padding-block-end: calc(var(--space-3xl) * 2);
   }
 
-  /* Final: como el cierre de la referencia. Alineada a la izquierda, un poco más adentro
-     que el margen; título muy grande en dos renglones y un párrafo ancho de cuatro */
+  /* Final: como el cierre de la referencia. Alineada a la izquierda, casi al borde;
+     título muy grande en dos renglones y un párrafo ancho de cuatro */
   .nota.final {
     justify-items: start;
     gap: 3.5rem;
-    margin-inline-start: 5vw;
+    /* Casi al borde izquierdo de la pantalla, más allá del margen del contenido */
+    margin-inline-start: calc((100% - 100vw) / 2 + 4vw);
     text-align: start;
   }
 
