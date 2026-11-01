@@ -12,12 +12,19 @@ import Emblema from './Emblema.astro';
 import { whatsappUrl } from '../config';
 import { ruta } from '../lib/rutas';
 
+interface Props {
+  /** false en las páginas con su propia franja de navegación (Franja.astro) */
+  cabecera?: boolean;
+}
+
+const { cabecera = true } = Astro.props;
 const aqui = Astro.url.pathname; // con la base y siempre con barra final (trailingSlash: 'always')
 const actual = (href: string) => (aqui === href ? 'page' : undefined);
 
 const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wayra');
 ---
 
+{cabecera && (
 <header class="cabecera">
   <nav class="eje" aria-label="Cabañas">
     <a class="ala" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>
@@ -44,6 +51,7 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
     </ul>
   </nav>
 </header>
+)}
 
 <nav class="pulgar" aria-label="Accesos rápidos">
   <a class="ala" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>

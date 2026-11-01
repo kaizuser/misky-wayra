@@ -55,7 +55,8 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 }
 
 {
-  paradas.map((parada) => (
+  // Solo las paradas con composición (las demás todavía no se muestran)
+  paradas.filter((parada) => parada.disposicion).map((parada) => (
     <section class="seccion" data-disposicion={parada.disposicion}>
       <h2 class="solo-lectores">{parada.titulo}</h2>
       {parada.titular && (

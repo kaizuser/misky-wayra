@@ -1,0 +1,133 @@
+---
+/**
+ * La nav de las páginas de cabaña en formato secciones: una franja fina a todo el ancho,
+ * justo debajo de la foto principal. Mientras bajás es parte de la página (sin fondo, sin
+ * borde) y se va con ella; no reaparece mientras seguís bajando. Cuando subís, aparece fija
+ * arriba, con las mismas medidas, difuminada (scripts/franja.ts). Al volver a su lugar,
+ * vuelve a ser parte de la página.
+ */
+import Emblema from './Emblema.astro';
+import { ruta } from '../lib/rutas';
+
+const aqui = Astro.url.pathname;
+const actual = (href: string) => (aqui === href ? 'page' : undefined);
+---
+
+<div class="franja-nav">
+  <nav class="barra" aria-label="Principal">
+    <div class="lado">
+      <a href={ruta('/cabanas/sumac-mayu/')} aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>Sumac Mayu</a>
+      <a href={ruta('/cabanas/misky-wayra/')} aria-current={actual(ruta('/cabanas/misky-wayra/'))}>Misky Wayra</a>
+    </div>
+    <a class="marca" href={ruta('/')} aria-label="Misky Wayra, inicio">
+      <Emblema variante="compacto" />
+    </a>
+    <div class="lado derecha">
+      <a href={ruta('/galeria/')} aria-current={actual(ruta('/galeria/'))}>Galería</a>
+      <a href={ruta('/ubicacion-y-contacto/')} aria-current={actual(ruta('/ubicacion-y-contacto/'))}>
+        Ubicación y contacto
+      </a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  import '../scripts/franja';
+</script>
+
+<style>
+  /* La envoltura guarda el lugar de la franja en la página cuando la barra pasa a fija */
+  .franja-nav {
+    --alto: 2.6rem;
+
+    position: relative;
+    z-index: 20;
+    height: var(--alto);
+  }
+
+  .barra {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-m);
+    height: var(--alto);
+    padding-inline: clamp(1rem, 3vw, 2.5rem);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .lado {
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .lado.derecha {
+    justify-content: flex-end;
+  }
+
+  .barra a {
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .barra a:hover,
+  .barra a[aria-current='page'] {
+    color: var(--color-primary);
+  }
+
+  .marca {
+    display: block;
+    width: 2.6rem;
+  }
+
+  /* ---------- Fija arriba, al subir ----------
+     Difuminada: crema translúcido con blur. Entra bajando y apareciendo; se va igual. */
+  .barra:global(.flotante) {
+    position: fixed;
+    inset: 0 0 auto;
+    background: color-mix(in srgb, var(--color-bg) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(1.15);
+    box-shadow: 0 8px 24px -18px rgb(43 33 25 / 0.5);
+    opacity: 0;
+    translate: 0 -100%;
+    transition:
+      opacity 0.35s ease-out,
+      translate 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .barra:global(.flotante.visible) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Al pasar de la página a fija (fuera de la vista), sin animación: no tiene que verse */
+  .barra:global(.sin-transicion) {
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .barra:global(.flotante) {
+      transition: opacity 0.2s;
+      translate: 0 0;
+    }
+  }
+
+  /* Mobile: las cabañas ya están en la barra del pulgar; acá quedan el emblema y la info */
+  @media (width < 40rem) {
+    .lado:not(.derecha) {
+      display: none;
+    }
+
+    .barra {
+      grid-template-columns: auto 1fr;
+    }
+
+    .lado.derecha {
+      gap: var(--space-m);
+      font-size: 0.7rem;
+    }
+  }
+</style>

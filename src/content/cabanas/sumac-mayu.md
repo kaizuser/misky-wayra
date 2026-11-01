@@ -91,13 +91,11 @@ recorrido:
       cómodas. La ropa de cama y las toallas están incluidas.
 
   - titulo: El playroom
-    disposicion: par
     texto: >-
       Cincuenta metros cuadrados extra, con sillones, para jugar, leer o simplemente
       juntarse.
 
   - titulo: Afuera
-    disposicion: trio
     texto: >-
       Una pérgola con asientos para estar al aire libre, la parrilla para el asado y un
       pequeño invernadero. La entrada es independiente, con cochera techada.

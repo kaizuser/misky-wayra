@@ -18,6 +18,8 @@ interface Props {
   noindex?: boolean;
   /** datos estructurados (schema.org) de la página */
   jsonLd?: Record<string, unknown>;
+  /** false si la página trae su propia franja de navegación (formato secciones) */
+  cabecera?: boolean;
 }
 
 const {
@@ -27,6 +29,7 @@ const {
   imagen = { src: fotoPorDefecto, alt: 'Fachada de Sumac Mayu, casa de adobe con cúpula y ventanal en arco' },
   noindex = false,
   jsonLd,
+  cabecera = true,
 } = Astro.props;
 
 const canonica = new URL(Astro.url.pathname, Astro.site);
@@ -89,7 +92,7 @@ const ogUrl = new URL(og.src, Astro.site);
     />
   </head>
   <body data-theme={theme}>
-    <Nav />
+    <Nav cabecera={cabecera} />
 
     <main>
       <slot />

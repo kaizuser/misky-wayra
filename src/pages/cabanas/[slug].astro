@@ -6,6 +6,7 @@ import Alero from '../../components/Alero.astro';
 import CabanaHero from '../../components/CabanaHero.astro';
 import Recorrido from '../../components/Recorrido.astro';
 import Secciones from '../../components/Secciones.astro';
+import Franja from '../../components/Franja.astro';
 import Consultar from '../../components/Consultar.astro';
 import { alojamiento } from '../../lib/datos';
 import { ruta } from '../../lib/rutas';
@@ -37,6 +38,7 @@ const d = cabana.data;
   theme={d.tema}
   imagen={d.foto}
   jsonLd={alojamiento(cabana, Astro.site!)}
+  cabecera={d.formato !== 'secciones'}
 >
   <!-- 1. La llegada -->
   <CabanaHero
@@ -46,6 +48,7 @@ const d = cabana.data;
     foto={d.foto}
     transicion={`casa-${cabana.id}`}
   />
+  {d.formato === 'secciones' && <Franja />}
 
   <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
   {
@@ -56,6 +59,10 @@ const d = cabana.data;
     )
   }
 
+  <!-- Formato secciones: lo que sigue se rediseña aparte; por ahora no se muestra -->
+  {
+    d.formato !== 'secciones' && (
+      <>
   <section class="al-parque">
     <p>
       El parque, la pileta y los espacios compartidos te esperan en la
@@ -103,6 +110,9 @@ const d = cabana.data;
       <span class="nombre">{hermana.data.nombre}</span>
     </a>
   </aside>
+      </>
+    )
+  }
 </Base>
 
 <style>
