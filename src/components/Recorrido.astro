@@ -20,7 +20,6 @@ import { Picture, getImage } from 'astro:assets';
 import 'photoswipe/style.css';
 import type { ImageMetadata } from 'astro';
 import { voluta, centroVertical } from '../lib/volutas';
-import { feston } from '../lib/formas';
 
 interface Foto {
   src: ImageMetadata;
@@ -38,7 +37,6 @@ const { paradas, tema } = Astro.props;
 const trazos = voluta(tema);
 // Las volutas entre paradas se centran por su dibujo, no por el nudo; el cierre ya es simétrico
 const cajaVoluta = `-125 ${(centroVertical(tema) - 45).toFixed(1)} 250 90`;
-const borde = feston(30, 92);
 
 const numero = (i: number) => String(i + 1).padStart(2, '0');
 
@@ -93,19 +91,11 @@ const grandes = await Promise.all(
                   </figure>
                 );
                 return j === 0 ? (
-                  <div class="ventana">
-                    {tema === 'wayra' && (
-                      <svg class="feston" viewBox="0 0 200 200" aria-hidden="true"><path d={borde} /></svg>
-                    )}
-                    {figura}
-                  </div>
+                  <div class="ventana">{figura}</div>
                 ) : figura;
               })
             ) : (
               <div class="ventana">
-                {tema === 'wayra' && (
-                  <svg class="feston" viewBox="0 0 200 200" aria-hidden="true"><path d={borde} /></svg>
-                )}
                 <div class="foto principal pendiente">
                   <span>Foto en camino</span>
                 </div>
@@ -285,32 +275,38 @@ const grandes = await Promise.all(
     gap: var(--space-s);
   }
 
-  /* La ventana de la foto principal: arco en Sumac, redonda con festón en Misky */
+  /* La ventana de la foto principal: arco en Sumac, redonda en Misky. Las dos llevan
+     una línea fina alrededor, separada de la foto, en el color de su casa (como en el inicio) */
   .ventana {
+    --margen: 0.75rem;
+
     position: relative;
     grid-column: 1 / -1;
+  }
+
+  .ventana::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--margen));
+    border: 1.5px solid var(--color-primary);
+    border-radius: 50% 50% calc(var(--radius) + var(--margen)) calc(var(--radius) + var(--margen)) / 30% 30%
+      calc(var(--radius) + var(--margen)) calc(var(--radius) + var(--margen));
+    pointer-events: none;
   }
 
   [data-forma='wayra'] .ventana {
     aspect-ratio: 1;
   }
 
-  [data-forma='wayra'] .ventana .principal {
-    position: absolute;
-    inset: 7%; /* el festón asoma alrededor */
-    aspect-ratio: auto;
+  [data-forma='wayra'] .ventana::before {
     border-radius: 50%;
   }
 
-  .feston {
+  [data-forma='wayra'] .ventana .principal {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .feston path {
-    fill: var(--color-primary);
+    aspect-ratio: auto;
+    border-radius: 50%;
   }
 
   .foto {
@@ -358,18 +354,10 @@ const grandes = await Promise.all(
       scale: 1.06;
     }
 
-    /* Misky: se mece apenas y el festón gira, como con una ráfaga */
+    /* Misky: se mece apenas, como con una ráfaga */
     [data-forma='wayra'] .foto:hover :global(img) {
       scale: 1.03;
       animation: mecer 2.6s ease-in-out;
-    }
-
-    [data-forma='wayra'] .feston {
-      transition: rotate 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-
-    [data-forma='wayra'] .ventana:hover .feston {
-      rotate: 8deg;
     }
 
     @keyframes mecer {
@@ -444,13 +432,6 @@ const grandes = await Promise.all(
         animation-range: entry 20% cover 45%;
       }
 
-      /* Misky: el festón gira apenas al llegar, como empujado por el viento */
-      .feston {
-        animation: girar linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 40%;
-      }
-
       .voluta .nudo {
         animation: aparecer linear both;
         animation-timeline: view();
@@ -483,10 +464,6 @@ const grandes = await Promise.all(
       @keyframes florecer {
         from { stroke-dashoffset: 1; }
         to { stroke-dashoffset: 0; }
-      }
-
-      @keyframes girar {
-        from { rotate: -14deg; }
       }
 
       @keyframes aparecer {

@@ -2,15 +2,16 @@
 /**
  * Hero del inicio: la historia. "Todo empezó en Misky Wayra."
  * Las dos casas son dos capítulos unidos por un camino sobre el eje:
- * I · Misky Wayra (la primera, a la derecha) en su ventana redonda con el festón del techo;
- * II · Sumac Mayu (la que vino después, a la izquierda) en su arco con el alero.
- * Cada foto comparte view-transition-name con el hero de su cabaña: al navegar, la ventana se abre.
+ * I · Misky Wayra (la primera, a la derecha) en su ventana redonda;
+ * II · Sumac Mayu (la que vino después, a la izquierda) en su arco.
+ * Cada ventana lleva una línea fina alrededor, separada de la foto, en el color de su casa:
+ * el mismo trazo de las volutas y del camino.
+ * Cada foto comparte view-transition-name con el hero de su cabaña: al navegar, la ventana crece.
  */
 import { Picture } from 'astro:assets';
 import sumac from '../assets/home/hero-sumac.jpg';
 import misky from '../assets/home/hero-misky.jpg';
 import { whatsappUrl } from '../config';
-import { feston } from '../lib/formas';
 import { ruta } from '../lib/rutas';
 ---
 
@@ -27,9 +28,6 @@ import { ruta } from '../lib/rutas';
   <!-- I · La primera casa -->
   <a class="capitulo misky" href={ruta('/cabanas/misky-wayra/')} data-theme="wayra">
     <span class="ventana">
-      <svg class="feston" viewBox="0 0 200 200" aria-hidden="true">
-        <path d={feston(30, 92)} fill="currentColor"></path>
-      </svg>
       <span class="foto">
         <Picture
           src={misky}
@@ -57,11 +55,6 @@ import { ruta } from '../lib/rutas';
   <!-- II · La que vino después -->
   <a class="capitulo sumac" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">
     <span class="ventana">
-      <svg class="alero" viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden="true">
-        <path
-          d="M0,112 C40,70 150,10 300,8 C450,10 560,70 600,112 C585,124 560,118 540,104 C470,58 390,40 300,40 C210,40 130,58 60,104 C40,118 15,124 0,112 Z"
-          fill="currentColor"></path>
-      </svg>
       <span class="foto">
         <Picture
           src={sumac}
@@ -94,6 +87,7 @@ import { ruta } from '../lib/rutas';
 <style>
   .hero {
     --camino: 1.5px dashed color-mix(in srgb, var(--color-text) 35%, transparent);
+    --margen: 0.75rem; /* separación entre cada foto y su línea */
 
     position: relative;
     display: grid;
@@ -140,7 +134,7 @@ import { ruta } from '../lib/rutas';
   /* ---------- Los capítulos: una casa por lado ---------- */
   .capitulo {
     display: grid;
-    gap: var(--space-s);
+    gap: calc(var(--space-s) + var(--margen)); /* medido desde la línea, no desde la foto */
     text-decoration: none;
     color: var(--color-primary);
   }
@@ -151,6 +145,15 @@ import { ruta } from '../lib/rutas';
   .ventana {
     position: relative;
     display: block;
+  }
+
+  /* La línea fina alrededor de cada ventana, con la misma forma */
+  .ventana::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--margen));
+    border: 1.5px solid var(--color-primary);
+    pointer-events: none;
   }
 
   .foto {
@@ -170,44 +173,35 @@ import { ruta } from '../lib/rutas';
     transition: scale 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  /* Misky: ventana redonda dentro del festón del techo */
+  /* Misky: la ventana redonda */
   .misky .ventana {
-    width: min(70vw, 27rem);
+    width: min(64vw, 25rem);
     aspect-ratio: 1;
   }
 
-  .feston {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transition: rotate 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  .misky .ventana::before {
+    border-radius: 50%;
   }
 
   .misky .foto {
     position: absolute;
-    inset: 7%; /* el festón asoma alrededor */
+    inset: 0;
     border-radius: 50%;
     view-transition-name: casa-misky-wayra;
   }
 
   .misky .foto :global(img) { object-position: 46% 60%; }
 
-  /* Sumac: arco con el alero encima y el parante en el centro */
+  /* Sumac: el arco */
   .sumac .ventana {
-    width: min(70vw, 29rem);
+    width: min(64vw, 27rem);
     margin-block-start: var(--space-l);
-    margin-inline-start: 7%; /* lugar para las puntas del alero */
+    margin-inline-start: var(--margen); /* la línea no toca el borde de la pantalla */
   }
 
-  .alero {
-    position: absolute;
-    z-index: 1;
-    left: -7%;
-    top: -5%;
-    width: 114%;
-    max-width: none; /* el reset limita los svg al 100%: lo achicaba y lo corría a la izquierda */
-    height: 18%;
+  .sumac .ventana::before {
+    border-radius: 50% 50% calc(0.375rem + var(--margen)) calc(0.375rem + var(--margen)) / 38% 38%
+      calc(0.375rem + var(--margen)) calc(0.375rem + var(--margen));
   }
 
   .sumac .foto {
@@ -215,16 +209,6 @@ import { ruta } from '../lib/rutas';
     aspect-ratio: 4 / 5;
     border-radius: 50% 50% 0.375rem 0.375rem / 38% 38% 0.375rem 0.375rem;
     view-transition-name: casa-sumac-mayu;
-  }
-
-  .sumac .foto::after {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    left: 50%;
-    width: 3px;
-    translate: -50%;
-    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
   }
 
   .sumac .foto :global(img) { object-position: 42% 45%; }
@@ -257,14 +241,12 @@ import { ruta } from '../lib/rutas';
     color: var(--color-deep);
   }
 
-  /* Al pasar: la foto se acerca; en Misky, el viento gira apenas el festón */
+  /* Al pasar: la foto se acerca */
   .capitulo:hover .foto :global(img) { scale: 1.04; }
-  .misky:hover .feston { rotate: 6deg; }
 
   /* También al pasar por su nombre en la navegación */
   :global(body:has(.eje [data-theme='wayra']:hover)) .misky .foto :global(img),
   :global(body:has(.eje [data-theme='mayu']:hover)) .sumac .foto :global(img) { scale: 1.04; }
-  :global(body:has(.eje [data-theme='wayra']:hover)) .feston { rotate: 6deg; }
 
   .capitulo:focus-visible {
     outline-offset: 6px;
@@ -343,8 +325,8 @@ import { ruta } from '../lib/rutas';
       margin-block-start: var(--space-2xl);
     }
 
-    .misky .ventana { width: min(100%, 27rem); }
-    .sumac .ventana { width: min(86%, 29rem); margin-inline-start: 0; }
+    .misky .ventana { width: min(calc(100% - 2 * var(--margen)), 25rem); }
+    .sumac .ventana { width: min(80%, 27rem); margin-inline-start: 0; }
 
     .despues { margin-block-start: var(--space-2xl); }
   }
