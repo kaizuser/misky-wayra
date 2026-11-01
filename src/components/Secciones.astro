@@ -19,13 +19,21 @@ interface Foto {
 
 interface Props {
   principal?: { frase: string; texto: string };
-  paradas: { titulo: string; disposicion?: string; fotos: Foto[] }[];
+  paradas: { titulo: string; disposicion?: string; titular?: string; fotos: Foto[] }[];
 }
 
 const { principal, paradas } = Astro.props;
 
 /** Cuántas fotos lleva cada composición */
 const cuantas: Record<string, number> = { trio: 3, fila: 3, cruz: 4, panoramica: 3, par: 2 };
+
+/** El título expresivo en pedazos: palabras si hay varias; si es una, en tres partes ("Ad·en·tro") */
+function pedazos(titulo: string) {
+  const palabras = titulo.split(' ');
+  if (palabras.length > 1) return palabras;
+  const largo = Math.floor(titulo.length / 3); // el último se lleva lo que sobra: Ad·en·tro
+  return [titulo.slice(0, largo), titulo.slice(largo, largo * 2), titulo.slice(largo * 2)].filter(Boolean);
+}
 
 /** Las posiciones del trío, de izquierda a derecha */
 const lugaresTrio = ['izquierda', 'centro', 'derecha'];
@@ -44,6 +52,16 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   paradas.map((parada) => (
     <section class="seccion" data-disposicion={parada.disposicion}>
       <h2 class="solo-lectores">{parada.titulo}</h2>
+      {parada.titular && (
+        // La palabra como forma: entra de a un pedazo, como el texto principal
+        <p class:list={['titular', parada.titular]} aria-hidden="true">
+          {pedazos(parada.titulo).map((pedazo, i) => (
+            <span data-revelar style={`--i: ${i}; --retraso: ${(i * 0.12).toFixed(2)}s`}>
+              {pedazo}
+            </span>
+          ))}
+        </p>
+      )}
       {parada.disposicion === 'trio' ? (
         // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
         <div class="trio" data-repetir>
@@ -112,6 +130,33 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   /* La entrada se dispara al aparecer en pantalla (data-revelar, scripts/revelar.ts):
      primero la frase y un instante después el texto. Se repite cada vez que se vuelve a pasar. */
   .texto { --retraso: 0.15s; }
+
+  /* ---------- Titulares expresivos ----------
+     Escalera: la palabra en pedazos, cada uno un escalón más abajo y a la derecha, todo
+     inclinado. Cada pedazo entra disparado (data-revelar), uno tras otro. */
+  .titular {
+    margin: 0 auto var(--space-2xl);
+    font-family: var(--font-principal);
+    font-weight: 400;
+    line-height: 0.82;
+    color: var(--color-primary);
+    user-select: none;
+  }
+
+  /* Como renglones de un texto girado: cada pedazo sube hacia la derecha y el siguiente
+     baja en diagonal; un escalonado leve los separa un poco más */
+  .escalera {
+    display: grid;
+    justify-content: center;
+    font-size: clamp(5rem, 2rem + 11vw, 13rem);
+    line-height: 0.7;
+    rotate: -32deg;
+  }
+
+  .escalera span {
+    display: block;
+    margin-inline-start: calc(var(--i) * 0.4em);
+  }
 
   /* ---------- Trío: superpuestas, se abren al bajar ----------
      Composición final (como la referencia): la del medio más alta, la derecha más baja,

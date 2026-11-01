@@ -59,6 +59,7 @@ recorrido:
 
   - titulo: Adentro
     disposicion: fila
+    titular: escalera
     texto: >-
       Un living comedor amplio para quedarse. La salamandra calienta los días fríos, y para
       las noches tranquilas hay televisor, WiFi exclusivo y las principales plataformas de
