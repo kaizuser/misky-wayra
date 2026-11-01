@@ -144,30 +144,33 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
           })}
         </div>
       ) : parada.disposicion === 'escalones' ? (
-        // Escalones: dos escaleras paralelas de tres fotos medianas que bajan hacia la derecha.
-        // Cada foto entra disparada; la segunda escalera, apenas después.
+        // Escalones: dos escaleras paralelas, pegadas, que bajan de izquierda a derecha por el
+        // centro. Cada escalón tiene dos fotos lado a lado (una de cada escalera).
         <div class="escalones">
-          {Array.from({ length: 6 }, (_, i) => {
-            const foto = parada.fotos[i];
-            const retraso = i < 3 ? 0 : 0.1;
-            return (
-              <figure
-                class:list={['foto', { pendiente: !foto }]}
-                data-revelar
-                style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
-              >
-                {foto && (
-                  <Picture
-                    src={foto.src}
-                    alt={foto.alt}
-                    formats={['avif', 'webp']}
-                    widths={[400, 700]}
-                    sizes="(min-width: 40rem) 18vw, 45vw"
-                  />
-                )}
-              </figure>
-            );
-          })}
+          {[0, 1, 2].map((escalon) => (
+            <div class="escalon" style={`--i: ${escalon}`}>
+              {[0, 1].map((escalera) => {
+                const foto = parada.fotos[escalon * 2 + escalera];
+                return (
+                  <figure
+                    class:list={['foto', { pendiente: !foto }]}
+                    data-revelar
+                    style={`--retraso: ${escalera * 0.1}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
+                  >
+                    {foto && (
+                      <Picture
+                        src={foto.src}
+                        alt={foto.alt}
+                        formats={['avif', 'webp']}
+                        widths={[400, 700, 1000]}
+                        sizes="(min-width: 40rem) 20vw, 45vw"
+                      />
+                    )}
+                  </figure>
+                );
+              })}
+            </div>
+          ))}
         </div>
       ) : (
         <div class="composicion">
@@ -494,33 +497,35 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 
-  /* ---------- Escalones: dos escaleras paralelas de tres ----------
-     Grilla de 18 columnas sobre el 80% del ancho: cada foto ocupa 4 (fotos medianas, ~18vw)
-     y cada escalón se corre 2 a la derecha y baja una fila. La segunda escalera arranca
-     en la columna 11 y un escalón más abajo: paralelas, y juntas forman una diagonal. */
+  /* ---------- Escalones: dos escaleras paralelas que bajan de izquierda a derecha ----------
+     Sobre el 80% del ancho: cada escalón es un par de fotos (20vw cada una, 4:5) con un
+     espacio chico entre ellas; cada escalón se corre a la derecha y baja, del borde
+     izquierdo de la composición al derecho, así las dos escaleras pasan por el centro. */
   .escalones {
+    --foto: 20vw;   /* ancho de cada foto */
+    --entre: 1.2vw; /* espacio entre las dos escaleras */
+    --ancho: 80vw;  /* ancho de la composición */
+
     display: grid;
-    grid-template-columns: repeat(18, minmax(0, 1fr));
     row-gap: var(--space-m);
-    width: 80vw;
-    margin-inline: calc((100% - 80vw) / 2);
+    width: var(--ancho);
+    margin-inline: calc((100% - var(--ancho)) / 2);
+  }
+
+  /* Cada escalón: el par de fotos; los tres recorren el ancho de borde a borde */
+  .escalon {
+    display: flex;
+    gap: var(--entre);
+    width: calc(2 * var(--foto) + var(--entre));
+    margin-inline-start: calc(var(--i) * (var(--ancho) - 2 * var(--foto) - var(--entre)) / 2);
   }
 
   .escalones .foto {
-    grid-column-end: span 4;
+    flex: 1;
     aspect-ratio: 4 / 5;
     margin: 0;
     overflow: hidden;
   }
-
-  .escalones .foto:nth-child(1) { grid-area: 1 / 1; }
-  .escalones .foto:nth-child(2) { grid-area: 2 / 3; }
-  .escalones .foto:nth-child(3) { grid-area: 3 / 5; }
-  .escalones .foto:nth-child(4) { grid-area: 2 / 11; }
-  .escalones .foto:nth-child(5) { grid-area: 3 / 13; }
-  .escalones .foto:nth-child(6) { grid-area: 4 / 15; }
-
-  .escalones .foto:nth-child(n) { grid-column-end: span 4; }
 
   .escalones :global(picture),
   .escalones :global(img) {
