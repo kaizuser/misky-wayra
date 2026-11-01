@@ -151,8 +151,8 @@ const grandes = await Promise.all(
   .recorrido ol {
     --linea: 2px;
     --marca: 3rem;
-    --entre: 7rem; /* hueco entre paradas, donde florecen las volutas */
-    --cierre: calc(var(--entre) * 1.2); /* distancia de la última parada al cierre */
+    --entre: 10rem; /* hueco entre paradas, donde florecen las volutas (con aire sobre la foto de arriba) */
+    --cierre: 8.4rem; /* distancia de la última parada al cierre (ajustada aparte) */
 
     position: relative;
     margin: 0;
@@ -223,7 +223,7 @@ const grandes = await Promise.all(
 
   /* En Sumac el cierre es más alto (los rulos de la ola cruzarían a su espejo,
      así que las dos mitades se separan): baja un poco más */
-  [data-forma='mayu'] ol { --cierre: calc(var(--entre) * 1.45); }
+  [data-forma='mayu'] ol { --cierre: 10.15rem; }
 
   [data-forma='mayu'] .cierre .der { transform: translateY(-14px); }
   [data-forma='mayu'] .cierre .izq { transform: scaleX(-1) translateY(-14px); }
