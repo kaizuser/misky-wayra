@@ -39,6 +39,8 @@ Spelling used by the family: **Sumac Mayu** and **Misky Wayra** (not the standar
 
 **The developer.** Junior developer in Córdoba, studies at UTN, works mostly frontend on a legacy AngularJS 1.x + Materialize app with a Java backend. Knows React. Uses **Arch Linux**, **Node 26** from the pacman `nodejs` package (risk: a system update can jump to an odd, non-LTS major; if builds break after `pacman -Syu`, check Node first). Uses **npm**. Doesn't know how to draw.
 
+**Commit and push without asking** (standing permission, Nov 1, 2026): anything the developer asked for or approved in the conversation gets committed and pushed to `master` right away, no confirmation needed. Pushing to master redeploys the GitHub Pages preview. Still ask before anything not discussed, or before destructive git operations (force push, rewriting history, deleting branches).
+
 **How to work with the developer.** Wants objective, analytical answers and honest trade-offs. Likes concrete files and code, and visual mockups to judge ideas. Doesn't want overengineering. Writes in English and Spanish, often mixed. Site content is in **Spanish (es-AR, voseo)**.
 
 ---
