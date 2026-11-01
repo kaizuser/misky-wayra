@@ -2,7 +2,7 @@
 /**
  * El recorrido en secciones (formato "secciones"): después del hero, el texto principal,
  * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
- * composición (trío, cinco, fila, cruz, panorámica, par) y su propia forma de llegar al bajar.
+ * composición (trío, cinco, fila, cruz, escalones, panorámica, par) y su propia forma de llegar al bajar.
  * El título de cada sección queda para lectores de pantalla y buscadores.
  *
  * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
@@ -31,7 +31,7 @@ interface Props {
 const { principal, paradas } = Astro.props;
 
 /** Cuántas fotos lleva cada composición */
-const cuantas: Record<string, number> = { trio: 3, cinco: 5, fila: 3, cruz: 4, panoramica: 3, par: 2 };
+const cuantas: Record<string, number> = { trio: 3, cinco: 5, fila: 3, cruz: 4, escalones: 6, panoramica: 3, par: 2 };
 
 /** El título expresivo en pedazos: palabras si hay varias; si es una, en tres partes ("Ad·en·tro") */
 function pedazos(titulo: string) {
@@ -137,6 +137,32 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                     formats={['avif', 'webp']}
                     widths={[400, 700, 1000]}
                     sizes="(min-width: 40rem) 26vw, 45vw"
+                  />
+                )}
+              </figure>
+            );
+          })}
+        </div>
+      ) : parada.disposicion === 'escalones' ? (
+        // Escalones: dos escaleras paralelas de tres fotos medianas que bajan hacia la derecha.
+        // Cada foto entra disparada; la segunda escalera, apenas después.
+        <div class="escalones">
+          {Array.from({ length: 6 }, (_, i) => {
+            const foto = parada.fotos[i];
+            const retraso = i < 3 ? 0 : 0.1;
+            return (
+              <figure
+                class:list={['foto', { pendiente: !foto }]}
+                data-revelar
+                style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
+              >
+                {foto && (
+                  <Picture
+                    src={foto.src}
+                    alt={foto.alt}
+                    formats={['avif', 'webp']}
+                    widths={[400, 700]}
+                    sizes="(min-width: 40rem) 18vw, 45vw"
                   />
                 )}
               </figure>
@@ -353,6 +379,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   .nota.final {
     justify-items: start;
     gap: 3.5rem;
+    margin-block-start: calc(var(--space-3xl) * 2); /* bien separada de las fotos de arriba */
     /* Casi al borde izquierdo de la pantalla, más allá del margen del contenido */
     margin-inline-start: calc((100% - 100vw) / 2 + 4vw);
     text-align: start;
@@ -464,6 +491,50 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   .cruz .pendiente {
+    background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
+  }
+
+  /* ---------- Escalones: dos escaleras paralelas de tres ----------
+     Grilla de 18 columnas sobre el 80% del ancho: cada foto ocupa 4 (fotos medianas, ~18vw)
+     y cada escalón se corre 2 a la derecha y baja una fila. La segunda escalera arranca
+     en la columna 11 y un escalón más abajo: paralelas, y juntas forman una diagonal. */
+  .escalones {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(0, 1fr));
+    row-gap: var(--space-m);
+    width: 80vw;
+    margin-inline: calc((100% - 80vw) / 2);
+  }
+
+  .escalones .foto {
+    grid-column-end: span 4;
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .escalones .foto:nth-child(1) { grid-area: 1 / 1; }
+  .escalones .foto:nth-child(2) { grid-area: 2 / 3; }
+  .escalones .foto:nth-child(3) { grid-area: 3 / 5; }
+  .escalones .foto:nth-child(4) { grid-area: 2 / 11; }
+  .escalones .foto:nth-child(5) { grid-area: 3 / 13; }
+  .escalones .foto:nth-child(6) { grid-area: 4 / 15; }
+
+  .escalones .foto:nth-child(n) { grid-column-end: span 4; }
+
+  .escalones :global(picture),
+  .escalones :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .escalones :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre, 50% 50%);
+  }
+
+  .escalones .pendiente {
     background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 

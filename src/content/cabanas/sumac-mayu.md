@@ -85,7 +85,7 @@ recorrido:
       Completamente equipada, con todos los electrodomésticos, para cocinar como en casa.
 
   - titulo: El descanso
-    disposicion: panoramica
+    disposicion: escalones
     texto: >-
       Tres dormitorios: uno con cama king size y dos con camas de una plaza, amplias y
       cómodas. La ropa de cama y las toallas están incluidas.
