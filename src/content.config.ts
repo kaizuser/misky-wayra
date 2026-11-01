@@ -44,7 +44,7 @@ const cabanas = defineCollection({
           titulo: z.string(),
           texto: z.string(),
           /** La composición de fotos de la parada (formato secciones) */
-          disposicion: z.enum(['abanico', 'trio', 'cruz', 'panoramica', 'par']).optional(),
+          disposicion: z.enum(['trio', 'fila', 'cruz', 'panoramica', 'par']).optional(),
           fotos: z.array(foto).default([]),
         }),
       ),

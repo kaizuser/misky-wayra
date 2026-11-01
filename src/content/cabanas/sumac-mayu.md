@@ -48,7 +48,7 @@ principal:
 
 recorrido:
   - titulo: La casa
-    disposicion: abanico
+    disposicion: trio
     texto: >-
       Sumac Mayu está hecha de adobe, un material natural que la mantiene fresca en verano
       y cálida en invierno. Ciento cuarenta metros cuadrados de formas suaves, una cúpula
@@ -58,7 +58,7 @@ recorrido:
         alt: Pared de adobe de Sumac Mayu con ménsulas de madera, base de piedra y puerta vidriada
 
   - titulo: Adentro
-    disposicion: trio
+    disposicion: fila
     texto: >-
       Un living comedor amplio para quedarse. La salamandra calienta los días fríos, y para
       las noches tranquilas hay televisor, WiFi exclusivo y las principales plataformas de
@@ -82,7 +82,7 @@ recorrido:
       juntarse.
 
   - titulo: Afuera
-    disposicion: abanico
+    disposicion: trio
     texto: >-
       Una pérgola con asientos para estar al aire libre, la parrilla para el asado y un
       pequeño invernadero. La entrada es independiente, con cochera techada.

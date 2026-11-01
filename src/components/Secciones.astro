@@ -2,12 +2,13 @@
 /**
  * El recorrido en secciones (formato "secciones"): después del hero, el texto principal,
  * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
- * composición (abanico, trío, cruz, panorámica, par) y su propia forma de llegar al bajar.
+ * composición (trío, fila, cruz, panorámica, par) y su propia forma de llegar al bajar.
  * El título de cada sección queda para lectores de pantalla y buscadores.
  *
  * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
  * rectángulos grises con la cantidad de fotos de su composición.
  */
+import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Foto {
@@ -24,7 +25,10 @@ interface Props {
 const { principal, paradas } = Astro.props;
 
 /** Cuántas fotos lleva cada composición */
-const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panoramica: 3, par: 2 };
+const cuantas: Record<string, number> = { trio: 3, fila: 3, cruz: 4, panoramica: 3, par: 2 };
+
+/** Las posiciones del trío, de izquierda a derecha */
+const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 ---
 
 {
@@ -40,11 +44,33 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
   paradas.map((parada) => (
     <section class="seccion" data-disposicion={parada.disposicion}>
       <h2 class="solo-lectores">{parada.titulo}</h2>
-      <div class="composicion">
-        {Array.from({ length: cuantas[parada.disposicion ?? 'trio'] ?? 3 }, () => (
-          <div class="foto pendiente" />
-        ))}
-      </div>
+      {parada.disposicion === 'trio' ? (
+        // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
+        <div class="trio" data-repetir>
+          {lugaresTrio.map((lugar, i) => {
+            const foto = parada.fotos[i];
+            return (
+              <figure class:list={['foto', lugar, { pendiente: !foto }]} style={foto && `--encuadre: ${foto.encuadre}`}>
+                {foto && (
+                  <Picture
+                    src={foto.src}
+                    alt={foto.alt}
+                    formats={['avif', 'webp']}
+                    widths={[400, 700, 1000]}
+                    sizes="(min-width: 64rem) 22rem, 38vw"
+                  />
+                )}
+              </figure>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="composicion">
+          {Array.from({ length: cuantas[parada.disposicion ?? 'fila'] ?? 3 }, () => (
+            <div class="foto pendiente" />
+          ))}
+        </div>
+      )}
     </section>
   ))
 }
@@ -86,6 +112,81 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
   /* La entrada se dispara al aparecer en pantalla (data-revelar, scripts/revelar.ts):
      primero la frase y un instante después el texto. Se repite cada vez que se vuelve a pasar. */
   .texto { --retraso: 0.15s; }
+
+  /* ---------- Trío: superpuestas, se abren al bajar ----------
+     Composición final (como la referencia): la del medio más alta, la derecha más baja,
+     cada una tapa un poco a la de su izquierda. Al bajar, las de los costados se abren
+     hacia afuera y las tres suben; siguen superpuestas al final. Progresivo y reversible. */
+  .trio {
+    --ancho: 31%;     /* ancho de cada foto, del ancho de la composición */
+    --pisada: -2.5%;  /* cuánto se pisan al final */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 70rem;
+    margin-inline: auto;
+    view-timeline-name: --trio; /* las tres avanzan juntas, con la composición */
+  }
+
+  .trio .foto {
+    flex: none;
+    width: var(--ancho);
+    aspect-ratio: 2 / 3;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .trio .izquierda { margin-top: 13%; margin-inline-end: var(--pisada); z-index: 1; }
+  .trio .centro { z-index: 2; }
+  .trio .derecha { margin-top: 22%; margin-inline-start: var(--pisada); z-index: 3; }
+
+  .trio :global(picture),
+  .trio :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .trio :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre, 50% 50%);
+  }
+
+  /* Tres tonos, para que se lea la superposición mientras no hay fotos */
+  .trio .izquierda.pendiente { background: color-mix(in srgb, var(--color-text) 13%, var(--color-bg)); }
+  .trio .centro.pendiente { background: color-mix(in srgb, var(--color-text) 21%, var(--color-bg)); }
+  .trio .derecha.pendiente { background: color-mix(in srgb, var(--color-text) 29%, var(--color-bg)); }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* Propiedades sueltas, no el atajo "animation: linear both" sin nombre: el minificador
+         lo convierte en "animation: none" y se pierde el "both" (el estado inicial) */
+      .trio .foto {
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --trio;
+        animation-range: cover 10% cover 55%;
+      }
+
+      .trio .izquierda { animation-name: trio-izquierda; }
+      .trio .centro { animation-name: trio-centro; }
+      .trio .derecha { animation-name: trio-derecha; }
+
+      /* Arrancan más juntas (hacia el centro) y más abajo */
+      @keyframes trio-izquierda { from { translate: 24% 12%; } }
+      @keyframes trio-centro { from { translate: 0 9%; } }
+      @keyframes trio-derecha { from { translate: -24% 12%; } }
+    }
+  }
+
+  /* Mobile: la misma composición, con fotos más anchas y más pisadas para que se lean */
+  @media (width < 40rem) {
+    .trio {
+      --ancho: 38%;
+      --pisada: -7%;
+    }
+  }
 
   /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
   .seccion {
