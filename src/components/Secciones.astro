@@ -57,7 +57,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                     alt={foto.alt}
                     formats={['avif', 'webp']}
                     widths={[400, 700, 1000]}
-                    sizes="(min-width: 64rem) 22rem, 38vw"
+                    sizes="(min-width: 40rem) 28vw, 38vw"
                   />
                 )}
               </figure>
@@ -118,14 +118,16 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
      cada una tapa un poco a la de su izquierda. Al bajar, las de los costados se abren
      hacia afuera y las tres suben; siguen superpuestas al final. Progresivo y reversible. */
   .trio {
-    --ancho: 31%;     /* ancho de cada foto, del ancho de la composición */
-    --pisada: -2.5%;  /* cuánto se pisan al final */
+    --ancho: 34.8%;   /* ancho de cada foto, del ancho de la composición */
+    --pisada: -2.2%;  /* cuánto se pisan al final */
 
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    max-width: 70rem;
-    margin-inline: auto;
+    /* Como en la referencia: las tres juntas ocupan el 80% del ancho de la pantalla,
+       más allá del ancho del contenido */
+    width: 80vw;
+    margin-inline: calc((100% - 80vw) / 2);
     view-timeline-name: --trio; /* las tres avanzan juntas, con la composición */
   }
 
@@ -137,9 +139,9 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     overflow: hidden;
   }
 
-  .trio .izquierda { margin-top: 13%; margin-inline-end: var(--pisada); z-index: 1; }
+  .trio .izquierda { margin-top: 11%; margin-inline-end: var(--pisada); z-index: 1; }
   .trio .centro { z-index: 2; }
-  .trio .derecha { margin-top: 22%; margin-inline-start: var(--pisada); z-index: 3; }
+  .trio .derecha { margin-top: 20%; margin-inline-start: var(--pisada); z-index: 3; }
 
   .trio :global(picture),
   .trio :global(img) {
@@ -173,10 +175,11 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       .trio .centro { animation-name: trio-centro; }
       .trio .derecha { animation-name: trio-derecha; }
 
-      /* Arrancan más juntas (hacia el centro) y más abajo */
-      @keyframes trio-izquierda { from { translate: 24% 12%; } }
-      @keyframes trio-centro { from { translate: 0 9%; } }
-      @keyframes trio-derecha { from { translate: -24% 12%; } }
+      /* Arrancan un poco más juntas (hacia el centro) y más abajo: con fotos grandes,
+         un movimiento chico alcanza */
+      @keyframes trio-izquierda { from { translate: 10% 6%; } }
+      @keyframes trio-centro { from { translate: 0 4.5%; } }
+      @keyframes trio-derecha { from { translate: -10% 6%; } }
     }
   }
 
@@ -185,6 +188,9 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     .trio {
       --ancho: 38%;
       --pisada: -7%;
+
+      width: auto;
+      margin-inline: 0;
     }
   }
 
@@ -199,7 +205,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     gap: var(--space-s);
   }
 
-  .pendiente {
+  .composicion .pendiente {
     flex: 1;
     max-width: 22rem;
     aspect-ratio: 3 / 4;
