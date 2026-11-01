@@ -275,31 +275,15 @@ const grandes = await Promise.all(
     gap: var(--space-s);
   }
 
-  /* La ventana de la foto principal: arco en Sumac, redonda en Misky. Las dos llevan
-     una línea fina alrededor, separada de la foto, en el color de su casa (como en el inicio) */
+  /* La ventana de la foto principal: arco en Sumac, redonda en Misky. Sin línea alrededor:
+     acá las volutas ya dibujan, una línea más sería redundante (la línea queda solo en el inicio) */
   .ventana {
-    --margen: 0.75rem;
-
     position: relative;
     grid-column: 1 / -1;
   }
 
-  .ventana::before {
-    content: '';
-    position: absolute;
-    inset: calc(-1 * var(--margen));
-    border: 1.5px solid var(--color-primary);
-    border-radius: 50% 50% calc(var(--radius) + var(--margen)) calc(var(--radius) + var(--margen)) / 30% 30%
-      calc(var(--radius) + var(--margen)) calc(var(--radius) + var(--margen));
-    pointer-events: none;
-  }
-
   [data-forma='wayra'] .ventana {
     aspect-ratio: 1;
-  }
-
-  [data-forma='wayra'] .ventana::before {
-    border-radius: 50%;
   }
 
   [data-forma='wayra'] .ventana .principal {
