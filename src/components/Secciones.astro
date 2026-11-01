@@ -29,9 +29,9 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
 
 {
   principal && (
-    <section class="principal" data-repetir>
-      <p class="frase">{principal.frase}</p>
-      <p class="texto">{principal.texto}</p>
+    <section class="principal">
+      <p class="frase" data-revelar>{principal.frase}</p>
+      <p class="texto" data-revelar>{principal.texto}</p>
     </section>
   )
 }
@@ -51,6 +51,7 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
 
 <script>
   import '../scripts/trazado';
+  import '../scripts/revelar';
 </script>
 
 <style>
@@ -82,41 +83,9 @@ const cuantas: Record<string, number> = { abanico: 3, trio: 3, cruz: 4, panorami
     color: color-mix(in srgb, var(--color-text) 85%, transparent);
   }
 
-  /* Entran desde abajo con un fundido; primero la frase, después el texto.
-     Se repite cada vez que se vuelve a pasar (data-repetir: trazado.ts no la fija) */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .frase,
-      .texto {
-        animation: subir linear both;
-        animation-timeline: view();
-      }
-
-      .frase { animation-range: entry 0% cover 30%; }
-      .texto { animation-range: entry 10% cover 38%; }
-
-      @keyframes subir {
-        from {
-          opacity: 0;
-          translate: 0 4.5rem;
-        }
-      }
-    }
-
-    /* Reducir movimiento: solo el fundido */
-    @media (prefers-reduced-motion: reduce) {
-      .frase,
-      .texto {
-        animation: aparecer linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 35%;
-      }
-
-      @keyframes aparecer {
-        from { opacity: 0; }
-      }
-    }
-  }
+  /* La entrada se dispara al aparecer en pantalla (data-revelar, scripts/revelar.ts):
+     primero la frase y un instante después el texto. Se repite cada vez que se vuelve a pasar. */
+  .texto { --retraso: 0.15s; }
 
   /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
   .seccion {

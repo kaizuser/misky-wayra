@@ -41,6 +41,9 @@ const ogUrl = new URL(og.src, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Hay JavaScript: recién entonces se esconden las entradas ([data-revelar], global.css).
+         Sin JavaScript todo se ve desde el principio. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <!-- Solo la recta: la itálica se descarga cuando una página la usa -->
     <Font cssVariable="--font-fraunces" preload={[{ style: 'normal' }]} />
     <Font cssVariable="--font-figtree" preload />
