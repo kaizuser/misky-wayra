@@ -141,42 +141,19 @@ main article > * + * { margin-block-start: var(--space-s); }
   animation-fill-mode: both;
 }
 
-/* La ventana se abre: del inicio a la cabaña, la foto llega con la forma de su
-   ventana (redonda en Misky, arco en Sumac) y se abre hasta el rectángulo del hero
-   mientras crece. La apertura la hace la propia página (CabanaHero, al cargar):
-   la imagen nueva de la transición es en vivo, así que la muestra tal cual.
-   La foto vieja se va enseguida, así no se ven dos superpuestas. */
+/* Del inicio a la cabaña: la foto de la ventana (círculo o arco) crece hasta ocupar la pantalla
+   y se funde con la foto del hero de la cabaña mientras viaja. Sin aperturas ni recortes. */
 ::view-transition-group(casa-sumac-mayu),
 ::view-transition-group(casa-misky-wayra) {
   animation-duration: 750ms;
-}
-
-::view-transition-old(casa-sumac-mayu),
-::view-transition-old(casa-misky-wayra) {
-  animation-duration: 200ms;
-}
-
-::view-transition-new(casa-misky-wayra),
-::view-transition-new(casa-sumac-mayu) {
-  animation: none;
-}
-
-@keyframes abrir-redonda {
-  from { clip-path: inset(0 round 50%); }
-  to { clip-path: inset(0 round 0); }
-}
-
-@keyframes abrir-arco {
-  from { clip-path: inset(0 round 50% 50% 0.375rem 0.375rem / 38% 38% 0.375rem 0.375rem); }
-  to { clip-path: inset(0 round 0); }
 }
 
 @keyframes vt-aparecer {
   from { opacity: 0; }
 }
 
-/* Los aleros del hero de cabaña llegan cuando la ventana ya casi se abrió,
-   y se van rápido al volver al inicio */
+/* El alero del hero de cabaña llega cuando la foto ya casi ocupa la pantalla,
+   y se va rápido al volver al inicio */
 ::view-transition-new(borde-arriba):only-child,
 ::view-transition-new(borde-abajo):only-child {
   animation-name: vt-aparecer;

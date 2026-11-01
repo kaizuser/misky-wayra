@@ -144,6 +144,34 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
     }
   }
 
+  /* ---------- Sobre una foto a pantalla completa (hero de cabaña) ----------
+     La cabecera flota encima de la foto y siempre es la píldora, más translúcida y
+     difuminada: la casa se ve borrosa detrás y los nombres se siguen leyendo. */
+  :global(body:has(.cabana-hero)) .cabecera {
+    position: fixed;
+    inset-inline: 0;
+  }
+
+  :global(body:has(.cabana-hero)) .eje {
+    animation: none;
+    background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+  }
+
+  :global(body:has(.cabana-hero)) .cupula {
+    animation: none;
+  }
+
+  /* Los links de información también van en su píldora, si no se pierden sobre la foto */
+  @media (width >= 64rem) {
+    :global(body:has(.cabana-hero)) .utilidades ul {
+      padding: var(--space-2xs) var(--space-m);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+      backdrop-filter: blur(14px) saturate(1.2);
+    }
+  }
+
   /* ---------- Información: fuera del eje ---------- */
   .abrir-menu {
     display: none;

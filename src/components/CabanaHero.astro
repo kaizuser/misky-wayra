@@ -4,9 +4,9 @@
  * La foto tiene el mismo view-transition-name que su mitad en el hero de la home,
  * así al navegar la foto se expande y se convierte en este hero.
  *
- * La llegada: la foto se abre desde la ventana de su casa (redonda en Misky, arco en Sumac)
- * hasta el rectángulo del hero. Pasa al cargar la página, sola, así se ve igual si venís
- * del inicio (dentro de la transición) o directo desde un link de WhatsApp.
+ * La llegada: la casa ocupa toda la pantalla. La nav flota encima, difuminada (Nav.astro).
+ * El texto va abajo, sobre un degradé que solo toca el suelo de la foto: el cielo queda limpio.
+ * Abajo, el alero hace de borde hacia la página.
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -18,72 +18,49 @@ interface Props {
   frase: string;
   foto: { src: ImageMetadata; alt: string; encuadre: string };
   transicion: string;
-  tema: 'mayu' | 'wayra';
 }
 
-const { nombre, significado, frase, foto, transicion, tema } = Astro.props;
+const { nombre, significado, frase, foto, transicion } = Astro.props;
 ---
 
-<section class="cabana-hero" data-forma={tema}>
+<section class="cabana-hero">
+  <figure class="foto" style={`view-transition-name: ${transicion}; --encuadre: ${foto.encuadre}`}>
+    <Picture
+      src={foto.src}
+      alt={foto.alt}
+      formats={['avif', 'webp']}
+      widths={[640, 1024, 1600, 2048]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </figure>
+
   <div class="texto">
     <p class="significado">{significado}</p>
     <h1>{nombre}</h1>
     <p class="frase">{frase}</p>
   </div>
 
-  <div class="franja">
-    <figure class="foto" style={`view-transition-name: ${transicion}; --encuadre: ${foto.encuadre}`}>
-      <Picture
-        src={foto.src}
-        alt={foto.alt}
-        formats={['avif', 'webp']}
-        widths={[640, 1024, 1600, 2048]}
-        sizes="100vw"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </figure>
-    <div class="borde arriba" aria-hidden="true"><Alero cap fill="var(--color-bg)" /></div>
-    <div class="borde abajo" aria-hidden="true"><Alero fill="var(--color-bg)" /></div>
-  </div>
+  <div class="borde" aria-hidden="true"><Alero fill="var(--color-bg)" /></div>
 </section>
 
 <style>
   .cabana-hero {
-    padding-inline: 0;
-    padding-block-end: 0;
-  }
-
-  .texto {
-    padding-inline: var(--gutter);
-    padding-block-end: var(--space-xl);
-  }
-
-  .texto > * + * {
-    margin-block-start: var(--space-xs);
-  }
-
-  .significado {
-    font-size: var(--step--1);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .frase {
-    font-size: var(--step-1);
-  }
-
-  /* (no se llama .banda: esa clase global le pondría fondo de color) */
-  .franja {
     position: relative;
-    margin-block-start: 0;
+    display: grid;
+    align-items: end;
+    /* Toda la pantalla; en mobile, menos la barra de abajo (Nav.astro) */
+    min-height: max(32rem, 100svh);
+    padding: 0;
+    overflow: hidden;
   }
 
+  /* ---------- La foto ---------- */
   .foto {
+    position: absolute;
+    inset: 0;
     margin: 0;
-    height: clamp(20rem, 62svh, 42rem);
-    overflow: hidden;
   }
 
   .foto :global(picture),
@@ -98,21 +75,66 @@ const { nombre, significado, frase, foto, transicion, tema } = Astro.props;
     object-position: var(--encuadre);
   }
 
-  /* La ventana se abre (keyframes en global.css, compartidos con la transición) */
-  @media (prefers-reduced-motion: no-preference) {
-    [data-forma='wayra'] .foto { animation: abrir-redonda 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-    [data-forma='mayu'] .foto { animation: abrir-arco 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-  }
-
-  .borde {
+  /* El degradé solo sube desde el suelo: el texto se lee y el cielo queda limpio */
+  .foto::after {
+    content: '';
     position: absolute;
-    inset-inline: 0;
-    z-index: 1;
+    inset: 35% 0 0;
+    background: linear-gradient(to bottom, transparent, rgb(43 33 25 / 0.45) 40%, rgb(43 33 25 / 0.78));
     pointer-events: none;
   }
 
-  /* Los bordes tienen nombre propio: durante la transición entre páginas
-     se quedan sobre la foto, así la foto nunca se ve como un rectángulo */
-  .arriba { top: -1px; view-transition-name: borde-arriba; }
-  .abajo { bottom: -1px; view-transition-name: borde-abajo; }
+  /* ---------- El texto, abajo y alineado con el resto de la página ---------- */
+  .texto {
+    position: relative;
+    z-index: 1;
+    padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2);
+    padding-block-end: calc(var(--alero-alto) + var(--space-xl));
+    text-align: start;
+    color: var(--color-on-color);
+    text-shadow: 0 1px 12px rgb(43 33 25 / 0.35);
+  }
+
+  .texto > * + * {
+    margin-block-start: var(--space-xs);
+  }
+
+  .texto p {
+    margin-inline: 0;
+  }
+
+  .significado {
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    color: inherit;
+    font-size: clamp(3rem, 1.6rem + 6vw, 6.5rem);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .frase {
+    max-width: 32ch;
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+
+  /* ---------- El alero, borde hacia la página ---------- */
+  .borde {
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    z-index: 1;
+    pointer-events: none;
+    view-transition-name: borde-abajo; /* queda sobre la foto durante la transición */
+  }
+
+  @media (width < 40rem) {
+    .cabana-hero {
+      min-height: max(28rem, calc(100svh - 6rem));
+    }
+  }
 </style>
