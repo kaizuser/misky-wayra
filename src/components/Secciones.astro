@@ -113,6 +113,36 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
             );
           })}
         </div>
+      ) : parada.disposicion === 'cruz' ? (
+        // Cruz: una vertical a cada lado y dos apiladas en el centro, que sobresalen arriba y
+        // abajo. Cada foto entra disparada cuando le llega su turno al bajar.
+        <div class="cruz">
+          {[
+            { lugar: 'izquierda', i: 0, retraso: 0 },
+            { lugar: 'centro-arriba', i: 1, retraso: 0 },
+            { lugar: 'centro-abajo', i: 2, retraso: 0 },
+            { lugar: 'derecha', i: 3, retraso: 0.1 },
+          ].map(({ lugar, i, retraso }) => {
+            const foto = parada.fotos[i];
+            return (
+              <figure
+                class:list={['foto', lugar, { pendiente: !foto }]}
+                data-revelar
+                style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
+              >
+                {foto && (
+                  <Picture
+                    src={foto.src}
+                    alt={foto.alt}
+                    formats={['avif', 'webp']}
+                    widths={[400, 700, 1000]}
+                    sizes="(min-width: 40rem) 26vw, 45vw"
+                  />
+                )}
+              </figure>
+            );
+          })}
+        </div>
       ) : (
         <div class="composicion">
           {Array.from({ length: cuantas[parada.disposicion ?? 'fila'] ?? 3 }, () => (
@@ -307,7 +337,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   .nota-subtitulo {
     --retraso: 0.15s;
 
-    max-width: 38ch;
+    max-width: 46ch;
     margin: 0;
     font-size: var(--step-0);
     line-height: 1.6;
@@ -352,6 +382,59 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   .cinco .pendiente {
+    background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
+  }
+
+  /* ---------- Cruz: verticales a los costados, dos apiladas en el centro ----------
+     Medida sobre la referencia: 80% del ancho, tres columnas iguales; la del centro es más
+     alta y sobresale arriba y abajo, los costados quedan centrados respecto de ella. */
+  .cruz {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    column-gap: 2.2%;
+    row-gap: var(--space-l);
+    align-items: center;
+    width: 80vw;
+    margin-inline: calc((100% - 80vw) / 2);
+  }
+
+  .cruz .foto {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cruz .izquierda,
+  .cruz .derecha {
+    grid-row: 1 / span 2;
+    aspect-ratio: 3 / 4;
+  }
+
+  .cruz .izquierda { grid-column: 1; }
+  .cruz .derecha { grid-column: 3; }
+
+  .cruz .centro-arriba,
+  .cruz .centro-abajo {
+    grid-column: 2;
+    aspect-ratio: 21 / 20;
+  }
+
+  .cruz .centro-arriba { grid-row: 1; }
+  .cruz .centro-abajo { grid-row: 2; }
+
+  .cruz :global(picture),
+  .cruz :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cruz :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre, 50% 50%);
+  }
+
+  .cruz .pendiente {
     background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 
