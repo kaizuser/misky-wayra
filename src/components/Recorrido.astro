@@ -500,6 +500,24 @@ const grandes = await Promise.all(
     }
   }
 
+  /* Reducir movimiento: nada se desplaza ni se dibuja (las volutas y la línea ya están completas),
+     pero el contenido de cada parada aparece con un fundido, así la página no se ve quieta.
+     El reset fuerza duraciones mínimas con reducir; con una línea de tiempo de scroll no cuentan. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: reduce) {
+      .parada > .texto,
+      .parada > .fotos {
+        animation: fundirse linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+
+      @keyframes fundirse {
+        from { opacity: 0; }
+      }
+    }
+  }
+
   /* Desktop: cada lado llega desde afuera hacia el eje */
   @media (width >= 64rem) {
     [data-forma='wayra'] .parada:nth-child(odd) > .texto,
