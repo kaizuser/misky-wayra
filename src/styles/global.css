@@ -116,11 +116,6 @@ main article > * + * { margin-block-start: var(--space-s); }
    Por defecto, una foto que existe en una sola de las dos páginas (la otra casa)
    se dibuja arriba de todo como un rectángulo. Los bordes de alero y la nav
    van siempre por encima, así ninguna foto pierde su forma. */
-::view-transition-group(borde-arriba),
-::view-transition-group(borde-abajo) {
-  z-index: 2;
-}
-
 ::view-transition-group(cabecera),
 ::view-transition-group(pulgar) {
   z-index: 3;
@@ -157,21 +152,6 @@ main article > * + * { margin-block-start: var(--space-s); }
 
 @keyframes vt-aparecer {
   from { opacity: 0; }
-}
-
-/* El alero del hero de cabaña llega cuando la foto ya casi ocupa la pantalla,
-   y se va rápido al volver al inicio */
-::view-transition-new(borde-arriba):only-child,
-::view-transition-new(borde-abajo):only-child {
-  animation-name: vt-aparecer;
-  animation-delay: 400ms;
-  animation-duration: 350ms;
-  animation-fill-mode: both;
-}
-
-::view-transition-old(borde-arriba):only-child,
-::view-transition-old(borde-abajo):only-child {
-  animation-duration: 150ms;
 }
 
 /* ---------- Fotos en grande (PhotoSwipe) ----------

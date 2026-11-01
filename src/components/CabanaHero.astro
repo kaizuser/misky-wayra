@@ -6,11 +6,11 @@
  *
  * La llegada: la casa ocupa toda la pantalla. La nav flota encima, difuminada (Nav.astro).
  * El texto va abajo, sobre un degradé que solo toca el suelo de la foto: el cielo queda limpio.
- * Abajo, el alero hace de borde hacia la página.
+ * Al bajar, la foto sube más despacio que la página y se aleja apenas (de 1.06 a 1): como queda
+ * recortada en el borde del hero, la sección de abajo parece subir y taparla.
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import Alero from './Alero.astro';
 
 interface Props {
   nombre: string;
@@ -42,7 +42,6 @@ const { nombre, significado, frase, foto, transicion } = Astro.props;
     <p class="frase">{frase}</p>
   </div>
 
-  <div class="borde" aria-hidden="true"><Alero fill="var(--color-bg)" /></div>
 </section>
 
 <style>
@@ -89,7 +88,7 @@ const { nombre, significado, frase, foto, transicion } = Astro.props;
     position: relative;
     z-index: 1;
     padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2);
-    padding-block-end: calc(var(--alero-alto) + var(--space-xl));
+    padding-block-end: var(--space-2xl);
     text-align: start;
     color: var(--color-on-color);
     text-shadow: 0 1px 12px rgb(43 33 25 / 0.35);
@@ -122,14 +121,34 @@ const { nombre, significado, frase, foto, transicion } = Astro.props;
     line-height: 1.4;
   }
 
-  /* ---------- El alero, borde hacia la página ---------- */
-  .borde {
-    position: absolute;
-    inset-inline: 0;
-    bottom: -1px;
-    z-index: 1;
-    pointer-events: none;
-    view-transition-name: borde-abajo; /* queda sobre la foto durante la transición */
+  /* ---------- Al bajar: la foto sube más lento y se aleja apenas ----------
+     Atado al scroll de la página, del principio hasta que el hero salió de la pantalla.
+     Solo transform: lo resuelve la placa de video, sin trabajo extra. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .foto :global(picture) {
+        animation: alejarse linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 100svh;
+        transform-origin: 50% 50%;
+      }
+
+      @keyframes alejarse {
+        from { transform: translateY(0) scale(1.06); }
+        to { transform: translateY(25%) scale(1); }
+      }
+
+      /* El texto se va desvaneciendo mientras sube, antes de llegar a la nav flotante */
+      .texto {
+        animation: desvanecerse linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 45svh;
+      }
+
+      @keyframes desvanecerse {
+        to { opacity: 0; }
+      }
+    }
   }
 
   @media (width < 40rem) {
