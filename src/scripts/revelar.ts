@@ -4,6 +4,11 @@
 // vez que bajás de nuevo. Si se resetara al salir por arriba, el corrimiento hacia abajo del
 // estado oculto lo metería otra vez en pantalla y saltaría.
 // Los estilos de la entrada viven en global.css; el retraso de cada uno, en --retraso.
+//
+// El estado oculto lo activa este mismo script (.revelar en <html>): si por algo no carga
+// (sin JavaScript, un 404 tras un deploy con el HTML viejo en caché), todo se ve igual.
+
+document.documentElement.classList.add('revelar');
 
 const observador = new IntersectionObserver(
   (entradas) => {
