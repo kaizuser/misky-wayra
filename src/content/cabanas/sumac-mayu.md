@@ -58,7 +58,7 @@ recorrido:
         alt: Pared de adobe de Sumac Mayu con ménsulas de madera, base de piedra y puerta vidriada
 
   - titulo: Adentro
-    disposicion: fila
+    disposicion: cinco
     titular: escalera
     texto: >-
       Un living comedor amplio para quedarse. La salamandra calienta los días fríos, y para

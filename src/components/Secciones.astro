@@ -2,7 +2,7 @@
 /**
  * El recorrido en secciones (formato "secciones"): después del hero, el texto principal,
  * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
- * composición (trío, fila, cruz, panorámica, par) y su propia forma de llegar al bajar.
+ * composición (trío, cinco, fila, cruz, panorámica, par) y su propia forma de llegar al bajar.
  * El título de cada sección queda para lectores de pantalla y buscadores.
  *
  * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
@@ -25,7 +25,7 @@ interface Props {
 const { principal, paradas } = Astro.props;
 
 /** Cuántas fotos lleva cada composición */
-const cuantas: Record<string, number> = { trio: 3, fila: 3, cruz: 4, panoramica: 3, par: 2 };
+const cuantas: Record<string, number> = { trio: 3, cinco: 5, fila: 3, cruz: 4, panoramica: 3, par: 2 };
 
 /** El título expresivo en pedazos: palabras si hay varias; si es una, en tres partes ("Ad·en·tro") */
 function pedazos(titulo: string) {
@@ -76,6 +76,31 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                     formats={['avif', 'webp']}
                     widths={[400, 700, 1000]}
                     sizes="(min-width: 40rem) 28vw, 38vw"
+                  />
+                )}
+              </figure>
+            );
+          })}
+        </div>
+      ) : parada.disposicion === 'cinco' ? (
+        // Cinco: tres arriba y dos abajo, centradas en los huecos; cada una entra disparada
+        <div class="cinco">
+          {Array.from({ length: 5 }, (_, i) => {
+            const foto = parada.fotos[i];
+            const retraso = (i < 3 ? i * 0.08 : 0.12 + (i - 3) * 0.08).toFixed(2);
+            return (
+              <figure
+                class:list={['foto', { pendiente: !foto }]}
+                data-revelar
+                style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
+              >
+                {foto && (
+                  <Picture
+                    src={foto.src}
+                    alt={foto.alt}
+                    formats={['avif', 'webp']}
+                    widths={[400, 700, 1000]}
+                    sizes="(min-width: 40rem) 26vw, 45vw"
                   />
                 )}
               </figure>
@@ -151,6 +176,12 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     font-size: clamp(5rem, 2rem + 11vw, 13rem);
     line-height: 0.7;
     rotate: -32deg;
+    translate: -0.25em 0; /* el escalonado lo corre a la derecha: lo devuelve al centro */
+  }
+
+  /* Pegado a la composición que presenta */
+  .seccion:has(.cinco) .titular {
+    margin-block-end: var(--space-l);
   }
 
   .escalera span {
@@ -237,6 +268,43 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       width: auto;
       margin-inline: 0;
     }
+  }
+
+  /* ---------- Cinco: tres arriba, dos abajo centradas en los huecos ----------
+     Misma escala que el trío (80% del ancho). Cada foto entra disparada desde abajo
+     (data-revelar), apenas escalonadas; las de abajo, un poco después. */
+  .cinco {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--space-s);
+    width: 80vw;
+    margin-inline: calc((100% - 80vw) / 2);
+  }
+
+  .cinco .foto {
+    grid-column: span 2;
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .cinco .foto:nth-child(4) { grid-column: 2 / span 2; }
+  .cinco .foto:nth-child(5) { grid-column: 4 / span 2; }
+
+  .cinco :global(picture),
+  .cinco :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cinco :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre, 50% 50%);
+  }
+
+  .cinco .pendiente {
+    background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 
   /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
