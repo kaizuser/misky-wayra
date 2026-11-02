@@ -44,11 +44,9 @@ const ogUrl = new URL(og.src, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Solo la recta: la itálica se descarga cuando una página la usa -->
-    <Font cssVariable="--font-fraunces" preload={[{ style: 'normal' }]} />
-    <Font cssVariable="--font-figtree" preload />
-    <!-- Solo para los textos principales grandes: sin precarga, se descarga donde se usa -->
-    <Font cssVariable="--font-instrument" />
+    <!-- Precarga solo la recta: la itálica se descarga cuando una página la usa -->
+    <Font cssVariable="--font-instrument-serif" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--font-instrument-sans" preload />
     <link rel="icon" type="image/svg+xml" href={ruta('/favicon.svg')} />
     <title>{title}</title>
     <meta name="description" content={description} />

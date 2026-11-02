@@ -33,10 +33,6 @@
   --color-accent: var(--monte);      /* detalles (igual al primary) */
   --color-deep: var(--tinta);        /* títulos, fondos oscuros */
   --color-on-color: var(--cal);      /* texto sobre primary/accent/deep */
-
-  /* Carácter de la letra (Fraunces): peso de títulos y nombres, y suavidad (eje SOFT) */
-  --peso-titulo: 500;
-  --suavidad: 100;
 }
 
 /* ---------- Temas: cada casa cambia solo su color ---------- */
@@ -44,25 +40,21 @@
   --color-primary: var(--adobe);
   --color-accent: var(--adobe);
   --color-deep: var(--brasa);
-  --peso-titulo: 620;  /* arcilla: más pesada y blanda */
-  --suavidad: 100;
 }
 
 [data-theme="wayra"] {
   --color-primary: var(--techo);
   --color-accent: var(--techo);
   --color-deep: var(--sombra);
-  --peso-titulo: 380;  /* aire: más liviana */
-  --suavidad: 50;
 }
 
 /* ---------- Tipografía ---------- */
 :root {
-  /* Las variables --font-fraunces y --font-figtree las genera Astro
-     (Fonts API), con fuentes de respaldo ya incluidas */
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-figtree);
-  --font-principal: var(--font-instrument); /* textos principales grandes */
+  /* Dos familias primas (las variables las genera Astro, Fonts API):
+     Instrument Serif para títulos y textos principales; Instrument Sans para el resto */
+  --font-display: var(--font-instrument-serif);
+  --font-principal: var(--font-instrument-serif);
+  --font-body: var(--font-instrument-sans);
 
   /* Escala fluida: crece con la pantalla, entre un mínimo y un máximo */
   --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);

@@ -20,29 +20,21 @@ export default defineConfig({
   },
   fonts: [
     {
-      // Los textos principales grandes (formato secciones): serif condensada de alto contraste
+      // Títulos, textos principales, nombres: serif condensada de alto contraste
       provider: fontProviders.fontsource(),
       name: 'Instrument Serif',
-      cssVariable: '--font-instrument',
+      cssVariable: '--font-instrument-serif',
       weights: ['400'],
-      styles: ['normal'],
-      subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
-    },
-    {
-      provider: fontProviders.fontsource(),
-      name: 'Fraunces',
-      cssVariable: '--font-fraunces',
-      weights: ['300 700'],
       styles: ['normal', 'italic'], // la itálica real; solo se descarga donde se usa
       subsets: ['latin'],
       fallbacks: ['Georgia', 'serif'],
     },
     {
+      // Cuerpo, nav, botones, datos: la sans de la misma familia, recta y formal
       provider: fontProviders.fontsource(),
-      name: 'Figtree',
-      cssVariable: '--font-figtree',
-      weights: ['300 700'],
+      name: 'Instrument Sans',
+      cssVariable: '--font-instrument-sans',
+      weights: ['400 700'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],
