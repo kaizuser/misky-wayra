@@ -182,6 +182,14 @@ main article > * + * { margin-block-start: var(--space-s); }
   from { opacity: 0; }
 }
 
+/* La foto que se abre en grande (Ampliable.astro): el link ocupa toda su caja */
+.ampliar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
 /* ---------- Fotos en grande (PhotoSwipe) ----------
    El visor se agrega al final del body, así que toma los colores del tema de la página */
 .pswp.pswp { /* doble clase: el CSS de PhotoSwipe se carga después y pisaría las variables */

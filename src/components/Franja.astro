@@ -144,8 +144,17 @@ const actual = (href: string) => (aqui === href ? 'page' : undefined);
     }
 
     .lado.derecha {
-      gap: var(--space-m);
-      font-size: 0.7rem;
+      gap: 0;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+    }
+
+    .lado a {
+      padding-inline: 0.6rem;
+    }
+
+    .barra {
+      padding-inline: var(--gutter) 0.4rem;
     }
   }
 </style>

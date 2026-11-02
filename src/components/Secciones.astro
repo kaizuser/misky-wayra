@@ -8,7 +8,7 @@
  * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
  * rectángulos grises con la cantidad de fotos de su composición.
  */
-import { Picture } from 'astro:assets';
+import Ampliable from './Ampliable.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Foto {
@@ -71,27 +71,19 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.disposicion === 'trio' ? (
         // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
-        <div class="trio" data-repetir>
+        <div class="trio" data-repetir data-galeria>
           {lugaresTrio.map((lugar, i) => {
             const foto = parada.fotos[i];
             return (
               <figure class:list={['foto', lugar, { pendiente: !foto }]} style={foto && `--encuadre: ${foto.encuadre}`}>
-                {foto && (
-                  <Picture
-                    src={foto.src}
-                    alt={foto.alt}
-                    formats={['avif', 'webp']}
-                    widths={[400, 700, 1000]}
-                    sizes="(min-width: 40rem) 28vw, 38vw"
-                  />
-                )}
+                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 28vw, 38vw" />
               </figure>
             );
           })}
         </div>
       ) : parada.disposicion === 'cinco' ? (
         // Cinco: tres arriba y dos abajo, centradas en los huecos; cada una entra disparada
-        <div class="cinco">
+        <div class="cinco" data-galeria>
           {Array.from({ length: 5 }, (_, i) => {
             const foto = parada.fotos[i];
             const retraso = (i < 3 ? i * 0.08 : 0.12 + (i - 3) * 0.08).toFixed(2);
@@ -101,15 +93,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                 data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
-                {foto && (
-                  <Picture
-                    src={foto.src}
-                    alt={foto.alt}
-                    formats={['avif', 'webp']}
-                    widths={[400, 700, 1000]}
-                    sizes="(min-width: 40rem) 26vw, 45vw"
-                  />
-                )}
+                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
               </figure>
             );
           })}
@@ -117,7 +101,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       ) : parada.disposicion === 'cruz' ? (
         // Cruz: una vertical a cada lado y dos apiladas en el centro, que sobresalen arriba y
         // abajo. Cada foto entra disparada cuando le llega su turno al bajar.
-        <div class="cruz">
+        <div class="cruz" data-galeria>
           {[
             { lugar: 'izquierda', i: 0, retraso: 0 },
             { lugar: 'centro-arriba', i: 1, retraso: 0 },
@@ -131,15 +115,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                 data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
-                {foto && (
-                  <Picture
-                    src={foto.src}
-                    alt={foto.alt}
-                    formats={['avif', 'webp']}
-                    widths={[400, 700, 1000]}
-                    sizes="(min-width: 40rem) 26vw, 45vw"
-                  />
-                )}
+                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
               </figure>
             );
           })}
@@ -147,7 +123,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       ) : parada.disposicion === 'escalones' ? (
         // Escalones: dos escaleras paralelas, pegadas, que bajan de derecha a izquierda por el
         // centro. Cada escalón tiene dos fotos lado a lado (una de cada escalera).
-        <div class="escalones">
+        <div class="escalones" data-galeria>
           {[0, 1, 2].map((escalon) => (
             <div class="escalon" style={`--i: ${escalon}`}>
               {[0, 1].map((escalera) => {
@@ -158,15 +134,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                     data-revelar
                     style={`--retraso: ${escalera * 0.1}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
                   >
-                    {foto && (
-                      <Picture
-                        src={foto.src}
-                        alt={foto.alt}
-                        formats={['avif', 'webp']}
-                        widths={[400, 700, 1000]}
-                        sizes="(min-width: 40rem) 22vw, 45vw"
-                      />
-                    )}
+                    <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 22vw, 45vw" />
                   </figure>
                 );
               })}
@@ -194,6 +162,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 <script>
   import '../scripts/trazado';
   import '../scripts/revelar';
+  import '../scripts/lightbox';
 </script>
 
 <style>
@@ -246,7 +215,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   .escalera {
     display: grid;
     justify-content: center;
-    font-size: clamp(5rem, 2rem + 11vw, 13rem);
+    font-size: clamp(4rem, 1.5rem + 11vw, 13rem);
     line-height: 0.7;
     rotate: -32deg;
     translate: -0.25em 0; /* el escalonado lo corre a la derecha: lo devuelve al centro */
@@ -333,15 +302,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   /* Mobile: la misma composición, con fotos más anchas y más pisadas para que se lean */
-  @media (width < 40rem) {
-    .trio {
-      --ancho: 38%;
-      --pisada: -7%;
 
-      width: auto;
-      margin-inline: 0;
-    }
-  }
 
   /* ---------- Nota: título y subtítulo centrados, debajo de las fotos ----------
      Como el texto principal, pero más chica y con menos texto. Después, más aire
@@ -548,6 +509,9 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
   .seccion {
     padding-block: var(--space-2xl);
+    /* Lo que sobresale de costado (el titular girado, las fotos que llegan) no ensancha la
+       página: un elemento rotado también cuenta para el ancho, y en el celular lo estiraba */
+    overflow-x: clip;
   }
 
   .composicion {
@@ -561,5 +525,60 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     max-width: 22rem;
     aspect-ratio: 3 / 4;
     background: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
+  }
+
+  /* ---------- Mobile: cada composición es un carrusel ----------
+     Una foto por ancho de pantalla, de a una al deslizar (scroll nativo con snap). Sin las
+     posiciones ni los movimientos de desktop: las fotos llegan ya visibles al deslizarlas. */
+  @media (width < 40rem) {
+    .trio,
+    .cinco,
+    .cruz,
+    .escalones {
+      display: flex;
+      justify-content: flex-start; /* el trío centra en desktop: acá cortaría la primera foto */
+      gap: var(--space-xs);
+      width: 100vw;
+      margin-inline: calc((100% - 100vw) / 2);
+      padding-inline: var(--gutter);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+    }
+
+    .trio::-webkit-scrollbar,
+    .cinco::-webkit-scrollbar,
+    .cruz::-webkit-scrollbar,
+    .escalones::-webkit-scrollbar {
+      display: none;
+    }
+
+    .escalon {
+      display: contents;
+    }
+
+    .trio .foto,
+    .cinco .foto,
+    .cruz .foto,
+    .escalones .foto {
+      flex: none;
+      width: calc(100vw - 2 * var(--gutter));
+      aspect-ratio: 4 / 5;
+      margin: 0;
+      translate: none;
+      animation: none;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* Las entradas disparadas no aplican adentro de un carrusel */
+    :global(.revelar) .cinco .foto[data-revelar],
+    :global(.revelar) .cruz .foto[data-revelar],
+    :global(.revelar) .escalones .foto[data-revelar] {
+      opacity: 1;
+      translate: none;
+    }
   }
 </style>
