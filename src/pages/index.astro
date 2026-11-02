@@ -11,6 +11,7 @@ import CabanaHero from '../components/CabanaHero.astro';
 import Franja from '../components/Franja.astro';
 import Secciones from '../components/Secciones.astro';
 import { negocio } from '../lib/datos';
+import hero from '../assets/home/hero.jpg';
 
 const sumac = (await getEntry('cabanas', 'sumac-mayu'))!;
 const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -22,13 +23,17 @@ const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b
   jsonLd={negocio(cabanas, Astro.site!)}
   cabecera={false}
 >
-  <!-- La misma foto y el mismo nombre de transición que el hero de Sumac: al ir a su página, se queda -->
+  <!-- Foto provisoria: el parque y la pileta con el Uritorco -->
   <CabanaHero
     nombre="Misky Wayra"
     significado="Capilla del Monte · Córdoba"
     frase="Dos cabañas de adobe hechas a mano, en un parque frente al Uritorco."
-    foto={sumac.data.foto}
-    transicion="casa-sumac-mayu"
+    foto={{
+      src: hero,
+      alt: 'El parque de Misky Wayra con la pileta, el deck y el Cerro Uritorco detrás',
+      encuadre: '50% 60%',
+    }}
+    transicion="hero-inicio"
   />
   <Franja />
   <Secciones principal={sumac.data.principal} paradas={sumac.data.recorrido} />

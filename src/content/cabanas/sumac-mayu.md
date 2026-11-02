@@ -113,13 +113,4 @@ recorrido:
     texto: >-
       Cincuenta metros cuadrados extra, con sillones, para jugar, leer o simplemente
       juntarse.
-
-  - titulo: Afuera
-    texto: >-
-      Una pérgola con asientos para estar al aire libre, la parrilla para el asado y un
-      pequeño invernadero. La entrada es independiente, con cochera techada.
-    fotos:
-      - src: ../../assets/cabanas/sumac-mayu/jardin.jpg
-        alt: Sumac Mayu desde el jardín, con agapantos y flores junto a la pileta
-        encuadre: 60% 50%
 ---

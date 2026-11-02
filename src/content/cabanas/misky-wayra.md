@@ -7,10 +7,11 @@ seoTitle: La casa Misky Wayra, cabaña de adobe en Capilla del Monte
 seoDescription: La primera casa del complejo. Adobe, 80 m², dos dormitorios y galería con parrilla, para 4 o 5 personas, en un parque con vista a los cerros.
 frase: Donde empezó todo. Adobe, cal y un techo verde bajo los cerros.
 
+# Provisoria hasta la sesión de fotos
 foto:
-  src: ../../assets/home/hero-misky.jpg
-  alt: Misky Wayra, casa redonda de techo verde con guarda de azulejos, bajo un algarrobo, con un camino de ladrillo hacia la galería
-  encuadre: 50% 62%
+  src: ../../assets/cabanas/misky-wayra/hero.jpg
+  alt: Misky Wayra, casa redonda de techo verde y paredes de cal, entre algarrobos, con las sierras detrás
+  encuadre: 60% 55%
 
 datos:
   superficie: 80
@@ -34,6 +35,26 @@ comodidades:
   - Entrada independiente
   - Cochera techada
   - Alarma
+
+formato: informativa
+
+equipamiento:
+  adentro:
+    - Living comedor con televisor
+    - WiFi exclusivo
+    - Streaming incluido
+    - Cocina equipada con horno eléctrico
+    - Salamandra Ñuke
+    - Placa de calor en cada ambiente
+  afuera:
+    - Galería con mesa de campo
+    - Parrilla
+    - Pileta en temporada
+    - Entrada independiente
+    - Cochera techada
+  incluido:
+    - Ropa de cama y toallones
+    - Alarma
 
 recorrido:
   - titulo: La casa
