@@ -7,6 +7,8 @@ import CabanaHero from '../../components/CabanaHero.astro';
 import Recorrido from '../../components/Recorrido.astro';
 import Secciones from '../../components/Secciones.astro';
 import Franja from '../../components/Franja.astro';
+import Ficha from '../../components/Ficha.astro';
+import Ambientes from '../../components/Ambientes.astro';
 import Consultar from '../../components/Consultar.astro';
 import { alojamiento } from '../../lib/datos';
 import { ruta } from '../../lib/rutas';
@@ -38,7 +40,7 @@ const d = cabana.data;
   theme={d.tema}
   imagen={d.foto}
   jsonLd={alojamiento(cabana, Astro.site!)}
-  cabecera={d.formato !== 'secciones'}
+  cabecera={d.formato === 'camino'}
 >
   <!-- 1. La llegada -->
   <CabanaHero
@@ -48,11 +50,16 @@ const d = cabana.data;
     foto={d.foto}
     transicion={`casa-${cabana.id}`}
   />
-  {d.formato === 'secciones' && <Franja />}
+  {d.formato !== 'camino' && <Franja />}
 
   <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
   {
-    d.formato === 'secciones' ? (
+    d.formato === 'informativa' ? (
+      <>
+        <Ficha datos={d.datos} equipamiento={d.equipamiento} comodidades={d.comodidades} />
+        <Ambientes ambientes={d.recorrido} />
+      </>
+    ) : d.formato === 'secciones' ? (
       <Secciones principal={d.principal} paradas={d.recorrido} />
     ) : (
       <Recorrido paradas={d.recorrido} tema={d.tema} />
@@ -61,7 +68,7 @@ const d = cabana.data;
 
   <!-- Formato secciones: lo que sigue se rediseña aparte; por ahora no se muestra -->
   {
-    d.formato !== 'secciones' && (
+    d.formato === 'camino' && (
       <>
   <section class="al-parque">
     <p>

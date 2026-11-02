@@ -1,0 +1,168 @@
+---
+/**
+ * De un vistazo (formato informativa): la ficha técnica de la cabaña.
+ * Arriba, los datos en números grandes (Instrument Serif, color de la casa); abajo, las
+ * comodidades agrupadas en Adentro / Afuera / Incluido. Sobria: líneas finas, mucho aire.
+ */
+interface Props {
+  datos: { superficie: number; huespedes: string; dormitorios: number; camas: string };
+  equipamiento?: { adentro: string[]; afuera: string[]; incluido: string[] };
+  comodidades: string[];
+}
+
+const { datos, equipamiento, comodidades } = Astro.props;
+
+const cifras = [
+  { valor: `${datos.superficie} m²`, nombre: 'Superficie' },
+  { valor: datos.huespedes, nombre: 'Huéspedes' },
+  { valor: String(datos.dormitorios), nombre: 'Dormitorios' },
+  { valor: datos.camas, nombre: 'Camas', largo: true },
+];
+
+const grupos = equipamiento
+  ? [
+      { nombre: 'Adentro', items: equipamiento.adentro },
+      { nombre: 'Afuera', items: equipamiento.afuera },
+      { nombre: 'Incluido', items: equipamiento.incluido },
+    ]
+  : [{ nombre: 'Comodidades', items: comodidades }];
+---
+
+<section class="ficha" aria-labelledby="ficha-titulo">
+  <h2 id="ficha-titulo" class="antetitulo" data-revelar>De un vistazo</h2>
+
+  <dl class="cifras">
+    {
+      cifras.map((cifra, i) => (
+        <div class="cifra" data-revelar style={`--retraso: ${(i * 0.08).toFixed(2)}s`}>
+          <dt>{cifra.nombre}</dt>
+          <dd class:list={{ largo: cifra.largo }}>{cifra.valor}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="grupos">
+    {
+      grupos.map((grupo, i) => (
+        <div class="grupo" data-revelar style={`--retraso: ${(i * 0.08).toFixed(2)}s`}>
+          <h3>{grupo.nombre}</h3>
+          <ul>
+            {grupo.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import '../scripts/revelar';
+</script>
+
+<style>
+  .ficha {
+    --linea: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+
+    display: grid;
+    gap: var(--space-2xl);
+    padding-block: var(--space-3xl);
+    text-align: start;
+  }
+
+  .antetitulo {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  /* ---------- Las cifras ---------- */
+  .cifras {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+    border-block-start: var(--linea);
+  }
+
+  .cifra {
+    display: flex;
+    flex-direction: column-reverse; /* el número arriba, el nombre abajo, pero dt primero en el HTML */
+    gap: var(--space-2xs);
+    padding: var(--space-m) var(--space-m) 0 0;
+  }
+
+  .cifra + .cifra {
+    padding-inline-start: var(--space-m);
+    border-inline-start: var(--linea);
+  }
+
+  .cifra dt {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .cifra dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 1.4rem + 3.6vw, 4.5rem);
+    line-height: 1;
+    color: var(--color-primary);
+  }
+
+  .cifra dd.largo {
+    font-size: clamp(1.6rem, 1rem + 1.6vw, 2.2rem);
+    line-height: 1.1;
+  }
+
+  /* ---------- Las comodidades ---------- */
+  .grupos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .grupo h3 {
+    margin: 0 0 var(--space-s);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .grupo ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .grupo li {
+    padding-block: 0.55rem;
+    border-block-start: var(--linea);
+  }
+
+  @media (width < 64rem) {
+    .cifras {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--space-l);
+    }
+
+    .cifra:nth-child(3) {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+    }
+
+    .grupos {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

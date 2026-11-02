@@ -36,7 +36,26 @@ comodidades:
   - Cochera techada
   - Alarma
 
-formato: secciones
+formato: informativa
+
+equipamiento:
+  adentro:
+    - Living comedor con televisor
+    - WiFi exclusivo
+    - Streaming incluido
+    - Cocina equipada
+    - Salamandra
+    - Playroom de 50 m²
+  afuera:
+    - Pérgola con asientos
+    - Parrilla
+    - Invernadero
+    - Pileta en temporada
+    - Entrada independiente
+    - Cochera techada
+  incluido:
+    - Ropa de cama y toallas
+    - Alarma
 
 # Provisorio: lorem ipsum con el largo aproximado del texto final
 principal:

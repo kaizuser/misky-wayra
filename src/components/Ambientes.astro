@@ -1,0 +1,276 @@
+---
+/**
+ * Los ambientes (formato informativa): un carrusel de fotos por ambiente de la casa.
+ * Editorial: el nombre del ambiente grande en Instrument Serif, a la izquierda; las flechas y
+ * el contador a la derecha; debajo, las fotos grandes y rectangulares, que arrancan alineadas
+ * con el texto y se van por el borde derecho de la pantalla (se ve que sigue). Se desliza con
+ * el dedo, el trackpad o las flechas (scripts/carrusel.ts). Tocar una foto la abre en grande.
+ */
+import { Picture, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Foto {
+  src: ImageMetadata;
+  alt: string;
+  encuadre: string;
+  epigrafe?: string;
+}
+
+interface Props {
+  ambientes: { titulo: string; fotos: Foto[] }[];
+}
+
+const { ambientes } = Astro.props;
+
+/** Mientras no estén todas las fotos, cada ambiente se completa con grises hasta este número */
+const PENDIENTES = 6;
+
+const grandes = await Promise.all(
+  ambientes.map((ambiente) =>
+    Promise.all(
+      ambiente.fotos.map((foto) =>
+        getImage({ src: foto.src, width: Math.min(2048, foto.src.width), format: 'webp', quality: 82 }),
+      ),
+    ),
+  ),
+);
+---
+
+<div class="ambientes">
+  {
+    ambientes.map((ambiente, i) => {
+      const faltan = Math.max(0, PENDIENTES - ambiente.fotos.length);
+      const total = ambiente.fotos.length + faltan;
+      return (
+        <section class="ambiente" aria-label={ambiente.titulo} data-carrusel>
+          <header class="cabeza" data-revelar>
+            <p class="numero">{String(i + 1).padStart(2, '0')}</p>
+            <h2>{ambiente.titulo}</h2>
+            <div class="controles">
+              <p class="contador" aria-live="polite">
+                <span data-actual>1</span> / {total}
+              </p>
+              <button type="button" class="flecha" data-anterior aria-label={`Foto anterior de ${ambiente.titulo}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+              </button>
+              <button type="button" class="flecha" data-siguiente aria-label={`Foto siguiente de ${ambiente.titulo}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </header>
+
+          <ul class="pista" data-pista data-galeria tabindex="0" aria-label={`Fotos de ${ambiente.titulo}`}>
+            {ambiente.fotos.map((foto, j) => (
+                  <li class="foto" style={`--encuadre: ${foto.encuadre}`}>
+                    <a
+                      class="ampliar"
+                      href={grandes[i][j].src}
+                      data-pswp-width={grandes[i][j].attributes.width}
+                      data-pswp-height={grandes[i][j].attributes.height}
+                      data-epigrafe={foto.epigrafe ?? foto.alt}
+                      aria-label={`Ver en grande: ${foto.alt}`}
+                    >
+                      <Picture
+                        src={foto.src}
+                        alt={foto.alt}
+                        formats={['avif', 'webp']}
+                        widths={[500, 800, 1200]}
+                        sizes="(min-width: 40rem) 30vw, 80vw"
+                      />
+                    </a>
+                  </li>
+                ))}
+            {Array.from({ length: faltan }, () => <li class="foto pendiente" />)}
+          </ul>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  import '../scripts/revelar';
+  import '../scripts/carrusel';
+  import '../scripts/lightbox';
+</script>
+
+<style>
+  .ambientes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr); /* si no, la pista de fotos estira la página de costado */
+    gap: var(--space-3xl);
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+
+  /* Arranca en el margen izquierdo del contenido; las fotos se van por el borde derecho */
+  .ambiente {
+    padding-inline-start: max(var(--gutter), (100vw - var(--axis-width)) / 2);
+    text-align: start;
+  }
+
+  /* ---------- La cabeza: número, nombre, controles ---------- */
+  .cabeza {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: var(--space-m);
+    margin-inline-end: max(var(--gutter), (100vw - var(--axis-width)) / 2);
+    padding-block-end: var(--space-m);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+  }
+
+  .numero {
+    margin: 0;
+    padding-block-end: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-text);
+  }
+
+  .controles {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding-block-end: 0.35rem;
+  }
+
+  .contador {
+    margin: 0 var(--space-s) 0 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .flecha {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease,
+      opacity 0.3s;
+  }
+
+  .flecha:hover:not(:disabled) {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-color);
+  }
+
+  .flecha:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .flecha svg {
+    width: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* ---------- La pista de fotos ---------- */
+  .pista {
+    display: flex;
+    gap: var(--space-s);
+    margin: var(--space-l) 0 0;
+    padding: 0 max(var(--gutter), (100vw - var(--axis-width)) / 2) 0 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .pista::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pista:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .foto {
+    flex: none;
+    width: clamp(16rem, 30vw, 30rem);
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+    overflow: hidden;
+  }
+
+  .ampliar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: zoom-in;
+  }
+
+  .foto :global(picture),
+  .foto :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .foto :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre, 50% 50%);
+    transition: scale 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ampliar:hover :global(img) {
+    scale: 1.03;
+  }
+
+  .pendiente {
+    background: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
+  }
+
+  .pendiente:nth-child(even) {
+    background: color-mix(in srgb, var(--color-text) 20%, var(--color-bg));
+  }
+
+  @media (width < 40rem) {
+    .cabeza {
+      grid-template-columns: 1fr auto;
+    }
+
+    .numero {
+      grid-column: 1 / -1;
+      padding: 0;
+    }
+
+    .contador {
+      display: none;
+    }
+
+    .foto {
+      width: 80vw;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pista {
+      scroll-behavior: auto;
+    }
+  }
+</style>
