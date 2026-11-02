@@ -43,7 +43,8 @@ const ogUrl = new URL(og.src, Astro.site);
 <html lang="es-AR">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- minimum-scale=1: en el celular no se puede alejar (rompía la composición); acercar sí, para leer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
     <!-- Precarga solo la recta: la itálica se descarga cuando una página la usa -->
     <Font cssVariable="--font-instrument-serif" preload={[{ style: 'normal' }]} />
     <Font cssVariable="--font-instrument-sans" preload />

@@ -4,6 +4,9 @@
 
 body { min-height: 100dvh; -webkit-font-smoothing: antialiased; }
 
+/* Nada más ancho que la pantalla: si algo desborda, el celular deja alejar el zoom */
+html, body { overflow-x: clip; }
+
 img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 input, button, textarea, select { font: inherit; }
 

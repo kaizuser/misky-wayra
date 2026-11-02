@@ -23,10 +23,12 @@ document.querySelectorAll<HTMLElement>('[data-carrusel]').forEach((carrusel) => 
     const max = pista!.scrollWidth - pista!.clientWidth;
     anterior!.disabled = pista!.scrollLeft <= 2;
     siguiente!.disabled = pista!.scrollLeft >= max - 2;
-    // Al final, las últimas fotos ya están a la vista: el contador muestra la última
-    const alFinal = pista!.scrollLeft >= max - 2;
-    if (actual)
-      actual.textContent = String(alFinal ? fotos().length : Math.round(pista!.scrollLeft / paso()) + 1);
+    if (!actual) return;
+    // Las fotos a la vista: una en el celular, dos en desktop ("1–2 / 6")
+    const total = fotos().length;
+    const aLaVista = Math.max(1, Math.round(pista!.clientWidth / paso()));
+    const primera = Math.min(total - aLaVista + 1, Math.round(pista!.scrollLeft / paso()) + 1);
+    actual.textContent = aLaVista > 1 ? `${primera}–${primera + aLaVista - 1}` : String(primera);
   }
 
   anterior.addEventListener('click', () => pista.scrollBy({ left: -paso() }));

@@ -557,13 +557,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     .escalones {
       display: flex;
       justify-content: flex-start; /* el trío centra en desktop: acá cortaría la primera foto */
-      gap: var(--space-xs);
-      width: 100vw;
-      margin-inline: calc((100% - 100vw) / 2);
-      padding-inline: var(--gutter);
+      gap: var(--space-s);
+      /* De margen a margen: cada foto ocupa justo el ancho, sin que asome la siguiente */
+      width: auto;
+      margin-inline: 0;
+      padding-inline: 0;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-padding-inline: var(--gutter);
       scrollbar-width: none;
       overscroll-behavior-x: contain;
     }
@@ -584,7 +584,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     .cruz .foto,
     .escalones .foto {
       flex: none;
-      width: calc(100vw - 2 * var(--gutter));
+      width: 100%;
       aspect-ratio: 4 / 5;
       margin: 0;
       translate: none;
