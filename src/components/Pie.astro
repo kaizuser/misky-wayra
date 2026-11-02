@@ -8,59 +8,75 @@ import { SITIO } from '../config';
 ---
 
 <footer class="pie" data-theme="tierra">
-  <div class="emblema"><Emblema /></div>
-  <p class="marca">Misky Wayra</p>
-  <p class="linea">Dos casas de adobe frente al Uritorco. Te esperamos.</p>
-  {
-    SITIO.redes.length > 0 && (
-      <ul class="redes" aria-label="Redes sociales">
-        {SITIO.redes.map((red) => (
-          <li>
-            <a href={red.url} rel="noopener">
-              {red.nombre}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  <div class="fila">
+    <div class="marca">
+      <div class="emblema"><Emblema /></div>
+      <div>
+        <p class="nombre">Misky Wayra</p>
+        <p class="linea">Dos casas de adobe frente al Uritorco. Te esperamos.</p>
+      </div>
+    </div>
+    {
+      SITIO.redes.length > 0 && (
+        <ul class="redes" aria-label="Redes sociales">
+          {SITIO.redes.map((red) => (
+            <li>
+              <a href={red.url} rel="noopener">
+                {red.nombre}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
   <p class="firma">© {new Date().getFullYear()} · {SITIO.localidad}</p>
 </footer>
 
 <style>
+  /* Compacto: el emblema a un costado con el nombre y la línea; las redes del otro lado */
   .pie {
-    display: grid;
-    justify-items: center;
-    gap: var(--space-s);
-    padding: var(--space-3xl) var(--gutter) var(--space-xl);
+    padding: var(--space-xl) max(var(--gutter), (100% - var(--axis-width)) / 2) var(--space-m);
     background: var(--arena);
     color: var(--tinta);
-    text-align: center;
+    text-align: start;
   }
 
-  .emblema {
-    width: min(22rem, 60vw);
+  .fila {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-l);
   }
 
   .marca {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+  }
+
+  .emblema {
+    flex: none;
+    width: 5.5rem;
+  }
+
+  .nombre {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 1rem + 10vw, 11rem);
-    line-height: 0.9;
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.8rem);
+    line-height: 1;
   }
 
   .linea {
-    margin: var(--space-s) 0 0;
-    max-width: 32ch;
-    font-size: var(--step-0);
+    margin: 0.35rem 0 0;
+    font-size: 0.95rem;
   }
 
   .redes {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: var(--space-l);
-    margin: var(--space-m) 0 0;
+    margin: 0;
     padding: 0;
     list-style: none;
   }
@@ -82,10 +98,19 @@ import { SITIO } from '../config';
   }
 
   .firma {
-    margin: var(--space-2xl) 0 0;
+    max-width: none;
+    margin: var(--space-l) 0 0;
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid color-mix(in srgb, var(--tinta) 18%, transparent);
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     opacity: 0.6;
+  }
+
+  @media (width < 40rem) {
+    .emblema {
+      width: 4rem;
+    }
   }
 </style>
