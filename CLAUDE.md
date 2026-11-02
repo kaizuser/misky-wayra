@@ -214,8 +214,8 @@ The developer's redesign: the trip structure stays (same stops, in order), but e
 
 **Planned (noted Nov 2, 2026):**
 - **Guest reviews per house** (the developer has comments for each cottage): on each cottage page, **after the carousels and before booking**: the visitor has seen the house and the data and is about to decide, which is where social proof weighs most. Editorial treatment: one or two short quotes large in Instrument Serif, the guest's first name and month/year small in uppercase sans; if there are several, a quiet carousel using the same component. Only real, attributable quotes (with consent), never invented or edited beyond trimming.
-- **Footer** (site-wide, editorial): the brand, address with the Maps link, WhatsApp/phone/Instagram, the four page links, and a closing line; thin rules, sans uppercase labels, generous air. Replaces the current one-line footer.
-- **Home closing** (desktop has no WhatsApp on the home today): both houses side by side as large rectangular photos with their names, linking to their pages, plus the WhatsApp button.
+- **Footer — done (`Pie.astro`, Nov 2, 2026), on every page:** a closing, not a menu (the developer's call: no page links, the nav already has them). Sand background, the full-color emblem large and centered, "Misky Wayra" huge in Instrument Serif, one short line ("Dos casas de adobe frente al Uritorco. Te esperamos."), the social links (`SITIO.redes` in `config.ts`; Instagram placeholder until the real accounts are known), and "© year · Capilla del Monte, Córdoba". (Compared against a dark footer with link columns; rejected as too corporate.)
+- **Home closing — done (`Elegir.astro`, home only):** "Dos casas, un mismo parque / Elegí la tuya." then both houses side by side (stacked on phones): a large 4:5 photo, meaning · guests · m² in small caps, the name big in the house color, "Conocer la casa →"; each block links to its page. Sits between the story and the footer.
 
 ### Cottage facts (from the family's texts)
 - Address: **Los Alazanes 1077, Barrio Valentí, Capilla del Monte**. Park of **3,000 m²** with fruit and native trees, panoramic view of the hills. Pool in season (shared).
