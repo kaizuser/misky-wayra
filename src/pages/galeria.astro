@@ -7,6 +7,7 @@
  * Por ahora, placeholders: las fotos se suman con `page-galeria` (en src/assets/galeria/).
  */
 import Base from '../layouts/Base.astro';
+import Franja from '../components/Franja.astro';
 
 const grupos = [
   { titulo: 'El parque', texto: 'Algarrobos, el olivo, agaves y los senderos de cemento verde con piedras rosadas.' },
@@ -19,7 +20,9 @@ const grupos = [
 <Base
   title="Galería de fotos: Misky Wayra, Capilla del Monte"
   description="Fotos del parque, la pileta, los espacios compartidos y la vista al Uritorco de las cabañas Misky Wayra, en Capilla del Monte, Córdoba."
+  cabecera={false}
 >
+  <Franja />
   <section class="encabezado">
     <p class="antetitulo">Lo que comparten las dos casas</p>
     <h1>Galería de fotos</h1>

@@ -4,6 +4,7 @@
  * todo se alinea a la izquierda, y "Qué hay cerca" es un sendero (la línea punteada del inicio).
  */
 import Base from '../layouts/Base.astro';
+import Franja from '../components/Franja.astro';
 import { SITIO, mapsUrl, whatsappUrl } from '../config';
 
 const cerca = [
@@ -18,7 +19,9 @@ const cerca = [
 <Base
   title="Ubicación y contacto: Misky Wayra, Capilla del Monte"
   description="Cómo llegar a Misky Wayra, en Barrio Valentí, Capilla del Monte, Córdoba. Qué hay cerca y cómo escribirnos por WhatsApp para consultar."
+  cabecera={false}
 >
+  <Franja />
   <section class="encabezado">
     <p class="antetitulo">{SITIO.localidad}</p>
     <h1>Ubicación y contacto</h1>

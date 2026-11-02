@@ -4,6 +4,7 @@
  * una rama lleva a cada casa, y abajo está la vuelta al inicio.
  */
 import Base from '../layouts/Base.astro';
+import Franja from '../components/Franja.astro';
 import { ruta } from '../lib/rutas';
 
 ---
@@ -12,7 +13,9 @@ import { ruta } from '../lib/rutas';
   title="Te perdiste en el monte · Misky Wayra"
   description="Esta página no existe. Volvé al inicio o seguí el camino hacia una de las dos cabañas."
   noindex
+  cabecera={false}
 >
+  <Franja />
   <section class="perdido">
     <p class="antetitulo">Error 404</p>
     <h1>Te perdiste en el monte</h1>
