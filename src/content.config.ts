@@ -31,6 +31,13 @@ const cabanas = defineCollection({
       /** lo que solo tiene esta casa, en una línea (fila "Lo propio" del inicio) */
       propio: z.string(),
       comodidades: z.array(z.string()),
+      /**
+       * Reseñas reales de huéspedes (formato informativa), copiadas de Booking/Airbnb: solo se
+       * recorta y se corrigen tildes o mayúsculas; nunca se reescribe. Nombre de pila y fecha.
+       */
+      resenas: z
+        .array(z.object({ texto: z.string(), nombre: z.string(), fecha: z.string(), fuente: z.enum(['Booking', 'Airbnb']) }))
+        .default([]),
       /** Las comodidades agrupadas (formato informativa); si falta, se usa la lista plana */
       equipamiento: z
         .object({ adentro: z.array(z.string()), afuera: z.array(z.string()), incluido: z.array(z.string()) })

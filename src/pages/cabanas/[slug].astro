@@ -9,6 +9,9 @@ import Secciones from '../../components/Secciones.astro';
 import Franja from '../../components/Franja.astro';
 import Ficha from '../../components/Ficha.astro';
 import Ambientes from '../../components/Ambientes.astro';
+import Resenas from '../../components/Resenas.astro';
+import Reservar from '../../components/Reservar.astro';
+import OtraCasa from '../../components/OtraCasa.astro';
 import Consultar from '../../components/Consultar.astro';
 import { alojamiento } from '../../lib/datos';
 import { ruta } from '../../lib/rutas';
@@ -58,6 +61,15 @@ const d = cabana.data;
       <>
         <Ficha datos={d.datos} equipamiento={d.equipamiento} comodidades={d.comodidades} />
         <Ambientes ambientes={d.recorrido} />
+        <Resenas resenas={d.resenas} />
+        <Reservar nombre={d.nombre} />
+        <OtraCasa
+          id={hermana.id}
+          nombre={hermana.data.nombre}
+          significado={hermana.data.significado}
+          tema={hermana.data.tema}
+          foto={hermana.data.foto}
+        />
       </>
     ) : d.formato === 'secciones' ? (
       <Secciones principal={d.principal} paradas={d.recorrido} />

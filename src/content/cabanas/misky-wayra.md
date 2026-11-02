@@ -56,6 +56,26 @@ equipamiento:
     - Ropa de cama y toallones
     - Alarma
 
+resenas:
+  - texto: >-
+      La cabaña es mágica; tiene energía positiva, contenedora. Amplia, cálida, orgánica. Con todas
+      las comodidades, hermosas vistas, también desde la pileta vista al Cerro Uritorco.
+    nombre: Mónica
+    fecha: Enero de 2025
+    fuente: Booking
+  - texto: >-
+      La casa resultó muy cómoda. Todo impecable, las camas comodísimas. Muy linda decorada.
+      Mucho verde alrededor.
+    nombre: Graciela
+    fecha: Junio de 2025
+    fuente: Booking
+  - texto: >-
+      Un lugar increíble. La casa es muy cómoda, con lindas vistas, todos los servicios y un parque
+      maravilloso. La atención y calidez de Claudia y José, un 10.
+    nombre: Lau
+    fecha: Octubre de 2026
+    fuente: Booking
+
 recorrido:
   - titulo: La casa
     texto: >-

@@ -1,0 +1,121 @@
+---
+/**
+ * Lo que dicen los huéspedes (formato informativa): reseñas reales de Booking/Airbnb, entre los
+ * carruseles y la reserva, que es donde pesan al decidir. Tres citas en la serif, en columnas
+ * entre líneas finas; debajo de cada una, el nombre, la fecha y de dónde viene.
+ */
+interface Props {
+  resenas: { texto: string; nombre: string; fecha: string; fuente: string }[];
+}
+
+const { resenas } = Astro.props;
+---
+
+{
+  resenas.length > 0 && (
+    <section class="resenas" aria-labelledby="resenas-titulo">
+      <h2 id="resenas-titulo" class="antetitulo" data-revelar>
+        Lo que dicen los huéspedes
+      </h2>
+      <div class="citas">
+        {resenas.map((resena, i) => (
+          <figure class="cita" data-revelar style={`--retraso: ${(i * 0.1).toFixed(1)}s`}>
+            <blockquote>
+              <p>{resena.texto}</p>
+            </blockquote>
+            <figcaption>
+              <span class="nombre">{resena.nombre}</span>
+              <span>{resena.fecha}</span>
+              <span>{resena.fuente}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import '../scripts/revelar';
+</script>
+
+<style>
+  .resenas {
+    --linea: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-3xl);
+    text-align: start;
+  }
+
+  .antetitulo {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  .citas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .cita {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-l);
+    margin: 0;
+    padding-block-start: var(--space-m);
+    border-block-start: var(--linea);
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  /* La comilla de apertura, en el color de la casa */
+  blockquote p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1rem + 1vw, 1.9rem);
+    line-height: 1.2;
+    text-wrap: pretty;
+  }
+
+  blockquote p::before {
+    content: '“';
+    color: var(--color-primary);
+  }
+
+  blockquote p::after {
+    content: '”';
+    color: var(--color-primary);
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  }
+
+  .nombre {
+    color: var(--color-primary);
+  }
+
+  @media (width < 64rem) {
+    .citas {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

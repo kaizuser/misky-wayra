@@ -1,0 +1,155 @@
+---
+/**
+ * Cómo reservar (formato informativa): el cierre de la página de cada cabaña, en el estilo
+ * editorial. Un título grande, los tres pasos de la familia en columnas numeradas entre líneas
+ * finas, y el botón de WhatsApp con el mensaje armado para esa casa.
+ */
+import { whatsappUrl } from '../config';
+
+interface Props {
+  nombre: string;
+}
+
+const { nombre } = Astro.props;
+const mensaje = whatsappUrl(`Hola! Quería consultar disponibilidad en ${nombre} para `);
+
+const pasos = [
+  { titulo: 'Escribinos', texto: 'Por WhatsApp, con las fechas y cuántos son. Te respondemos nosotros, la familia.' },
+  {
+    titulo: 'Confirmás',
+    texto: 'Con una seña del 40% por transferencia. Te pedimos DNI y domicilio para hacerte la factura.',
+  },
+  { titulo: 'Llegás', texto: 'El resto lo abonás al llegar, al tipo de cambio oficial del día.' },
+];
+---
+
+<section class="reservar" aria-labelledby="reservar-titulo">
+  <div class="cabeza" data-revelar>
+    <p class="antetitulo">Cómo reservar</p>
+    <h2 id="reservar-titulo">¿Te imaginás acá?</h2>
+  </div>
+
+  <ol class="pasos">
+    {
+      pasos.map((paso, i) => (
+        <li data-revelar style={`--retraso: ${(i * 0.1).toFixed(1)}s`}>
+          <span class="numero">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{paso.titulo}</h3>
+          <p>{paso.texto}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <a class="boton" href={mensaje} data-revelar>Consultar por {nombre}</a>
+</section>
+
+<script>
+  import '../scripts/revelar';
+</script>
+
+<style>
+  .reservar {
+    --linea: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+
+    display: grid;
+    justify-items: start;
+    gap: var(--space-xl);
+    padding-block: var(--space-3xl);
+    text-align: start;
+  }
+
+  .cabeza {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .antetitulo {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 1.4rem + 4.4vw, 5.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--color-primary);
+  }
+
+  .pasos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pasos li {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-m);
+    border-block-start: var(--linea);
+  }
+
+  .numero {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+
+  h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.2rem + 1.4vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--color-text);
+  }
+
+  .pasos p {
+    max-width: 30ch;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* El botón: un bloque recto en el color de la casa */
+  .boton {
+    display: inline-block;
+    padding: 1.1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.6s ease;
+  }
+
+  .boton:hover,
+  .boton:focus-visible {
+    background: var(--color-deep);
+  }
+
+  @media (width < 64rem) {
+    .pasos {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (width < 40rem) {
+    .boton {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

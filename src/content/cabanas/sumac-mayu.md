@@ -65,6 +65,26 @@ principal:
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
     nulla pariatur.
 
+resenas:
+  - texto: >-
+      La casa es mágica! Está ubicada en un lugar increíble, tiene una energía única y fue muy
+      agradable alojarnos.
+    nombre: Daniela
+    fecha: Abril
+    fuente: Airbnb
+  - texto: >-
+      Excelente lugar, tal como lo muestran las fotos. Todo nuevo e impecable. Los colchones de
+      todas las camas firmes y cómodos. Hermosa vista al cerro.
+    nombre: Lucía
+    fecha: Diciembre de 2025
+    fuente: Airbnb
+  - texto: >-
+      Excelente experiencia, la casa es espectacular, está bien equipada y tiene un jardín y unas
+      vistas hermosas. De la atención nada que decir, José un fenómeno.
+    nombre: Juan Pedro
+    fecha: Septiembre
+    fuente: Airbnb
+
 recorrido:
   - titulo: La casa
     disposicion: trio
