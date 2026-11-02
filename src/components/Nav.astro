@@ -13,7 +13,7 @@ import { whatsappUrl } from '../config';
 import { ruta } from '../lib/rutas';
 
 interface Props {
-  /** false en las páginas con su propia franja de navegación (Franja.astro) */
+  /** false en las páginas con su propia franja de navegación (Franja.astro): sin cabecera ni barra del pulgar */
   cabecera?: boolean;
 }
 
@@ -53,6 +53,7 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
 </header>
 )}
 
+{cabecera && (
 <nav class="pulgar" aria-label="Accesos rápidos">
   <a class="ala" href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>
     Sumac Mayu
@@ -66,6 +67,7 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
     Misky Wayra
   </a>
 </nav>
+)}
 
 <style>
   /* ---------- Cabecera ---------- */
@@ -328,7 +330,7 @@ const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en Misky Wa
     }
 
     /* Espacio para que la barra no tape el final de la página */
-    :global(body) {
+    :global(body:has(.pulgar)) {
       padding-block-end: 6rem;
     }
   }

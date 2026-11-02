@@ -1,5 +1,6 @@
 // Carruseles de fotos ([data-carrusel]): la pista es un scroll horizontal nativo con snap
 // (dedo, trackpad y teclado andan solos). Este script solo suma las flechas y el contador.
+// Los usan los ambientes de las cabañas y, en el celular, las composiciones del inicio.
 // Sin JavaScript, la pista se sigue deslizando igual.
 
 document.querySelectorAll<HTMLElement>('[data-carrusel]').forEach((carrusel) => {
@@ -9,12 +10,13 @@ document.querySelectorAll<HTMLElement>('[data-carrusel]').forEach((carrusel) => 
   const actual = carrusel.querySelector<HTMLElement>('[data-actual]');
   if (!pista || !anterior || !siguiente) return;
 
-  const fotos = () => [...pista.children] as HTMLElement[];
+  // Las fotos de la pista (en los escalones del inicio van agrupadas de a pares)
+  const fotos = () => [...pista.querySelectorAll<HTMLElement>('.foto')];
 
   // El paso: el ancho de una foto más el espacio entre fotos
   const paso = () => {
     const [a, b] = fotos();
-    return b ? b.offsetLeft - a.offsetLeft : pista.clientWidth;
+    return b ? b.getBoundingClientRect().left - a.getBoundingClientRect().left || pista.clientWidth : pista.clientWidth;
   };
 
   function actualizar() {

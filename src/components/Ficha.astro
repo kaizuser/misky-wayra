@@ -156,7 +156,8 @@ const grupos = equipamiento
       row-gap: var(--space-l);
     }
 
-    .cifra:nth-child(3) {
+    /* La primera de cada fila, sin línea ni sangría a la izquierda */
+    .cifras .cifra:nth-child(odd) {
       padding-inline-start: 0;
       border-inline-start: 0;
     }

@@ -57,7 +57,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 {
   // Solo las paradas con composición (las demás todavía no se muestran)
   paradas.filter((parada) => parada.disposicion).map((parada) => (
-    <section class="seccion" data-disposicion={parada.disposicion}>
+    <section class="seccion" data-disposicion={parada.disposicion} data-carrusel>
       <h2 class="solo-lectores">{parada.titulo}</h2>
       {parada.titular && (
         // La palabra como forma: entra de a un pedazo, como el texto principal
@@ -71,7 +71,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.disposicion === 'trio' ? (
         // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
-        <div class="trio" data-repetir data-galeria>
+        <div class="trio" data-repetir data-galeria data-pista>
           {lugaresTrio.map((lugar, i) => {
             const foto = parada.fotos[i];
             return (
@@ -83,7 +83,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
         </div>
       ) : parada.disposicion === 'cinco' ? (
         // Cinco: tres arriba y dos abajo, centradas en los huecos; cada una entra disparada
-        <div class="cinco" data-galeria>
+        <div class="cinco" data-galeria data-pista>
           {Array.from({ length: 5 }, (_, i) => {
             const foto = parada.fotos[i];
             const retraso = (i < 3 ? i * 0.08 : 0.12 + (i - 3) * 0.08).toFixed(2);
@@ -101,7 +101,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       ) : parada.disposicion === 'cruz' ? (
         // Cruz: una vertical a cada lado y dos apiladas en el centro, que sobresalen arriba y
         // abajo. Cada foto entra disparada cuando le llega su turno al bajar.
-        <div class="cruz" data-galeria>
+        <div class="cruz" data-galeria data-pista>
           {[
             { lugar: 'izquierda', i: 0, retraso: 0 },
             { lugar: 'centro-arriba', i: 1, retraso: 0 },
@@ -123,7 +123,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       ) : parada.disposicion === 'escalones' ? (
         // Escalones: dos escaleras paralelas, pegadas, que bajan de derecha a izquierda por el
         // centro. Cada escalón tiene dos fotos lado a lado (una de cada escalera).
-        <div class="escalones" data-galeria>
+        <div class="escalones" data-galeria data-pista>
           {[0, 1, 2].map((escalon) => (
             <div class="escalon" style={`--i: ${escalon}`}>
               {[0, 1].map((escalera) => {
@@ -148,6 +148,20 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
           ))}
         </div>
       )}
+      {parada.disposicion && cuantas[parada.disposicion] && (
+        // En el celular, la composición es un carrusel: contador y flechas, como en las cabañas
+        <div class="controles">
+          <p class="contador" aria-live="polite">
+            <span data-actual>1</span> / {cuantas[parada.disposicion]}
+          </p>
+          <button type="button" class="flecha" data-anterior aria-label={`Foto anterior de ${parada.titulo}`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+          <button type="button" class="flecha" data-siguiente aria-label={`Foto siguiente de ${parada.titulo}`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      )}
       {parada.nota && (
         // Texto corto debajo de las fotos: entra como el texto principal
         <div class:list={['nota', parada.nota.estilo]}>
@@ -163,6 +177,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   import '../scripts/trazado';
   import '../scripts/revelar';
   import '../scripts/lightbox';
+  import '../scripts/carrusel';
 </script>
 
 <style>
@@ -527,6 +542,11 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     background: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
   }
 
+  /* Controles del carrusel: solo en el celular */
+  .controles {
+    display: none;
+  }
+
   /* ---------- Mobile: cada composición es un carrusel ----------
      Una foto por ancho de pantalla, de a una al deslizar (scroll nativo con snap). Sin las
      posiciones ni los movimientos de desktop: las fotos llegan ya visibles al deslizarlas. */
@@ -579,6 +599,69 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     :global(.revelar) .escalones .foto[data-revelar] {
       opacity: 1;
       translate: none;
+    }
+
+    /* Contador y flechas debajo del carrusel, alineados a la derecha (como en las cabañas) */
+    .controles {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: var(--space-2xs);
+      margin-block-start: var(--space-s);
+    }
+
+    .contador {
+      margin: 0 var(--space-s) 0 0;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .flecha {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+      background: transparent;
+      color: var(--color-text);
+    }
+
+    .flecha:disabled {
+      opacity: 0.3;
+    }
+
+    .flecha svg {
+      width: 1.1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    /* Espaciados parejos: cada bloque separado por lo mismo */
+    .principal {
+      padding-block: var(--space-3xl) var(--space-2xl);
+      gap: var(--space-l);
+    }
+
+    .seccion,
+    .seccion:has(.nota) {
+      padding-block: var(--space-2xl);
+    }
+
+    .titular {
+      margin-block-end: var(--space-xl);
+    }
+
+    .nota,
+    .nota.final {
+      margin-block-start: var(--space-2xl);
+    }
+
+    .nota.final {
+      margin-inline-start: 0;
     }
   }
 </style>

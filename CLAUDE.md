@@ -194,6 +194,12 @@ The developer's redesign: the trip structure stays (same stops, in order), but e
 
 **Every photo opens full screen** (`Ampliable.astro`: link with the large version for PhotoSwipe, arrows, close cross, counter, caption), in the carousels and in the home compositions; each composition/track is one `[data-galeria]`. Placeholders open a gray 4:5 slide so the flow can be tested.
 
+**Mobile nav (Nov 2, 2026): one nav only.** On pages with the strip (home, informative cottage pages) the thumb bar is not rendered (`Nav` `cabecera={false}` drops both). The strip on phones is "Menú" · centered emblem · "Consultar" (WhatsApp, house color); "Menú" opens a native popover panel, full screen, with the four links large in Instrument Serif (cottages in their color), a square close cross and a "Consultar por WhatsApp" bar at the bottom (light dismiss, Esc, no JS).
+
+**Cottage carousels are symmetric on desktop:** header and photo track span the content width with the same margin on both sides (`--margen`); photos clip at those edges while scrolling. On phones the margin is the gutter, so one photo fills the track exactly.
+
+**Home compositions on phones** get the same counter and arrows as the cottage carousels (below the track, right-aligned; `[data-carrusel]` on each section, `carrusel.ts` finds `.foto` even when nested, as in the staircases), and uniform spacing (every block separated by `--space-2xl`).
+
 **Mobile: carousels show one photo per screen width** (`calc(100vw - 2 × gutter)`, `scroll-snap-stop: always`, one at a time). The home compositions (trío, cinco, cruz, escalones) become the same kind of carousel below 40rem: flex track bleeding to the screen edges, desktop positions and motions off, triggered entrances neutralized inside. `.seccion { overflow-x: clip }`: the rotated title otherwise widened the page on phones (rotated boxes count toward scroll width). **Cottage pages become informative:** visitors there are comparing and deciding. Same structure for both houses, in the editorial aesthetic:
 1. Full-screen hero (`CabanaHero`) + the nav strip (`Franja`).
 2. **De un vistazo** (`Ficha.astro`): the data as big Instrument Serif figures in the house color (surface, guests, bedrooms, beds) between thin rules, then amenities grouped **Adentro / Afuera / Incluido** (`equipamiento` in the `.md`; falls back to the flat `comodidades`).

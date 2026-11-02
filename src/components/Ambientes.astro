@@ -76,15 +76,17 @@ const PENDIENTES = 6;
 
 <style>
   .ambientes {
+    --margen: max(var(--gutter), (100vw - var(--axis-width)) / 2); /* margen del contenido */
+
     display: grid;
     grid-template-columns: minmax(0, 1fr); /* si no, la pista de fotos estira la página de costado */
     gap: var(--space-3xl);
     padding-block: var(--space-2xl) var(--space-3xl);
   }
 
-  /* Arranca en el margen izquierdo del contenido; las fotos se van por el borde derecho */
+  /* Simétrico: la cabeza y la pista de fotos ocupan el ancho del contenido, con el mismo
+     margen a los dos lados; las fotos se recortan en esos bordes al deslizar */
   .ambiente {
-    padding-inline-start: max(var(--gutter), (100vw - var(--axis-width)) / 2);
     text-align: start;
   }
 
@@ -94,7 +96,7 @@ const PENDIENTES = 6;
     grid-template-columns: auto 1fr auto;
     align-items: end;
     gap: var(--space-m);
-    margin-inline-end: max(var(--gutter), (100vw - var(--axis-width)) / 2);
+    margin-inline: var(--margen);
     padding-block-end: var(--space-m);
     border-block-end: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
   }
@@ -170,8 +172,9 @@ const PENDIENTES = 6;
   .pista {
     display: flex;
     gap: var(--space-s);
-    margin: var(--space-l) 0 0;
-    padding: 0 max(var(--gutter), (100vw - var(--axis-width)) / 2) 0 0;
+    margin-block: var(--space-l) 0;
+    margin-inline: var(--margen);
+    padding: 0;
     list-style: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -233,15 +236,7 @@ const PENDIENTES = 6;
       padding: 0;
     }
 
-    /* Una foto por pantalla, y de a una al deslizar */
-    .ambiente {
-      padding-inline-start: var(--gutter);
-    }
-
-    .pista {
-      padding-inline-end: var(--gutter);
-    }
-
+    /* Una foto por pantalla, y de a una al deslizar (el margen ya es el gutter) */
     .foto {
       width: calc(100vw - 2 * var(--gutter));
       scroll-snap-stop: always;
