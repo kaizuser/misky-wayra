@@ -73,9 +73,21 @@ const actual = (href: string) => (aqui === href ? 'page' : undefined);
     white-space: nowrap;
   }
 
-  .barra a:hover,
   .barra a[aria-current='page'] {
     color: var(--color-primary);
+  }
+
+  /* Hover: aparece despacio un fondo arena detrás del link (no en el emblema) */
+  .lado a {
+    margin: -0.35rem -0.7rem;
+    padding: 0.35rem 0.7rem;
+    background: transparent;
+    transition: background-color 0.6s ease;
+  }
+
+  .lado a:hover,
+  .lado a:focus-visible {
+    background: var(--arena);
   }
 
   /* El emblema sobresale apenas de la franja, como la cúpula: más grande sin engrosarla */
