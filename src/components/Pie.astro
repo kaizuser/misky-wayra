@@ -1,0 +1,91 @@
+---
+/**
+ * El pie, en todas las páginas: un cierre, no un menú. El emblema grande, el nombre, una línea
+ * corta y las redes. Sin links a las páginas (eso ya está en la nav).
+ */
+import Emblema from './Emblema.astro';
+import { SITIO } from '../config';
+---
+
+<footer class="pie" data-theme="tierra">
+  <div class="emblema"><Emblema /></div>
+  <p class="marca">Misky Wayra</p>
+  <p class="linea">Dos casas de adobe frente al Uritorco. Te esperamos.</p>
+  {
+    SITIO.redes.length > 0 && (
+      <ul class="redes" aria-label="Redes sociales">
+        {SITIO.redes.map((red) => (
+          <li>
+            <a href={red.url} rel="noopener">
+              {red.nombre}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <p class="firma">© {new Date().getFullYear()} · {SITIO.localidad}</p>
+</footer>
+
+<style>
+  .pie {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-s);
+    padding: var(--space-3xl) var(--gutter) var(--space-xl);
+    background: var(--arena);
+    color: var(--tinta);
+    text-align: center;
+  }
+
+  .emblema {
+    width: min(22rem, 60vw);
+  }
+
+  .marca {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 1rem + 10vw, 11rem);
+    line-height: 0.9;
+  }
+
+  .linea {
+    margin: var(--space-s) 0 0;
+    max-width: 32ch;
+    font-size: var(--step-0);
+  }
+
+  .redes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-l);
+    margin: var(--space-m) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .redes a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tinta);
+    text-decoration: none;
+    border-block-end: 1px solid color-mix(in srgb, var(--tinta) 35%, transparent);
+    padding-block-end: 0.2rem;
+    transition: border-color 0.6s ease;
+  }
+
+  .redes a:hover {
+    border-color: var(--tinta);
+  }
+
+  .firma {
+    margin: var(--space-2xl) 0 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>

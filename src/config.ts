@@ -12,6 +12,8 @@ export const SITIO = {
   provincia,
   direccion: `${calle}, ${barrio}`,
   localidad: `${ciudad}, ${provincia}`,
+  /** Redes del pie. Provisorio: cargar las cuentas reales (las vacías no se muestran) */
+  redes: [{ nombre: 'Instagram', url: 'https://instagram.com/' }],
 };
 
 /** El número ya está cargado (no es el provisorio) */

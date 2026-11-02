@@ -47,12 +47,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 /* ---------- El eje: columna central ---------- */
-footer {
-  width: min(100% - 2 * var(--gutter), var(--axis-width));
-  margin-inline: auto;
-  text-align: center;
-}
-footer { padding-block: var(--space-xl); }
+
 
 /* Secciones a todo el ancho, para que su fondo llegue a los bordes,
    con el contenido centrado en el eje */

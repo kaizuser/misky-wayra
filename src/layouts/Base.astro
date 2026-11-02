@@ -2,6 +2,7 @@
 import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Nav from '../components/Nav.astro';
+import Pie from '../components/Pie.astro';
 import { ruta, esVistaPrevia } from '../lib/rutas';
 import fotoPorDefecto from '../assets/home/hero-sumac.jpg';
 import '../styles/tokens.css';
@@ -97,8 +98,6 @@ const ogUrl = new URL(og.src, Astro.site);
       <slot />
     </main>
 
-    <footer>
-      <p>Misky Wayra, Capilla del Monte, Córdoba</p>
-    </footer>
+    <Pie />
   </body>
 </html>

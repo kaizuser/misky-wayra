@@ -1,0 +1,143 @@
+---
+/**
+ * Elegí la tuya (solo en el inicio): el cierre del relato. Las dos casas lado a lado, cada una
+ * lleva a su página: foto vertical grande, los datos clave en chico, el nombre en su color.
+ */
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { ruta } from '../lib/rutas';
+
+const casas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<section class="elegir" aria-labelledby="elegir-titulo">
+  <div class="cabeza" data-revelar>
+    <p class="eti">Dos casas, un mismo parque</p>
+    <h2 id="elegir-titulo">Elegí la tuya.</h2>
+  </div>
+  <div class="casas">
+    {
+      casas.map((c, i) => (
+        <a
+          class="casa"
+          href={ruta(`/cabanas/${c.id}/`)}
+          data-theme={c.data.tema}
+          data-revelar
+          style={`--retraso: ${i * 0.1}s`}
+        >
+          <figure style={`--encuadre: ${c.data.foto.encuadre}`}>
+            <Picture
+              src={c.data.foto.src}
+              alt={c.data.foto.alt}
+              formats={['avif', 'webp']}
+              widths={[600, 1000, 1400]}
+              sizes="(min-width: 40rem) 45vw, 100vw"
+            />
+          </figure>
+          <p class="eti">
+            {c.data.significado} · {c.data.datos.huespedes} huéspedes · {c.data.datos.superficie} m²
+          </p>
+          <p class="nombre">{c.data.nombre}</p>
+          <span class="conocer">Conocer la casa →</span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import '../scripts/revelar';
+</script>
+
+<style>
+  .elegir {
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-3xl);
+    text-align: start;
+  }
+
+  .cabeza {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .eti {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(2.8rem, 1.4rem + 4.4vw, 5.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--color-text);
+  }
+
+  .casas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-m);
+  }
+
+  .casa {
+    display: grid;
+    gap: var(--space-2xs);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  figure {
+    margin: 0 0 var(--space-s);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  figure :global(picture),
+  figure :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  figure :global(img) {
+    object-fit: cover;
+    object-position: var(--encuadre);
+    transition: scale 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .casa:hover figure :global(img) {
+    scale: 1.03;
+  }
+
+  .nombre {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.5rem);
+    line-height: 0.95;
+    color: var(--color-primary);
+  }
+
+  .conocer {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: color 0.6s ease;
+  }
+
+  .casa:hover .conocer {
+    color: var(--color-primary);
+  }
+
+  @media (width < 40rem) {
+    .casas {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+</style>
