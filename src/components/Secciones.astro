@@ -76,7 +76,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
             const foto = parada.fotos[i];
             return (
               <figure class:list={['foto', lugar, { pendiente: !foto }]} style={foto && `--encuadre: ${foto.encuadre}`}>
-                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 28vw, 38vw" />
+                <Ampliable foto={foto} widths={[400, 700, 1000, 1200]} sizes="(min-width: 40rem) 28vw, calc(100vw - 2rem)" />
               </figure>
             );
           })}
@@ -93,7 +93,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                 data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
-                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
+                <Ampliable foto={foto} widths={[400, 700, 1000, 1200]} sizes="(min-width: 40rem) 26vw, calc(100vw - 2rem)" />
               </figure>
             );
           })}
@@ -115,7 +115,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                 data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
-                <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
+                <Ampliable foto={foto} widths={[400, 700, 1000, 1200]} sizes="(min-width: 40rem) 26vw, calc(100vw - 2rem)" />
               </figure>
             );
           })}
@@ -134,7 +134,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                     data-revelar
                     style={`--retraso: ${escalera * 0.1}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
                   >
-                    <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 22vw, 45vw" />
+                    <Ampliable foto={foto} widths={[400, 700, 1000, 1200]} sizes="(min-width: 40rem) 22vw, calc(100vw - 2rem)" />
                   </figure>
                 );
               })}

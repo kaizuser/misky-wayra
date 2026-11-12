@@ -29,8 +29,8 @@ const casas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.d
               src={c.data.foto.src}
               alt={c.data.foto.alt}
               formats={['avif', 'webp']}
-              widths={[600, 1000, 1400]}
-              sizes="(min-width: 40rem) 45vw, 100vw"
+              widths={[600, 1000, 1200, 1400]}
+              sizes="(min-width: 76rem) 36rem, (min-width: 40rem) calc(50vw - 2.5rem), calc(100vw - 2rem)"
             />
           </figure>
           <p class="eti" data-revelar="detalle">

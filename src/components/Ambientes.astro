@@ -52,7 +52,7 @@ const PENDIENTES = 6;
           <ul class="pista" data-pista data-galeria tabindex="0" aria-label={`Fotos de ${ambiente.titulo}`}>
             {ambiente.fotos.map((foto, j) => (
               <li class="foto" data-revelar="foto" style={`--encuadre: ${foto.encuadre}; --retraso: ${j < 2 ? j * 0.1 : 0}s`}>
-                <Ampliable foto={foto} widths={[500, 800, 1200]} sizes="(min-width: 40rem) 45vw, 100vw" />
+                <Ampliable foto={foto} widths={[500, 800, 1200]} sizes="(min-width: 76rem) 36rem, (min-width: 40rem) calc(50vw - 2.5rem), calc(100vw - 2rem)" />
               </li>
             ))}
             {Array.from({ length: faltan }, () => (
