@@ -71,7 +71,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.disposicion === 'trio' ? (
         // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
-        <div class="trio" data-galeria data-pista data-revelar="foto">
+        <div class="trio" data-galeria data-pista>
           {lugaresTrio.map((lugar, i) => {
             const foto = parada.fotos[i];
             return (
@@ -90,7 +90,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
             return (
               <figure
                 class:list={['foto', { pendiente: !foto }]}
-                data-revelar="foto"
+                data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
                 <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
@@ -112,7 +112,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
             return (
               <figure
                 class:list={['foto', lugar, { pendiente: !foto }]}
-                data-revelar="foto"
+                data-revelar
                 style={`--retraso: ${retraso}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
               >
                 <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 26vw, 45vw" />
@@ -131,7 +131,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
                 return (
                   <figure
                     class:list={['foto', { pendiente: !foto }]}
-                    data-revelar="foto"
+                    data-revelar
                     style={`--retraso: ${escalera * 0.1}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
                   >
                     <Ampliable foto={foto} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 22vw, 45vw" />
@@ -150,7 +150,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.disposicion && cuantas[parada.disposicion] && (
         // En el celular, la composición es un carrusel: contador y flechas, como en las cabañas
-        <div class="controles" data-revelar="detalle">
+        <div class="controles">
           <p class="contador" aria-live="polite">
             <span data-actual>1</span> / {cuantas[parada.disposicion]}
           </p>
@@ -548,7 +548,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
   /* ---------- Mobile: cada composición es un carrusel ----------
      Una foto por ancho de pantalla, de a una al deslizar (scroll nativo con snap). Sin las
-     posiciones ni los movimientos de desktop: cada foto se funde al llegar deslizándola. */
+     posiciones ni los movimientos de desktop: las fotos llegan ya visibles al deslizarlas. */
   @media (width < 40rem) {
     .trio,
     .cinco,
@@ -578,11 +578,6 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       display: contents;
     }
 
-    /* Sin la apertura del trío con el scroll: en el carrusel cada foto solo se funde al llegar */
-    .trio .foto {
-      animation: none;
-    }
-
     .trio .foto,
     .cinco .foto,
     .cruz .foto,
@@ -592,8 +587,18 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       aspect-ratio: 4 / 5;
       margin: 0;
       translate: none;
+      animation: none;
       scroll-snap-align: start;
       scroll-snap-stop: always;
+    }
+
+    /* Las entradas disparadas no aplican adentro de un carrusel */
+    :global(.revelar) .cinco .foto[data-revelar],
+    :global(.revelar) .cruz .foto[data-revelar],
+    :global(.revelar) .escalones .foto[data-revelar] {
+      opacity: 1;
+      translate: none;
+      animation: none; /* las entradas ahora son animaciones (global.css): también se apagan */
     }
 
     /* Contador y flechas debajo del carrusel, alineados a la derecha (como en las cabañas) */
