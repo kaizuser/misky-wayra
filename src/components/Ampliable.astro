@@ -7,6 +7,9 @@
  */
 import { Picture, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+// Los estilos del visor van con cada foto que se abre en grande (sin ellos, el visor queda
+// invisible, sin la cruz, y tapa la página agarrando los clics)
+import 'photoswipe/style.css';
 
 interface Props {
   foto?: { src: ImageMetadata; alt: string; epigrafe?: string };
