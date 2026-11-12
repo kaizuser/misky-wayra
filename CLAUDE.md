@@ -35,7 +35,7 @@ Shared: 3,000 m² park with fruit and native trees, pool (in season), decks, fir
 
 **The house is the brand.** Sumac's building is extraordinary; nothing in the area looks like it. The photos carry the site.
 
-**Editorial aesthetic (since Nov 2, 2026), modeled on wolnylas.pl** (screenshots in `pagina-especifica/`, untracked): lots of air, big photos, a condensed high-contrast serif, a thin straight nav, thin rules, square buttons, minimal text. It replaced the first "crafty" aesthetic (eave dividers, arch/circle photo frames, volutas, dashed paths, Fraunces), which is in git history. Small remains of it: the 404's forked path and the Galería's arch/circle placeholders, both to be redone.
+**Editorial aesthetic (since Nov 2, 2026), modeled on wolnylas.pl** (screenshots in `pagina-especifica/`, untracked): lots of air, big photos, a condensed high-contrast serif, a thin straight nav, thin rules, square buttons, minimal text. It replaced the first "crafty" aesthetic (eave dividers, arch/circle photo frames, volutas, dashed paths, Fraunces), which is in git history. The only remain is the 404's forked path, to be redone.
 
 **Two houses, two colors.** Sumac = adobe (left when shown side by side), Misky = green (right). The complex itself is olive (`monte`). Houses differ by color, not by type weight.
 
