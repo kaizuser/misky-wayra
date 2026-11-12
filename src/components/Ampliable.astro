@@ -12,7 +12,7 @@ import type { ImageMetadata } from 'astro';
 import 'photoswipe/style.css';
 
 interface Props {
-  foto?: { src: ImageMetadata; alt: string; epigrafe?: string };
+  foto?: { src: ImageMetadata; alt: string };
   widths: number[];
   sizes: string;
 }
@@ -36,7 +36,6 @@ const muestra =
       href={grande.src}
       data-pswp-width={grande.attributes.width}
       data-pswp-height={grande.attributes.height}
-      data-epigrafe={foto.epigrafe ?? foto.alt}
       aria-label={`Ver en grande: ${foto.alt}`}
     >
       <Picture src={foto.src} alt={foto.alt} formats={['avif', 'webp']} widths={widths} sizes={sizes} />
@@ -47,7 +46,6 @@ const muestra =
       href={muestra}
       data-pswp-width="1200"
       data-pswp-height="1500"
-      data-epigrafe="Foto en camino"
       aria-label="Ver en grande: foto en camino"
     />
   )

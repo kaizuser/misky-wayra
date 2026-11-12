@@ -62,28 +62,57 @@ main section > * + *,
 main aside > * + *,
 main article > * + * { margin-block-start: var(--space-s); }
 
-/* Entradas que se disparan (scripts/revelar.ts): al entrar en pantalla, el elemento sube
-   desde bastante abajo y aparece rápido, con un frenado suave. Se repite cada vez que se
-   vuelve a pasar. --retraso escalona varios elementos. Solo se esconden si el script corrió
-   (.revelar en <html>, lo pone revelar.ts). */
-.revelar [data-revelar] {
+/* ---------- Entradas: el protocolo de movimiento ----------
+   Como la paleta: pocos movimientos, cada uno con su papel. Todo elemento de contenido
+   (menos el hero, que tiene el suyo) entra con uno de estos tres, según lo que es:
+
+   data-revelar          TEXTO: títulos, frases, párrafos, cifras, reseñas. Sube desde bastante
+                         abajo y aparece rápido, con un frenado suave (0.7s fundido, 1.1s subida).
+   data-revelar="foto"   FOTO: solo un fundido lento (1.4s), sin moverse. Las fotos son lo más
+                         grande de la página; si además se movieran, todo temblaría.
+   data-revelar="detalle" DETALLE: botones, controles, etiquetas sueltas, el pie. Asoma apenas
+                         (1.25rem) y aparece rápido (0.6s): acompaña, no llama la atención.
+
+   Proporción: la mayoría de lo que entra son fotos (fundido quieto), después texto (sube) y
+   unos pocos detalles. Un solo movimiento ESPECIAL por página como mucho (el parallax del hero,
+   el trío del inicio, que se abre con el scroll).
+   Escalonar con --retraso de a 0.08–0.12s dentro de un grupo, hasta ~0.4s.
+
+   Son animaciones, no transiciones: así no chocan con la transición propia de un elemento
+   (el hover de un botón pisaba la entrada y el botón aparecía quieto).
+   Lo dispara scripts/revelar.ts (.visible al entrar en pantalla); solo se esconden si el script
+   corrió (.revelar en <html>). Se repite cada vez que se vuelve a pasar. */
+.revelar [data-revelar]:not(.visible) {
   opacity: 0;
-  translate: 0 7rem;
-  transition:
-    opacity 0.7s ease-out var(--retraso, 0s),
-    translate 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s);
 }
 
 .revelar [data-revelar].visible {
-  opacity: 1;
-  translate: 0 0;
+  animation:
+    revelar-fundido 0.7s ease-out var(--retraso, 0s) both,
+    revelar-subida 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s) both;
 }
 
-/* Reducir movimiento: sin desplazamiento, un fundido corto */
+.revelar [data-revelar='foto'].visible {
+  animation: revelar-fundido 1.4s cubic-bezier(0.33, 0, 0.2, 1) var(--retraso, 0s) both;
+}
+
+.revelar [data-revelar='detalle'].visible {
+  animation:
+    revelar-fundido 0.6s ease-out var(--retraso, 0s) both,
+    revelar-asomo 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s) both;
+}
+
+@keyframes revelar-fundido { from { opacity: 0; } }
+@keyframes revelar-subida { from { translate: 0 7rem; } }
+@keyframes revelar-asomo { from { translate: 0 1.25rem; } }
+
+/* Reducir movimiento: sin desplazamiento, un fundido corto para todo (el !important le gana al
+   reset, que deja todas las animaciones en 0.01ms: sin esto, todo aparecería de golpe) */
 @media (prefers-reduced-motion: reduce) {
-  .revelar [data-revelar] {
-    translate: none;
-    transition: opacity 0.4s ease-out;
+  .revelar [data-revelar].visible,
+  .revelar [data-revelar='foto'].visible,
+  .revelar [data-revelar='detalle'].visible {
+    animation: revelar-fundido 0.4s ease-out var(--retraso, 0s) both !important;
   }
 }
 
@@ -145,19 +174,4 @@ main article > * + * { margin-block-start: var(--space-s); }
   --pswp-bg: var(--color-deep);
   --pswp-icon-color: var(--cal);
   --pswp-icon-color-secondary: var(--color-deep);
-}
-
-/* El epígrafe va sobre un degradé oscuro, para que se lea sobre cualquier foto */
-.pswp__epigrafe {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  padding: var(--space-2xl) var(--gutter) max(var(--space-m), env(safe-area-inset-bottom));
-  background: linear-gradient(to bottom, transparent, rgb(43 33 25 / 0.75));
-  color: var(--cal);
-  font-family: var(--font-display);
-  font-size: var(--step-0);
-  text-align: center;
-  text-wrap: balance;
-  pointer-events: none;
 }

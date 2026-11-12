@@ -22,17 +22,17 @@ const cerca = [
 >
   <Franja />
   <section class="encabezado">
-    <p class="antetitulo">{SITIO.localidad}</p>
-    <h1>Ubicación y contacto</h1>
+    <p class="antetitulo" data-revelar>{SITIO.localidad}</p>
+    <h1 data-revelar style="--retraso: 0.08s">Ubicación y contacto</h1>
   </section>
 
   <section class="donde">
-    <h2>Dónde estamos</h2>
-    <address>
+    <h2 data-revelar>Dónde estamos</h2>
+    <address data-revelar style="--retraso: 0.08s">
       <span id="direccion">{SITIO.calle}, {SITIO.barrio}</span>
       <span class="localidad">{SITIO.localidad}</span>
     </address>
-    <div class="acciones">
+    <div class="acciones" data-revelar="detalle" style="--retraso: 0.16s">
       <a class="boton" href={mapsUrl}>Abrir en Google Maps</a>
       <button class="copiar" type="button" data-texto={`${SITIO.direccion}, ${SITIO.localidad}`} hidden>
         Copiar la dirección
@@ -42,8 +42,8 @@ const cerca = [
   </section>
 
   <section class="llegar">
-    <h2>Cómo llegar</h2>
-    <dl>
+    <h2 data-revelar>Cómo llegar</h2>
+    <dl data-revelar style="--retraso: 0.08s">
       <dt>Desde Córdoba capital</dt>
       <dd>[Ruta, distancia y tiempo en auto]</dd>
       <dt>En micro</dt>
@@ -54,11 +54,11 @@ const cerca = [
   </section>
 
   <section class="cerca">
-    <h2>Qué hay cerca</h2>
+    <h2 data-revelar>Qué hay cerca</h2>
     <ol class="sendero">
       {
         cerca.map((lugar) => (
-          <li>
+          <li data-revelar>
             <h3>{lugar.nombre}</h3>
             <p>{lugar.texto}</p>
           </li>
@@ -68,10 +68,10 @@ const cerca = [
   </section>
 
   <section class="contacto banda">
-    <h2>Escribinos</h2>
-    <p>La forma más rápida es WhatsApp: te respondemos nosotros, la familia.</p>
-    <a class="boton" href={whatsappUrl('Hola! Quería hacer una consulta sobre las cabañas')}>Escribinos por WhatsApp</a>
-    <ul class="canales">
+    <h2 data-revelar>Escribinos</h2>
+    <p data-revelar style="--retraso: 0.08s">La forma más rápida es WhatsApp: te respondemos nosotros, la familia.</p>
+    <a class="boton" href={whatsappUrl('Hola! Quería hacer una consulta sobre las cabañas')} data-revelar="detalle" style="--retraso: 0.15s">Escribinos por WhatsApp</a>
+    <ul class="canales" data-revelar="detalle" style="--retraso: 0.2s">
       <li>Teléfono: <a href="tel:+549XXXXXXXXXX">[número]</a></li>
       <li>Instagram: <a href="https://instagram.com/">[usuario]</a></li>
     </ul>
@@ -79,6 +79,8 @@ const cerca = [
 </Base>
 
 <script>
+  import '../scripts/revelar';
+
   // Copiar la dirección con un toque, con un "Copiado" que se va solo.
   // El botón solo aparece si el navegador permite copiar.
   const boton = document.querySelector<HTMLButtonElement>('.copiar');

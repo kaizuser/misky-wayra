@@ -146,7 +146,14 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - Elegir: "Dos casas, un mismo parque / Elegí la tuya.", both houses side by side (stacked on phones): 4:5 photo, meaning · guests · m², name in the house color, "Conocer la casa →".
 
 ### Shared behavior
-- **Triggered entrances** (`data-revelar` + `revelar.ts`): rise from 7rem below, opacity 0.7s, position 1.1s `cubic-bezier(0.16, 1, 0.3, 1)`, `--retraso` to stagger. Added when the element peeks above the bottom 12% of the screen; removed only when it leaves through the bottom, so it replays on every pass down. Reduced motion: a 0.4s fade.
+- **Motion protocol (Nov 12, 2026), like a palette: every content element except the hero enters with one of three roles** (`global.css`, triggered by `revelar.ts`):
+  - **Texto** (`data-revelar`): titles, phrases, paragraphs, figures, reviews. Fade 0.7s + rise from 7rem below over 1.1s, `cubic-bezier(0.16, 1, 0.3, 1)`.
+  - **Foto** (`data-revelar="foto"`): a slow fade only (1.4s), no movement. In carousels each photo fades in as it slides into view.
+  - **Detalle** (`data-revelar="detalle"`): buttons, carousel controls, standalone labels, the footer. Fade 0.6s + a small rise (1.25rem).
+  - Proportion: mostly photos (still fades), then text (rises), few details. **At most one special movement per page** (the hero's parallax, the home trío opening with the scroll). Stagger with `--retraso` in 0.08–0.12s steps, up to ~0.4s.
+  - They're CSS **animations, not transitions**: an element's own hover transition used to override the entrance (the "Consultar" button appeared static).
+  - `.visible` is added when the element peeks above the bottom 12% of the screen and removed only once it's fully below the screen again, so entrances replay on every pass down and photos leaving a carousel sideways stay visible. Elements only hide when the script runs (`.revelar` on `<html>`). Reduced motion: a 0.4s fade for everything (`!important` beats the reset's 0.01ms).
+  - The hero (`CabanaHero`) keeps its own motion, untouched.
 - **Every photo opens full screen** (`Ampliable` + `lightbox.ts`): each composition/track is one `[data-galeria]`; Spanish UI; background `--color-deep` of the page theme; optional `epigrafe`; full-size WebP ≤2048px. Launcher ~5 KB gz; the viewer (~17 KB gz) loads on first tap. Placeholders open a gray slide.
 - **Page transitions:** native cross-document view transitions (`@view-transition`, only with `prefers-reduced-motion: no-preference`), whole page cross-fades 550ms. Each cottage hero has `view-transition-name: casa-<slug>`; the home hero is `hero-inicio`. Speculation Rules prerender `/cabanas/*` on hover (Chrome).
 

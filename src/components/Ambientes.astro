@@ -13,7 +13,6 @@ interface Foto {
   src: ImageMetadata;
   alt: string;
   encuadre: string;
-  epigrafe?: string;
 }
 
 interface Props {
@@ -51,13 +50,13 @@ const PENDIENTES = 6;
           </header>
 
           <ul class="pista" data-pista data-galeria tabindex="0" aria-label={`Fotos de ${ambiente.titulo}`}>
-            {ambiente.fotos.map((foto) => (
-              <li class="foto" style={`--encuadre: ${foto.encuadre}`}>
+            {ambiente.fotos.map((foto, j) => (
+              <li class="foto" data-revelar="foto" style={`--encuadre: ${foto.encuadre}; --retraso: ${j < 2 ? j * 0.1 : 0}s`}>
                 <Ampliable foto={foto} widths={[500, 800, 1200]} sizes="(min-width: 40rem) 45vw, 100vw" />
               </li>
             ))}
             {Array.from({ length: faltan }, () => (
-              <li class="foto pendiente">
+              <li class="foto pendiente" data-revelar="foto">
                 <Ampliable widths={[500]} sizes="1px" />
               </li>
             ))}

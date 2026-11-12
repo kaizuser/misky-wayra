@@ -17,19 +17,4 @@ const lightbox = new PhotoSwipeLightbox({
   indexIndicatorSep: ' de ',
 });
 
-// El epígrafe de cada foto, abajo
-lightbox.on('uiRegister', () => {
-  lightbox.pswp?.ui?.registerElement({
-    name: 'epigrafe',
-    order: 9,
-    isButton: false,
-    appendTo: 'root',
-    onInit: (el, pswp) => {
-      pswp.on('change', () => {
-        el.textContent = pswp.currSlide?.data.element?.dataset.epigrafe ?? '';
-      });
-    },
-  });
-});
-
 lightbox.init();

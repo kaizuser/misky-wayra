@@ -8,7 +8,7 @@ import { SITIO } from '../config';
 ---
 
 <footer class="pie" data-theme="tierra">
-  <div class="fila">
+  <div class="fila" data-revelar="detalle">
     <div class="marca">
       <div class="emblema"><Emblema /></div>
       <div>
@@ -30,8 +30,12 @@ import { SITIO } from '../config';
       )
     }
   </div>
-  <p class="firma">© {new Date().getFullYear()} · {SITIO.localidad}</p>
+  <p class="firma" data-revelar="detalle" style="--retraso: 0.1s">© {new Date().getFullYear()} · {SITIO.localidad}</p>
 </footer>
+
+<script>
+  import '../scripts/revelar';
+</script>
 
 <style>
   /* Compacto: el emblema a un costado con el nombre y la línea; las redes del otro lado */

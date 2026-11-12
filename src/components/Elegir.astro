@@ -22,10 +22,9 @@ const casas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.d
           class="casa"
           href={ruta(`/cabanas/${c.id}/`)}
           data-theme={c.data.tema}
-          data-revelar
           style={`--retraso: ${i * 0.1}s`}
         >
-          <figure style={`--encuadre: ${c.data.foto.encuadre}`}>
+          <figure style={`--encuadre: ${c.data.foto.encuadre}`} data-revelar="foto">
             <Picture
               src={c.data.foto.src}
               alt={c.data.foto.alt}
@@ -34,11 +33,11 @@ const casas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.d
               sizes="(min-width: 40rem) 45vw, 100vw"
             />
           </figure>
-          <p class="eti">
+          <p class="eti" data-revelar="detalle">
             {c.data.significado} · {c.data.datos.huespedes} huéspedes · {c.data.datos.superficie} m²
           </p>
-          <p class="nombre">{c.data.nombre}</p>
-          <span class="conocer">Conocer la casa →</span>
+          <p class="nombre" data-revelar>{c.data.nombre}</p>
+          <span class="conocer" data-revelar="detalle">Conocer la casa →</span>
         </a>
       ))
     }

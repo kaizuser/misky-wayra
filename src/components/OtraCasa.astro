@@ -21,8 +21,8 @@ const { id, nombre, significado, tema, foto } = Astro.props;
 ---
 
 <aside class="otra" data-theme={tema} aria-label="La otra casa">
-  <a class="tarjeta" href={ruta(`/cabanas/${id}/`)} data-revelar>
-    <figure style={`--encuadre: ${foto.encuadre}`}>
+  <a class="tarjeta" href={ruta(`/cabanas/${id}/`)}>
+    <figure style={`--encuadre: ${foto.encuadre}`} data-revelar="foto">
       <Picture
         src={foto.src}
         alt={foto.alt}
@@ -31,7 +31,7 @@ const { id, nombre, significado, tema, foto } = Astro.props;
         sizes="(min-width: 72rem) 72rem, 100vw"
       />
     </figure>
-    <div class="texto">
+    <div class="texto" data-revelar style="--retraso: 0.15s">
       <p class="antetitulo">La otra casa · {significado}</p>
       <p class="nombre">{nombre}</p>
       <span class="conocer">Conocer {nombre} →</span>

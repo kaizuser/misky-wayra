@@ -83,7 +83,7 @@ const grupos = [
 
         <ul class="fotos" data-galeria>
           {grupo.fotos.map((f, j) => (
-            <li class="foto" data-revelar style={`--retraso: ${(j % 3) * 0.1}s`}>
+            <li class="foto" data-revelar="foto" style={`--retraso: ${(j % 3) * 0.1}s`}>
               <Ampliable foto={f} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 30vw, 50vw" />
             </li>
           ))}
@@ -93,7 +93,7 @@ const grupos = [
   }
 
   <section class="casas">
-    <p>
+    <p data-revelar>
       Por dentro:
       <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">Sumac Mayu</a>
       y
@@ -190,7 +190,7 @@ const grupos = [
 
   /* ---------- Las fotos: columnas escalonadas ----------
      Todas 2:3. La columna del medio baja un poco y la de la derecha la mitad; el escalón es un
-     transform, así no pisa el `translate` de la entrada (data-revelar). */
+     transform, por si alguna vez la entrada de las fotos vuelve a moverlas (`translate`). */
   .fotos {
     --paso: 4rem;
 
