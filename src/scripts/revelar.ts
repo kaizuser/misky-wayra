@@ -11,22 +11,30 @@
 
 document.documentElement.classList.add('revelar');
 
-const observador = new IntersectionObserver(
+// Entrada: cuando asoma un poco por encima del borde de abajo
+const entrada = new IntersectionObserver(
   (entradas) => {
-    for (const entrada of entradas) {
-      if (entrada.isIntersecting) entrada.target.classList.add('visible');
-      // Solo si quedó entera por debajo de la pantalla: una foto que sale de costado en un
-      // carrusel, o un texto que ya entró al pie de la pantalla, siguen visibles
-      else if (entrada.boundingClientRect.top >= innerHeight)
-        entrada.target.classList.remove('visible');
-    }
+    for (const e of entradas) if (e.isIntersecting) e.target.classList.add('visible');
   },
-  // Se dispara cuando asoma un poco por encima del borde de abajo
   { rootMargin: '0px 0px -12% 0px', threshold: [0, 0.01] },
 );
 
+// Reinicio: cuando sale entero por debajo de la pantalla (subiste por encima de él). Va en un
+// observador aparte, sin margen: el de la entrada avisa al cruzar su línea (todavía en pantalla)
+// y no vuelve a avisar cuando termina de salir, así que algunos no se reiniciaban.
+// Una foto que sale de costado en un carrusel no está por debajo: sigue visible.
+const salida = new IntersectionObserver((entradas) => {
+  for (const e of entradas) {
+    if (!e.isIntersecting && e.boundingClientRect.top >= (e.rootBounds?.bottom ?? innerHeight))
+      e.target.classList.remove('visible');
+  }
+});
+
 const elementos = document.querySelectorAll('[data-revelar]');
-elementos.forEach((el) => observador.observe(el));
+elementos.forEach((el) => {
+  entrada.observe(el);
+  salida.observe(el);
+});
 
 // Lo que ya está en la primera pantalla entra enseguida, aunque esté en la franja de abajo
 // (si no, un texto al pie de la primera pantalla esperaría a que bajes). Se mira otra vez

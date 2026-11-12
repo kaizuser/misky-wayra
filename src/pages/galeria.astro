@@ -1,7 +1,7 @@
 ---
 /**
- * Galería de fotos: lo que comparten las dos casas (el parque, la pileta, el fogón y las
- * pérgolas). Lo de adentro de cada casa está en su página.
+ * Galería de fotos: el parque, la pileta, el fogón y las pérgolas. Lo de adentro de cada casa
+ * está en su página.
  *
  * Editorial, como los ambientes de las cabañas: cada grupo tiene su cabeza (número, nombre
  * grande, una línea) sobre una regla fina, y debajo sus fotos verticales en tres columnas
@@ -15,7 +15,6 @@ import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import Franja from '../components/Franja.astro';
 import Ampliable from '../components/Ampliable.astro';
-import { ruta } from '../lib/rutas';
 
 const archivos = import.meta.glob<{ default: ImageMetadata }>('../assets/galeria/*.jpg', { eager: true });
 const foto = (nombre: string, alt: string) => ({ src: archivos[`../assets/galeria/${nombre}.jpg`].default, alt });
@@ -65,15 +64,14 @@ const grupos = [
 
 <Base
   title="Galería de fotos: Misky Wayra, Capilla del Monte"
-  description="Fotos del parque, la pileta, el fogón y las pérgolas que comparten las cabañas Misky Wayra, frente al Uritorco en Capilla del Monte, Córdoba."
+  description="Fotos del parque, la pileta, el fogón y las pérgolas de las cabañas Misky Wayra, frente al Uritorco en Capilla del Monte, Córdoba."
 >
   <Franja />
 
   <section class="encabezado">
     <div class="titulo">
-      <p class="antetitulo" data-revelar>Lo que comparten las dos casas</p>
-      <h1 data-revelar style="--retraso: 0.08s">Galería</h1>
-      <p class="intro" data-revelar style="--retraso: 0.16s">
+      <h1 data-revelar>Galería</h1>
+      <p class="intro" data-revelar style="--retraso: 0.08s">
         El parque, la pileta, el fogón y las pérgolas. Las casas por dentro están en la página de cada una.
       </p>
     </div>
@@ -102,14 +100,6 @@ const grupos = [
     ))
   }
 
-  <section class="casas">
-    <p data-revelar>
-      Por dentro:
-      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">Sumac Mayu</a>
-      y
-      <a href={ruta('/cabanas/misky-wayra/')} data-theme="wayra">Misky Wayra</a>.
-    </p>
-  </section>
 </Base>
 
 <script>
@@ -166,13 +156,6 @@ const grupos = [
     }
   }
 
-  .antetitulo {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-  }
 
   h1 {
     margin-block-start: var(--space-xs);
@@ -310,19 +293,5 @@ const grupos = [
     .foto:hover :global(img) {
       scale: 1.04;
     }
-  }
-
-  /* ---------- Al final: las casas por dentro ---------- */
-  .casas {
-    padding-block: var(--space-2xl) var(--space-3xl);
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem);
-    line-height: 1.15;
-  }
-
-  .casas a {
-    color: var(--color-primary);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
   }
 </style>
