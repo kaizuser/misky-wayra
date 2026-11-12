@@ -19,7 +19,6 @@ datos:
   dormitorios: 2
   camas: 1 king size y 2 de una plaza
 
-propio: Galería con mesa de campo y parrilla
 
 comodidades:
   - Televisor
@@ -35,8 +34,6 @@ comodidades:
   - Entrada independiente
   - Cochera techada
   - Alarma
-
-formato: informativa
 
 equipamiento:
   adentro:

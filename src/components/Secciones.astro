@@ -1,6 +1,6 @@
 ---
 /**
- * El recorrido en secciones (formato "secciones"): después del hero, el texto principal,
+ * El relato del inicio: después del hero, el texto principal,
  * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
  * composición (trío, cinco, fila, cruz, escalones, panorámica, par) y su propia forma de llegar al bajar.
  * El título de cada sección queda para lectores de pantalla y buscadores.
@@ -71,7 +71,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       )}
       {parada.disposicion === 'trio' ? (
         // Trío: tres fotos superpuestas que se abren hacia afuera y hacia arriba al bajar
-        <div class="trio" data-repetir data-galeria data-pista>
+        <div class="trio" data-galeria data-pista>
           {lugaresTrio.map((lugar, i) => {
             const foto = parada.fotos[i];
             return (
@@ -174,7 +174,6 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 }
 
 <script>
-  import '../scripts/trazado';
   import '../scripts/revelar';
   import '../scripts/lightbox';
   import '../scripts/carrusel';

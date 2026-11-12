@@ -1,20 +1,14 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { Picture } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import Alero from '../../components/Alero.astro';
 import CabanaHero from '../../components/CabanaHero.astro';
-import Recorrido from '../../components/Recorrido.astro';
-import Secciones from '../../components/Secciones.astro';
 import Franja from '../../components/Franja.astro';
 import Ficha from '../../components/Ficha.astro';
 import Ambientes from '../../components/Ambientes.astro';
 import Resenas from '../../components/Resenas.astro';
 import Reservar from '../../components/Reservar.astro';
 import OtraCasa from '../../components/OtraCasa.astro';
-import Consultar from '../../components/Consultar.astro';
 import { alojamiento } from '../../lib/datos';
-import { ruta } from '../../lib/rutas';
 
 export async function getStaticPaths() {
   const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -43,7 +37,6 @@ const d = cabana.data;
   theme={d.tema}
   imagen={d.foto}
   jsonLd={alojamiento(cabana, Astro.site!)}
-  cabecera={d.formato === 'camino'}
 >
   <!-- 1. La llegada -->
   <CabanaHero
@@ -53,176 +46,19 @@ const d = cabana.data;
     foto={d.foto}
     transicion={`casa-${cabana.id}`}
   />
-  {d.formato !== 'camino' && <Franja />}
+  <Franja />
 
-  <!-- 2. El recorrido: de afuera hacia adentro, y de vuelta afuera -->
-  {
-    d.formato === 'informativa' ? (
-      <>
-        <Ficha datos={d.datos} equipamiento={d.equipamiento} comodidades={d.comodidades} />
-        <Ambientes ambientes={d.recorrido} />
-        <Resenas resenas={d.resenas} />
-        <Reservar nombre={d.nombre} />
-        <OtraCasa
-          id={hermana.id}
-          nombre={hermana.data.nombre}
-          significado={hermana.data.significado}
-          tema={hermana.data.tema}
-          foto={hermana.data.foto}
-        />
-      </>
-    ) : d.formato === 'secciones' ? (
-      <Secciones principal={d.principal} paradas={d.recorrido} />
-    ) : (
-      <Recorrido paradas={d.recorrido} tema={d.tema} />
-    )
-  }
-
-  <!-- Formato secciones: lo que sigue se rediseña aparte; por ahora no se muestra -->
-  {
-    d.formato === 'camino' && (
-      <>
-  <section class="al-parque">
-    <p>
-      El parque, la pileta y los espacios compartidos te esperan en la
-      <a href={ruta('/galeria/')}> galería de fotos</a>.
-    </p>
-  </section>
-
-  <!-- 3. De un vistazo -->
-  <Alero />
-  <section class="detalles banda">
-    <h2>De un vistazo</h2>
-    <dl>
-      <dt>Superficie</dt><dd>{d.datos.superficie} m²</dd>
-      <dt>Huéspedes</dt><dd>{d.datos.huespedes}</dd>
-      <dt>Dormitorios</dt><dd>{d.datos.dormitorios}</dd>
-      <dt>Camas</dt><dd>{d.datos.camas}</dd>
-    </dl>
-    <ul class="comodidades">
-      {d.comodidades.map((comodidad) => <li>{comodidad}</li>)}
-    </ul>
-  </section>
-  <Alero flip />
-
-  <!-- 4. Consultar -->
-  <Consultar
-    titulo="¿Te imaginás acá?"
-    mensaje={`Hola! Quería consultar disponibilidad en ${d.nombre} para `}
-    boton={`Consultar por ${d.nombre}`}
+  <!-- 2. La ficha, los ambientes, las reseñas, cómo reservar y la otra casa -->
+  <Ficha datos={d.datos} equipamiento={d.equipamiento} comodidades={d.comodidades} />
+  <Ambientes ambientes={d.recorrido} />
+  <Resenas resenas={d.resenas} />
+  <Reservar nombre={d.nombre} />
+  <OtraCasa
+    id={hermana.id}
+    nombre={hermana.data.nombre}
+    significado={hermana.data.significado}
+    tema={hermana.data.tema}
+    foto={hermana.data.foto}
   />
-
-  <!-- 5. Del otro lado del eje -->
-  <aside class="hermana" data-theme={hermana.data.tema}>
-    <p class="antetitulo">Del otro lado del eje</p>
-    <a class="tarjeta" href={ruta(`/cabanas/${hermana.id}/`)}>
-      <figure style={`--encuadre: ${hermana.data.foto.encuadre}`}>
-        <Picture
-          src={hermana.data.foto.src}
-          alt={hermana.data.foto.alt}
-          formats={['avif', 'webp']}
-          widths={[400, 800]}
-          sizes="(min-width: 40rem) 24rem, 90vw"
-        />
-      </figure>
-      <span class="significado">{hermana.data.significado}</span>
-      <span class="nombre">{hermana.data.nombre}</span>
-    </a>
-  </aside>
-      </>
-    )
-  }
 </Base>
 
-<style>
-  /* ---------- Hacia la galería ---------- */
-  .al-parque {
-    padding-block-start: 0;
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-  }
-
-  /* ---------- De un vistazo ---------- */
-  .detalles dl {
-    max-width: 26rem;
-  }
-
-  .comodidades {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-2xs);
-    max-width: 40rem;
-    margin-inline: auto;
-    padding: 0;
-    list-style: none;
-  }
-
-  .comodidades li {
-    padding: var(--space-3xs) var(--space-s);
-    border-radius: 999px;
-    background: var(--color-bg);
-    font-size: var(--step--1);
-  }
-
-  /* ---------- La cabaña hermana ---------- */
-  .hermana {
-    padding-block-start: 0;
-  }
-
-  .antetitulo {
-    font-size: var(--step--1);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-text);
-  }
-
-  .tarjeta {
-    display: grid;
-    justify-items: stretch;
-    text-align: center;
-    gap: var(--space-2xs);
-    max-width: 24rem;
-    margin-inline: auto;
-    text-decoration: none;
-    color: var(--color-primary);
-  }
-
-  .tarjeta figure {
-    width: 100%;
-    margin: 0 0 var(--space-s);
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border-radius: 50% 50% var(--radius) var(--radius) / 35% 35% var(--radius) var(--radius);
-  }
-
-  .tarjeta :global(picture),
-  .tarjeta :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .tarjeta :global(img) {
-    object-fit: cover;
-    object-position: var(--encuadre);
-    transition: scale 600ms ease;
-  }
-
-  .tarjeta:hover :global(img) {
-    scale: 1.04;
-  }
-
-  .tarjeta .significado {
-    font-size: var(--step--1);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .tarjeta .nombre {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: var(--step-3);
-  }
-</style>

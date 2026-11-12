@@ -28,42 +28,23 @@ const cabanas = defineCollection({
         dormitorios: z.number(),
         camas: z.string(),
       }),
-      /** lo que solo tiene esta casa, en una línea (fila "Lo propio" del inicio) */
-      propio: z.string(),
       comodidades: z.array(z.string()),
       /**
-       * Reseñas reales de huéspedes (formato informativa), copiadas de Booking/Airbnb: solo se
+       * Reseñas reales de huéspedes, copiadas de Booking/Airbnb: solo se
        * recorta y se corrigen tildes o mayúsculas; nunca se reescribe. Nombre de pila y fecha.
        */
       resenas: z
         .array(z.object({ texto: z.string(), nombre: z.string(), fecha: z.string(), fuente: z.enum(['Booking', 'Airbnb']) }))
         .default([]),
-      /** Las comodidades agrupadas (formato informativa); si falta, se usa la lista plana */
+      /** Las comodidades agrupadas; si falta, se usa la lista plana */
       equipamiento: z
         .object({ adentro: z.array(z.string()), afuera: z.array(z.string()), incluido: z.array(z.string()) })
         .optional(),
-      /**
-       * Cómo se muestra el recorrido:
-       * - camino: la línea sobre el eje con una parada por foto (el formato original)
-       * - informativa: ficha técnica y un carrusel de fotos por ambiente (las páginas de cabaña)
-       * - secciones: una sección por parada, con 3–4 fotos en una composición propia y casi sin texto
-       */
-      formato: z.enum(['camino', 'secciones', 'informativa']).default('camino'),
-      /** El texto principal después del hero (formato secciones): una frase grande y un párrafo */
-      principal: z.object({ frase: z.string(), texto: z.string() }).optional(),
+      /** Los ambientes de la casa: un carrusel de fotos cada uno (Ambientes.astro) */
       recorrido: z.array(
         z.object({
           titulo: z.string(),
-          texto: z.string(),
-          /** La composición de fotos de la parada (formato secciones) */
-          disposicion: z.enum(['trio', 'cinco', 'fila', 'cruz', 'escalones', 'panoramica', 'par']).optional(),
-          /** Título expresivo antes de las fotos (formato secciones): la palabra como forma */
-          titular: z.enum(['escalera']).optional(),
-          /** Texto corto centrado debajo de las fotos (formato secciones): un título y un subtítulo */
-          /** centrada: corta, en el medio; final: grande, alineada a la izquierda (como el cierre de la referencia) */
-          nota: z
-            .object({ titulo: z.string(), subtitulo: z.string(), estilo: z.enum(['centrada', 'final']).default('centrada') })
-            .optional(),
+          texto: z.string().optional(),
           fotos: z.array(foto).default([]),
         }),
       ),

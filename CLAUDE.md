@@ -1,498 +1,248 @@
 # Misky Wayra — project memory
 
 Single source of truth for this project: what we decided, why, what exists, and what's next.
-Paste this file at the start of a new conversation to resume work.
+Rewritten Nov 12, 2026 to match the current site (the editorial redesign). Earlier states are in git history (`git tag v0.1-balance` marks the old "crafty" version).
 
 ---
 
-## Milestones
+## 1. Context and how to work
 
-### v0.1 — Balance point (October 11, 2026)
-The project reached stability: the concept, the design system and the main structure are agreed and working. From here on the work is **polishing what exists**, not redefining it.
+**The project.** A website for a family-run complex of cottages in **Capilla del Monte, Córdoba, Argentina**, owned and run by the developer's parents, who receive guests in person.
 
-**Agreed and built at this point:** the axis concept (Sumac left, the complex at the center, Misky right); palette v2 (now v3) and the role/theme system; Fraunces + Figtree; full-bleed layout with `.banda`; the `Alero` eave divider; hero B1 (two houses, eave edges, hover growth); the functional nav with the temporary emblem, the off-axis menu and the mobile thumb bar; the page sketches; this file.
+**The complex is called Misky Wayra** ("sweet wind" in Quechua). It started with the first house, Misky Wayra; Sumac Mayu ("beautiful river") was built later. Spelling used by the family: **Sumac Mayu** and **Misky Wayra** (not "Sumaq" / "Miski").
 
-**Rule from here:** the **structure is fixed**: pages, sections and their order, the left / center / right axis, components and what each one does. **Redesigns are welcome**: shape, look and feel of any piece can change (e.g. a new shape for the nav, same functionality). If the structure itself ever needs to change, discuss it first and record why in section 10.
-
-**Principle: restraint.** The site can keep growing, but carefully. Add one detail at a time, check it on desktop and mobile, and keep it only if it serves the place and the visitor. If a detail competes with the photos or the content, it goes. Better a few memorable details than many small effects.
-
-Git: `git tag v0.1-balance` marks this state.
-
----
-
-## 1. Context
-
-**The project.** A website for a family-run complex of cottages in **Capilla del Monte, Córdoba, Argentina**. Owned and run by the developer's parents, who receive guests in person.
-
-**The complex is called Misky Wayra** ("sweet wind" in Quechua). It started with the first house, Misky Wayra; Sumac Mayu ("beautiful river") was built later. Story line for the home page: *"Todo empezó en Misky Wayra."*
-
-**The two cottages** (a third may come later):
-
-| Cottage | Building | Side of the axis | Theme |
+| Cottage | Building | Theme | Color |
 |---|---|---|---|
-| **Sumac Mayu** (main, also once called "Miski Wayra II") | The orange hand-sculpted adobe house: domes, cylindrical tower, wavy mushroom-cap eaves, large arched glass façade with iron mullions, irregular stone base | **Left** | `mayu` |
-| **Misky Wayra** (the original) | Round house with warm lime-cream plaster, green corrugated roof with scalloped trim, stone band at the base, wooden doors and windows | **Right** | `wayra` |
+| **Sumac Mayu** (bigger; listed on Airbnb as "Cabaña Misky Wayra II") | Orange hand-sculpted adobe house: domes, tower, wavy mushroom-cap eaves, large arched glass façade, stone base | `mayu` | adobe (terracotta) |
+| **Misky Wayra** (the original) | Round house, lime-cream plaster, green corrugated roof with scalloped trim, stone base, wooden gallery | `wayra` | techo (green) |
 
-Spelling used by the family: **Sumac Mayu** and **Misky Wayra** (not the standard Quechua "Sumaq" / "Miski").
+Shared: 3,000 m² park with fruit and native trees, pool (in season), decks, fire pit, barbecue, gazebo, grapevine pergola, covered parking, view of the Cerro Uritorco.
 
-**Shared spaces** (from the photos): pool with stone retaining wall, two decks (one with shade cloth pergola), fire-pit circle with benches on gravel, barbecue, jasmine-covered wrought-iron gazebo, metal arched pergola with grapevine, large garden with algarrobos, olive tree, agaves and cacti, garden paths of green cement with pink stones, covered parking. Clear view of the Cerro Uritorco from the property.
+**The developer.** Junior frontend developer in Córdoba (UTN; works on AngularJS + Java at his job; knows React). **Arch Linux**, **Node 26** from pacman (if builds break after `pacman -Syu`, check Node first), **npm**. Doesn't draw. Writes English and Spanish mixed. Site content is **Spanish (es-AR, voseo)**.
 
-**The developer.** Junior developer in Córdoba, studies at UTN, works mostly frontend on a legacy AngularJS 1.x + Materialize app with a Java backend. Knows React. Uses **Arch Linux**, **Node 26** from the pacman `nodejs` package (risk: a system update can jump to an odd, non-LTS major; if builds break after `pacman -Syu`, check Node first). Uses **npm**. Doesn't know how to draw.
-
-**Commit and push without asking** (standing permission, Nov 1, 2026): anything the developer asked for or approved in the conversation gets committed and pushed to `master` right away, no confirmation needed. Pushing to master redeploys the GitHub Pages preview. Still ask before anything not discussed, or before destructive git operations (force push, rewriting history, deleting branches).
-
-**Quality over quantity** (Nov 1, 2026): when we take something on, go deep and polish it until it's solid before moving to the next thing. Fewer, better changes; don't spread across many items at once.
-
-**How to work with the developer.** Wants objective, analytical answers and honest trade-offs. Likes concrete files and code, and visual mockups to judge ideas. Doesn't want overengineering. Writes in English and Spanish, often mixed. Site content is in **Spanish (es-AR, voseo)**.
-
----
-
-## 2. Concept
-
-**The essence: the house is the brand.** Sumac Mayu's building is extraordinary and nothing in the area looks like it. The site must represent and transmit that.
-
-**The axis.** The site is organized around a central vertical axis:
-- **Center:** the complex (earth, garden, monte). Calm.
-- **Left:** Sumac Mayu. **Right:** Misky Wayra. They mirror each other and complement each other.
-- Practical pages (Galería, Ubicación y contacto) live **off the axis**, at the side.
-- Symmetry carries the layout; motion carries the life (pure symmetry alone feels static).
-
-**The shape language comes from Sumac's façade:**
-- **The eave (alero):** thick organic curve, highest at the center, drooping at the ends. Used as the section divider.
-- **The arch:** the glazed window under the eave. Its central mullion is literally the site's axis.
-- **Misky's own shape: the circle.** Misky is a round house, so its window is round; Sumac's is the arch. Each side of the axis has its own shape (added Oct 24, 2026: before, every shape came from Sumac and the right side read as "the same in green").
-- **Photo frames: a fine line** (Nov 1, 2026). The home hero photos are their plain shape (arch or circle) plus a 1.5px outline in the house color, 0.75rem away from the photo (`.ventana::before`), the same thin stroke as the volutas and the path. The scalloped festón ring, Sumac's filled eave over the arch and the arch mullion were removed: they read heavy ("mediocre") and only Misky had a contour in the trip. **The trip photos have no outline** (plain arch / circle): next to the volutas a line around each photo was redundant.
-- **The stone base** and the **garden paths** (green cement + pink stones): future textures/patterns.
-
-**Elements:** earth at the center; Sumac = water (mayu), Misky = wind (wayra). Water is the weaker link: the only visible water is the pool (no river/stream confirmed). Motion language idea: flowing for water, drifting for wind.
+**Standing instructions:**
+- **Commit and push without asking** (Nov 1, 2026): anything the developer asked for or approved in the conversation gets committed and pushed to `master` right away. Pushing redeploys the GitHub Pages preview. Still ask before anything not discussed, or before destructive git operations (force push, rewriting history, deleting branches).
+- **Quality over quantity** (Nov 1, 2026): when we take something on, go deep and polish it until it's solid before moving on. Fewer, better changes.
+- **Restraint:** add one detail at a time, check it on desktop and mobile, keep it only if it serves the place. If it competes with the photos, it goes.
+- Objective, analytical answers with honest trade-offs; concrete files and code; mockups to judge ideas; no overengineering.
+- Structure changes (pages, sections, their order) are discussed first and recorded in section 9.
+- Only real content: reviews never invented or rewritten (only trimmed/accent-fixed); only photos the family has rights to; people in photos need consent.
+- Claude: stop any dev/preview server you start when you're done with it (unless the developer wants it running to look at the site).
 
 ---
 
-## 3. Stack and why
+## 2. Concept and aesthetic
+
+**The house is the brand.** Sumac's building is extraordinary; nothing in the area looks like it. The photos carry the site.
+
+**Editorial aesthetic (since Nov 2, 2026), modeled on wolnylas.pl** (screenshots in `pagina-especifica/`, untracked): lots of air, big photos, a condensed high-contrast serif, a thin straight nav, thin rules, square buttons, minimal text. It replaced the first "crafty" aesthetic (eave dividers, arch/circle photo frames, volutas, dashed paths, Fraunces), which is in git history. Small remains of it: the 404's forked path and the Galería's arch/circle placeholders, both to be redone.
+
+**Two houses, two colors.** Sumac = adobe (left when shown side by side), Misky = green (right). The complex itself is olive (`monte`). Houses differ by color, not by type weight.
+
+---
+
+## 3. Stack
 
 | Choice | Why |
 |---|---|
-| **Astro** (current stable, 7.x line) | Content site. Static HTML, zero JS by default, very fast on mobile data. React only as islands if ever needed (none needed so far). |
-| **TypeScript strict** | Comes with Astro's strict preset. |
-| **Native CSS, no preprocessor, no framework** | Native CSS has nesting, custom properties, `clamp()`, container queries. Astro scopes component styles. No Tailwind/Sass/Bootstrap: the site must look bespoke. |
-| **CSS animations first** | Scroll-driven animations work in Chrome/Edge and Safari (since Sept 2025); Firefox behind a flag → progressive enhancement. **No GSAP in v1**; add only if CSS can't do something. |
-| **Static output** | No backend, no DB, no forms: nothing to break, nearly free hosting, hosting-agnostic. |
-| **Contact = WhatsApp + phone** | That's how bookings happen in Argentina. No booking engine, no online check-in, no forms (maybe a form later via external service, only if the parents ask). |
+| **Astro 7**, static output | Content site, zero JS by default, fast on mobile data, hosting-agnostic. |
+| **TypeScript strict** | Astro's strict preset. |
+| **Native CSS** (scoped component styles, nesting, custom properties, `clamp()`) | Bespoke look; no Tailwind/Sass/framework. |
+| **CSS animations first** | Scroll-driven animations as progressive enhancement (Firefox static). No GSAP. |
+| **Contact = WhatsApp** | That's how bookings happen in Argentina. No booking engine, no forms, no backend. |
 
-**Rejected:** Next.js (overkill), Vue/Angular (no benefit), React for now (no component state needed), Tailwind/Sass, GSAP v1, embedded Google Maps iframe (heavy; use a link that opens the Maps app), online check-in (needs backend + personal data handling).
+Packages: `astro`, `@astrojs/sitemap`, `photoswipe` (lightbox); dev: `prettier`, `prettier-plugin-astro`, `@astrojs/check`, `typescript`. `npm run check` = `astro check`.
 
-### Installed packages (7)
-
-| Package | Role |
-|---|---|
-| `astro` | Framework (brings sharp for images and Zod for schemas). |
-| `@astrojs/sitemap` | Generates the sitemap at build. Needs `site` in config. |
-| `photoswipe` | Gallery lightbox with pinch-zoom. The only JS that reaches the browser. Not wired yet. |
-| `prettier` (dev) | Formatter. |
-| `prettier-plugin-astro` (dev) | Teaches Prettier the `.astro` format. |
-| `@astrojs/check` (dev) | Runs `astro check` (type-checks `.astro`/`.ts`). |
-| `typescript` (dev) | Compiler used by `@astrojs/check`. |
-
-Built in (no install): `astro:assets` images, `astro/zod`, Fonts API, `<ClientRouter />` view transitions, CSP API.
-
-**Never write a nameless `animation` shorthand** (`animation: linear both;` with the name set elsewhere): esbuild minifies it to `animation: none`, dropping `fill-mode: both`, so the start state isn't held before a scroll range begins. Use longhands (`animation-timing-function`, `animation-fill-mode`) or include the name in the shorthand.
-
-**CSS minifier:** `astro.config.mjs` sets `vite.build.cssMinify: 'esbuild'`. Vite 8's default (lightningcss) folds `animation-timeline` into the `animation` shorthand, which Chrome rejects, so every scroll-driven animation (trip line, stops, nav) silently disappeared in the build while working in `dev`. If scroll animations break after an upgrade, grep `dist/_astro/*.css` for `animation-timeline`.
-
-**One dev server per project (Astro 7):** if a dev server is already running, `npm run dev` doesn't start a new one; it just points to the existing one ("Dev server already running at …"). A forgotten server keeps stale content and config (on Nov 1, 2026 one left running since Oct 24 hid the new texts and broke images). Check with `npx astro dev status`, stop with `npx astro dev stop`, then start again. Also restart it after changing the content schema together with a `.md`: the dev server can reload the `.md` before the new schema, reject it and serve a 404 until restarted. If a new content field still doesn't show in dev after restarting, the content cache is stale: stop the server, delete `.astro/data-store.json`, start again (the build is never affected). Claude: stop any dev/preview server you start when you're done with it.
-
-`.prettierrc` uses `prettier-plugin-astro` with an override `parser: "astro"` for `*.astro`. `package.json` has `"check": "astro check"`.
-
-Suggested: add `.node-version` with `26` at the repo root.
+### Gotchas (learned the hard way)
+- **CSS minifier:** `astro.config.mjs` sets `vite.build.cssMinify: 'esbuild'`. Vite's default (lightningcss) folds `animation-timeline` into the `animation` shorthand, which Chrome rejects: scroll animations work in dev and vanish in the build. If they break after an upgrade, grep `dist/_astro/*.css` for `animation-timeline`.
+- **Never write a nameless `animation` shorthand** (`animation: linear both;`): esbuild minifies it to `animation: none`. Use longhands or include the name.
+- **One dev server per project (Astro 7):** `npm run dev` reuses a running one. Check with `npx astro dev status`, stop with `npx astro dev stop`. After changing the content schema, stop, delete `.astro/data-store.json`, start again (the build is never affected).
+- **Grids that contain a scroll track** need `grid-template-columns: minmax(0, 1fr)`, or the track stretches the page sideways.
+- **No zoom-out on phones** (developer's request): viewport `minimum-scale=1` and `html, body { overflow-x: clip }` (in `reset.css`). Zooming in stays allowed. Rotated elements count toward scroll width: `.seccion { overflow-x: clip }`.
+- **Reveal script safety:** elements only hide when `revelar.ts` itself runs (it adds `.revelar` to `<html>`). An inline head class once hid all text forever when the hashed JS 404'd after a deploy (Pages caches HTML ~10 min).
+- **YAML:** quote every `alt:` (alts with ": " broke parsing).
+- **Headless Chromium tests:** profile dir under `/tmp/claude-1000/` (long socket paths fail); to test hover, launch with `--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4`. In a shell, run `pkill`/`kill` as its own command (it aborts the rest of a chain with exit 144).
+- View transitions: test with `build` + `preview`, never `dev`.
 
 ---
 
-## 4. Current files
+## 4. Files
 
 ```
-astro.config.mjs        site (placeholder https://miskywayra.com.ar), sitemap, fonts (Fraunces + Figtree via fontsource)
-.prettierrc
+astro.config.mjs        site/base from env (SITIO_URL, SITIO_BASE), trailingSlash 'always', sitemap,
+                        cssMinify esbuild, fonts: Instrument Serif (400, normal + italic) and Instrument Sans (400–700)
 src/
-├── assets/home/
-│   ├── hero-sumac.jpg    IMG_0389 (original file)
-│   └── hero-misky.jpg    IMG_6442 (ground level, under the algarrobo, brick path to the gallery)
-├── assets/cabanas/
-│   ├── sumac-mayu/adobe.jpg      IMG_0400
-│   └── sumac-mayu/jardin.jpg     IMG_0388
+├── config.ts           SITIO (name, WhatsApp placeholder, address split, redes), hayWhatsapp, whatsappUrl(), mapsUrl
+├── content.config.ts   Zod schema for cottages (SEO limits, required alt, encuadre, equipamiento, resenas, recorrido)
+├── content/cabanas/    sumac-mayu.md (orden 1), misky-wayra.md (orden 2): frontmatter only
+├── data/relato.ts      the home story (principal + paradas with their composition); lorem until the texts arrive
+├── lib/datos.ts        JSON-LD (LodgingBusiness for the home, Accommodation per cottage)
+├── lib/rutas.ts        ruta() for every internal link (GitHub Pages subfolder), esVistaPrevia
+├── layouts/Base.astro  <head> (fonts, SEO, OG 1200×630 JPG, JSON-LD, speculation rules), <main>, <Pie />
 ├── components/
-│   ├── Consultar.astro   how to book: the 3 family steps + WhatsApp button (props titulo, mensaje, boton; slot for extra lines); used on the home and on each cottage page
-│   ├── Encuentro.astro   home "El complejo": Sumac's wave (left) and Misky's gust (right) bloom from one knot on the axis
-│   ├── CabanaHero.astro  cottage hero: meaning + name + phrase, full-bleed photo with eave edges, view-transition-name casa-<slug>
-│   ├── Recorrido.astro   the trip: numbered stops along a line on the axis, alternating sides, arch-masked photos, "Foto en camino" placeholder
-│   ├── Alero.astro     eave divider; props fill, flip, cap (cap fills the area ABOVE the curve)
-│   ├── Emblema.astro   temporary emblem (Sumac with dome), full color, variante completo|compacto, unique gradient IDs per instance
-│   ├── Hero.astro      home hero "La historia": story title + two chapters (Misky round window, Sumac arch) joined by a path on the axis
-│   └── Nav.astro       functional nav: sticky eave bar + emblem dome, utility links off-axis (popover on small screens), mobile thumb bar
-├── lib/volutas.ts       clothoid flourishes per house (build time)
-├── scripts/revelar.ts   triggered entrances: [data-revelar] gets .visible on entering the screen, removed on leaving (replays)
-├── scripts/trazado.ts   "drawn stays drawn": latches every view()-timeline animation when it finishes (adds .quieto)
-public/favicon.svg      compact emblem, square viewBox
-├── layouts/Base.astro  <html>/<head>, fonts, CSS imports, header, footer, data-theme on <body>
-├── pages/
-│   ├── index.astro
-│   ├── galeria.astro           photo gallery (sketch)
-│   ├── ubicacion-y-contacto.astro
-│   └── cabanas/[slug].astro    one page per cottage from the content collection (old static pages deleted)
-├── content/cabanas/
-│   ├── sumac-mayu.md     data + texts (orden 1)
-│   └── misky-wayra.md    data + texts (orden 2)
-├── content.config.ts   Zod schema for cottages (SEO limits, required alt text, encuadre)
-├── config.ts           SITIO (name, WhatsApp number, address), whatsappUrl(), mapsUrl
-└── styles/
-    ├── tokens.css      all design decisions (palette, roles, themes, type, spacing, layout, --alero-alto)
-    ├── reset.css       minimal reset + global prefers-reduced-motion
-    └── global.css      base element styles + page layout (uses only tokens)
+│   ├── CabanaHero.astro  full-screen hero photo with name/meaning/phrase (home and cottages); prop transicion = view-transition-name
+│   ├── Franja.astro      the site nav (+ scripts/franja.ts)
+│   ├── Secciones.astro   the home story: main text + photo compositions
+│   ├── Elegir.astro      home closing: the two houses side by side
+│   ├── Ficha.astro       cottage data + grouped amenities
+│   ├── Ambientes.astro   one carousel per room (+ scripts/carrusel.ts)
+│   ├── Ampliable.astro   link that opens a photo in PhotoSwipe
+│   ├── Resenas.astro     real guest reviews
+│   ├── Reservar.astro    how to book + WhatsApp button
+│   ├── OtraCasa.astro    link card to the sister cottage
+│   ├── Pie.astro         footer
+│   └── Emblema.astro     temporary emblem (completo | compacto)
+├── scripts/            revelar.ts (triggered entrances), carrusel.ts, franja.ts, lightbox.ts
+├── pages/              index, cabanas/[slug], galeria, ubicacion-y-contacto, 404, robots.txt.ts
+├── assets/             home/hero.jpg (home hero), home/hero-sumac.jpg (default OG image), cabanas/<slug>/*.jpg
+└── styles/             tokens.css → reset.css → global.css (import order matters)
+public/favicon.svg      compact emblem
 ```
 
-Import order in `Base.astro` matters: `tokens.css` → `reset.css` → `global.css`.
-Folder is `cabanas` (no ñ): ñ in URLs gets percent-encoded when shared.
+Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 
-### Base.astro
-- Props: `title`, `description`, `theme?: 'wayra' | 'mayu'`.
-- `<Font cssVariable="--font-fraunces" preload />` and `--font-figtree`.
-- Renders `<Nav />` (see Nav below).
-- Footer: "Misky Wayra, Capilla del Monte, Córdoba" + WhatsApp link placeholder.
+---
 
-### Nav (functional version, `Nav.astro`)
-- **Concept:** the nav is the eave over the hero's window: Sumac Mayu on the left wing, Misky Wayra on the right wing, the emblem in the center as the dome (it overflows the bar). Utility links (Galería, Ubicación y contacto) live off the axis, at the right edge.
-- **States:** at the top of the page it's open (transparent, larger emblem); while scrolling it condenses into a floating sticky pill (cream, blur, soft shadow). Done with a CSS scroll-driven animation (`animation-timeline: scroll(root)`); browsers without support (Firefox) always show the floating pill.
-- **Current page:** `aria-current="page"` computed from `Astro.url.pathname`; the active wing is underlined.
-- **Utility links:** one `<nav popover>`: visible as small links on desktop (≥ 64rem, author CSS overrides the UA popover styles); behind a round menu button below 64rem (native popover: light dismiss, Esc, no JS).
-- **Mobile (< 40rem):** top shows only the emblem; a fixed thumb bar at the bottom: Sumac Mayu | WhatsApp in a raised circle (the dome, `--color-primary`) | Misky Wayra. `body` gets bottom padding so the bar never hides content. WhatsApp icon is a generic chat bubble (don't reproduce the WhatsApp logo).
-- **Nav ↔ hero:** hovering a cottage name in the nav zooms that house's photo in the hero via `:global(body:has(...))` in `Hero.astro`.
+## 5. Pages
 
-### Cottage pages (`cabanas/[slug].astro`) — "the trip"
-The developer's direction: each cottage page is a **trip / a path** that takes the visitor from outside into the house's interior, its magic and essence, and back out. (This redefined the cottage page sections; the rest of the site's structure is unchanged.)
-1. **La llegada** (`CabanaHero`, redesigned Nov 1, 2026): **the house fills the screen** (`100svh`, minus the 6rem thumb bar on mobile). Meaning, name (h1) and phrase sit at the bottom left, aligned with the page axis, in cream over a dark gradient that rises only from the ground (from 35% down), so the sky stays clean (the "title over the sky" rejection still holds). No eaves (the bottom one was removed too: a straight edge, as in wolnylas.pl, which the developer took as the reference) and no opening animation. **On scroll** (CSS `scroll(root)` over the first `100svh`, `transform` only): the photo moves up slower than the page (`translateY` 0 → 33%, i.e. ~67% of the page speed; was 25%, the developer wanted it a bit stronger) and zooms out slightly (1.06 → 1). Since the hero clips it, the next section seems to rise and cover the photo. The text fades out over the first 45svh so it's gone before it reaches the floating nav. Static in Firefox and under reduced motion. **The nav floats over the photo** on cottage pages (`body:has(.cabana-hero)` in `Nav.astro`): fixed, always the pill, more translucent and blurred (72% cream, `blur(14px)`); the utility links get their own frosted pill on desktop.
-2. **El recorrido** (`Recorrido`, prop `tema`): numbered stops (01, 02…) joined by a line. **Each house moves differently** (Oct 24, 2026): Sumac (water) = a continuous wavy line (SVG mask tile), stop content rises from below; Misky (wind) = a straight dashed line (gusts), stop content drifts in sideways toward the axis. **Volutas:** between stops, on the line, a flourish blooms (`src/lib/volutas.ts`, clothoid strokes computed at build time, zero JS): Sumac = a wave crest that curls (plus a foam curl); Misky = two long gusts that curl only at the end. Mirrored on desktop, right side only on mobile. Drawn with `stroke-dashoffset` (`pathLength=1`) on a `view()` timeline; the line is revealed with `clip-path`, never `scale`, so waves and dashes don't stretch. Reference images in `ideas/` (corner scrollwork; pattern2 is a watermarked stock image, reference only). **Drawn stays drawn:** `src/scripts/trazado.ts` (the site's first JS, ~0.5 KB, imported by `Recorrido` and `Encuentro`) watches every animation on a `view()` timeline (not `scroll(root)` ones: the nav and the hero path go both ways); when one reaches the end it gets `.quieto` (`animation: none`, the natural state is the finished drawing), so scrolling back up never erases anything and the whole trip is drawn after a full scroll. It recounts animations when crossing 64rem: desktop-only strokes (left half of the volutas) appear already drawn if you resize mid-page. The `.quieto` rule lives in `global.css`. The line uses `entry 50% exit 50%` so its tip follows the middle of the screen. Under `prefers-reduced-motion: reduce` nothing moves or draws (line and volutas are shown complete), but stop content still fades in on scroll (`fundirse`, opacity only), so the page doesn't look dead on machines with animations turned off at the OS level (Windows "Animation effects" off, GNOME/KDE reduce animations), which is common on desktops. The reset's forced `0.01ms` durations don't affect scroll-timeline animations. **Window shapes in the trip:** Sumac's main photos are arches, Misky's are circles, no outline (the volutas already draw). Stops are spaced by `--entre: 10rem` (was 7rem: the volutas touched the photo above), where the volutas live. Each voluta between stops is centered by its drawn bounds, not by its knot (`centroVertical()` in `volutas.ts` shifts the viewBox), so it sits at the same distance from the photo above and the photo below (measured: 35/35px Misky, 40/40px Sumac). The closing is mirrored downward, so it's already symmetric. Content of every stop arrives from the outer side toward the axis (the number stays still): Misky straight sideways (wind), Sumac sideways and rising, diagonal (water). **The closing (`.cierre`):** after the last stop the line ends in a knot where a larger voluta blooms, mirrored also downward like a corner ornament (pattern1). In Sumac the two halves are pulled apart 14px so the wave curls don't tangle. Distance from the last stop: `--cierre`, fixed (8.4rem, 10.15rem in Sumac, which is taller), independent of `--entre`. This is the trip's "y de vuelta afuera". **Hover (mouse only, `(hover: hover)`):** Sumac photos come closer slowly (scale 1.06 over 1.8s, water settling); Misky photos sway once (`mecer`, ±0.8°, a gust). On touch nothing happens: a tap will open the photo full screen once PhotoSwipe is wired (`gallery`). To test hover in headless Chromium, launch with `--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4` (headless reports `hover: none`). Desktop: the line is the central axis, stops alternate text/photo on each side, text aligned toward the axis. Mobile: line at the left, stops stacked. The line draws itself and stops fade/rise in while scrolling (CSS `view()` timelines, progressive enhancement). Main photo of each stop is arch-masked (`shape-arch-mask` started here); extra photos go below as squares; no photo → "Foto en camino" placeholder.
-   - Sumac stops: La casa, Adentro, La cocina, El descanso, El playroom, Afuera.
-   - Misky stops: La casa, Adentro, La cocina, El descanso, La galería.
-   - **Only photos of the cottage itself and its interiors.** No grounds, pool or park: those live in the Galería. After the trip, one line points there ("El parque, la pileta y los espacios compartidos te esperan en la galería de fotos").
-3. **De un vistazo** (`.banda` between eaves): mirrored `<dl>` (surface, guests, bedrooms, beds) + amenities as pills.
-4. **Consultar:** "¿Te imaginás acá?", 3 booking steps (write on WhatsApp with dates and people → 40% deposit by transfer → rest on arrival), button with a prefilled message per cottage.
-5. **Del otro lado del eje:** card of the sister cottage (its own `data-theme`), arch-topped photo, meaning + name.
+**Home (`index.astro`) = the story told with photos:** `CabanaHero` (brand name, "Capilla del Monte · Córdoba", pool/deck/Uritorco photo) → `Franja` → `Secciones` (content from `src/data/relato.ts`) → `Elegir` → footer. It currently uses Sumac's photos and lorem text; it will tell both houses (it started in Misky, then Sumac, the park, the surroundings) once texts and photos are chosen.
 
-Content lives in `src/content/cabanas/*.md` (frontmatter only). Texts were rewritten from the family's WhatsApp descriptions: voseo, short, factual, no prices.
+**`Secciones` (the home story):**
+- **Main text:** a big centered phrase in Instrument Serif (house color) + a small paragraph, triggered entrance.
+- **Compositions** (`disposicion` per parada), all built on an 80vw scale breaking out of the content axis, gray placeholders until photos exist:
+  - `trio`: three tall 2:3 photos at staggered heights, slightly overlapping; scroll-scrubbed and reversible (shared view timeline `--trio`): they open outward and upward.
+  - `cinco`: five 4:5 photos, three on top, two below centered on the gaps; staggered triggered entrance.
+  - `cruz`: three columns, 3:4 photos at the sides, two 5:6 stacked in the taller middle column.
+  - `escalones`: two parallel staircases running right to left through the center, three steps of paired 4:5 photos.
+- **Expressive title** `titular: escalera`: the word split into stacked rotated pieces ("Ad·en·tro"), huge, `aria-hidden` (the real `h2` is `.solo-lectores`).
+- **`nota`**: a title + subtitle after the photos; `estilo: final` = the big left-aligned closing block near the screen edge.
+- **Phones:** every composition becomes a one-photo-per-screen carousel with counter and arrows (`[data-carrusel]`).
+- Reference font is OT Miniature (OffType, commercial); Instrument Serif stands in. If a web license is bought, self-host it and change `--font-display`/`--font-principal`.
 
-### Cottage pages, new format "secciones" (in progress since Nov 1, 2026, Sumac first)
-The developer's redesign: the trip structure stays (same stops, in order), but each stop becomes a **section told with 3–4 photos** in its own composition, with almost no text. Reference: wolnylas.pl (screenshots in `pagina-especifica/`, not committed). **Text is reduced to the minimum:** only the main text after the hero; section titles exist only for screen readers (`.solo-lectores`). **Expressive titles** (`titular` on a stop) for specific moments, as in the reference's "Domki": **`escalera` (done, on Adentro)** = the word split into pieces (words, or three parts of one word: "Ad·en·tro"), stacked like lines of rotated text (`rotate: -32deg`, `line-height: 0.7`, slight stepped indent), huge (up to 13rem) in Instrument Serif and the house color, nudged `-0.25em` left so the stepped block reads centered, `aria-hidden` (the real `h2` stays for screen readers). Each piece enters like the main text (`data-revelar`), staggered 0.12s. A scattered variant (letters individually rotated, as in "Atrakcje") can come later. Misky stays on the old "camino" format until Sumac is done.
-- `formato: secciones` in the cottage `.md` switches `[slug].astro` to `Secciones.astro` (else `Recorrido.astro`). Each stop has `disposicion`: `trio` | `cinco` | `fila` | `cruz` | `escalones` | `panoramica` | `par` (names follow the developer's vocabulary). `principal: { frase, texto }` (lorem ipsum for now).
-- **Main text:** a big centered phrase in **Instrument Serif** (`--font-principal`; condensed high-contrast serif, the closest free match to the reference; loaded without preload, only where used) in the house color, and a small paragraph in Figtree. **Triggered entrances, not scroll-scrubbed** (the developer wanted them quicker and not progressive, as in the reference): both have `data-revelar`. `src/scripts/revelar.ts` (IntersectionObserver) adds `.visible` when the element peeks above the bottom 12% of the screen and removes it **only when it leaves through the bottom** (you scrolled up above it), so the entrance replays every time you scroll down past it again. (Resetting on leaving through the top was a bug: the hidden state's downward offset put it back on screen and it jumped.) CSS in `global.css`: rise from 7rem below, opacity in 0.7s and position in 1.1s with a soft ease-out (`cubic-bezier(0.16, 1, 0.3, 1)`), `--retraso` to stagger. Elements only hide when the reveal script itself runs: `revelar.ts` adds `.revelar` to `<html>` on start, and the hidden state is `.revelar [data-revelar]`. (An earlier inline `.js` class in the head hid the texts forever when the script 404'd: GitHub Pages lets browsers cache HTML ~10 min, and each deploy deletes the old hashed JS files.) Reduced motion: a 0.4s fade, no movement. Use `data-revelar` for the photo compositions too. (`data-repetir` still exists for scroll-scrubbed `view()` animations that must not be latched by `trazado.ts`.)
-- **Compositions (built one by one):** **`trio` (done)** = three tall photos (2:3) at staggered heights, as in the reference: **together they span 80% of the viewport width** (the composition is `80vw`, breaking out of the content axis; each photo 34.8% of it, ~400×600 at 1440px), middle highest, right lowest (`margin-top` 11% / 20%), each slightly covering the one on its left (`--pisada: -2.2%`). Its animation is **scroll-scrubbed and reversible** (not triggered), and small because the photos are big: they start a bit packed toward the center and lower (sides `translate: ±10% 6%`, middle `0 4.5%`) and open outward and upward over `cover 10% → cover 55%` of a shared view timeline (`view-timeline-name: --trio` on the composition, so the three move together). They stay overlapped at the end. `data-repetir` keeps `trazado.ts` from latching it. Mobile: same composition, photos 38% wide, more overlap. Uses the stop's photos when present (`fotos[0..2]`), gray placeholders in three tones otherwise. **`cinco` (done, on Adentro, the developer's idea)** = five 4:5 photos, three on top and two below centered on the gaps (6-column grid, each photo spans 2), same 80vw scale as the trío, close under the expressive title. Each photo enters triggered (`data-revelar`), staggered 0.08s left to right, the bottom row a bit later. **`nota` (done, after Adentro's photos)** = optional per stop: a centered title in Instrument Serif (up to 4.25rem, house color) and a short subtitle in Figtree, below the photos, entering like the main text (`data-revelar`, subtitle 0.15s later). Less text than the main text. The section then gets extra bottom space (2 × `--space-3xl`) before the next composition. **`estilo: final` (done, after La cocina's cross)** = the reference's closing text block: left-aligned almost at the screen's left edge (4vw from it, beyond the content margin), with extra space above (2 × `--space-3xl`) to separate it from the photos, a very large title on two lines (up to 6.25rem, `line-height: 0.92`, max 7.5em wide), 3.5rem gap, then a wide four-line paragraph (max 40rem, ~80 characters per line). Same triggered entrance. **`escalones` (done, on El descanso, the developer's idea)** = two parallel staircases that run together **from right to left** through the center (the text before it hugs the left edge, so the eye zigzags back): three steps, each a pair of 4:5 photos side by side (22vw each, 1.2vw apart, one from each staircase); each step moves left and down, from the composition's right edge (80vw wide) to its left edge. Six photos, not four: three steps is the minimum to read as a staircase (two steps read as an offset grid); if it feels long, tighten the row gap instead of dropping photos. Each photo enters triggered (`data-revelar`), the right one of each pair 0.1s later. `fila` = three equal tall photos in a row (unused for now); **`cruz` (done, on La cocina)** = measured on the reference: 80vw, three equal columns (2.2% gap); a 3:4 photo on each side, two 5:6 photos stacked in the middle (were 21:20 as in the reference; taller so the cross doesn't feel flat); the middle column is taller and sticks out above and below, the sides centered on it. Each photo enters triggered (`data-revelar`) as you reach it: top-middle → left → right (0.1s later) → bottom-middle. `panoramica` and `par` = new ones. Gray placeholders until photos arrive. **Mobile: every photo composition will become a carousel** (decided Nov 1, 2026; not implemented yet). So don't invest in responsive layouts for the compositions; the current mobile versions are provisional.
-- **Nav for this format (`Franja.astro` + `scripts/franja.ts`, Nov 1, 2026, the developer's design):** the old floating pill (`cabecera`) is not rendered on secciones pages (`Base` prop `cabecera={false}`; the mobile thumb bar stays). Instead a thin full-width strip (~42px) sits right under the hero photo: cottages on the left, compact emblem centered (3.2rem wide, inside the strip without touching its edges), Galería / Ubicación y contacto on the right, small uppercase Figtree. While its place is on screen it's part of the page (no background). Once scrolled past, it becomes `position: fixed` (hidden, no transition so the switch isn't seen); it shows **only when scrolling up** (frosted cream, `blur(14px)`, slides down and fades in) and hides when scrolling down again; back at its place it returns to the page. A 6px threshold avoids flicker. Hover on the text links: the link's color fades in slowly (0.6s) as a full-height block of the strip, text turns cream; cottage links in their house color (`data-theme`), Galería/Ubicación in the complex olive. Mobile: cottage links hidden (they're in the thumb bar).
-- **Every page now uses the strip** (Galería, Ubicación y contacto and the 404 too, Nov 2, 2026; `cabecera={false}` + `<Franja />` at the top): the old pill nav and thumb bar are no longer rendered anywhere.
-- **Below the trip, for now nothing** on secciones pages: El playroom and Afuera have no `disposicion` and are skipped; De un vistazo, Consultar and the sister card are hidden until redesigned.
-- **Typeface:** the reference uses **OT Miniature** (OffType, Valerio Monopoli, 2023), commercial. Instrument Serif stands in until/unless a web license is bought (then self-host it in `src/assets/fonts` via the Fonts API local provider).
-- The volutas and patterns will be reimplemented in this format (not deleted).
+**Cottage pages (`cabanas/[slug].astro`) are informative:** visitors there are comparing and deciding. Same structure for both:
+1. `CabanaHero` (`100svh`; parallax: photo `translateY` 0 → 33% and scale 1.06 → 1 over the first screen, text fades out; static in Firefox/reduced motion) + `Franja`.
+2. **De un vistazo** (`Ficha`): surface, guests, bedrooms, beds as big serif figures between thin rules; amenities grouped Adentro / Afuera / Incluido (`equipamiento`; falls back to `comodidades`).
+3. **One carousel per room** (`Ambientes`, fed by `recorrido`): number + name, counter ("1–2 / 6" on desktop) and square arrows over a thin rule. Native scroll-snap (`scroll-snap-stop: always`); JS only for arrows and counter. **Exactly two 4:5 photos on desktop, exactly one on phones**, symmetric margins (`--margen`). Tap opens PhotoSwipe. Gray placeholders only when a room has no photos.
+   - Sumac: La casa · El living comedor · La cocina · La cúpula (the playroom under the dome) · Los dormitorios · El baño.
+   - Misky: La casa y la galería · El living comedor · La cocina · Los dormitorios · El baño.
+   - **Only the house and its rooms.** Garden, pool and park belong to the Galería (Misky's gallery is its own porch, so it stays).
+4. **Lo que dicen los huéspedes** (`Resenas`): three real reviews per house (Misky from Booking, Sumac from Airbnb), serif quotes in three columns; first name, date, source.
+5. **Cómo reservar** (`Reservar`): "¿Te imaginás acá?", three steps (Escribinos / Confirmás / Llegás), square WhatsApp button in the house color with a prefilled message.
+6. **La otra casa** (`OtraCasa`): large photo of the sister house, name in its color, whole card is the link.
 
-### Cottage pages, format "informativa" (since Nov 2, 2026; Sumac first)
-**Decision (Nov 2, 2026): the photo-composition story ("secciones") is now the home** (`index.astro`): full-screen hero (`CabanaHero` with the brand name and Sumac's façade, sharing `casa-sumac-mayu` so clicking Sumac keeps the photo in place) → `Franja` → `Secciones`. For now it uses Sumac's content; it will tell both houses (how it started in Misky, then Sumac, the park, the surroundings) once photos and texts are chosen. The old home (story hero with arch/circle windows, Encuentro, Frente a frente, Lo que comparten, ¿Cuándo venís?) was removed with `Hero.astro` and `Encuentro.astro` (in git history). Pending on the home: a closing with both houses and WhatsApp for desktop (mobile has the thumb bar).
+**Galería, Ubicación y contacto, 404:** use `Franja` and the footer but still have the old aesthetic (to be redone, backlog). Galería = placeholders grouped El parque / La pileta / Los espacios compartidos / Las vistas. Ubicación = address big + Google Maps link + copy-address button, Cómo llegar, Qué hay cerca (placeholders), Escribinos. 404 = "Te perdiste en el monte", path forking to both houses.
 
-**Every photo opens full screen** (`Ampliable.astro`: link with the large version for PhotoSwipe, arrows, close cross, counter, caption), in the carousels and in the home compositions; each composition/track is one `[data-galeria]`. Placeholders open a gray 4:5 slide so the flow can be tested.
+### Nav (`Franja.astro` + `scripts/franja.ts`), on every page
+- A thin full-width strip (~42px) right under the hero (at the top on pages without one): cottages on the left, compact emblem centered (3.2rem), Galería / Ubicación y contacto on the right, small uppercase Instrument Sans.
+- In place it's part of the page (no background). Once scrolled past it becomes fixed and shows **only when scrolling up** (frosted cream, `blur(14px)`), hides when scrolling down (6px threshold).
+- Hover: the link's color fades in (0.6s) as a full-height block, text turns cream; cottages in their house color, the rest olive.
+- **Phones: one nav only.** "Menú" · emblem · "Consultar" (WhatsApp, house color). "Menú" opens a full-screen native popover with the four links in the strip's type, a square close cross and a WhatsApp bar (light dismiss, Esc, no JS).
+- `aria-current="page"` from `Astro.url.pathname`.
 
-**No zoom-out on phones** (developer's request): viewport `minimum-scale=1` and `html, body { overflow-x: clip }` (any horizontal overflow is what lets phones zoom out). Zooming in stays allowed (WCAG 1.4.4, reading).
+### Footer (`Pie.astro`) and home closing (`Elegir.astro`)
+- Footer: a closing, not a menu (no page links). Compact single row on sand: full-color emblem (5.5rem), "Misky Wayra" in the nav's type, "Dos casas de adobe frente al Uritorco. Te esperamos.", social links (`SITIO.redes`, Instagram placeholder), "© year · Capilla del Monte, Córdoba". A dark footer with link columns was rejected as corporate.
+- Elegir: "Dos casas, un mismo parque / Elegí la tuya.", both houses side by side (stacked on phones): 4:5 photo, meaning · guests · m², name in the house color, "Conocer la casa →".
 
-**Mobile nav (Nov 2, 2026): one nav only.** On pages with the strip (home, informative cottage pages) the thumb bar is not rendered (`Nav` `cabecera={false}` drops both). The strip on phones is "Menú" · centered emblem · "Consultar" (WhatsApp, house color); "Menú" opens a native popover panel, full screen, with the four links in the strip's own type (Instrument Sans, uppercase, letter-spaced; cottages in their color), a square close cross and a "Consultar por WhatsApp" bar at the bottom (light dismiss, Esc, no JS).
-
-**Cottage carousels are symmetric on desktop:** header and photo track span the content width with the same margin on both sides (`--margen`); photos clip at those edges while scrolling. **Exactly two photos fit the track on desktop** (`width: calc((100% - gap) / 2)`) and **exactly one on phones** (`width: 100%` of the track, margin = gutter, nothing peeking), so every device is even; `scroll-snap-stop: always` moves one photo per swipe/click. The counter shows the visible range on desktop ("1–2 / 6") and the single index on phones. Home compositions on phones follow the same rule (track from margin to margin, photo = track width).
-
-**Home compositions on phones** get the same counter and arrows as the cottage carousels (below the track, right-aligned; `[data-carrusel]` on each section, `carrusel.ts` finds `.foto` even when nested, as in the staircases), and uniform spacing (every block separated by `--space-2xl`).
-
-**Mobile: carousels show one photo per screen width** (`calc(100vw - 2 × gutter)`, `scroll-snap-stop: always`, one at a time). The home compositions (trío, cinco, cruz, escalones) become the same kind of carousel below 40rem: flex track bleeding to the screen edges, desktop positions and motions off, triggered entrances neutralized inside. `.seccion { overflow-x: clip }`: the rotated title otherwise widened the page on phones (rotated boxes count toward scroll width). **Cottage pages become informative:** visitors there are comparing and deciding. Same structure for both houses, in the editorial aesthetic:
-1. Full-screen hero (`CabanaHero`) + the nav strip (`Franja`).
-2. **De un vistazo** (`Ficha.astro`): the data as big Instrument Serif figures in the house color (surface, guests, bedrooms, beds) between thin rules, then amenities grouped **Adentro / Afuera / Incluido** (`equipamiento` in the `.md`; falls back to the flat `comodidades`).
-3. **One carousel per ambiente** (`Ambientes.astro` + `scripts/carrusel.ts`), fed by the `recorrido` stops: a number (01…) and the ambiente name in big Instrument Serif on the left, counter and square arrow buttons on the right over a thin rule; below, large rectangular 4:5 photos (30vw) that start at the content margin and run off the right edge. Native horizontal scroll with snap (finger, trackpad, keyboard arrows); JS only adds the arrows and the counter (shows the last number at the end). Tap opens PhotoSwipe. Padded with gray placeholders to 6 until photos arrive. Same carousel on mobile (80vw slides): this is also the mobile carousel decided earlier. Gotcha: the carousels sit in a CSS grid, which needs `grid-template-columns: minmax(0, 1fr)` or the track stretches the whole page sideways.
-4. **Lo que dicen los huéspedes** (`Resenas.astro`, done Nov 2, 2026): three real reviews per house (`resenas` in the `.md`), after the carousels, as Instrument Serif quotes in three columns between thin rules, quote marks in the house color; first name, date and source (Booking / Airbnb) in small uppercase. Source: screenshots the developer provided (Misky from Booking, Sumac from Airbnb, where Sumac is listed as "Cabaña Misky Wayra II"). Picked the most concrete about the house and varied; texts only trimmed and accent/case-fixed, never rewritten. Excluded: a review for a different property ("Cabaña Jazmín de Cielo") and a long April Airbnb review whose author's name was cut off in the screenshot (can be added if the name is confirmed). No photos or booking numbers shown.
-5. **Cómo reservar** (`Reservar.astro`): eyebrow + big "¿Te imaginás acá?" in the house color, the three family steps (Escribinos / Confirmás / Llegás) as numbered columns between thin rules, and a square WhatsApp button in the house color with that house's prefilled message.
-6. **La otra casa** (`OtraCasa.astro`): a large 21:9 photo of the sister house across the content width (4:5 on phones), "La otra casa · meaning", its name big in its own color, "Conocer … →"; the whole piece is the link, slow zoom on hover.
-
-**Both houses use this format since Nov 2, 2026** (Misky: grouped `equipamiento`, carousels La casa / Adentro / La cocina / El descanso / La galería). **Carousels show only the house and its rooms: anything on the grounds (garden, pool, park) belongs to the Galería** (Sumac's "Afuera" stop was removed; Misky's "La galería" stays because it's the house's own porch). Temporary hero photos until the photo session (Wed Nov 4, 2026): home = `src/assets/home/hero.jpg` (pool, deck and the Uritorco from Sumac's roof), Misky = `src/assets/cabanas/misky-wayra/hero.jpg` (IMG_0416); originals in `fotos-originales/`.
-
-**Planned (noted Nov 2, 2026):**
-- **Guest reviews per house** (the developer has comments for each cottage): on each cottage page, **after the carousels and before booking**: the visitor has seen the house and the data and is about to decide, which is where social proof weighs most. Editorial treatment: one or two short quotes large in Instrument Serif, the guest's first name and month/year small in uppercase sans; if there are several, a quiet carousel using the same component. Only real, attributable quotes (with consent), never invented or edited beyond trimming.
-- **Footer — done (`Pie.astro`, Nov 2, 2026), on every page:** a closing, not a menu (the developer's call: no page links, the nav already has them). Compact (the big centered version was too tall): sand background, one row with the full-color emblem (5.5rem) on the left next to "Misky Wayra" in the nav's type (Instrument Sans, uppercase, letter-spaced), one short line ("Dos casas de adobe frente al Uritorco. Te esperamos."), the social links (`SITIO.redes` in `config.ts`; Instagram placeholder until the real accounts are known), and "© year · Capilla del Monte, Córdoba". (Compared against a dark footer with link columns; rejected as too corporate.)
-- **Home closing — done (`Elegir.astro`, home only):** "Dos casas, un mismo parque / Elegí la tuya." then both houses side by side (stacked on phones): a large 4:5 photo, meaning · guests · m² in small caps, the name big in the house color, "Conocer la casa →"; each block links to its page. Sits between the story and the footer.
+### Shared behavior
+- **Triggered entrances** (`data-revelar` + `revelar.ts`): rise from 7rem below, opacity 0.7s, position 1.1s `cubic-bezier(0.16, 1, 0.3, 1)`, `--retraso` to stagger. Added when the element peeks above the bottom 12% of the screen; removed only when it leaves through the bottom, so it replays on every pass down. Reduced motion: a 0.4s fade.
+- **Every photo opens full screen** (`Ampliable` + `lightbox.ts`): each composition/track is one `[data-galeria]`; Spanish UI; background `--color-deep` of the page theme; optional `epigrafe`; full-size WebP ≤2048px. Launcher ~5 KB gz; the viewer (~17 KB gz) loads on first tap. Placeholders open a gray slide.
+- **Page transitions:** native cross-document view transitions (`@view-transition`, only with `prefers-reduced-motion: no-preference`), whole page cross-fades 550ms. Each cottage hero has `view-transition-name: casa-<slug>`; the home hero is `hero-inicio`. Speculation Rules prerender `/cabanas/*` on hover (Chrome).
 
 ### Cottage facts (from the family's texts)
-- Address: **Los Alazanes 1077, Barrio Valentí, Capilla del Monte**. Park of **3,000 m²** with fruit and native trees, panoramic view of the hills. Pool in season (shared).
-- **Misky Wayra:** adobe, 80 m², 2 bedrooms (king size + two single beds), full kitchen with electric oven, living-dining with TV, exclusive WiFi and streaming at no cost, Ñuke salamandra stove + heaters in every room, gallery with a large country table and barbecue, independent entrance, covered parking, alarm, bedding and towels included. Up to 4–5 guests.
-- **Sumac Mayu** (called "Misky Wayra 2" in the family's texts): adobe, 140 m², 3 bedrooms (one king size, two with single beds), full kitchen, living-dining with TV, WiFi and streaming, salamandra, 50 m² playroom with sofas, pergola with seats, barbecue, small greenhouse, independent entrance, covered parking, alarm, bedding and towels included. Up to 6 guests.
-- Booking policy (family): 40% deposit by bank transfer, rest on arrival (adjusted to the official exchange rate of the day); they ask for DNI and address to issue the invoice. Prices are NOT published.
-
-### Page transitions (`ux-details` 1 and 2) — done
-- Native **cross-document view transitions**, no JavaScript: `@view-transition { navigation: auto; }` in `global.css`, only with `prefers-reduced-motion: no-preference`. Unsupported browsers (Firefox) just navigate normally.
-- The home hero photos and each cottage hero share `view-transition-name: casa-sumac-mayu` / `casa-misky-wayra`. The window photo (circle or arch) grows into the full-screen cottage photo while both cross-fade (750ms, no clip animations since Nov 1, 2026). Photos use `object-fit: cover` during the morph.
-- **Going back from a cottage (Nov 1, 2026): the photos don't travel.** The full-screen cottage photo would fall from the top of the screen into its window on the home. An inline classic script in `Base.astro`'s head listens to `pagereveal`; if the previous page (`navigation.activation.from`, or `document.referrer` where the Navigation API is missing) was a cottage page and the new one isn't, it adds the view-transition type `volver`. `global.css` cancels the `casa-*` group animation under `:active-view-transition-type(volver)`, so each photo appears in place while the page cross-fades. Home → cottage still grows the window into the full-screen photo.
-- The whole page cross-fades, so theme colors blend between pages. Duration 550ms, soft ease-out.
-- `Nav` (`cabecera`, `pulgar`) has its own names so it stays still while the page changes.
-- The sister card has no transition name on purpose (an off-screen morph would fly down the page).
-- The eave edges (`.borde.arriba` / `.borde.abajo` in `Hero` and `CabanaHero`) have their own names (`borde-arriba`, `borde-abajo`), so they stay on top of the photo during the morph. Without them the photo showed as a plain rectangle and the curved edges popped in at the end (fixed).
-- The home halves and the cottage hero use the same `widths` (`[640, 1024, 1600, 2048]`) so the destination photo can come from cache. `Base.astro` adds Speculation Rules (`prerender`, `moderate` = on hover) for `/cabanas/*`, so in Chrome the cottage page and its photo are ready before the click. Without that, the morph started before the photo had loaded and landed on an empty frame. Test transitions with `build` + `preview`, never in `dev`.
-- To inspect a transition frame by frame: Chrome DevTools → More tools → Animations → set speed to 10%.
-
-### Emblem (temporary, `Emblema.astro`)
-- From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dome with three small arched windows, the dark green arched window with cream mullions (center one = the axis), ground, two plants. Cropped viewBox `94 118 312 222`.
-- Full color (not `currentColor`): it's an illustration, it doesn't take theme colors.
-- `variante="compacto"` drops the plants and the fine lines; the favicon uses that version.
-
-### Pages (sketches with placeholders in brackets)
-- **index** (rebuilt Oct 24, 2026): `<Hero />` → `<Alero />` → **Entre las dos, el parque** (`.banda`, the complex: `<Encuentro />` + park text from the family) → `<Alero flip />` → **Frente a frente** (one mirrored `<table>`: Sumac column left, Misky right, row names on the axis; data comes from the collection, including the `propio` field; small window glyphs, arch and circle outlines, above each name; links to both pages) → **Lo que comparten** (shared spaces as one typographic line, link to the Galería) → `<Alero />` → **¿Cuándo venís?** (`<Consultar class="banda">` + address with the Maps link).
-- **cabanas/[slug]:** see the "Cottage pages" section.
-- **Off-axis pages look off-axis** (Oct 24, 2026): Galería and Ubicación y contacto are left-aligned and asymmetric (eyebrow + light h1), unlike the centered axis pages.
-- **galeria:** "Galería de fotos": everything that is not on a cottage page, grouped: El parque, La pileta, Los espacios compartidos, Las vistas. Each group: short true description + a four-photo composition mixing both houses' windows (a tall arch spanning two rows, a circle, a rectangle, a wide panoramic last one); on desktop text and photos sit side by side, mirrored every other group. Placeholders "Foto en camino" until the photos arrive (`page-galeria`).
-- **ubicacion-y-contacto** also has "Qué hay cerca" (Cerro Uritorco, Los Terrones, Ongamira, El pueblo, El cielo de noche), the content of the old Alrededores page, kept for visitors and SEO.
-- **ubicacion-y-contacto:** Dónde estamos (the address large, "Abrir en Google Maps", "Copiar la dirección" with a "Copiado" status; the copy button only appears if the clipboard API exists) → Cómo llegar (`<dl>`, placeholders) → Qué hay cerca as a trail (the hero's dashed line with one node per place, placeholders) → Escribinos (`.banda`: WhatsApp button, phone and Instagram placeholders). No static map yet.
-
-**WhatsApp format:** `https://wa.me/549` + area code without 0 + number without 15, `?text=` + `encodeURIComponent(...)`. Phone: `tel:+549...`.
+- Address: **Los Alazanes 1077, Barrio Valentí, Capilla del Monte**.
+- **Misky Wayra:** adobe, 80 m², 2 bedrooms (king + two singles), full kitchen with electric oven, living-dining with TV, WiFi and streaming, Ñuke salamandra + heaters, gallery with country table and barbecue, independent entrance, covered parking, alarm, bedding and towels. 4–5 guests.
+- **Sumac Mayu:** adobe, 140 m², 3 bedrooms (one king, two with singles), full kitchen, living-dining with TV, WiFi and streaming, salamandra, 50 m² playroom under the dome, pergola, barbecue, small greenhouse, independent entrance, covered parking, alarm, bedding and towels. Up to 6 guests.
+- Booking: 40% deposit by transfer, rest on arrival (official exchange rate of the day); DNI and address for the invoice. **No prices on the site.**
+- **WhatsApp format:** `https://wa.me/549` + area code without 0 + number without 15, `?text=` + `encodeURIComponent(...)`.
 
 ---
 
-## 5. Design system
+## 6. Design system
 
-### Palette v3: the earth and one color per house (Oct 24, 2026)
-
-Reduced from v2 at the developer's request (the hero mockup's restraint felt more characterful). One shared ground and surface for the whole site; each house brings only its color and its shadow.
-
-| Group | Token | Hex | Source |
+### Palette v3 (`tokens.css`)
+| Group | Token | Hex | |
 |---|---|---|---|
-| Complex (center) | `--cal` | `#F4ECDF` | Misky's lime plaster. Page background everywhere. |
-| | `--arena` | `#E4D5BC` | The only surface (bands), on every page |
-| | `--monte` | `#5B6130` | Olive of the monte |
-| | `--tinta` | `#2B2119` | Text (warm dark brown, never black) |
-| Sumac Mayu (left) | `--adobe` | `#9C4219` | Terracotta adobe |
-| | `--brasa` | `#4A1E0E` | |
-| Misky Wayra (right) | `--techo` | `#2A674C` | Green roof (darkened from v2's `#2B6A4E` to pass 4.5:1 on arena) |
-| | `--sombra` | `#183A2C` | The green in the shade of the trees |
+| Complex | `--cal` | `#F4ECDF` | page background (Misky's lime plaster) |
+| | `--arena` | `#E4D5BC` | the only surface |
+| | `--monte` | `#5B6130` | olive |
+| | `--tinta` | `#2B2119` | text (warm brown, never black) |
+| Sumac | `--adobe` / `--brasa` | `#9C4219` / `#4A1E0E` | |
+| Misky | `--techo` / `--sombra` | `#2A674C` / `#183A2C` | |
 
-Dropped from v2: `--uritorco`, `--teja-clara`, `--agapanto`, `--cielo`, `--viento`, `--noche`. The pastel surfaces (teja-clara, cielo) read generic; the blue accents split each side into two colors. Trade-off: the water (agapanto) and wind (viento) accents are gone; elements now live in shape and motion, not color.
+Components use **roles only**: `--color-bg`, `--color-text`, `--color-surface`, `--color-primary`, `--color-accent`, `--color-deep`, `--color-on-color`. `data-theme="mayu" | "wayra"` (any element) swaps primary/accent/deep; default is the complex (`monte`, `tinta`). Contrast verified: on cal monte 5.6, adobe 5.6, techo 5.7; on arena all ≥ 4.5. The WhatsApp button uses `--color-primary`, never WhatsApp green; the WhatsApp icon is a generic chat bubble.
 
-**Roles** (components only use roles, never raw colors): `--color-bg`, `--color-text`, `--color-surface`, `--color-primary`, `--color-accent`, `--color-deep`, `--color-on-color`.
-
-| Role | Default (`tierra`, the complex) | `mayu` | `wayra` |
-|---|---|---|---|
-| bg | cal | cal | cal |
-| text | tinta | tinta | tinta |
-| surface | arena | arena | arena |
-| primary | monte | adobe | techo |
-| accent | monte | adobe | techo |
-| deep | tinta | brasa | sombra |
-| on-color | cal | cal | cal |
-
-`data-theme` works on any element (custom properties inherit): `<body>` on cottage pages, cards on the home page, nav links.
-
-**Contrast (verified):** on cal: monte 5.6, adobe 5.6, techo 5.7; on arena: monte 4.55, adobe 4.53, techo 4.63; text and deeps > 8.6:1 everywhere.
-
-**Color protocol:** components use roles only; ~60% surface / 30% theme / 10% accent; 4.5:1 for text, 3:1 for large text/UI; the WhatsApp button uses `--color-primary`, never WhatsApp green; the home center is always the complex theme.
-
-### Typography (changed Nov 2, 2026: the editorial aesthetic)
-- **Two sister families**, Fontsource via the Fonts API: **Instrument Serif** (`--font-display` and `--font-principal`: titles, main texts, house names; one weight, 400; real italic loaded, only the upright preloaded) and **Instrument Sans** (`--font-body`: body, nav, buttons, data; variable 400–700; straight and formal).
-- **Replaced:** Fraunces (soft, handmade: it belonged to the first, crafty aesthetic of arches and eaves) and Figtree (rounded). With them went the per-house type trait (Sumac 620 / Misky 380 + SOFT axis): Instrument Serif has a single weight, so houses differ by color and details, not weight. Never ask Instrument Serif for 600+ (the browser would fake bold).
-- **The reference's font is OT Miniature** (OffType, commercial). If a web license is bought, it replaces Instrument Serif in one place.
-- **The aesthetic is shifting from crafty to editorial** (Nov 2, 2026): lots of air, big photos, the condensed serif, a straight tidy nav. Eave dividers, arch frames and dashed paths retire screen by screen as each one is redone; arch/circle survive as small house marks, volutas as sparse ornaments.
-- Why not system fonts: Android (most visitors) lacks the serif stack → inconsistent brand.
-- Fluid scale `--step--1` … `--step-5` with `clamp()`. h1 = step 5, h2 = step 3, h3 = step 1, body = step 0. Headings weight 500, color `--color-deep`. Measure 65ch.
+### Typography
+- **Instrument Serif** (`--font-display`, `--font-principal`): titles, main texts, house names, figures. One weight (400); never ask for 600+ (faux bold). Real italic loaded; only the upright is preloaded.
+- **Instrument Sans** (`--font-body`, variable 400–700): body, nav, buttons, data.
+- Fluid scale `--step--1` … `--step-5`. Measure 65ch.
 
 ### Spacing and layout
-- Fixed scale `--space-3xs` (0.25rem) … `--space-3xl` (6rem); fluid `--space-section` (3rem → 7rem).
-- `--axis-width: 72rem`, fluid `--gutter`, `--radius: 0.75rem` (temporary).
-- **Breakpoints:** mobile < 40rem, tablet 40–64rem, desktop ≥ 64rem (CSS can't use variables in `@media`).
-- **Full-bleed sections:** `main > section` spans full width; content stays on the axis through `padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2)`. `.banda` = section with `--color-surface` background.
-- Vertical rhythm: `main section > * + *` gets `--space-s` top margin.
+- `--space-3xs` (0.25rem) … `--space-3xl` (6rem); `--space-section` fluid 3 → 7rem.
+- `--axis-width: 72rem`, fluid `--gutter`. `--radius` only for the old Galería placeholders.
+- Breakpoints: mobile < 40rem, tablet 40–64rem, desktop ≥ 64rem.
+- `main > section` spans full width; content stays on the axis via `padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2)`. `.banda` = surface background (only Ubicación uses it now).
 
-### Alero (eave divider) — done
-- `src/components/Alero.astro`, inline SVG, `preserveAspectRatio="none"`, mirrored symmetric path, highest at the center.
-- `<Alero />` before a `.banda`; `<Alero flip />` after it. `fill` prop, default `var(--color-surface)`.
-- Height token `--alero-alto: clamp(1.5rem, 0.25rem + 6vw, 7.5rem)` in `tokens.css` (raise the max for more drama). Flatter on mobile by design.
-- Use only at major transitions (2–3 per page).
+### Emblem (temporary, `Emblema.astro`)
+From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dome, the arched window. Full color (an illustration, not `currentColor`). `compacto` drops the plants and fine lines (favicon, nav). The definitive emblem is still open; when it changes, only `Emblema.astro` and `public/favicon.svg` change.
 
 ---
 
-## 6. UX decisions
+## 7. Requirements, SEO, deploy
 
-- **Pages:** `/`, `/cabanas/sumac-mayu`, `/cabanas/misky-wayra`, `/galeria`, `/ubicacion-y-contacto`, plus unlisted `/tu-llegada` (guest info sent via WhatsApp after confirming: check-in/out times, exact directions, what to bring, rules, local tips).
-- **Rule:** WhatsApp reachable in ≤ 2 taps from anywhere.
-- **No prices on the site** ("Consultá tarifas") — prices change too often in Argentina. Confirm with the parents.
-- **Specs live on each cottage page** + a mirrored comparison table on the home page. No separate specs page.
-- **Mobile:** the horizontal axis becomes vertical (centered column). Planned: a centered Mayu | Wayra switch, cottages stacked (not tabs, so the second isn't hidden), WhatsApp bar fixed at the bottom center, utility links in a menu.
-- **Desktop hover idea:** hovering a cottage side makes it grow slightly; clicking opens its page; later a view transition morphs it into the cottage hero.
-- **Naming:** the brand and a cottage are both "Misky Wayra". Title the cottage page differently (e.g. "La casa Misky Wayra") to avoid confusion.
-
----
-
-## 7. Non-functional requirements
-
-- **Performance:** Core Web Vitals "good" on a mid-range Android over 4G (LCP ≤ 2.5s, INP ≤ 200ms, CLS ≤ 0.1). Lighthouse mobile ≥ 95. Hero image ≤ ~200 KB. JS ≤ 30 KB gz outside the gallery.
-- **Accessibility:** WCAG 2.2 AA, semantic HTML, one `<h1>` per page, keyboard navigable, Spanish alt text on every photo, `prefers-reduced-motion` respected (already global in `reset.css`).
-- **Responsive:** mobile-first from 360px. Most traffic comes from links in WhatsApp/Instagram.
-- **Compatibility:** evergreen browsers (last 2) + iOS Safari. Animations are progressive enhancement; the site works without JS.
-- **Reliability/security:** fully static, HTTPS, CSP via Astro's API.
-- **Privacy:** no cookies, no trackers → no cookie banner.
-- **Maintainability:** adding a cottage = one Markdown file + one photo folder (after `cabana-collection`). Tokens in one file. Minimal dependencies.
-- **Portability:** static `dist/`, hosting decided later.
+- **Performance:** CWV good on a mid-range Android over 4G; Lighthouse mobile ≥ 95; hero ≤ ~200 KB; JS ≤ 30 KB gz outside the lightbox viewer.
+- **Accessibility:** WCAG 2.2 AA, one `<h1>` per page, keyboard navigable, Spanish alt on every photo (schema enforces it), reduced motion respected.
+- **Responsive:** mobile-first from 360px; most traffic comes from WhatsApp/Instagram links.
+- **Privacy:** no cookies, no trackers.
+- **SEO in code:** title/description (schema: ≤ 60 / ≤ 160), canonical, Open Graph (1200×630 JPG via `getImage`; cottages use their hero), JSON-LD (`src/lib/datos.ts`; `telephone` only once the real WhatsApp number exists, `hayWhatsapp`), sitemap, `robots.txt.ts`, `trailingSlash: 'always'`.
+- **SEO outside code (highest impact):** Google Business Profile (start before the site is finished), reviews from every guest, Search Console once the domain exists, identical name/address/phone everywhere (Google, Booking, Airbnb — Sumac is "Misky Wayra II" there; must match).
+- **Preview deploy:** GitHub Pages at https://kaizuser.github.io/misky-wayra/, built by `.github/workflows/vista-previa.yml` on every push to master (Node 24) with `SITIO_URL`, `SITIO_BASE=/misky-wayra`, `VISTA_PREVIA=1` (noindex + robots Disallow). Locally: `SITIO_URL=https://kaizuser.github.io SITIO_BASE=/misky-wayra VISTA_PREVIA=1 npm run build`. Final: a `.com.ar` domain (NIC Argentina), hosting to decide.
 
 ---
 
-## 8. SEO plan
+## 8. Photos
 
-**In code:** real domain in `site`; `Base.astro` builds title, description, canonical, Open Graph (the WhatsApp link preview is the first impression; one OG image per cottage), JSON-LD `LodgingBusiness`; Zod schema enforces SEO title ≤ 60, description ≤ 160, alt text on every photo (build fails otherwise); `public/robots.txt` pointing to `sitemap-index.xml`; fast semantic pages; original text (never copied from Booking).
-
-**Done in code (Oct 24, 2026):** `Base.astro` props `imagen` (share preview photo, default Sumac's façade; cottage pages use their hero photo), `noindex`, `jsonLd`. It outputs canonical, Open Graph (1200×630 JPG cropped with `getImage`, `og:locale es_AR`) and `twitter:card`. JSON-LD from `src/lib/datos.ts`: the home is a `LodgingBusiness` with both houses as `containsPlace` (`Accommodation`: floor size, bedrooms, amenities); each cottage page is an `Accommodation` with `containedInPlace`. `telephone` is added only once the real WhatsApp number replaces the placeholder (`hayWhatsapp` in `config.ts`). `src/pages/robots.txt.ts` builds robots.txt from `site`. **`trailingSlash: 'always'`**: every internal link ends in `/`, matching the build (folder/index.html), the sitemap and the canonical, so hosts don't redirect. `config.ts` now splits the address (`calle`, `barrio`, `ciudad`, `provincia`).
-
-**Outside code (highest impact):** Google Business Profile (eligible because the parents receive guests in person; use the real name, signage at the entrance, lodging category, photos, hours) + asking every guest for a review (QR in the cottage) and answering all reviews; Google Search Console (verify, submit sitemap); identical name / address / phone everywhere (site, Google, Instagram, Booking, Airbnb, tourism guides). Realistic targets: the Maps pack, searches by name, and long-tail searches ("cabañas de adobe Capilla del Monte", "cerca del Uritorco"). Start the Google profile before the site is finished.
-
----
-
-## 9. Photos
-
-**General rules:**
-- Start from **originals** (never WhatsApp-compressed copies; send them as documents or via Drive). Originals live in `fotos-originales/` (gitignored, same folder structure). `src/assets/...` holds masters resized to 2560px max (JPEG q88, via sharp): 8 MB 4032px originals made `astro dev` re-encode for ~1.5–5s per image on every request. Astro generates AVIF/WebP sizes from the masters.
-- The current edits are heavily saturated/HDR → apply **one consistent, warmer, less saturated grade** to everything used on the site. Side-by-side photos (hero) must match exactly.
-- Remove distractions where possible: blue hose on the grass, the car in the carport, neighbors' tile roofs.
-- The orange roof edge in the foreground of the aerial shots can work as a frame ("you're standing on the adobe house").
-- People in photos need consent.
-- Only photos the family took (or has rights to) can be published.
-
-**Photo map (file → what it shows → where it goes):**
-
-| File | Shows | Use |
-|---|---|---|
-| IMG_0389 | Sumac frontal façade, arch centered, olive tree, tower + solar heater + barbecue at the sides | **Hero, Sumac half.** Emblem reference (near-symmetric façade). Crop on the window. |
-| IMG_0388 | Sumac angled, pool corner, agapanthus and flowers in front | Sumac page / shared spaces |
-| IMG_0387 | Sumac with granite stone wall in the foreground, shallow focus | Sumac page; stone texture reference |
-| IMG_0400 | Sumac close-up: adobe wall, wooden corbels, stone base, glass door | Sumac page; `texture-adobe` / `pattern-path` reference |
-| IMG_6442 | Misky at ground level, framed by an algarrobo branch: scalloped roof trim, tile band (azulejos) over the stone base, gallery with table, brick path and a green arched trellis leading in, pool glimpse at the right | **Hero (Misky's round window) and Misky's cottage hero** since Oct 24, 2026. Small water tank on the roof. |
-| IMG_0416 | Misky round house, green roof, Uritorco and sierras behind; shot from Sumac's roof; water tank tower, car, hose | Was the Misky hero until Oct 24, 2026. Galería (Las vistas) at most. |
-| IMG_0436 | Misky from above with tank tower and car | Backup only |
-| IMG_0439 | Misky + Uritorco + Sumac's orange roof in the foreground + pool deck | Galería (El parque / Las vistas) |
-| IMG_0431 | Uritorco centered, large sky, garden, people on the deck in a corner | Galería (Las vistas), strong opener for the page (was the first home hero, rejected as too minimal) |
-| IMG_0451, 0449, 0446, 0444, 0443, 0441, 0433 | Pool, decks, fire pit and garden from Sumac's roof, Uritorco behind (~6 near-identical) | Galería (La pileta / El parque): pick the best 2–3, they are near-identical (IMG_0433 most pool-centered, IMG_0451 widest with the mountain) |
-| IMG_0435 | Garden, olive tree, gazebo, barbecue, Sumac roof edge, distant sierras | Galería (Los espacios compartidos) |
-| IMG_0392 | Metal arched pergola with grapevine | Galería (Los espacios compartidos; another arch) |
-| IMG_0390 | Jasmine-covered wrought-iron gazebo with chairs, Sumac behind | Galería (Los espacios compartidos) |
-| IMG_0370 | Agapanthus in the foreground, pool, a person, Misky behind | Galería (La pileta); source of the `agapanto` color |
-
-**Photo session delivered (Nov 12, 2026):** 95 edited JPGs from the family's photographer (Drive zips in `fotos-drive-cabañas/`, extracted to `fotos-originales/drive/`, both gitignored): `Sumac` 41, `Misky` 32, `Jardin_y_Pileta` 22. All **vertical, 1080×1620** (exports, not camera originals: soft in full screen; originals at full resolution were requested). Two edit styles: a newer warm, shallow-depth series (Sumac dormitorio_06–13, detalle_lampara, bano_03) is excellent; the rest (and most of Misky) is heavily saturated HDR with wide-angle distortion. **Selected for the carousels** (copied as-is, lowercase names, into `src/assets/cabanas/<slug>/`): Sumac = La casa (Jardin_01, frente_01/02, Pileta_04) · El living comedor · La cocina · **La cúpula** (the playroom under the dome, upstairs: escalera_01 + the "living" files) · Los dormitorios · El baño; Misky = La casa y la galería · El living comedor · La cocina · Los dormitorios · El baño (one weak photo, kept at the developer's call). Dropped: duplicates, worst distortion/casts, Misky living_03 (698px). Best garden/pool picks for the home story and the Galería: Jardin_11 (Uritorco), Jardin_12, Jardin_08, Jardin_09, Pileta_01, Pileta_03, Fogon_02, Jardin_05. **The home story's content now lives in `src/data/relato.ts`**, not in Sumac's `.md` (whose `recorrido` is now just its carousels). Carousels show gray placeholders only when an ambiente has no photos at all.
-
-**Missing photos (priority order):**
-1. **Hero pair:** both houses shot frontally, same height (ground level), same time of day (golden hour), same lens; car moved, hose away, tank tower framed out if possible. The most important shot of the site.
-2. Interiors of both cottages (main room, bedroom).
-3. Golden hour / night (starry sky ties to astrotourism).
-4. Texture close-ups (adobe plaster, stone base, garden paths).
-5. Ideally, an angle with Sumac and the Uritorco together.
+- **Photo session delivered (Nov 12, 2026):** 95 edited JPGs from the family's photographer (zips in `fotos-drive-cabañas/`, extracted to `fotos-originales/drive/`, both gitignored): `Sumac` 41, `Misky` 32, `Jardin_y_Pileta` 22. All vertical **1080×1620 exports**, soft in full screen: **full resolution requested** (1707×2560 verticals / 2560×1707 horizontals, JPG 85–90 sRGB, same names). When they arrive, replace the files in `src/assets/cabanas/<slug>/` with the same names.
+- Two edit styles: a newer warm, shallow-depth series (Sumac dormitorio_06–13, detalle_lampara, bano_03) is excellent; the rest (most of Misky) is saturated HDR with wide-angle distortion → one consistent, warmer, less saturated grade is pending.
+- In use: the cottage carousels (copied as-is, lowercase names). Best garden/pool picks for the home story and the Galería: Jardin_11 (Uritorco), Jardin_12, Jardin_08, Jardin_09, Pileta_01, Pileta_03, Fogon_02, Jardin_05.
+- Temporary heroes: home `src/assets/home/hero.jpg` (pool, deck and the Uritorco from Sumac's roof), Sumac `hero-sumac.jpg` (IMG_0389 frontal façade, also the default OG image), Misky `cabanas/misky-wayra/hero.jpg` (IMG_0416).
+- Rules: start from originals (never WhatsApp copies); masters in `src/assets` ≤ 2560px (JPEG q88 via sharp; bigger files make `astro dev` slow); Astro generates AVIF/WebP. Remove distractions (hose, car, neighbors' roofs) where possible.
 
 ---
 
-## 10. Explored and rejected (don't repeat)
+## 9. Explored and rejected (don't repeat)
 
-- **Emblem drawn with code (sketches A "arco", B "arco y cerro", C "mínimo")** — too stiff and geometric.
-- **Emblem traced from IMG_0389, mass-and-void with dome + seam + drooping eave + plinth** — still not expressive enough; developer didn't connect with it.
-- **Hero: single arch with the Uritorco photo** — too minimalistic; doesn't show the houses.
-- **Hero: one arch split in two (Sumac | Misky) with a mullion** — the arch is too small and the shape didn't connect.
-- **Fraunces `WONK` axis for Sumac** (Oct 24, 2026): the served file has the axis (0–1, default 1) but it changes nothing in the upright styles at any optical size (measured: identical glyphs and widths). Its wonky forms live in the italic. Replaced by the clay/air weight + SOFT trait.
-- **Home "Nuestras cabañas" cards + separate comparison table** (structure change, approved Oct 24, 2026): merged into one section, "Frente a frente". The story hero already presents both houses with their links; the cards repeated it.
-- **Scalloped festón ring around Misky's photos, filled eave over Sumac's arch, arch mullion** (Nov 1, 2026): replaced by the fine outline on both (options compared: shape only / fine line / ornaments as lines; fine line chosen).
-- **Hero B1** (title on cream + full-bleed band of two photos with eave edges, hovered side grows): built and used until Oct 24, 2026, replaced by "La historia". Felt too generic ("too AI-generated"): centered, symmetric, no idea driving the layout.
-- **Hero option B2** (photos fill the first screen, title on a plaque over the seam) — B1 was preferred.
-- **"No standalone gallery page"** was reversed by the developer: the Alrededores page became the **Galería de fotos** (grounds, pool, shared spaces, views). Cottage pages keep only the cottage and its interiors. The surroundings content moved to "Qué hay cerca" in Ubicación y contacto.
-- **Title over the sky** — white clouds behind the title kill contrast; a dark scrim would spoil the sky. Title goes on the cream background (or on a cream plaque).
-- **Gradient blend between the two hero photos** — different skies/horizons would create a muddy middle; use a clean cut (the mullion) instead.
-
----
-
-## 11. Backlog
-
-### Done
-| Name | Notes |
-|---|---|
-| `nav-functional` | `Nav.astro` + `Emblema.astro` + favicon. |
-| `cabana-collection` | Content collection + `cabanas/[slug].astro`; old static cottage pages deleted. |
-| `cottage-trip` | Cottage pages as a trip (see Cottage pages). Pending: real interior photos. |
-| `ux-details-1-2` | Hero → cottage morph and cross-page color fade (native view transitions). |
-| `config` | `src/config.ts`: one place for WhatsApp number, address, Maps link. |
-| `identity-buildings` | Sumac = orange adobe house (left), Misky = round green-roof house (right), complex = Misky Wayra. |
-| `palette-v3` | Section 5 (reduced from v2). |
-| `type-final` | Fraunces + Figtree via Fonts API. |
-| `layout-full-bleed` | Full-width sections, content on the axis, `.banda`. |
-| `shape-eave` | `Alero.astro`, pronounced, `--alero-alto` token. |
-
-### In progress
-| Name | Status |
-|---|---|
-| `home-hero` | **"La historia" chosen and built (Oct 24, 2026), replaces B1.** Eyebrow "Cabañas de adobe en Capilla del Monte" (keeps the keywords), h1 *"Todo empezó en Misky Wayra."* left-aligned, a short intro. Then two chapters: **I · La primera casa** (Misky, right, round window) and **II · La que vino después** (Sumac, left, arch), both with the fine outline. Desktop: two columns, a dashed line on the axis joins them, the story continues next to Sumac ("Después, del otro lado del parque, se levantó Sumac Mayu." + family line + WhatsApp button). Mobile: stacked, Misky aligned right, Sumac left, a dashed S-curve between them. Hover: photo zooms. The path draws itself while scrolling (desktop: the axis line, `scroll(root)` over the first 60vh; mobile: the S-curve, `view()`), revealed with `clip-path` so the dashes don't stretch. Pending: the family line, photo grade. |
-| `emblem-arch` | **Temporary emblem in use** (developer's `Frame.svg`, see Emblem). The definitive emblem is still open: more expressive, low noise; maybe a designer. When it changes, only `Emblema.astro` and `public/favicon.svg` change. |
-
-### Unaddressed
-| Name | Description |
-|---|---|
-| `nav-design` | The functional nav is built (see Nav). Pending: a **differential design of its own** for the nav, not just a pill: its own shape and personality from the place (ideas: the bar's silhouette as the real roofline with the dome rising at the center; the wings as the eave; the menu opening like an arch). Developer expects this to come up later. |
-| `shape-arch-mask` | The arch as a mask/frame for photos (cottage pages, galleries). Not for the home hero anymore. |
-| `texture-adobe` | Subtle grain/texture from the adobe plaster for backgrounds. |
-| `pattern-path` | Subtle pattern from the garden paths (green cement + pink stones) and the stone base. |
-| `motion-language` | One orchestrated load moment; water motion (flowing) vs wind motion (drifting); durations, easing; reduced motion. CSS first. |
-| `image-system` | Photo selection, one consistent grade, aspect ratios, crops, `<Picture>` rules (AVIF/WebP, widths, `sizes`, eager + `fetchpriority="high"` only for the LCP image). Note: the JPG fallback `<Picture>` generates can be the full original size (~1 MB); cap it (e.g. `fallbackFormat`/`width`) here. |
-| `home-shared-spaces` | New home section (center, belongs to both cottages): pool, decks, fire pit, barbecue, gazebo, pergola, garden, parking. |
-| `home-desktop-axis` | Desktop composition left / center / right beyond the hero. |
-| `mobile-switch` | The thumb bar exists (Sumac \| WhatsApp \| Misky). Pending: make WhatsApp's prefilled message depend on the current cottage page, and decide whether tapping a cottage on the home page expands its half of the hero instead of navigating. |
-| `page-llegada` | Unlisted "Tu llegada" guest page (`noindex`). |
-| `naming-cottage-page` | Differentiate the Misky Wayra cottage page from the brand ("La casa Misky Wayra"). |
-| `concept-water` | Is there a stream/river nearby? If not, the water theme leans on the pool and the agapanthus. |
-| `content-cabanas` | Texts and data are in. To confirm with the family: Sumac beds (assumed 1 king + 4 singles for 6 guests), whether Misky's 5th guest has a bed, the current streaming list (Star+ merged into Disney+, HBO is now Max; the site says "principales plataformas"), whether to show the 40% deposit step, and the name "Misky Wayra 2" vs "Sumac Mayu" on Google/Booking/Airbnb (must match the site). |
-| `content-contact` | Address done (in `config.ts`, used in Ubicación with a Maps link). Pending: WhatsApp number, phone, coordinates, Instagram. |
-| `content-cerca` | Texts for "Qué hay cerca" in Ubicación y contacto (what it is, distance from the cottages, when to go). |
-| `page-galeria` | Build the Galería: photos in `src/assets/galeria/` grouped by space, editorial layout (arch-masked feature photos + smaller ones), PhotoSwipe on tap, captions, lazy loading. |
-| `photos-missing` | Section 9 list, hero pair first. |
-| `gallery` | **Done (Oct 24, 2026)** for the trip: `src/scripts/lightbox.ts` (PhotoSwipe lightbox, Spanish UI, swipe through every photo in `[data-galeria]`, full-size WebP ≤2048px from `getImage`). Optional `epigrafe` per photo in the schema (falls back to `alt`), shown on a dark gradient. Background = `--color-deep` of the page theme (`.pswp.pswp` beats PhotoSwipe's own CSS). Weight: launcher 5 KB gz on cottage pages; the viewer (17 KB gz) loads on the first tap. The Galería will reuse it: `data-galeria` on the container, `a.ampliar` around each photo. Also fixed: `.recorrido { overflow-x: clip }`, the sideways arrival made mobile pages wider than the screen while stops were arriving. |
-| `ux-details` | See section 13 (items 3–8 pending). |
-| `seo-code` | Section 8, in code. |
-| `seo-google-profile` | Google Business Profile + review system. Can start now. |
-| `seo-search-console` | After the domain exists. |
-| `deploy` | `.com.ar` domain (NIC Argentina) and final hosting. **Preview done (Oct 24, 2026):** GitHub Pages at https://kaizuser.github.io/misky-wayra/, built by `.github/workflows/vista-previa.yml` on every push to master (Node 24). It builds with `SITIO_URL`, `SITIO_BASE=/misky-wayra` and `VISTA_PREVIA=1` (noindex + `robots.txt` Disallow). Every internal link goes through `ruta()` in `src/lib/rutas.ts` so the subfolder works; locally and on the final domain the base is `/`. To build the preview locally: `SITIO_URL=https://kaizuser.github.io SITIO_BASE=/misky-wayra VISTA_PREVIA=1 npm run build` (outDir must be on the same disk as the project). |
+- **The "crafty" aesthetic as a whole** (Oct–Nov 1, 2026): eave dividers (`Alero`), arch/circle photo frames with outlines, volutas along a trip line, dashed paths, Fraunces + Figtree, per-house type weights. Replaced by the editorial aesthetic (Nov 2). Code in git history (`v0.1-balance` and later).
+- **Cottage page as a "trip"** (numbered stops along a drawn line) and then as photo compositions ("secciones"): the compositions moved to the home; cottage pages became informative (visitors there compare and decide).
+- **Old home** (story hero with arch/circle windows, Encuentro, Frente a frente comparison table, Lo que comparten, ¿Cuándo venís?): replaced by the photo story.
+- **Floating pill nav + mobile thumb bar** (`Nav.astro`): replaced by the strip; one nav on phones.
+- **Emblem drawn with code** (several sketches): too stiff. Temporary `Frame.svg` emblem in use.
+- **Hero options:** single arch with the Uritorco (too minimal), one arch split in two (too small), B1 two photos with eave edges (too generic, "too AI-generated").
+- **Title over the sky** in heroes: white clouds kill contrast. Cottage heroes put the text low, over a gradient that only touches the ground.
+- **Gradient blend between two different photos:** muddy middle; use a clean cut.
+- **Fraunces `WONK` axis:** does nothing in upright styles.
+- **Nav hover ideas** (underlines, dots, etc.): all rejected; the full-height color fade was chosen.
+- **Dark footer with link columns:** too corporate. A big centered footer: too tall.
+- **Embedded Google Maps iframe:** heavy; a link that opens the Maps app instead.
+- **Online check-in, booking engine, forms, published prices:** no.
+- **Next.js, Vue, React islands, Tailwind, Sass, GSAP:** not needed.
 
 ---
 
-## 12. The page feels alive
+## 10. Backlog
 
-**Intent:** the page should feel like it's living on its own, like the place itself: things move slowly when nobody is looking, and react when we "bother" them. It should feel like a place, not a screensaver.
+**Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
+1. **Galería** with the 22 garden/pool photos: editorial, grouped, PhotoSwipe.
+2. **Ubicación y contacto and 404** in the editorial style.
+3. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
+4. **Color grade** proposal for the HDR photos.
+5. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
 
-### Ideas (to evaluate one by one)
+**Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`); WhatsApp number, phone, Instagram username; years for the Daniela and Juan Pedro reviews; confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
-**Living on its own (ambient, when the visitor is idle):**
-- **Breathing photos:** the hero photos scale very slowly (about 1.00 → 1.04 over 30–40s, back and forth), as if the light were shifting.
-- **The place's own clock:** the page shifts with the real time of day in Capilla del Monte (Argentina time). Morning is light, afternoon is warm, dusk leans to violet (`--agapanto`), night goes to `--noche` with a few stars fading in (astrotourism). The visitor arrives and finds the place at the hour it really is. A few lines of JS set a `data-hora` attribute; the CSS does the rest.
-- **The two elements move differently:** wind on the Misky side (horizontal drift, a slight sway); water on the Sumac side (slow shimmer, ripples).
-- **Clouds or shadows drifting:** soft cloud shadows crossing the cream background, very slow.
-- **Real weather (later):** the real wind speed in Capilla del Monte drives the intensity of the wind motion; cloud cover drives the clouds. Free API without a key (Open-Meteo), one request, static fallback if it fails.
-
-**Reacting when bothered (interaction):**
-- **The first movement wakes the page:** when the visitor moves the mouse or scrolls after being idle, a gentle "gust" crosses the page (elements sway, then settle).
-- **Hovering the Sumac side:** a water ripple. **Hovering the Misky side:** a wind gust. Each side reacts in its own element.
-- **The eave is soft clay:** near the cursor, the curve of the `Alero` deforms slightly and returns slowly.
-- **Settling back:** after N seconds without interaction, everything returns to its ambient rhythm. The page "goes back to living on its own."
-
-### Rules (non-negotiable)
-- **Subtle:** ambient motion must be almost subliminal. If someone notices it on purpose, it's too much.
-- **Never in the way:** never block reading, never move text being read, never move the WhatsApp button.
-- **Performance:** only `transform` and `opacity`; pause animations off-screen (IntersectionObserver or `animation-play-state`) and when the tab is hidden; CSS first, minimal JS; stay inside the JS budget.
-- **`prefers-reduced-motion`:** everything ambient turns off; the page is static and complete.
-- **No sound.**
-- Belongs to `motion-language`; build after the structure and the photos are final.
-
----
-
-## 13. UX details (the small things that make it worth it)
-
-Small moments, each tied to the place. Ordered by impact vs effort.
-
-1. **Done — The home half morphs into the cottage page:** click a half of the hero, that photo expands into the cottage hero (view transitions).
-2. **Done — Colors cross-fade between pages:** going from the home to a cottage, the theme blends instead of switching abruptly.
-3. **Sections enter softly while scrolling:** subtle fade + rise in pure CSS (already used in the trip); the eave dividers could grow from flat to curved as they come into view.
-4. **Photo captions with real details:** "La cocina mira al Uritorco", "El adobe se hizo a mano, capa por capa" (only true facts). Turns the gallery into a story.
-5. **Warm microcopy in voseo everywhere:** buttons, empty states, WhatsApp messages, errors.
-6. **Done — Themed 404 page:** "Te perdiste en el monte" (`src/pages/404.astro`, `noindex`): the hero's dashed path forks into two branches, one to each house (arch and scalloped-circle glyphs), plus "Volver al inicio".
-7. **Done — Copy the address with one tap,** with a small "Copiado" confirmation (Ubicación y contacto).
-8. **A local wink:** at night (with the living-page clock, section 12), a tiny light crosses the sky once, a nod to the Uritorco's UFO lore. Optional.
+**Later / ideas:**
+- Home story with both houses (Misky first, then Sumac, the park, the surroundings).
+- Unlisted `/tu-llegada` guest page (`noindex`): check-in/out, exact directions, what to bring, rules, local tips.
+- Definitive emblem (maybe a designer).
+- "The page feels alive" (ambient motion, the place's real time of day, a night wink to the Uritorco UFO lore): only after structure and photos are final. Rules: almost subliminal, never moves text being read or the WhatsApp button, `transform`/`opacity` only, off under reduced motion, no sound.
+- Texts for "Qué hay cerca" and "Cómo llegar".
+- `.node-version` with `26` at the repo root.

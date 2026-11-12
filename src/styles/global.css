@@ -46,9 +46,6 @@ a:hover { text-decoration-thickness: 2px; }
   white-space: nowrap;
 }
 
-/* ---------- El eje: columna central ---------- */
-
-
 /* Secciones a todo el ancho, para que su fondo llegue a los bordes,
    con el contenido centrado en el eje */
 main > section, main > aside {
@@ -64,20 +61,6 @@ main > section, main > aside {
 main section > * + *,
 main aside > * + *,
 main article > * + * { margin-block-start: var(--space-s); }
-
-/* ---------- Cabaña: detalles simétricos ---------- */
-.detalles dl {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3xs) var(--space-s);
-  max-width: 20rem;
-  margin-inline: auto;
-}
-.detalles dt { text-align: right; }
-.detalles dd { text-align: left; }
-
-
-
 
 /* Entradas que se disparan (scripts/revelar.ts): al entrar en pantalla, el elemento sube
    desde bastante abajo y aparece rápido, con un frenado suave. Se repite cada vez que se
@@ -102,12 +85,6 @@ main article > * + * { margin-block-start: var(--space-s); }
     translate: none;
     transition: opacity 0.4s ease-out;
   }
-}
-
-/* Ya dibujado (scripts/trazado.ts): sin animación, queda el estado natural, que es el completo */
-.quieto,
-.quieto::before {
-  animation: none !important;
 }
 
 /* ---------- Transiciones entre páginas (sin JavaScript) ----------
@@ -135,17 +112,8 @@ main article > * + * { margin-block-start: var(--space-s); }
   overflow: clip;
 }
 
-/* Orden de las capas durante la transición.
-   Por defecto, una foto que existe en una sola de las dos páginas (la otra casa)
-   se dibuja arriba de todo como un rectángulo. Los bordes de alero y la nav
-   van siempre por encima, así ninguna foto pierde su forma. */
-::view-transition-group(cabecera),
-::view-transition-group(pulgar) {
-  z-index: 3;
-}
-
-/* La casa que existe en una sola de las dos páginas no viaja con los bordes:
-   al irse desaparece enseguida, y al llegar aparece cuando los bordes ya se acomodaron */
+/* El hero de una cabaña existe en una sola de las dos páginas: al irse desaparece enseguida,
+   y al llegar aparece después del fundido de la página */
 ::view-transition-old(casa-sumac-mayu):only-child,
 ::view-transition-old(casa-misky-wayra):only-child {
   animation-duration: 90ms;
@@ -157,20 +125,6 @@ main article > * + * { margin-block-start: var(--space-s); }
   animation-delay: 450ms;
   animation-duration: 300ms;
   animation-fill-mode: both;
-}
-
-/* Del inicio a la cabaña: la foto de la ventana (círculo o arco) crece hasta ocupar la pantalla
-   y se funde con la foto del hero de la cabaña mientras viaja. Sin aperturas ni recortes. */
-::view-transition-group(casa-sumac-mayu),
-::view-transition-group(casa-misky-wayra) {
-  animation-duration: 750ms;
-}
-
-/* Al volver de una cabaña (tipo "volver", lo marca Base.astro), las fotos no viajan:
-   cada una aparece directamente en su lugar mientras la página se funde */
-:active-view-transition-type(volver)::view-transition-group(casa-sumac-mayu),
-:active-view-transition-type(volver)::view-transition-group(casa-misky-wayra) {
-  animation: none;
 }
 
 @keyframes vt-aparecer {

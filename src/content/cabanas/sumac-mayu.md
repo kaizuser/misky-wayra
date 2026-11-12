@@ -18,7 +18,6 @@ datos:
   dormitorios: 3
   camas: 1 king size y 4 de una plaza
 
-propio: Playroom de 50 m² e invernadero
 
 comodidades:
   - Televisor
@@ -35,8 +34,6 @@ comodidades:
   - Entrada independiente
   - Cochera techada
   - Alarma
-
-formato: informativa
 
 equipamiento:
   adentro:

@@ -1,10 +1,7 @@
 ---
 /**
- * Hero de cada cabaña: la llegada.
- * La foto tiene el mismo view-transition-name que su mitad en el hero de la home,
- * así al navegar la foto se expande y se convierte en este hero.
- *
- * La llegada: la casa ocupa toda la pantalla. La nav flota encima, difuminada (Nav.astro).
+ * El hero a pantalla completa (cada cabaña y el inicio): la casa ocupa toda la pantalla
+ * y la nav (Franja) va justo debajo. `transicion` es su view-transition-name.
  * El texto va abajo, sobre un degradé que solo toca el suelo de la foto: el cielo queda limpio.
  * Al bajar, la foto sube más despacio que la página y se aleja apenas (de 1.06 a 1): como queda
  * recortada en el borde del hero, la sección de abajo parece subir y taparla.
@@ -49,7 +46,7 @@ const { nombre, significado, frase, foto, transicion } = Astro.props;
     position: relative;
     display: grid;
     align-items: end;
-    /* Toda la pantalla; en mobile, menos la barra de abajo (Nav.astro) */
+    /* Toda la pantalla */
     min-height: max(32rem, 100svh);
     padding: 0;
     overflow: hidden;

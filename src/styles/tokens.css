@@ -92,10 +92,6 @@
   --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);      /* margen lateral */
   --radius: 0.75rem;                                /* provisorio */
 
-  /* Altura del divisor Alero: más bajo en mobile para que la curva
-     quede más plana; subir el máximo lo hace más pronunciado */
-  --alero-alto: clamp(1.5rem, 0.25rem + 6vw, 7.5rem);
-
   /* Breakpoints (referencia: CSS no permite variables en @media)
      mobile  < 40rem
      tablet  40rem – 64rem
