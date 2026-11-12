@@ -126,6 +126,17 @@ main article > * + * { margin-block-start: var(--space-s); }
   }
 }
 
+/* Sin View Transitions: la página nueva aparece con un fundido corto (lo marca Base.astro) */
+@media (prefers-reduced-motion: no-preference) {
+  .aparecer body {
+    animation: pagina-aparecer 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes pagina-aparecer {
+  from { opacity: 0; }
+}
+
 ::view-transition-group(*) {
   animation-duration: 550ms;
   animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);

@@ -166,4 +166,12 @@ const grupos = equipamiento
       grid-template-columns: minmax(0, 1fr);
     }
   }
+
+  /* Celular: menos aire arriba (la nav ya separa del hero) y la etiqueta más cerca de las cifras */
+  @media (width < 40rem) {
+    .ficha {
+      gap: var(--space-l);
+      padding-block-start: var(--space-xl);
+    }
+  }
 </style>

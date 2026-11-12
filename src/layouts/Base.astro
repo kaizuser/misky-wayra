@@ -65,6 +65,25 @@ const ogUrl = new URL(og.src, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
 
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify({ image: ogUrl.href, ...jsonLd })} />}
+    <!-- Cambio de página sin View Transitions (Firefox, iPhone con iOS anterior al 18.2, o cuando
+         el navegador la salta): la página nueva aparece con un fundido corto desde el fondo, en
+         vez de verse armar. Solo al venir de otra página del sitio (la primera visita entra
+         directo) y solo si no corrió la transición del navegador. -->
+    <script is:inline>
+      (() => {
+        let interna = false;
+        try {
+          interna = new URL(document.referrer).origin === location.origin;
+        } catch {}
+        if (!interna) return;
+        const raiz = document.documentElement;
+        if ('onpagereveal' in window) {
+          addEventListener('pagereveal', (e) => !e.viewTransition && raiz.classList.add('aparecer'), { once: true });
+        } else {
+          raiz.classList.add('aparecer');
+        }
+      })();
+    </script>
     <!-- Al pasar el mouse por un link a una cabaña, Chrome la prepara de antemano:
          la foto ya está cargada cuando arranca la transición. Otros navegadores lo ignoran. -->
     <script
