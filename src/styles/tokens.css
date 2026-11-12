@@ -90,7 +90,6 @@
 :root {
   --axis-width: 72rem;                              /* ancho máximo del eje */
   --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);      /* margen lateral */
-  --radius: 0.75rem;                                /* provisorio */
 
   /* Breakpoints (referencia: CSS no permite variables en @media)
      mobile  < 40rem

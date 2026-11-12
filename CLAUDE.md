@@ -200,9 +200,9 @@ Components use **roles only**: `--color-bg`, `--color-text`, `--color-surface`, 
 
 ### Spacing and layout
 - `--space-3xs` (0.25rem) … `--space-3xl` (6rem); `--space-section` fluid 3 → 7rem.
-- `--axis-width: 72rem`, fluid `--gutter`. `--radius` only for the old Galería placeholders.
+- `--axis-width: 72rem`, fluid `--gutter`.
 - Breakpoints: mobile < 40rem, tablet 40–64rem, desktop ≥ 64rem.
-- `main > section` spans full width; content stays on the axis via `padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2)`. `.banda` = surface background (only Ubicación uses it now).
+- `main > section` spans full width; content stays on the axis via `padding-inline: max(var(--gutter), (100% - var(--axis-width)) / 2)`. `.banda` = surface background (unused right now).
 
 ### Emblem (temporary, `Emblema.astro`)
 From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dome, the arched window. Full color (an illustration, not `currentColor`). `compacto` drops the plants and fine lines (favicon, nav). The definitive emblem is still open; when it changes, only `Emblema.astro` and `public/favicon.svg` change.
