@@ -76,7 +76,7 @@ const grupos = [
       </p>
     </div>
     <div class="portada" data-galeria data-revelar="foto">
-      <Ampliable foto={portada} widths={[500, 800, 1080]} sizes="(min-width: 48rem) 38vw, 100vw" prioridad />
+      <Ampliable foto={portada} widths={[400, 550, 800, 1080]} sizes="(min-width: 48rem) 38vw, calc(100vw - 2rem)" prioridad />
     </div>
   </section>
 
@@ -92,7 +92,11 @@ const grupos = [
         <ul class="fotos" data-galeria>
           {grupo.fotos.map((f, j) => (
             <li class="foto" data-revelar="foto" style={`--retraso: ${(j % 3) * 0.1}s`}>
-              <Ampliable foto={f} widths={[400, 700, 1000]} sizes="(min-width: 48rem) 30vw, 100vw" />
+              <Ampliable
+                foto={f}
+                widths={[400, 550, 700, 1000]}
+                sizes={`(min-width: 72rem) 23rem, (min-width: 48rem) 30vw, ${j % 3 === 0 ? 'calc(100vw - 2rem)' : '72vw'}`}
+              />
             </li>
           ))}
         </ul>

@@ -214,6 +214,7 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 7. Requirements, SEO, deploy
 
 - **Performance:** CWV good on a mid-range Android over 4G; Lighthouse mobile ≥ 95; hero ≤ ~200 KB; JS ≤ 30 KB gz outside the lightbox viewer.
+- **Lighthouse audit (Nov 12, 2026, mobile, build + preview):** home 98/100/100/100 (performance/accessibility/best practices/SEO), Sumac 98/100/100/100, Galería 99/100/100/100, Ubicación 99/100/100/100. CLS 0 and TBT 0 everywhere. LCP 2.0–2.4 s (the hero photo; the limit is Lighthouse's simulated 1.5 Mbps link sharing the photo with the two preloaded fonts; removing the Sans preload changed nothing, so it stays). Fixes: hero `widths` gained 1280 (dpr-3 phones took the 1600 file), gallery photos got per-photo `sizes` matching their real width (Galería 499 → 314 KB). Re-run: `npx lighthouse@12 <url> --chrome-flags="--headless=new --user-data-dir=/tmp/claude-1000/lhprof"` with `CHROME_PATH=/usr/bin/chromium`.
 - **Accessibility:** WCAG 2.2 AA, one `<h1>` per page, keyboard navigable, Spanish alt on every photo (schema enforces it), reduced motion respected.
 - **Responsive:** mobile-first from 360px; most traffic comes from WhatsApp/Instagram links.
 - **Privacy:** no cookies, no trackers.
@@ -255,9 +256,8 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 10. Backlog
 
 **Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
-1. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
-2. **Color grade** proposal for the HDR photos.
-3. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
+1. **Color grade** proposal for the HDR photos.
+2. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
 
 **Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`); WhatsApp number, phone, Instagram username; years for the Daniela and Juan Pedro reviews; confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
