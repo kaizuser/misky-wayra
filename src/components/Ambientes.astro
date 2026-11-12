@@ -22,7 +22,7 @@ interface Props {
 
 const { ambientes } = Astro.props;
 
-/** Mientras no estén todas las fotos, cada ambiente se completa con grises hasta este número */
+/** Un ambiente sin fotos muestra esta cantidad de grises */
 const PENDIENTES = 6;
 
 ---
@@ -30,7 +30,7 @@ const PENDIENTES = 6;
 <div class="ambientes">
   {
     ambientes.map((ambiente, i) => {
-      const faltan = Math.max(0, PENDIENTES - ambiente.fotos.length);
+      const faltan = ambiente.fotos.length === 0 ? PENDIENTES : 0; // grises solo si todavía no hay fotos
       const total = ambiente.fotos.length + faltan;
       return (
         <section class="ambiente" aria-label={ambiente.titulo} data-carrusel>

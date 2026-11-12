@@ -77,29 +77,76 @@ resenas:
     fuente: Booking
 
 recorrido:
-  - titulo: La casa
+  - titulo: La casa y la galería
     texto: >-
-      Misky Wayra fue la primera. Está hecha de adobe, un material natural que la mantiene
-      fresca en verano y cálida en invierno: ochenta metros cuadrados en armonía con el
-      monte que la rodea.
+      Una galería con mesa de campo y parrilla, rodeada de jazmines.
+    fotos:
+      - src: ../../assets/cabanas/misky-wayra/misky_frente_01.jpg
+        alt: "El camino de ladrillo hacia Misky Wayra, bajo una pérgola de hierro"
+      - src: ../../assets/cabanas/misky-wayra/misky_galeria_01.jpg
+        alt: "La galería redonda de Misky Wayra con jazmín trepando la columna"
+      - src: ../../assets/cabanas/misky-wayra/misky_galeria_04.jpg
+        alt: "Jazmines en flor en la galería, con la mesa de campo detrás"
+      - src: ../../assets/cabanas/misky-wayra/misky_galeria_03.jpg
+        alt: "Mesa de campo con sillas de madera en la galería"
+      - src: ../../assets/cabanas/misky-wayra/misky_galeria_02.jpg
+        alt: "La mesa de campo de la galería, con el parque al fondo"
+      - src: ../../assets/cabanas/misky-wayra/misky_parrilla_01.jpg
+        alt: "La parrilla de Misky Wayra, frente a los árboles del parque"
 
-  - titulo: Adentro
+  - titulo: El living comedor
     texto: >-
-      Un living comedor amplio con una salamandra Ñuke, y placas de calor en todos los
-      ambientes para los días fríos. Hay televisor, WiFi exclusivo y las principales
-      plataformas de streaming, sin cargo.
+      Living comedor con salamandra Ñuke, sillones de mimbre y mucha luz.
+    fotos:
+      - src: ../../assets/cabanas/misky-wayra/misky_comedor_03.jpg
+        alt: "El comedor de Misky Wayra con techo de madera y ventanas al parque"
+      - src: ../../assets/cabanas/misky-wayra/misky_comedor_01.jpg
+        alt: "Mesa de madera con sillas tapizadas a rayas bajo un ventilador de techo"
+      - src: ../../assets/cabanas/misky-wayra/misky_living_01.jpg
+        alt: "Dos sillones de mimbre con almohadones frente a un ventanal"
+      - src: ../../assets/cabanas/misky-wayra/misky_living_02.jpg
+        alt: "Sillón gris con almohadones tejidos y un cuadro en la pared amarilla"
+      - src: ../../assets/cabanas/misky-wayra/misky_pasillo_03.jpg
+        alt: "El comedor visto desde el pasillo, entre paredes curvas"
+      - src: ../../assets/cabanas/misky-wayra/misky_detalle_04.jpg
+        alt: "Atrapasueños y una araña colgando del techo de madera"
+      - src: ../../assets/cabanas/misky-wayra/misky_detalle_01.jpg
+        alt: "Mesada de madera con jarrones junto a una ventana de vidrios de color"
 
   - titulo: La cocina
     texto: >-
-      Completa, con todos los electrodomésticos y horno eléctrico.
+      Completa, con horno eléctrico.
+    fotos:
+      - src: ../../assets/cabanas/misky-wayra/misky_cocina_01.jpg
+        alt: "La cocina de Misky Wayra con mesada de piedra y alacena de madera"
+      - src: ../../assets/cabanas/misky-wayra/misky_cocina_03.jpg
+        alt: "Alacena de madera con vajilla y una tela andina de fondo"
+      - src: ../../assets/cabanas/misky-wayra/misky_cocina_04.jpg
+        alt: "Licuadora y pava eléctrica sobre la mesada"
+      - src: ../../assets/cabanas/misky-wayra/misky_detalle_03.jpg
+        alt: "Jarrones con lavanda sobre la mesada"
 
-  - titulo: El descanso
+  - titulo: Los dormitorios
     texto: >-
-      Dos dormitorios: el principal con una cama king size, y el segundo con dos camas de una
-      plaza, espaciosas. La ropa de cama y los toallones están incluidos.
+      Dos dormitorios: uno con cama king size y otro con dos camas de una plaza.
+    fotos:
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio2_02.jpg
+        alt: "Dormitorio principal de Misky Wayra con cama king size"
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio2_03.jpg
+        alt: "Cama king size con mesa de luz, placard abierto y estantes de hierro"
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio2_01.jpg
+        alt: "Ventana del dormitorio principal sobre la pared curva"
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio1_01.jpg
+        alt: "Dormitorio con dos camas de una plaza y acolchados de patchwork"
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio1_02.jpg
+        alt: "Camas de una plaza con cómoda de madera y ventana"
+      - src: ../../assets/cabanas/misky-wayra/misky_dormitorio1_03.jpg
+        alt: "Cama de una plaza con acolchado de patchwork y almohadón de búho"
 
-  - titulo: La galería
+  - titulo: El baño
     texto: >-
-      Una galería con una mesa de campo grande y parrilla, para los almuerzos largos. La
-      entrada es independiente, con cochera techada.
+      Con ducha, bajo un techo de madera.
+    fotos:
+      - src: ../../assets/cabanas/misky-wayra/misky_bano_01.jpg
+        alt: "El baño de Misky Wayra con ducha y piso de cerámica roja"
 ---

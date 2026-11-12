@@ -5,7 +5,7 @@
  * Por ahora con el contenido de Sumac; cuando estén las fotos y los textos, cuenta las dos casas:
  * cómo empezó todo en Misky Wayra, cómo llegó Sumac Mayu, el parque y los alrededores.
  */
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import CabanaHero from '../components/CabanaHero.astro';
 import Franja from '../components/Franja.astro';
@@ -13,8 +13,8 @@ import Secciones from '../components/Secciones.astro';
 import Elegir from '../components/Elegir.astro';
 import { negocio } from '../lib/datos';
 import hero from '../assets/home/hero.jpg';
+import { principal, paradas } from '../data/relato';
 
-const sumac = (await getEntry('cabanas', 'sumac-mayu'))!;
 const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
 ---
 
@@ -37,6 +37,6 @@ const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b
     transicion="hero-inicio"
   />
   <Franja />
-  <Secciones principal={sumac.data.principal} paradas={sumac.data.recorrido} />
+  <Secciones principal={principal} paradas={paradas} />
   <Elegir />
 </Base>

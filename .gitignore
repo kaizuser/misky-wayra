@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # originales de las fotos (pesados, se guardan fuera de git)
 fotos-originales/
+
+# fotos del Drive tal como llegan (zips)
+fotos-drive-cabañas/
