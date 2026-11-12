@@ -1,47 +1,57 @@
 ---
 /**
- * 404: te perdiste en el monte. El camino punteado del inicio llega a una bifurcación:
- * una rama lleva a cada casa, y abajo está la vuelta al inicio.
+ * 404: te perdiste en el monte. En el lenguaje editorial del sitio: el título enorme, una línea,
+ * y las salidas como un índice de filas entre reglas finas (cada casa en su color). Al pasar el
+ * mouse, la fila se llena con su color, como los links de la nav. Al final, volver al inicio.
  */
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Franja from '../components/Franja.astro';
 import { ruta } from '../lib/rutas';
 
+const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
+
+const salidas = [
+  ...cabanas.map((c) => ({
+    nombre: c.data.nombre,
+    bajada: c.data.significado,
+    href: ruta(`/cabanas/${c.id}/`),
+    tema: c.data.tema,
+  })),
+  { nombre: 'Galería', bajada: 'El parque y la pileta', href: ruta('/galeria/'), tema: undefined },
+  { nombre: 'Ubicación y contacto', bajada: 'Cómo llegar', href: ruta('/ubicacion-y-contacto/'), tema: undefined },
+];
 ---
 
 <Base
   title="Te perdiste en el monte · Misky Wayra"
-  description="Esta página no existe. Volvé al inicio o seguí el camino hacia una de las dos cabañas."
+  description="Esta página no existe. Volvé al inicio o seguí hacia una de las dos cabañas."
   noindex
 >
   <Franja />
+
   <section class="perdido">
     <p class="antetitulo" data-revelar>Error 404</p>
     <h1 data-revelar style="--retraso: 0.08s">Te perdiste en el monte</h1>
-    <p data-revelar style="--retraso: 0.16s">Esta página no existe, o se la llevó el viento. El camino sigue por acá:</p>
+    <p class="bajada" data-revelar style="--retraso: 0.16s">
+      Esta página no existe, o se la llevó el viento. Seguí por acá:
+    </p>
 
-    <!-- El camino se bifurca hacia las dos casas -->
-    <svg data-revelar="detalle" style="--retraso: 0.24s" class="bifurcacion" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M200,0 V40 C200,80 100,70 100,120" vector-effect="non-scaling-stroke" />
-      <path d="M200,40 C200,80 300,70 300,120" vector-effect="non-scaling-stroke" />
-    </svg>
+    <ul class="salidas">
+      {
+        salidas.map((s, i) => (
+          <li data-revelar style={`--retraso: ${(0.2 + i * 0.08).toFixed(2)}s`}>
+            <a href={s.href} data-theme={s.tema}>
+              <span class="nombre">{s.nombre}</span>
+              <span class="detalle">{s.bajada}</span>
+              <span class="flecha" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
 
-    <div class="casas" data-revelar="detalle" style="--retraso: 0.32s">
-      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">
-        <svg class="ventanita" viewBox="0 0 40 50" aria-hidden="true">
-          <path d="M2,48 V20 A18,18 0 0 1 38,20 V48 Z" />
-        </svg>
-        Sumac Mayu
-      </a>
-      <a href={ruta('/cabanas/misky-wayra/')} data-theme="wayra">
-        <svg class="ventanita" viewBox="0 0 40 50" aria-hidden="true">
-              <circle cx="20" cy="30" r="18" />
-            </svg>
-        Misky Wayra
-      </a>
-    </div>
-
-    <a class="volver" data-revelar="detalle" style="--retraso: 0.4s" href={ruta('/')}>Volver al inicio</a>
+    <a class="boton" href={ruta('/')} data-revelar="detalle" style="--retraso: 0.5s">Volver al inicio</a>
   </section>
 </Base>
 
@@ -51,75 +61,140 @@ import { ruta } from '../lib/rutas';
 
 <style>
   .perdido {
-    min-height: 70svh;
+    --linea: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+
     display: grid;
-    align-content: center;
-    justify-items: center;
+    justify-items: start;
+    padding-block: var(--space-3xl);
+    text-align: start;
+  }
+
+  .perdido :global(p) {
+    margin-inline: 0;
   }
 
   .antetitulo {
-    font-size: var(--step--1);
-    letter-spacing: 0.2em;
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-primary);
   }
 
   h1 {
-    font-weight: 300;
+    max-width: 9em;
+    margin-block-start: var(--space-s);
+    font-size: clamp(3.4rem, 1.6rem + 7vw, 8.5rem);
+    line-height: 0.92;
+    color: var(--color-text);
   }
 
-  .bifurcacion {
-    width: min(100%, 26rem);
-    height: 6rem;
+  .bajada {
     margin-block-start: var(--space-l);
-    overflow: visible;
   }
 
-  .bifurcacion path {
-    fill: none;
-    stroke: color-mix(in srgb, var(--color-text) 35%, transparent);
-    stroke-width: 1.5;
-    stroke-dasharray: 5 6;
+  /* ---------- Las salidas: un índice entre reglas finas ---------- */
+  .salidas {
+    width: 100%;
+    margin-block-start: var(--space-xl);
+    padding: 0;
+    list-style: none;
+    border-block-start: var(--linea);
   }
 
-  /* Dos columnas iguales: cada casa queda centrada bajo el final de su rama (25% y 75%) */
-  .casas {
+  .salidas li {
+    margin: 0;
+    border-block-end: var(--linea);
+  }
+
+  .salidas a {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: min(100%, 26rem);
-    margin-block-start: var(--space-2xs);
-  }
-
-  .casas a {
-    display: grid;
-    justify-items: center;
-    gap: var(--space-2xs);
-    white-space: nowrap;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: var(--step-1);
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: var(--space-3xs) var(--space-m);
+    padding: var(--space-m) var(--space-s);
+    color: var(--color-text);
     text-decoration: none;
+    transition:
+      background-color 0.6s ease,
+      color 0.6s ease;
+  }
+
+  .nombre {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 1.2rem + 2vw, 3rem);
+    line-height: 1.05;
     color: var(--color-primary);
+    transition: color 0.6s ease;
   }
 
-  .casas a:hover {
-    text-decoration: underline;
+  .detalle {
+    grid-row: 2;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
-  .ventanita {
-    width: 2.75rem;
-    height: auto;
+  .flecha {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: var(--step-2);
   }
 
-  .ventanita path,
-  .ventanita circle {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
+  @media (width >= 48rem) {
+    .salidas a {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 16rem) auto;
+      padding-block: var(--space-l);
+    }
+
+    .detalle {
+      grid-row: auto;
+    }
+
+    .flecha {
+      grid-column: auto;
+      grid-row: auto;
+    }
   }
 
+  /* Al pasar, la fila se llena con su color (como los links de la nav) */
+  .salidas a:hover,
+  .salidas a:focus-visible {
+    background: var(--color-primary);
+    color: var(--color-on-color);
+  }
 
-  .volver {
+  .salidas a:hover .nombre,
+  .salidas a:focus-visible .nombre {
+    color: var(--color-on-color);
+  }
+
+  /* ---------- Volver: el botón recto ---------- */
+  .boton {
     margin-block-start: var(--space-2xl);
+    padding: 1.1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.6s ease;
+  }
+
+  .boton:hover,
+  .boton:focus-visible {
+    background: var(--color-deep);
+  }
+
+  @media (width < 40rem) {
+    .boton {
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>

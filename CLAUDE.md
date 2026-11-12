@@ -35,7 +35,7 @@ Shared: 3,000 m² park with fruit and native trees, pool (in season), decks, fir
 
 **The house is the brand.** Sumac's building is extraordinary; nothing in the area looks like it. The photos carry the site.
 
-**Editorial aesthetic (since Nov 2, 2026), modeled on wolnylas.pl** (screenshots in `pagina-especifica/`, untracked): lots of air, big photos, a condensed high-contrast serif, a thin straight nav, thin rules, square buttons, minimal text. It replaced the first "crafty" aesthetic (eave dividers, arch/circle photo frames, volutas, dashed paths, Fraunces), which is in git history. The only remain is the 404's forked path, to be redone.
+**Editorial aesthetic (since Nov 2, 2026), modeled on wolnylas.pl** (screenshots in `pagina-especifica/`, untracked): lots of air, big photos, a condensed high-contrast serif, a thin straight nav, thin rules, square buttons, minimal text. It replaced the first "crafty" aesthetic (eave dividers, arch/circle photo frames, volutas, dashed paths, Fraunces), which is in git history. Every page is in the editorial language now (Nov 12, 2026).
 
 **Two houses, two colors.** Sumac = adobe (left when shown side by side), Misky = green (right). The complex itself is olive (`monte`). Houses differ by color, not by type weight.
 
@@ -145,7 +145,9 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - **Escribinos:** closing like "Cómo reservar": label, big olive "Escribinos", one line, WhatsApp button. Phone and Instagram are not repeated here (the footer has the socials).
 - **Texts to confirm with the family:** RN 38 / ~110 km / ~2 h from Córdoba, direct buses to Capilla's terminal, Uritorco "the highest of the Sierras Chicas" and ~3 h ascent, Los Terrones "on the way to Ongamira", Ongamira "half an hour by car". Written conservatively; no distances from the cottages.
 
-**404:** uses `Franja` and the footer but still has the old aesthetic (forked dashed path): to be redone.
+**404 (redone Nov 12, 2026):** "Error 404" label, "Te perdiste en el monte" huge, one line ("…o se la llevó el viento. Seguí por acá:"), then the four exits as an index of rows between thin rules: name in big serif in its color (Sumac adobe, Misky green, Galería and Ubicación olive), a small-caps line (the cottages' meanings, "El parque y la pileta", "Cómo llegar") and an arrow; on hover the row fills with its color like the nav links. Then a square "Volver al inicio" button.
+
+**Ubicación photo:** keep the split layout even with the full-resolution photos (only swap the Uritorco file). A full-screen hero would push the address and the Maps button below the fold on phones, and that's what people come for. The Galería cover does become a full hero.
 
 ### Nav (`Franja.astro` + `scripts/franja.ts`), on every page
 - A thin full-width strip (~42px) right under the hero (at the top on pages without one): cottages on the left, compact emblem centered (3.2rem), Galería / Ubicación y contacto on the right, small uppercase Instrument Sans.
@@ -253,10 +255,9 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 10. Backlog
 
 **Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
-1. **404** in the editorial style.
-2. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
-3. **Color grade** proposal for the HDR photos.
-4. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
+1. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
+2. **Color grade** proposal for the HDR photos.
+3. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
 
 **Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`); WhatsApp number, phone, Instagram username; years for the Daniela and Juan Pedro reviews; confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
