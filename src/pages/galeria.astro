@@ -1,52 +1,117 @@
 ---
 /**
- * Galería de fotos: todo lo que no está en la página de cada cabaña.
- * El parque, la pileta, los espacios compartidos y las vistas.
- * Es del complejo (de las dos casas), así que mezcla las dos ventanas: el arco de Sumac
- * y el círculo de Misky, con fotos rectangulares. Cada grupo alterna su composición.
- * Por ahora, placeholders: las fotos se suman con `page-galeria` (en src/assets/galeria/).
+ * Galería de fotos: lo que comparten las dos casas (el parque, la pileta, el fogón y las
+ * pérgolas). Lo de adentro de cada casa está en su página.
+ *
+ * Editorial, como los ambientes de las cabañas: cada grupo tiene su cabeza (número, nombre
+ * grande, una línea) sobre una regla fina, y debajo sus fotos verticales en tres columnas
+ * escalonadas (la del medio más baja, la de la derecha a mitad de camino), sin carrusel:
+ * acá se viene a mirar todo. En el celular, dos columnas. Tocar una foto la abre en grande
+ * y se recorre el grupo con las flechas.
  */
+import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import Franja from '../components/Franja.astro';
+import Ampliable from '../components/Ampliable.astro';
+import { ruta } from '../lib/rutas';
+
+const archivos = import.meta.glob<{ default: ImageMetadata }>('../assets/galeria/*.jpg', { eager: true });
+const foto = (nombre: string, alt: string) => ({ src: archivos[`../assets/galeria/${nombre}.jpg`].default, alt });
 
 const grupos = [
-  { titulo: 'El parque', texto: 'Algarrobos, el olivo, agaves y los senderos de cemento verde con piedras rosadas.' },
-  { titulo: 'La pileta', texto: 'La pileta con su muro de piedra y los dos decks, uno con pérgola de media sombra.' },
-  { titulo: 'Los espacios compartidos', texto: 'El fogón, la parrilla, la glorieta de jazmín y la pérgola con la parra.' },
-  { titulo: 'Las vistas', texto: 'El Uritorco y las sierras, desde el parque.' },
+  {
+    titulo: 'El parque',
+    texto: 'Tres mil metros de parque, con árboles frutales y nativos, flores y senderos entre las dos casas.',
+    fotos: [
+      foto('jardin_12', 'Sendero de piedras entre el pasto y los canteros con flores, a la sombra de los árboles del parque'),
+      foto('jardin_09', 'Sumac Mayu entre los árboles del parque, con flores lilas en primer plano'),
+      foto('jardin_03', 'Rosas rojas en primer plano y Sumac Mayu desenfocada al fondo'),
+      foto('jardin_05', 'Flores rojas y el tronco de un árbol en primer plano, con la pileta al fondo'),
+      foto('jardin_14', 'Cantero con un agave, flores y piedras, con el tanque de agua detrás'),
+      foto('jardin_15', 'Agaves y flores bajo los árboles, junto a un portón de madera'),
+    ],
+  },
+  {
+    titulo: 'La pileta',
+    texto: 'La pileta de temporada, con su muro de piedra, los decks y el Uritorco de fondo.',
+    fotos: [
+      foto('jardin_11', 'El Cerro Uritorco detrás de la pileta y su muro de piedra'),
+      foto('pileta_02', 'La pileta con Sumac Mayu detrás'),
+      foto('pileta_01', 'La pileta y el deck de madera con sillones, bajo una pérgola'),
+      foto('jardin_06', 'Flores lilas frente a la pileta, con las sierras al fondo'),
+      foto('pileta_03', 'Un sillón de madera en el deck junto a la pileta, con Sumac Mayu de fondo'),
+      foto('deck_01', 'Reposeras sobre el deck, bajo una pérgola, junto a la pileta'),
+    ],
+  },
+  {
+    titulo: 'El fogón y las pérgolas',
+    texto: 'El fogón con sus bancos, la parrilla y las pérgolas, para estar afuera a la sombra.',
+    fotos: [
+      foto('fogon_02', 'El fogón con bancos de madera y hierro sobre el ripio, con la pileta al fondo'),
+      foto('jardin_08', 'Pérgola de hierro en arco sobre el pasto, con Sumac Mayu al fondo'),
+      foto('fogon_01', 'El fogón rodeado de piedras, bajo un árbol grande'),
+      foto('jardin_10', 'Sillones bajo una pérgola cubierta de plantas'),
+      foto('jardin_02', 'La parrilla y un brasero bajo los árboles, junto a una glorieta de hierro'),
+      foto('jardin_13', 'Sillones a la sombra de una glorieta de hierro con plantas'),
+    ],
+  },
 ];
 ---
 
 <Base
   title="Galería de fotos: Misky Wayra, Capilla del Monte"
-  description="Fotos del parque, la pileta, los espacios compartidos y la vista al Uritorco de las cabañas Misky Wayra, en Capilla del Monte, Córdoba."
+  description="Fotos del parque, la pileta, el fogón y las pérgolas que comparten las cabañas Misky Wayra, frente al Uritorco en Capilla del Monte, Córdoba."
 >
   <Franja />
+
   <section class="encabezado">
-    <p class="antetitulo">Lo que comparten las dos casas</p>
-    <h1>Galería de fotos</h1>
+    <p class="antetitulo" data-revelar>Lo que comparten las dos casas</p>
+    <h1 data-revelar style="--retraso: 0.08s">Galería</h1>
+    <p class="intro" data-revelar style="--retraso: 0.16s">
+      El parque, la pileta, el fogón y las pérgolas. Las casas por dentro están en la página de cada una.
+    </p>
   </section>
 
   {
     grupos.map((grupo, i) => (
-      <section class:list={['grupo', { espejo: i % 2 === 1 }]}>
-        <div class="texto">
-          <h2>{grupo.titulo}</h2>
-          <p>{grupo.texto}</p>
-        </div>
-        <div class="fotos">
-          <div class="foto arco">Foto en camino</div>
-          <div class="foto redonda">Foto en camino</div>
-          <div class="foto">Foto en camino</div>
-          <div class="foto">Foto en camino</div>
-        </div>
+      <section class="grupo" aria-labelledby={`grupo-${i}`}>
+        <header class="cabeza" data-revelar>
+          <p class="numero">{String(i + 1).padStart(2, '0')}</p>
+          <h2 id={`grupo-${i}`}>{grupo.titulo}</h2>
+          <p class="texto">{grupo.texto}</p>
+        </header>
+
+        <ul class="fotos" data-galeria>
+          {grupo.fotos.map((f, j) => (
+            <li class="foto" data-revelar style={`--retraso: ${(j % 3) * 0.1}s`}>
+              <Ampliable foto={f} widths={[400, 700, 1000]} sizes="(min-width: 40rem) 30vw, 50vw" />
+            </li>
+          ))}
+        </ul>
       </section>
     ))
   }
+
+  <section class="casas">
+    <p>
+      Por dentro:
+      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu">Sumac Mayu</a>
+      y
+      <a href={ruta('/cabanas/misky-wayra/')} data-theme="wayra">Misky Wayra</a>.
+    </p>
+  </section>
 </Base>
+
+<script>
+  import '../scripts/revelar';
+  import '../scripts/lightbox';
+</script>
 
 <style>
   section {
+    --margen: max(var(--gutter), (100vw - var(--axis-width)) / 2);
+
+    padding-inline: var(--margen);
     text-align: start;
   }
 
@@ -54,94 +119,150 @@ const grupos = [
     margin-inline: 0;
   }
 
+  /* ---------- El encabezado: grande, contra la izquierda ---------- */
+  .encabezado {
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+
   .antetitulo {
-    font-size: var(--step--1);
-    letter-spacing: 0.2em;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-primary);
   }
 
-  .encabezado {
-    padding-block-end: 0;
-  }
-
-  .encabezado h1 {
-    font-weight: 300;
-  }
-
-  /* ---------- Cada grupo: texto y una composición de cuatro fotos ---------- */
-  .grupo {
-    display: grid;
-    gap: var(--space-l);
-  }
-
-  .texto p {
+  h1 {
     margin-block-start: var(--space-xs);
-    max-width: 30ch;
+    font-size: clamp(4rem, 2rem + 9vw, 10rem);
+    line-height: 0.9;
+    color: var(--color-text);
   }
 
+  .intro {
+    margin-block-start: var(--space-l);
+    max-width: 34rem;
+  }
+
+  /* ---------- Cada grupo: la cabeza, como en los ambientes ---------- */
+  .grupo {
+    padding-block: var(--space-2xl);
+  }
+
+  .cabeza {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    gap: var(--space-2xs) var(--space-m);
+    padding-block-end: var(--space-m);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+  }
+
+  .numero {
+    padding-block-end: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+
+  h2 {
+    font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.5rem);
+    line-height: 1;
+    color: var(--color-text);
+  }
+
+  .texto {
+    grid-column: 1 / -1;
+    max-width: 30rem;
+  }
+
+  @media (width >= 64rem) {
+    .cabeza {
+      grid-template-columns: auto 1fr minmax(0, 24rem);
+    }
+
+    .texto {
+      grid-column: auto;
+      padding-block-end: 0.4rem;
+    }
+  }
+
+  /* ---------- Las fotos: columnas escalonadas ----------
+     Todas 2:3. La columna del medio baja un poco y la de la derecha la mitad; el escalón es un
+     transform, así no pisa el `translate` de la entrada (data-revelar). */
   .fotos {
+    --paso: 4rem;
+
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-s);
-    align-items: end;
+    gap: var(--space-l) var(--space-s);
+    margin-block-start: var(--space-l);
+    padding: 0 0 var(--paso);
+    list-style: none;
   }
 
   .foto {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--radius);
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
     background: var(--color-surface);
-    color: var(--color-deep);
-    font-family: var(--font-display);
-    font-size: var(--step-0);
-    text-align: center;
   }
 
-  /* El arco de Sumac: alto, ocupa dos filas */
-  .arco {
-    grid-row: span 2;
-    aspect-ratio: 3 / 4.6;
-    border-radius: 50% 50% var(--radius) var(--radius) / 30% 30% var(--radius) var(--radius);
+  .foto:nth-child(2n) {
+    transform: translateY(var(--paso));
   }
 
-  /* El círculo de Misky */
-  .redonda {
-    aspect-ratio: 1;
-    border-radius: 50%;
-  }
-
-  /* La última, apaisada: cierra la composición (y le sienta a las vistas) */
-  .foto:last-child {
-    grid-column: span 2;
-    aspect-ratio: 8 / 3;
-  }
-
-  /* ---------- Desktop: texto a un costado, fotos al otro; un grupo sí y otro no, espejado ---------- */
-  @media (width >= 64rem) {
-    .grupo {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-      align-items: center;
-      column-gap: var(--space-2xl);
-    }
-
+  @media (width >= 40rem) {
     .fotos {
+      --paso: clamp(4rem, 8vw, 8rem);
+
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2xl) clamp(1rem, 2.2vw, 2rem);
     }
 
-    .espejo .texto {
-      order: 2;
+    .foto:nth-child(2n) {
+      transform: none;
     }
 
-    .espejo {
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    .foto:nth-child(3n + 2) {
+      transform: translateY(var(--paso));
     }
 
-    /* En los grupos espejados, el arco pasa al otro extremo */
-    .espejo .arco {
-      grid-column: 3;
-      grid-row: 1 / span 2;
+    .foto:nth-child(3n) {
+      transform: translateY(calc(var(--paso) / 2));
     }
+  }
+
+  .foto :global(picture),
+  .foto :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Al pasar el mouse, la foto se acerca despacio */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .foto :global(img) {
+      transition: scale 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .foto:hover :global(img) {
+      scale: 1.04;
+    }
+  }
+
+  /* ---------- Al final: las casas por dentro ---------- */
+  .casas {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem);
+    line-height: 1.15;
+  }
+
+  .casas a {
+    color: var(--color-primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
   }
 </style>

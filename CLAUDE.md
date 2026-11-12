@@ -27,7 +27,7 @@ Shared: 3,000 m² park with fruit and native trees, pool (in season), decks, fir
 - Objective, analytical answers with honest trade-offs; concrete files and code; mockups to judge ideas; no overengineering.
 - Structure changes (pages, sections, their order) are discussed first and recorded in section 9.
 - Only real content: reviews never invented or rewritten (only trimmed/accent-fixed); only photos the family has rights to; people in photos need consent.
-- Claude: stop any dev/preview server you start when you're done with it (unless the developer wants it running to look at the site).
+- **The developer looks at the compiled site, not `astro dev`** (dev re-encodes every photo on request and is slow). After each change: `npm run build`, keep `npx astro preview --port 4322` running for him (http://localhost:4322), and commit + push so GitHub Pages has it too. Otherwise stop any server you start when done.
 
 ---
 
@@ -130,7 +130,9 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 5. **Cómo reservar** (`Reservar`): "¿Te imaginás acá?", three steps (Escribinos / Confirmás / Llegás), square WhatsApp button in the house color with a prefilled message.
 6. **La otra casa** (`OtraCasa`): large photo of the sister house, name in its color, whole card is the link.
 
-**Galería, Ubicación y contacto, 404:** use `Franja` and the footer but still have the old aesthetic (to be redone, backlog). Galería = placeholders grouped El parque / La pileta / Los espacios compartidos / Las vistas. Ubicación = address big + Google Maps link + copy-address button, Cómo llegar, Qué hay cerca (placeholders), Escribinos. 404 = "Te perdiste en el monte", path forking to both houses.
+**Galería (`galeria.astro`, done Nov 12, 2026):** what the two houses share. Big left-aligned "Galería" with an eyebrow and one line, then three groups, **El parque · La pileta · El fogón y las pérgolas**, each with the Ambientes-style head (number, big name, one line, thin rule) and six vertical 2:3 photos in **three staggered columns** (middle column lower, right one half-way; the step is a `transform`, so it doesn't fight the entrance's `translate`). Two columns on phones. No carousel: you come here to see everything. Each group is one `[data-galeria]` for PhotoSwipe; slow zoom on hover. Closes with "Por dentro: Sumac Mayu y Misky Wayra." Photos in `src/assets/galeria/` (18 of the 22 garden/pool shots; Jardin_01 and Pileta_04 are already in Sumac's carousel, Jardin_04 and Jardin_07 repeat others). There's no "Las vistas" group: only Jardin_11 shows the Uritorco well, so it opens La pileta.
+
+**Ubicación y contacto, 404:** use `Franja` and the footer but still have the old aesthetic (to be redone, backlog). Ubicación = address big + Google Maps link + copy-address button, Cómo llegar, Qué hay cerca (placeholders), Escribinos. 404 = "Te perdiste en el monte", path forking to both houses.
 
 ### Nav (`Franja.astro` + `scripts/franja.ts`), on every page
 - A thin full-width strip (~42px) right under the hero (at the top on pages without one): cottages on the left, compact emblem centered (3.2rem), Galería / Ubicación y contacto on the right, small uppercase Instrument Sans.
@@ -231,11 +233,10 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 10. Backlog
 
 **Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
-1. **Galería** with the 22 garden/pool photos: editorial, grouped, PhotoSwipe.
-2. **Ubicación y contacto and 404** in the editorial style.
-3. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
-4. **Color grade** proposal for the HDR photos.
-5. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
+1. **Ubicación y contacto and 404** in the editorial style.
+2. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
+3. **Color grade** proposal for the HDR photos.
+4. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
 
 **Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`); WhatsApp number, phone, Instagram username; years for the Daniela and Juan Pedro reviews; confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
