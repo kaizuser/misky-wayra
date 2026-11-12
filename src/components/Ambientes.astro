@@ -49,7 +49,7 @@ const PENDIENTES = 6;
             </div>
           </header>
 
-          <ul class="pista" data-pista data-galeria tabindex="0" aria-label={`Fotos de ${ambiente.titulo}`}>
+          <ul class="pista" data-pista data-galeria data-revelar-juntas tabindex="0" aria-label={`Fotos de ${ambiente.titulo}`}>
             {ambiente.fotos.map((foto, j) => (
               <li class="foto" data-revelar="foto" style={`--encuadre: ${foto.encuadre}; --retraso: ${j < 2 ? j * 0.1 : 0}s`}>
                 <Ampliable foto={foto} widths={[500, 800, 1200]} sizes="(min-width: 76rem) 36rem, (min-width: 40rem) calc(50vw - 2.5rem), calc(100vw - 2rem)" />
@@ -180,6 +180,11 @@ const PENDIENTES = 6;
     scroll-behavior: smooth;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
+  }
+
+  /* Una sola foto: centrada en el carrusel */
+  .pista:has(> .foto:only-child) {
+    justify-content: center;
   }
 
   .pista::-webkit-scrollbar {
