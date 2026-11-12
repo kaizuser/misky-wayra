@@ -1,18 +1,55 @@
 ---
 /**
- * Ubicación y contacto: una página práctica, fuera del eje. Por eso no es simétrica:
- * todo se alinea a la izquierda, y "Qué hay cerca" es un sendero (la línea punteada del inicio).
+ * Ubicación y contacto, en el lenguaje editorial del sitio.
+ * Abre como la galería: la dirección grande (es lo que se viene a buscar) con los botones
+ * para abrirla en el mapa o copiarla, y al lado la foto vertical del Uritorco. Después, cómo
+ * llegar y qué hay cerca como filas entre reglas finas (como la ficha de las cabañas), y al
+ * final un cierre para escribir por WhatsApp (como "Cómo reservar").
  */
 import Base from '../layouts/Base.astro';
 import Franja from '../components/Franja.astro';
+import Ampliable from '../components/Ampliable.astro';
 import { SITIO, mapsUrl, whatsappUrl } from '../config';
+import uritorco from '../assets/galeria/jardin_11.jpg';
+
+const llegar = [
+  {
+    nombre: 'En auto, desde Córdoba',
+    texto: 'Por la Ruta Nacional 38, que sube por el valle de Punilla. Son unos 110 km, cerca de dos horas.',
+  },
+  {
+    nombre: 'En micro',
+    texto:
+      'Hay micros directos desde la terminal de Córdoba hasta la de Capilla del Monte. Desde ahí son unos minutos en taxi o remís.',
+  },
+  {
+    nombre: 'Las últimas cuadras',
+    texto: 'Cuando confirmás la reserva, te mandamos por WhatsApp la ubicación exacta y cómo entrar.',
+  },
+];
 
 const cerca = [
-  { nombre: 'El Cerro Uritorco', texto: '[Qué es, cuánto se tarda en subir, cuándo ir]' },
-  { nombre: 'Los Terrones', texto: '[Qué es, cuándo ir]' },
-  { nombre: 'Ongamira', texto: '[Qué es, cuándo ir]' },
-  { nombre: 'El pueblo', texto: '[La calle techada, los murales, dónde comer]' },
-  { nombre: 'El cielo de noche', texto: '[Astroturismo: dónde y cuándo mirar]' },
+  {
+    nombre: 'El Cerro Uritorco',
+    texto:
+      'El cerro que se ve desde el parque, el más alto de las Sierras Chicas. La subida lleva unas tres horas: conviene arrancar temprano y llevar agua.',
+  },
+  {
+    nombre: 'Los Terrones',
+    texto: 'Formaciones de piedra rojiza con senderos entre las rocas, camino a Ongamira.',
+  },
+  {
+    nombre: 'Ongamira',
+    texto: 'Las grutas y los paredones de arenisca, en un valle a media hora en auto.',
+  },
+  {
+    nombre: 'El pueblo',
+    texto: 'La calle techada, los cafés, las ferias de artesanos y todas las historias del Uritorco.',
+  },
+  {
+    nombre: 'El cielo de noche',
+    texto: 'Lejos de las luces de la ciudad: las estrellas se ven desde el mismo parque.',
+  },
 ];
 ---
 
@@ -21,65 +58,88 @@ const cerca = [
   description="Cómo llegar a Misky Wayra, en Barrio Valentí, Capilla del Monte, Córdoba. Qué hay cerca y cómo escribirnos por WhatsApp para consultar."
 >
   <Franja />
-  <section class="encabezado">
-    <p class="antetitulo" data-revelar>{SITIO.localidad}</p>
-    <h1 data-revelar style="--retraso: 0.08s">Ubicación y contacto</h1>
-  </section>
 
-  <section class="donde">
-    <h2 data-revelar>Dónde estamos</h2>
-    <address data-revelar style="--retraso: 0.08s">
-      <span id="direccion">{SITIO.calle}, {SITIO.barrio}</span>
-      <span class="localidad">{SITIO.localidad}</span>
-    </address>
-    <div class="acciones" data-revelar="detalle" style="--retraso: 0.16s">
-      <a class="boton" href={mapsUrl}>Abrir en Google Maps</a>
-      <button class="copiar" type="button" data-texto={`${SITIO.direccion}, ${SITIO.localidad}`} hidden>
-        Copiar la dirección
-      </button>
-      <span class="aviso" role="status"></span>
+  <!-- La dirección, grande, con la foto del Uritorco -->
+  <section class="apertura">
+    <div class="donde">
+      <h1 class="antetitulo" data-revelar>Ubicación y contacto</h1>
+      <address data-revelar style="--retraso: 0.08s">
+        <span class="calle">{SITIO.calle}</span>
+        <span class="zona">{SITIO.barrio} · {SITIO.ciudad} · {SITIO.provincia}</span>
+      </address>
+      <div class="acciones" data-revelar="detalle" style="--retraso: 0.16s">
+        <a class="boton" href={mapsUrl}>Abrir en Google Maps</a>
+        <button class="boton linea copiar" type="button" data-texto={`${SITIO.direccion}, ${SITIO.localidad}`} hidden>
+          Copiar la dirección
+        </button>
+        <span class="aviso" role="status"></span>
+      </div>
+    </div>
+    <div class="portada" data-galeria data-revelar="foto">
+      <Ampliable
+        foto={{ src: uritorco, alt: 'El Cerro Uritorco detrás de la pileta y su muro de piedra' }}
+        widths={[500, 800]}
+        sizes="(min-width: 48rem) 34vw, 100vw"
+        prioridad
+      />
     </div>
   </section>
 
-  <section class="llegar">
-    <h2 data-revelar>Cómo llegar</h2>
-    <dl data-revelar style="--retraso: 0.08s">
-      <dt>Desde Córdoba capital</dt>
-      <dd>[Ruta, distancia y tiempo en auto]</dd>
-      <dt>En micro</dt>
-      <dd>[Empresas y dónde bajarse]</dd>
-      <dt>El último tramo</dt>
-      <dd>[Del centro de Capilla del Monte a Barrio Valentí]</dd>
+  <section class="bloque" aria-labelledby="llegar-titulo">
+    <header class="cabeza" data-revelar>
+      <h2 id="llegar-titulo">Cómo llegar</h2>
+    </header>
+    <dl class="filas">
+      {
+        llegar.map((fila, i) => (
+          <div class="fila" data-revelar style={`--retraso: ${(i * 0.08).toFixed(2)}s`}>
+            <dt>{fila.nombre}</dt>
+            <dd>{fila.texto}</dd>
+          </div>
+        ))
+      }
     </dl>
   </section>
 
-  <section class="cerca">
-    <h2 data-revelar>Qué hay cerca</h2>
-    <ol class="sendero">
+  <section class="bloque" aria-labelledby="cerca-titulo">
+    <header class="cabeza" data-revelar>
+      <h2 id="cerca-titulo">Qué hay cerca</h2>
+      <p class="bajada">Para salir a caminar, a mirar o a comer algo rico.</p>
+    </header>
+    <ul class="lugares">
       {
         cerca.map((lugar) => (
-          <li data-revelar>
+          <li class="lugar" data-revelar>
             <h3>{lugar.nombre}</h3>
             <p>{lugar.texto}</p>
           </li>
         ))
       }
-    </ol>
+    </ul>
   </section>
 
-  <section class="contacto banda">
-    <h2 data-revelar>Escribinos</h2>
-    <p data-revelar style="--retraso: 0.08s">La forma más rápida es WhatsApp: te respondemos nosotros, la familia.</p>
-    <a class="boton" href={whatsappUrl('Hola! Quería hacer una consulta sobre las cabañas')} data-revelar="detalle" style="--retraso: 0.15s">Escribinos por WhatsApp</a>
-    <ul class="canales" data-revelar="detalle" style="--retraso: 0.2s">
-      <li>Teléfono: <a href="tel:+549XXXXXXXXXX">[número]</a></li>
-      <li>Instagram: <a href="https://instagram.com/">[usuario]</a></li>
-    </ul>
+  <section class="escribinos" aria-labelledby="escribinos-titulo">
+    <div class="cabeza-cierre" data-revelar>
+      <p class="antetitulo">Contacto</p>
+      <h2 id="escribinos-titulo">Escribinos</h2>
+    </div>
+    <p class="bajada" data-revelar style="--retraso: 0.08s">
+      Para consultar fechas o cualquier duda, escribinos por WhatsApp: te responde la familia.
+    </p>
+    <a
+      class="boton"
+      href={whatsappUrl('¡Hola! Quería hacer una consulta sobre las cabañas.')}
+      data-revelar="detalle"
+      style="--retraso: 0.15s"
+    >
+      Escribinos por WhatsApp
+    </a>
   </section>
 </Base>
 
 <script>
   import '../scripts/revelar';
+  import '../scripts/lightbox';
 
   // Copiar la dirección con un toque, con un "Copiado" que se va solo.
   // El botón solo aparece si el navegador permite copiar.
@@ -102,8 +162,9 @@ const cerca = [
 </script>
 
 <style>
-  /* ---------- Fuera del eje: todo a la izquierda ---------- */
   section {
+    --linea: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+
     text-align: start;
   }
 
@@ -111,35 +172,51 @@ const cerca = [
     margin-inline: 0;
   }
 
-  .antetitulo {
-    font-size: var(--step--1);
-    letter-spacing: 0.2em;
+  /* Etiqueta: la letra de la nav */
+  .antetitulo,
+  dt {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
     text-transform: uppercase;
+  }
+
+  h1.antetitulo {
     color: var(--color-primary);
   }
 
-  .encabezado {
-    padding-block-end: 0;
+  /* ---------- La apertura: la dirección y el Uritorco ---------- */
+  .apertura {
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl);
   }
 
-  .encabezado h1 {
-    font-weight: 300;
+  .donde {
+    display: grid;
+    align-content: end;
+    gap: var(--space-l);
   }
 
-  /* ---------- Dónde estamos ---------- */
   address {
     display: grid;
+    gap: var(--space-s);
     font-style: normal;
-    font-family: var(--font-display);
-    font-size: var(--step-4);
-    font-weight: 300;
-    line-height: 1.1;
   }
 
-  .localidad {
-    font-size: var(--step-1);
-    color: var(--color-primary);
-    margin-block-start: var(--space-2xs);
+  .calle {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 1.4rem + 6.4vw, 7.5rem);
+    line-height: 0.92;
+    color: var(--color-text);
+  }
+
+  .zona {
+    font-size: var(--step-0);
+    color: color-mix(in srgb, var(--color-text) 80%, transparent);
   }
 
   .acciones {
@@ -147,119 +224,187 @@ const cerca = [
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-s);
-    margin-block-start: var(--space-m);
-  }
-
-  .boton,
-  .copiar {
-    display: inline-block;
-    padding: var(--space-xs) var(--space-l);
-    border-radius: 999px;
-    font: inherit;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .boton {
-    background: var(--color-primary);
-    color: var(--color-on-color);
-    border: 0;
-  }
-
-  .boton:hover {
-    background: var(--color-deep);
-  }
-
-  .copiar {
-    background: transparent;
-    color: var(--color-primary);
-    border: 1px solid currentColor;
   }
 
   .aviso {
-    color: var(--color-primary);
-    font-family: var(--font-display);
-    font-style: italic;
-  }
-
-  /* ---------- Cómo llegar ---------- */
-  .llegar dl {
-    display: grid;
-    gap: var(--space-3xs) var(--space-l);
-    max-width: 48rem;
-  }
-
-  .llegar dt {
     font-family: var(--font-display);
     font-size: var(--step-1);
-    margin-block-start: var(--space-s);
+    font-style: italic;
+    color: var(--color-primary);
   }
 
-  @media (width >= 40rem) {
-    .llegar dl {
-      grid-template-columns: 14rem 1fr;
-      align-items: baseline;
+  .portada {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .portada :global(picture),
+  .portada :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (width >= 48rem) {
+    .apertura {
+      grid-template-columns: 1fr minmax(0, 34vw);
+      align-items: end;
+      gap: var(--space-2xl);
+      padding-block: var(--space-2xl) var(--space-3xl);
     }
 
-    .llegar dt {
-      margin-block-start: 0;
+    .portada {
+      aspect-ratio: auto;
+      height: min(51vw, calc(100svh - 8rem)); /* 2:3 del ancho, sin pasarse de la pantalla */
     }
   }
 
-  /* ---------- Qué hay cerca: un sendero ---------- */
-  .sendero {
-    --nudo: 0.75rem;
+  /* ---------- Los botones: bloques rectos, como en las cabañas ---------- */
+  .boton {
+    display: inline-block;
+    padding: 1.1rem 2rem;
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-on-color);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 0.6s ease,
+      border-color 0.6s ease,
+      color 0.6s ease;
+  }
 
-    position: relative;
+  .boton:hover,
+  .boton:focus-visible {
+    border-color: var(--color-deep);
+    background: var(--color-deep);
+  }
+
+  /* El secundario: solo el contorno; al pasar, se llena */
+  .boton.linea {
+    border-color: color-mix(in srgb, var(--color-text) 30%, transparent);
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  .boton.linea:hover,
+  .boton.linea:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-on-color);
+  }
+
+  /* ---------- Cómo llegar y qué hay cerca: filas entre reglas finas ---------- */
+  .bloque {
+    padding-block: var(--space-2xl);
+  }
+
+  .cabeza {
     display: grid;
-    gap: var(--space-l);
-    max-width: 40rem;
-    margin: var(--space-l) 0 0;
-    padding: 0 0 0 var(--space-xl);
+    align-items: end;
+    gap: var(--space-2xs) var(--space-m);
+    padding-block-end: var(--space-m);
+    border-block-end: var(--linea);
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-text);
+  }
+
+  .bajada {
+    max-width: 30rem;
+  }
+
+  @media (width >= 64rem) {
+    .cabeza {
+      grid-template-columns: 1fr minmax(0, 24rem);
+    }
+
+    .cabeza .bajada {
+      padding-block-end: 0.4rem;
+    }
+  }
+
+  .filas,
+  .lugares {
+    margin: 0;
+    padding: 0;
     list-style: none;
   }
 
-  /* La línea punteada del camino */
-  .sendero::before {
-    content: '';
-    position: absolute;
-    inset-block: 0.6em 0.6em;
-    left: calc(var(--nudo) / 2);
-    border-left: 1.5px dashed color-mix(in srgb, var(--color-text) 35%, transparent);
-  }
-
-  .sendero li {
-    position: relative;
-  }
-
-  /* Un nudo por lugar */
-  .sendero li::before {
-    content: '';
-    position: absolute;
-    left: calc(-1 * var(--space-xl));
-    top: 0.55em;
-    width: var(--nudo);
-    height: var(--nudo);
-    border-radius: 50%;
-    background: var(--color-bg);
-    border: 1.5px solid var(--color-primary);
-  }
-
-  .sendero h3 {
-    font-size: var(--step-2);
-  }
-
-  .sendero p {
-    margin-block-start: var(--space-3xs);
-  }
-
-  /* ---------- Escribinos ---------- */
-  .contacto > * + * {
-    margin-block-start: var(--space-m);
-  }
-
-  .canales {
+  .fila,
+  .lugar {
     display: grid;
-    gap: var(--space-3xs);
+    gap: var(--space-2xs) var(--space-xl);
+    padding-block: var(--space-m);
+    border-block-end: var(--linea);
+  }
+
+  dd,
+  .lugar p {
+    max-width: 40rem;
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .lugar h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.2rem + 1.4vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--color-text);
+  }
+
+  @media (width >= 48rem) {
+    .fila {
+      grid-template-columns: minmax(0, 16rem) 1fr;
+      align-items: baseline;
+    }
+
+    .lugar {
+      grid-template-columns: minmax(0, 22rem) 1fr;
+      align-items: baseline;
+      padding-block: var(--space-l);
+    }
+  }
+
+  /* ---------- Escribinos: el cierre, como "Cómo reservar" ---------- */
+  .escribinos {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-l);
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+
+  .cabeza-cierre {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .escribinos h2 {
+    font-size: clamp(2.8rem, 1.4rem + 4.4vw, 5.5rem);
+    line-height: 0.95;
+    color: var(--color-primary);
+  }
+
+  @media (width < 40rem) {
+    .acciones .boton,
+    .escribinos .boton {
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>

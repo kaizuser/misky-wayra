@@ -139,7 +139,13 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - Each group is one `[data-galeria]` for PhotoSwipe; slow zoom on hover.
 - Photos in `src/assets/galeria/` (18 of the 22 garden/pool shots + the cover; Jardin_01 and Pileta_04 are already in Sumac's carousel, Jardin_07 repeats Jardin_06). No "Las vistas" group: only Jardin_11 shows the Uritorco well, so it opens La pileta.
 
-**Ubicación y contacto, 404:** use `Franja` and the footer but still have the old aesthetic (to be redone, backlog). Ubicación = address big + Google Maps link + copy-address button, Cómo llegar, Qué hay cerca (placeholders), Escribinos. 404 = "Te perdiste en el monte", path forking to both houses.
+**Ubicación y contacto (redone Nov 12, 2026):** same language as the Galería.
+- **Opening:** h1 "Ubicación y contacto" as a small olive label, the street huge in Instrument Serif ("Los Alazanes 1077"), "Barrio Valentí · Capilla del Monte · Córdoba", then square buttons "Abrir en Google Maps" (filled) and "Copiar la dirección" (outline, fills on hover; only shown if the clipboard API exists; "Copiado" status). Next to it, the tall Uritorco photo (Jardin_11, `prioridad`). Phones: stacked, full-width buttons.
+- **Cómo llegar** and **Qué hay cerca:** big serif head over a thin rule, then rows between thin rules (label in small caps or place name in serif on the left, text on the right; stacked on phones).
+- **Escribinos:** closing like "Cómo reservar": label, big olive "Escribinos", one line, WhatsApp button. Phone and Instagram are not repeated here (the footer has the socials).
+- **Texts to confirm with the family:** RN 38 / ~110 km / ~2 h from Córdoba, direct buses to Capilla's terminal, Uritorco "the highest of the Sierras Chicas" and ~3 h ascent, Los Terrones "on the way to Ongamira", Ongamira "half an hour by car". Written conservatively; no distances from the cottages.
+
+**404:** uses `Franja` and the footer but still has the old aesthetic (forked dashed path): to be redone.
 
 ### Nav (`Franja.astro` + `scripts/franja.ts`), on every page
 - A thin full-width strip (~42px) right under the hero (at the top on pages without one): cottages on the left, compact emblem centered (3.2rem), Galería / Ubicación y contacto on the right, small uppercase Instrument Sans.
@@ -247,7 +253,7 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 10. Backlog
 
 **Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
-1. **Ubicación y contacto and 404** in the editorial style.
+1. **404** in the editorial style.
 2. **Lighthouse audit** (performance, accessibility) on home and cottage pages; cap the JPG fallback `<Picture>` generates.
 3. **Color grade** proposal for the HDR photos.
 4. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
