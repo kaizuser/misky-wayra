@@ -115,9 +115,32 @@ import { SITIO } from '../config';
     opacity: 0.6;
   }
 
+  /* Celular: una sola columna centrada (emblema, nombre, línea, redes, firma) */
   @media (width < 40rem) {
+    .pie {
+      text-align: center;
+    }
+
+    .fila,
+    .marca {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .fila {
+      gap: var(--space-m);
+    }
+
+    .marca {
+      gap: var(--space-s);
+    }
+
     .emblema {
       width: 4rem;
+    }
+
+    .redes {
+      justify-content: center;
     }
   }
 </style>

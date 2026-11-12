@@ -23,7 +23,9 @@ const links = [
   { href: ruta('/galeria/'), texto: 'Galería' },
   { href: ruta('/ubicacion-y-contacto/'), texto: 'Ubicación y contacto' },
 ];
-const whatsapp = whatsappUrl('Hola! Quería consultar disponibilidad en las cabañas');
+// En la página de una cabaña, "Consultar" ya pregunta por esa casa
+const casa = links.slice(0, 2).find((l) => aqui === l.href)?.texto;
+const whatsapp = whatsappUrl(`¡Hola! Quería consultar disponibilidad en ${casa ?? 'las cabañas'}`);
 ---
 
 <div class="franja-nav">

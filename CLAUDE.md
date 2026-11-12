@@ -157,7 +157,7 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - `aria-current="page"` from `Astro.url.pathname`.
 
 ### Footer (`Pie.astro`) and home closing (`Elegir.astro`)
-- Footer: a closing, not a menu (no page links). Compact single row on sand: full-color emblem (5.5rem), "Misky Wayra" in the nav's type, "Dos casas de adobe frente al Uritorco. Te esperamos.", social links (`SITIO.redes`, Instagram placeholder), "© year · Capilla del Monte, Córdoba". A dark footer with link columns was rejected as corporate.
+- Footer: a closing, not a menu (no page links). Phones: one centered column (emblem, name, line, Instagram, © line). Desktop: compact single row on sand: full-color emblem (5.5rem), "Misky Wayra" in the nav's type, "Dos casas de adobe frente al Uritorco. Te esperamos.", social links (`SITIO.redes`, Instagram @misky.wayra), "© year · Capilla del Monte, Córdoba". A dark footer with link columns was rejected as corporate.
 - Elegir: "Dos casas, un mismo parque / Elegí la tuya.", both houses side by side (stacked on phones): 4:5 photo, meaning · guests · m², name in the house color, "Conocer la casa →".
 
 ### Shared behavior
@@ -177,6 +177,7 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - **Misky Wayra:** adobe, 80 m², 2 bedrooms (king + two singles), full kitchen with electric oven, living-dining with TV, WiFi and streaming, Ñuke salamandra + heaters, gallery with country table and barbecue, independent entrance, covered parking, alarm, bedding and towels. 4–5 guests.
 - **Sumac Mayu:** adobe, 140 m², 3 bedrooms (one king, two with singles), full kitchen, living-dining with TV, WiFi and streaming, salamandra, 50 m² playroom under the dome, pergola, barbecue, small greenhouse, independent entrance, covered parking, alarm, bedding and towels. Up to 6 guests.
 - Booking: 40% deposit by transfer, rest on arrival (official exchange rate of the day); DNI and address for the invoice. **No prices on the site.**
+- **WhatsApp (Nov 12, 2026): every button goes to the father's number, +54 9 3548 57-5161** (`SITIO.whatsapp = '5493548575161'`; the mother's number is not used, the developer's call). JSON-LD now includes `telephone`. On a cottage page the strip's mobile "Consultar" asks about that house. Instagram: **@misky.wayra**.
 - **WhatsApp format:** `https://wa.me/549` + area code without 0 + number without 15, `?text=` + `encodeURIComponent(...)`.
 
 ---
@@ -221,7 +222,8 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 - **Responsive:** mobile-first from 360px; most traffic comes from WhatsApp/Instagram links.
 - **Privacy:** no cookies, no trackers.
 - **SEO in code:** title/description (schema: ≤ 60 / ≤ 160), canonical, Open Graph (1200×630 JPG via `getImage`; cottages use their hero), JSON-LD (`src/lib/datos.ts`; `telephone` only once the real WhatsApp number exists, `hayWhatsapp`), sitemap, `robots.txt.ts`, `trailingSlash: 'always'`.
-- **SEO outside code (highest impact):** Google Business Profile (start before the site is finished), reviews from every guest, Search Console once the domain exists, identical name/address/phone everywhere (Google, Booking, Airbnb — Sumac is "Misky Wayra II" there; must match).
+- **Google Business Profile exists** (Nov 12, 2026): 4.7 stars, 43 reviews, but categorized as a 3-star hotel: change the primary category to a cottage/cabin one ("Complejo de cabañas" or similar) and add the site's URL once the domain exists.
+- **SEO outside code (highest impact):** reviews from every guest, Search Console once the domain exists, identical name/address/phone everywhere (Google, Booking, Airbnb — Sumac is "Misky Wayra II" there; must match).
 - **Preview deploy:** GitHub Pages at https://kaizuser.github.io/misky-wayra/, built by `.github/workflows/vista-previa.yml` on every push to master (Node 24) with `SITIO_URL`, `SITIO_BASE=/misky-wayra`, `VISTA_PREVIA=1` (noindex + robots Disallow). Locally: `SITIO_URL=https://kaizuser.github.io SITIO_BASE=/misky-wayra VISTA_PREVIA=1 npm run build`. Final: a `.com.ar` domain (NIC Argentina), hosting to decide.
 
 ---
@@ -259,9 +261,9 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 
 **Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
 1. **Color grade** proposal for the HDR photos.
-2. Small details: mobile "Consultar" message per cottage, real OG images per page, review years.
+2. Real OG images per page (with the new photos).
 
-**Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`); WhatsApp number, phone, Instagram username; years for the Daniela and Juan Pedro reviews; confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
+**Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`) and the confirmation of the Ubicación texts (on their way); confirm beds (Sumac 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
 **Later / ideas:**
 - Home story with both houses (Misky first, then Sumac, the park, the surroundings).

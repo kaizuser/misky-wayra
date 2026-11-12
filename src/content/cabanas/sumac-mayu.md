@@ -59,7 +59,7 @@ resenas:
       La casa es mágica! Está ubicada en un lugar increíble, tiene una energía única y fue muy
       agradable alojarnos.
     nombre: Daniela
-    fecha: Abril
+    fecha: Abril de 2026
     fuente: Airbnb
   - texto: >-
       Excelente lugar, tal como lo muestran las fotos. Todo nuevo e impecable. Los colchones de
@@ -71,7 +71,7 @@ resenas:
       Excelente experiencia, la casa es espectacular, está bien equipada y tiene un jardín y unas
       vistas hermosas. De la atención nada que decir, José un fenómeno.
     nombre: Juan Pedro
-    fecha: Septiembre
+    fecha: Septiembre de 2026
     fuente: Airbnb
 
 recorrido:

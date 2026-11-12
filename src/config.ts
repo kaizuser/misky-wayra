@@ -5,15 +5,15 @@ const provincia = 'Córdoba';
 
 export const SITIO = {
   nombre: 'Misky Wayra',
-  whatsapp: '549XXXXXXXXXX', // provisorio: sin el número real no se publica en los datos para Google
+  whatsapp: '5493548575161', // el papá: todos los botones de WhatsApp van a este número
   calle,
   barrio,
   ciudad,
   provincia,
   direccion: `${calle}, ${barrio}`,
   localidad: `${ciudad}, ${provincia}`,
-  /** Redes del pie. Provisorio: cargar las cuentas reales (las vacías no se muestran) */
-  redes: [{ nombre: 'Instagram', url: 'https://instagram.com/' }],
+  /** Redes del pie */
+  redes: [{ nombre: 'Instagram', url: 'https://www.instagram.com/misky.wayra/' }],
 };
 
 /** El número ya está cargado (no es el provisorio) */
