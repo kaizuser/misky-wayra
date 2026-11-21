@@ -2,8 +2,8 @@
 /**
  * El inicio: el relato. La casa a pantalla completa, la franja de navegación y la historia de
  * las cabañas contada con fotos (Secciones: trío, cinco, cruz, escalones, notas).
- * Por ahora con el contenido de Sumac; cuando estén las fotos y los textos, cuenta las dos casas:
- * cómo empezó todo en Misky Wayra, cómo llegó Sumac Mayu, el parque y los alrededores.
+ * Por ahora con el contenido de Sumaq; cuando estén las fotos y los textos, cuenta las dos casas:
+ * cómo empezó todo en Misky Wayra, cómo llegó Sumaq Mayu, el parque y los alrededores.
  */
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
@@ -32,7 +32,7 @@ const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b
     foto={{
       src: hero,
       vertical: heroVertical,
-      alt: 'El parque de Misky Wayra: Sumac Mayu entre los algarrobos, el fogón y la pileta',
+      alt: 'El parque de Misky Wayra: Sumaq Mayu entre los algarrobos, el fogón y la pileta',
       encuadre: '33% 60%',
     }}
     transicion="hero-inicio"

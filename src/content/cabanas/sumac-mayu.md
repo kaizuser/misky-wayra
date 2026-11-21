@@ -1,16 +1,16 @@
 ---
-nombre: Sumac Mayu
+nombre: Sumaq Mayu
 significado: Río hermoso
 tema: mayu
 orden: 1
-seoTitle: Sumac Mayu, cabaña de adobe en Capilla del Monte
+seoTitle: Sumaq Mayu, cabaña de adobe en Capilla del Monte
 seoDescription: Casa de adobe de 140 m² con cúpula y ventanal en arco, para hasta 6 personas. Tres dormitorios, playroom y parque con vista a los cerros.
 frase: Una casa de adobe de formas suaves, con cúpula y un gran ventanal en arco.
 
 foto:
   src: ../../assets/cabanas/sumac-mayu/hero.jpg
   vertical: ../../assets/cabanas/sumac-mayu/hero-vertical.jpg
-  alt: Sumac Mayu, casa de adobe con cúpula, torre, alero ondulado y un gran ventanal en arco, detrás de flores violetas
+  alt: Sumaq Mayu, casa de adobe con cúpula, torre, alero ondulado y un gran ventanal en arco, detrás de flores violetas
   encuadre: 55% 50%
 
 datos:
@@ -82,42 +82,42 @@ recorrido:
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac-frente-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
-        alt: "Sumac Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
+        alt: "Sumaq Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
       - src: ../../assets/cabanas/sumac-mayu/sumac-entrada-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
-        alt: "La entrada de atrás de Sumac Mayu, bajo la cúpula, con su alero de hierro"
+        alt: "La entrada de atrás de Sumaq Mayu, bajo la cúpula, con su alero de hierro"
       - src: ../../assets/cabanas/sumac-mayu/sumac-rosas.jpg
-        alt: "Sumac Mayu y la pileta entre rosas rojas y un farol"
+        alt: "Sumaq Mayu y la pileta entre rosas rojas y un farol"
       - src: ../../assets/cabanas/sumac-mayu/sumac-flores.jpg
-        alt: "Sumac Mayu detrás de un colchón de flores amarillas"
+        alt: "Sumaq Mayu detrás de un colchón de flores amarillas"
       - src: ../../assets/cabanas/sumac-mayu/sumac-ventanal-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-ventanal.jpg
         alt: "El ventanal en arco de cerca, con el jazmín y los canteros de flores"
       - src: ../../assets/cabanas/sumac-mayu/sumac-pileta-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-pileta.jpg
-        alt: "Sumac Mayu con la pileta adelante"
+        alt: "Sumaq Mayu con la pileta adelante"
 
   - titulo: El living comedor
     texto: >-
       Un living comedor amplio, con la salamandra en un nicho de adobe.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_06.jpg
-        alt: "El comedor de Sumac Mayu: mesa para seis bajo las vigas de madera y nichos en arco"
+        alt: "El comedor de Sumaq Mayu: mesa para seis bajo las vigas de madera y nichos en arco"
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_02.jpg
-        alt: "La salamandra de Sumac Mayu dentro de un nicho de adobe en arco"
+        alt: "La salamandra de Sumaq Mayu dentro de un nicho de adobe en arco"
       - src: ../../assets/cabanas/sumac-mayu/sumac_detalle_lampara_01.jpg
         alt: "Lámpara de hierro y cristales colgando de las vigas del living"
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_05.jpg
-        alt: "El living de Sumac Mayu con paredes de adobe y la puerta de madera"
+        alt: "El living de Sumaq Mayu con paredes de adobe y la puerta de madera"
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_01.jpg
-        alt: "El comedor de Sumac Mayu con la luz entrando por la ventana del fondo"
+        alt: "El comedor de Sumaq Mayu con la luz entrando por la ventana del fondo"
 
   - titulo: La cocina
     texto: >-
       Completa, con barra y banquetas de madera.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_07.jpg
-        alt: "La cocina de Sumac Mayu con la barra y dos banquetas de madera"
+        alt: "La cocina de Sumaq Mayu con la barra y dos banquetas de madera"
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_05.jpg
         alt: "Cocina a gas con horno junto a la barra y un tronco del techo"
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_06.jpg
@@ -132,20 +132,20 @@ recorrido:
       El playroom, arriba, bajo la cúpula: cincuenta metros cuadrados con sillones.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_escalera_01.jpg
-        alt: "La escalera de madera que sube a la cúpula de Sumac Mayu"
+        alt: "La escalera de madera que sube a la cúpula de Sumaq Mayu"
       - src: ../../assets/cabanas/sumac-mayu/sumac_living_04.jpg
         alt: "El playroom bajo la cúpula, con sillones, alfombra y televisor"
       - src: ../../assets/cabanas/sumac-mayu/sumac_living_01.jpg
-        alt: "El playroom de Sumac Mayu: mueble blanco, televisor y piso de madera"
+        alt: "El playroom de Sumaq Mayu: mueble blanco, televisor y piso de madera"
       - src: ../../assets/cabanas/sumac-mayu/sumac_living_03.jpg
-        alt: "La cúpula de Sumac Mayu con la ventana en arco y la baranda de la escalera"
+        alt: "La cúpula de Sumaq Mayu con la ventana en arco y la baranda de la escalera"
 
   - titulo: Los dormitorios
     texto: >-
       Tres dormitorios: uno con cama king size y dos con camas de una plaza.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_dormitorio_10.jpg
-        alt: "Dormitorio principal de Sumac Mayu con cama king size y luz de la tarde"
+        alt: "Dormitorio principal de Sumaq Mayu con cama king size y luz de la tarde"
       - src: ../../assets/cabanas/sumac-mayu/sumac_dormitorio_12.jpg
         alt: "Ventana del dormitorio con vista al Cerro Uritorco y la pileta"
       - src: ../../assets/cabanas/sumac-mayu/sumac_dormitorio_13.jpg
@@ -164,7 +164,7 @@ recorrido:
       De adobe, con mesada de piedra y un espejo ondulado.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_bano_01.jpg
-        alt: "El baño de Sumac Mayu con ducha, mesada y botellas de colores en la pared"
+        alt: "El baño de Sumaq Mayu con ducha, mesada y botellas de colores en la pared"
       - src: ../../assets/cabanas/sumac-mayu/sumac_bano_02.jpg
         alt: "Espejo de marco ondulado sobre la mesada del baño"
       - src: ../../assets/cabanas/sumac-mayu/sumac_bano_03.jpg

@@ -3,7 +3,7 @@
  * Cuenta el lugar en tres partes, con las fotos de cámara de los exteriores (noviembre de 2026).
  * Solo fotos tomadas en vertical: las cajas de las composiciones son verticales, y una horizontal
  * pierde casi la mitad de su ancho (queda un pedazo que no se entiende).
- * Misky Wayra, donde empezó todo (trío) → Sumac Mayu, la que vino después (cinco, con su nombre
+ * Misky Wayra, donde empezó todo (trío) → Sumaq Mayu, la que vino después (cinco, con su nombre
  * como titular en escalera) → el parque y los cerros (cruz, con el texto de cierre).
  * Textos de la familia (noviembre de 2026).
  */
@@ -22,7 +22,7 @@ import parquePileta from '../assets/home/relato/parque-pileta.jpg';
 
 export const principal = {
   frase:
-    'Desde lo profundo del Valle de Punilla, los invitamos a descubrir nuestro pequeño proyecto: Misky Wayra y Sumac Mayu, dos eco\u2011cabañas pensadas para conectar con la naturaleza en las sierras cordobesas.',
+    'Desde lo profundo del Valle de Punilla, los invitamos a descubrir nuestro pequeño proyecto: Misky Wayra y Sumaq Mayu, dos eco\u2011cabañas pensadas para conectar con la naturaleza en las sierras cordobesas.',
   texto:
     'Todo comienza con un simple designio: escapar de la caótica ciudad y empezar una nueva vida en la montaña. Menos ostentosa, quizás, pero más plena en lo que verdaderamente importa.',
 };
@@ -60,32 +60,32 @@ export const paradas = [
       estilo: 'centrada' as const,
       titulo: 'Construir con adobe es, en cierto sentido, construir con el propio paisaje',
       subtitulo:
-        'Ambas casas están hechas de adobe, retomando una tradición arquitectónica precolombina. Esta técnica tiene excelentes propiedades térmicas, logrando que las cabañas sean frescas en verano y cálidas durante el invierno. A la hora de levantar los cimientos de Sumac Mayu, decidimos utilizar neumáticos para darle una base firme y sólida.',
+        'Ambas casas están hechas de adobe, retomando una tradición arquitectónica precolombina. Esta técnica tiene excelentes propiedades térmicas, logrando que las cabañas sean frescas en verano y cálidas durante el invierno. A la hora de levantar los cimientos de Sumaq Mayu, decidimos utilizar neumáticos para darle una base firme y sólida.',
     },
     fotos: [
       {
         src: sumacCupula,
-        alt: 'La cúpula de Sumac Mayu sobre la entrada de atrás, con su alero de hierro',
+        alt: 'La cúpula de Sumaq Mayu sobre la entrada de atrás, con su alero de hierro',
         encuadre: '50% 50%',
       },
       {
         src: sumacFollaje,
-        alt: 'El ventanal de Sumac Mayu entre las ramas y las flores del jardín',
+        alt: 'El ventanal de Sumaq Mayu entre las ramas y las flores del jardín',
         encuadre: '50% 50%',
       },
       {
         src: sumacVentanal,
-        alt: 'El gran ventanal de Sumac Mayu con el jazmín trepando, sobre un cantero de flores',
+        alt: 'El gran ventanal de Sumaq Mayu con el jazmín trepando, sobre un cantero de flores',
         encuadre: '50% 50%',
       },
       {
         src: sumacFrutas,
-        alt: 'Frutos verdes en una rama, con Sumac Mayu y la pileta desenfocadas detrás',
+        alt: 'Frutos verdes en una rama, con Sumaq Mayu y la pileta desenfocadas detrás',
         encuadre: '50% 50%',
       },
       {
         src: sumacCamino,
-        alt: 'El camino de piedras por el pasto hacia Sumac Mayu y la pileta',
+        alt: 'El camino de piedras por el pasto hacia Sumaq Mayu y la pileta',
         encuadre: '50% 60%',
       },
     ],
@@ -118,7 +118,7 @@ export const paradas = [
       },
       {
         src: parqueAlgarrobos,
-        alt: 'Los algarrobos del parque, con Misky Wayra a un lado y Sumac Mayu al fondo',
+        alt: 'Los algarrobos del parque, con Misky Wayra a un lado y Sumaq Mayu al fondo',
         encuadre: '50% 50%',
       },
     ],

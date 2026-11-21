@@ -22,31 +22,31 @@ const foto = (nombre: string, alt: string) => ({ src: archivos[`../assets/galeri
 /** Texto alternativo de cada foto */
 const alts: Record<string, string> = {
   // La sesión de noviembre (cámara, día nublado)
-  'parque-sumac': 'El parque con Sumac Mayu entre los algarrobos, el fogón y la pileta al fondo',
+  'parque-sumac': 'El parque con Sumaq Mayu entre los algarrobos, el fogón y la pileta al fondo',
   'pileta-simetrica': 'La pileta con los escalones de piedra y la pérgola del deck al fondo',
   'parque-flores': 'Flores amarillas silvestres en el pasto del parque',
-  'fogon-glorieta': 'La glorieta de hierro cubierta de plantas, con sillones, frente a Sumac Mayu',
+  'fogon-glorieta': 'La glorieta de hierro cubierta de plantas, con sillones, frente a Sumaq Mayu',
   'parque-tunas': 'El camino de ladrillo hacia Misky Wayra, entre dos grandes tunas',
   'pileta-cerro': 'La pileta y el parque, con el Cerro Uritorco detrás',
   'fogon-sillones': 'Sillones bajo la glorieta de hierro, a la sombra de un olivo',
-  'pileta-sumac': 'La pileta con Sumac Mayu detrás',
-  'parque-ventanal': 'El ventanal de Sumac Mayu entre las ramas y las flores del jardín',
-  'fogon-rosas': 'El fogón de piedra, un farol y rosas rojas, con Sumac Mayu y la pileta detrás',
+  'pileta-sumac': 'La pileta con Sumaq Mayu detrás',
+  'parque-ventanal': 'El ventanal de Sumaq Mayu entre las ramas y las flores del jardín',
+  'fogon-rosas': 'El fogón de piedra, un farol y rosas rojas, con Sumaq Mayu y la pileta detrás',
   'pileta-flores': 'La pileta y el deck vistos entre flores',
-  'parque-frutas': 'Frutos verdes en una rama, con Sumac Mayu desenfocada detrás',
-  'fogon-brasero': 'El brasero y la parrilla junto a la glorieta, al lado de Sumac Mayu',
-  'pileta-ventanal': 'El ventanal de Sumac Mayu y la glorieta, desde el borde de la pileta',
+  'parque-frutas': 'Frutos verdes en una rama, con Sumaq Mayu desenfocada detrás',
+  'fogon-brasero': 'El brasero y la parrilla junto a la glorieta, al lado de Sumaq Mayu',
+  'pileta-ventanal': 'El ventanal de Sumaq Mayu y la glorieta, desde el borde de la pileta',
   // La primera entrega (con sol, más cálidas; 1080 px)
   deck_01: 'Reposeras sobre el deck, bajo una pérgola, junto a la pileta',
   fogon_01: 'El fogón rodeado de piedras, bajo un árbol grande',
   fogon_02: 'El fogón con bancos de madera y hierro sobre el ripio, con la pileta al fondo',
   jardin_02: 'La parrilla y un brasero bajo los árboles, junto a una glorieta de hierro',
-  jardin_03: 'Rosas rojas en primer plano y Sumac Mayu desenfocada al fondo, junto a la pileta',
-  jardin_04: 'Flores lilas en primer plano y la cúpula de Sumac Mayu desenfocada detrás de los árboles',
+  jardin_03: 'Rosas rojas en primer plano y Sumaq Mayu desenfocada al fondo, junto a la pileta',
+  jardin_04: 'Flores lilas en primer plano y la cúpula de Sumaq Mayu desenfocada detrás de los árboles',
   jardin_05: 'Flores rojas y el tronco de un árbol en primer plano, con la pileta al fondo',
   jardin_06: 'Flores lilas frente a la pileta, con las sierras al fondo',
-  jardin_08: 'Pérgola de hierro en arco sobre el pasto, con Sumac Mayu al fondo',
-  jardin_09: 'Sumac Mayu entre los árboles del parque, con flores lilas en primer plano',
+  jardin_08: 'Pérgola de hierro en arco sobre el pasto, con Sumaq Mayu al fondo',
+  jardin_09: 'Sumaq Mayu entre los árboles del parque, con flores lilas en primer plano',
   jardin_10: 'Sillones bajo una pérgola cubierta de plantas',
   jardin_11: 'El Cerro Uritorco detrás de la pileta y su muro de piedra',
   jardin_12: 'Sendero de piedras entre el pasto y los canteros con flores, a la sombra de los árboles del parque',
@@ -54,8 +54,8 @@ const alts: Record<string, string> = {
   jardin_14: 'Cantero con un agave, flores y piedras, con el tanque de agua detrás',
   jardin_15: 'Agaves y flores bajo los árboles, junto a un portón de madera',
   pileta_01: 'La pileta y el deck de madera con sillones, bajo una pérgola',
-  pileta_02: 'La pileta con Sumac Mayu detrás',
-  pileta_03: 'Un sillón de madera en el deck junto a la pileta, con Sumac Mayu de fondo',
+  pileta_02: 'La pileta con Sumaq Mayu detrás',
+  pileta_03: 'Un sillón de madera en el deck junto a la pileta, con Sumaq Mayu de fondo',
 };
 
 // Mosaico armado a mano: tres columnas de 11 fotos (8 verticales y 3 horizontales cada una, así
@@ -107,14 +107,15 @@ const columnas = indices.map((col, c) => ({
               const vertical = f.src.height > f.src.width;
               return (
                 <figure
-                  class:list={['foto', vertical ? 'vertical' : 'horizontal', i % 2 ? 'izquierda' : 'derecha']}
+                  class:list={['foto', vertical ? 'vertical' : 'horizontal']}
                   style={`aspect-ratio: ${f.src.width} / ${f.src.height}; order: ${i}`}
                   data-revelar="foto"
                 >
                   <Ampliable
                     foto={f}
-                    widths={[400, 550, 700, 1000, 1200]}
-                    sizes={`(min-width: 72rem) 23rem, (min-width: 48rem) 30vw, ${vertical ? '78vw' : 'calc(100vw - 2rem)'}`}
+                    widths={vertical ? [400, 550, 700, 1000, 1200] : [400, 550, 700, 1000, 1200, 1600, 2000]}
+                    // En el celular todas van 4:5: una horizontal se ve al ~1.9× del ancho de la caja
+                    sizes={`(min-width: 72rem) 23rem, (min-width: 48rem) 30vw, ${vertical ? 'calc(100vw - 2rem)' : 'calc((100vw - 2rem) * 1.9)'}`}
                   />
                 </figure>
               );
@@ -145,8 +146,8 @@ const columnas = indices.map((col, c) => ({
 
   /* ---------- El mosaico ----------
      Escritorio: tres columnas armadas en el build, con el mismo espacio en las dos direcciones.
-     Celular: una sola columna en el orden original (las columnas se disuelven y `order` ordena):
-     horizontales a todo el ancho, verticales al 78% alternando el lado. */
+     Celular: una sola columna en el orden original (las columnas se disuelven y `order` ordena),
+     todas las fotos a todo el ancho y del mismo tamaño. */
   .mosaico {
     --hueco: clamp(1rem, 2.2vw, 2rem);
 
@@ -169,12 +170,12 @@ const columnas = indices.map((col, c) => ({
     background: var(--color-surface);
   }
 
-  .foto.vertical {
-    width: 78%;
-  }
-
-  .foto.vertical.derecha {
-    align-self: flex-end;
+  /* Celular: todas del mismo tamaño al bajar (4:5, como los carruseles de las cabañas); al
+     tocarla, cada una se abre entera, con su proporción */
+  @media (width < 48rem) {
+    .foto {
+      aspect-ratio: 4 / 5 !important;
+    }
   }
 
   @media (width >= 48rem) {
@@ -194,11 +195,7 @@ const columnas = indices.map((col, c) => ({
       min-width: 0;
     }
 
-    .foto,
-    .foto.vertical,
-    .foto.vertical.derecha {
-      width: auto;
-      align-self: stretch;
+    .foto {
       order: 0 !important;
     }
   }

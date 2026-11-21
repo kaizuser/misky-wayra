@@ -18,7 +18,7 @@ const aqui = Astro.url.pathname;
 const actual = (href: string) => (aqui === href ? 'page' : undefined);
 
 const links = [
-  { href: ruta('/cabanas/sumac-mayu/'), texto: 'Sumac Mayu', tema: 'mayu' },
+  { href: ruta('/cabanas/sumac-mayu/'), texto: 'Sumaq Mayu', tema: 'mayu' },
   { href: ruta('/cabanas/misky-wayra/'), texto: 'Misky Wayra', tema: 'wayra' },
   { href: ruta('/galeria/'), texto: 'Galería' },
   { href: ruta('/ubicacion-y-contacto/'), texto: 'Ubicación y contacto' },
@@ -32,7 +32,7 @@ const whatsapp = whatsappUrl(`¡Hola! Quería consultar disponibilidad en ${casa
   <nav class="barra" aria-label="Principal">
     <button class="solo-celular abrir" type="button" popovertarget="menu-franja">Menú</button>
     <div class="lado">
-      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>Sumac Mayu</a>
+      <a href={ruta('/cabanas/sumac-mayu/')} data-theme="mayu" aria-current={actual(ruta('/cabanas/sumac-mayu/'))}>Sumaq Mayu</a>
       <a href={ruta('/cabanas/misky-wayra/')} data-theme="wayra" aria-current={actual(ruta('/cabanas/misky-wayra/'))}>Misky Wayra</a>
     </div>
     <a class="marca" href={ruta('/')} aria-label="Misky Wayra, inicio">

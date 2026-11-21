@@ -12,7 +12,7 @@ interface Props {
   title: string;
   description: string;
   theme?: 'wayra' | 'mayu';
-  /** foto de la vista previa al compartir el link (WhatsApp, Instagram); por defecto, la fachada de Sumac */
+  /** foto de la vista previa al compartir el link (WhatsApp, Instagram); por defecto, la fachada de Sumaq */
   imagen?: { src: ImageMetadata; alt: string };
   /** páginas que no van a Google (por ejemplo, la futura "Tu llegada") */
   noindex?: boolean;
@@ -24,7 +24,7 @@ const {
   title,
   description,
   theme,
-  imagen = { src: fotoPorDefecto, alt: 'Fachada de Sumac Mayu, casa de adobe con cúpula y ventanal en arco' },
+  imagen = { src: fotoPorDefecto, alt: 'Fachada de Sumaq Mayu, casa de adobe con cúpula y ventanal en arco' },
   noindex = false,
   jsonLd,
 } = Astro.props;
