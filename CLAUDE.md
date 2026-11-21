@@ -108,7 +108,7 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 **Home (`index.astro`) = the story told with photos:** `CabanaHero` (brand name, "Capilla del Monte · Córdoba", pool/deck/Uritorco photo) → `Franja` → `Secciones` (content from `src/data/relato.ts`) → `Elegir` → footer. It currently uses Sumac's photos and lorem text; it will tell both houses (it started in Misky, then Sumac, the park, the surroundings) once texts and photos are chosen.
 
 **`Secciones` (the home story):**
-- **Main text:** a big centered phrase in Instrument Serif (house color) + a small paragraph, triggered entrance.
+- **Main text:** a big centered phrase in Instrument Serif (house color) + a small paragraph, triggered entrance. **Desktop (Nov 21, 2026): a statement that fills the screen** (min-height 100svh minus the strip, vertically centered, phrase `min(7.4vw, 10rem)`, paragraph one step up); phones unchanged. Re-check the size when the real text arrives (lorem fills 4 lines).
 - **Compositions** (`disposicion` per parada), all built on an 80vw scale breaking out of the content axis, gray placeholders until photos exist:
   - `trio`: three tall 2:3 photos at staggered heights, slightly overlapping; scroll-scrubbed and reversible (shared view timeline `--trio`): they open outward and upward.
   - `cinco`: five 4:5 photos, three on top, two below centered on the gaps; staggered triggered entrance.
@@ -120,7 +120,7 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 - Reference font is OT Miniature (OffType, commercial); Instrument Serif stands in. If a web license is bought, self-host it and change `--font-display`/`--font-principal`.
 
 **Cottage pages (`cabanas/[slug].astro`) are informative:** visitors there are comparing and deciding. Same structure for both:
-1. `CabanaHero` (`100svh`; parallax: photo `translateY` 0 → 33% and scale 1.06 → 1 over the first screen, text fades out; static in Firefox/reduced motion) + `Franja`.
+1. `CabanaHero` (`100svh` on every screen; a leftover from the old thumb bar made it 6rem shorter on phones until Nov 21; parallax: photo `translateY` 0 → 33% and scale 1.06 → 1 over the first screen, text fades out; static in Firefox/reduced motion) + `Franja`.
 2. **De un vistazo** (`Ficha`; on phones less air above and a tighter label, the nav already separates it from the hero): surface, guests, bedrooms, beds as big serif figures between thin rules; amenities grouped Adentro / Afuera / Incluido (`equipamiento`; falls back to `comodidades`).
 3. **One carousel per room** (`Ambientes`, fed by `recorrido`): number + name, counter ("1–2 / 6" on desktop) and square arrows over a thin rule. Native scroll-snap (`scroll-snap-stop: always`); JS only for arrows and counter. **Exactly two 4:5 photos on desktop, exactly one on phones**, symmetric margins (`--margen`). Tap opens PhotoSwipe. A room with a single photo shows it centered. Gray placeholders only when a room has no photos.
    - Sumac: La casa · El living comedor · La cocina · La cúpula (the playroom under the dome) · Los dormitorios · El baño.

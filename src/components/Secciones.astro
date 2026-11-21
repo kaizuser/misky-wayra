@@ -208,6 +208,27 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     color: color-mix(in srgb, var(--color-text) 85%, transparent);
   }
 
+  /* Escritorio: el texto principal es una declaración, ocupa la pantalla entera (menos la franja
+     de la nav, que va justo arriba) y la frase crece con el ancho */
+  @media (width >= 64rem) {
+    .principal {
+      min-height: calc(100svh - 3rem);
+      align-content: center;
+      gap: var(--space-2xl);
+    }
+
+    .frase {
+      max-width: 13em;
+      font-size: min(7.4vw, 10rem);
+      line-height: 0.95;
+    }
+
+    .texto {
+      max-width: 46ch;
+      font-size: var(--step-1);
+    }
+  }
+
   /* La entrada se dispara al aparecer en pantalla (data-revelar, scripts/revelar.ts):
      primero la frase y un instante después el texto. Se repite cada vez que se vuelve a pasar. */
   .texto { --retraso: 0.15s; }
