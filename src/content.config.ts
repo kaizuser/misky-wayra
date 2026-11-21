@@ -45,7 +45,9 @@ const cabanas = defineCollection({
         z.object({
           titulo: z.string(),
           texto: z.string().optional(),
-          fotos: z.array(foto).default([]),
+          /** `src` es lo que se ve en el carrusel; `completa`, la foto entera que se abre en grande
+              (para las horizontales: el carrusel muestra su recorte 4:5) */
+          fotos: z.array(foto.extend({ completa: image().optional() })).default([]),
         }),
       ),
     });

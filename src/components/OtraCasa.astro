@@ -5,7 +5,7 @@
  * nombre en la serif y un "Conocer" en mayúsculas chicas. Toda la pieza es el link.
  * Toma el tema (color) de la otra casa.
  */
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { ruta } from '../lib/rutas';
 
@@ -14,10 +14,25 @@ interface Props {
   nombre: string;
   significado: string;
   tema: 'mayu' | 'wayra';
-  foto: { src: ImageMetadata; alt: string; encuadre: string };
+  foto: { src: ImageMetadata; alt: string; encuadre: string; vertical?: ImageMetadata };
 }
 
 const { id, nombre, significado, tema, foto } = Astro.props;
+
+// En el celular la caja es 4:5: con la foto horizontal se veía una franja agrandada (borrosa).
+// Ahí va el recorte vertical del hero.
+const vertical = foto.vertical
+  ? await Promise.all(
+      (['avif', 'webp'] as const).map(async (format) => ({
+        type: `image/${format}`,
+        srcset: (
+          await Promise.all([480, 720, 960, 1200].map((width) => getImage({ src: foto.vertical!, width, format })))
+        )
+          .map((img) => `${img.src} ${img.attributes.width}w`)
+          .join(', '),
+      })),
+    )
+  : [];
 ---
 
 <aside class="otra" data-theme={tema} aria-label="La otra casa">
@@ -29,7 +44,19 @@ const { id, nombre, significado, tema, foto } = Astro.props;
         formats={['avif', 'webp']}
         widths={[800, 1400, 2000]}
         sizes="(min-width: 72rem) 72rem, 100vw"
+        pictureAttributes={{ class: 'horizontal' }}
       />
+      {
+        // Astro no permite <source> con media en <Picture>: se suma la versión del celular adelante
+        vertical.length > 0 && (
+          <picture class="vertical">
+            {vertical.map((v) => (
+              <source type={v.type} srcset={v.srcset} sizes="calc(100vw - 2rem)" />
+            ))}
+            <img src={vertical[1].srcset.split(' ')[0]} alt={foto.alt} loading="lazy" decoding="async" />
+          </picture>
+        )
+      }
     </figure>
     <div class="texto" data-revelar style="--retraso: 0.15s">
       <p class="antetitulo">La otra casa · {significado}</p>
@@ -114,6 +141,21 @@ const { id, nombre, significado, tema, foto } = Astro.props;
 
   .tarjeta:hover .conocer {
     color: var(--color-primary);
+  }
+
+  /* Una sola de las dos versiones a la vez (son lazy: la que no se ve no se descarga) */
+  figure :global(.vertical) {
+    display: none;
+  }
+
+  @media (width < 40rem) {
+    figure :global(.horizontal) {
+      display: none;
+    }
+
+    figure :global(.vertical) {
+      display: block;
+    }
   }
 
   @media (width < 40rem) {

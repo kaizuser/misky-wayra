@@ -1,16 +1,25 @@
 ---
 /**
  * Ubicación y contacto, en el lenguaje editorial del sitio.
- * Abre como la galería: la dirección grande (es lo que se viene a buscar) con los botones
- * para abrirla en el mapa o copiarla, y al lado la foto vertical del Uritorco. Después, cómo
+ * Abre con un hero a pantalla completa (las sierras desde el deck), como el inicio, las cabañas y
+ * la galería; debajo de la nav, la dirección grande con los botones para abrirla en el mapa o
+ * copiarla (decisión del desarrollador: en el celular queda a un scroll del hero). Después, cómo
  * llegar y qué hay cerca como filas entre reglas finas (como la ficha de las cabañas), y al
  * final un cierre para escribir por WhatsApp (como "Cómo reservar").
  */
 import Base from '../layouts/Base.astro';
 import Franja from '../components/Franja.astro';
-import Ampliable from '../components/Ampliable.astro';
+import CabanaHero from '../components/CabanaHero.astro';
 import { SITIO, mapsUrl, whatsappUrl } from '../config';
-import uritorco from '../assets/galeria/jardin_11.jpg';
+import hero from '../assets/ubicacion/hero.jpg';
+import heroVertical from '../assets/ubicacion/hero-vertical.jpg';
+
+const fotoHero = {
+  src: hero,
+  vertical: heroVertical,
+  alt: 'Las sierras detrás del monte, vistas desde el deck de madera de Misky Wayra',
+  encuadre: '40% 50%',
+};
 
 const llegar = [
   {
@@ -55,14 +64,22 @@ const cerca = [
 
 <Base
   title="Ubicación y contacto: Misky Wayra, Capilla del Monte"
+  imagen={fotoHero}
   description="Cómo llegar a Misky Wayra, en Barrio Valentí, Capilla del Monte, Córdoba. Qué hay cerca y cómo escribirnos por WhatsApp para consultar."
 >
+  <CabanaHero
+    nombre="Ubicación y contacto"
+    significado="Barrio Valentí · Capilla del Monte"
+    frase="Un parque de tres mil metros con vista a las sierras. Cómo llegar, qué hay cerca y cómo escribirnos."
+    foto={fotoHero}
+    transicion="hero-ubicacion"
+  />
   <Franja />
 
-  <!-- La dirección, grande, con la foto del Uritorco -->
+  <!-- La dirección, grande, con los botones -->
   <section class="apertura">
     <div class="donde">
-      <h1 class="antetitulo" data-revelar>Ubicación y contacto</h1>
+      <h2 class="antetitulo" data-revelar>Dónde estamos</h2>
       <address data-revelar style="--retraso: 0.08s">
         <span class="calle">{SITIO.calle}</span>
         <span class="zona">{SITIO.barrio} · {SITIO.ciudad} · {SITIO.provincia}</span>
@@ -74,14 +91,6 @@ const cerca = [
         </button>
         <span class="aviso" role="status"></span>
       </div>
-    </div>
-    <div class="portada" data-galeria data-revelar="foto">
-      <Ampliable
-        foto={{ src: uritorco, alt: 'El Cerro Uritorco detrás de la pileta y su muro de piedra' }}
-        widths={[500, 800]}
-        sizes="(min-width: 48rem) 34vw, 100vw"
-        prioridad
-      />
     </div>
   </section>
 
@@ -139,7 +148,6 @@ const cerca = [
 
 <script>
   import '../scripts/revelar';
-  import '../scripts/lightbox';
 
   // Copiar la dirección con un toque, con un "Copiado" que se va solo.
   // El botón solo aparece si el navegador permite copiar.
@@ -184,11 +192,11 @@ const cerca = [
     text-transform: uppercase;
   }
 
-  h1.antetitulo {
+  h2.antetitulo {
     color: var(--color-primary);
   }
 
-  /* ---------- La apertura: la dirección y el Uritorco ---------- */
+  /* ---------- La apertura: la dirección y los botones ---------- */
   .apertura {
     display: grid;
     gap: var(--space-xl);
@@ -233,31 +241,9 @@ const cerca = [
     color: var(--color-primary);
   }
 
-  .portada {
-    aspect-ratio: 2 / 3;
-    overflow: hidden;
-    background: var(--color-surface);
-  }
-
-  .portada :global(picture),
-  .portada :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   @media (width >= 48rem) {
     .apertura {
-      grid-template-columns: 1fr minmax(0, 34vw);
-      align-items: end;
-      gap: var(--space-2xl);
-      padding-block: var(--space-2xl) var(--space-3xl);
-    }
-
-    .portada {
-      aspect-ratio: auto;
-      height: min(51vw, calc(100svh - 8rem)); /* 2:3 del ancho, sin pasarse de la pantalla */
+      padding-block: var(--space-3xl);
     }
   }
 

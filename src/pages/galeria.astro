@@ -3,60 +3,56 @@
  * Galería de fotos: el parque, la pileta, el fogón y las pérgolas. Lo de adentro de cada casa
  * está en su página.
  *
- * Editorial, como los ambientes de las cabañas: cada grupo tiene su cabeza (número, nombre
- * grande, una línea) sobre una regla fina, y debajo sus fotos verticales en tres columnas
- * escalonadas (la del medio más baja, la de la derecha a mitad de camino), sin carrusel:
- * acá se viene a mirar todo. En el celular, una foto por fila con ritmo (ancha, angosta a la
- * derecha, angosta a la izquierda), para que cada una se aprecie sola. Tocar una foto la abre
- * en grande y se recorre el grupo con las flechas.
- * Abre con una foto grande y vertical al lado del título (todas las fotos son verticales).
+ * Abre con un hero a pantalla completa (como el inicio y las cabañas) y la nav debajo. Después,
+ * tres grupos con la cabeza de los ambientes (número, nombre grande, una línea, regla fina).
+ * Las fotos van **con su proporción natural, sin recortar**: hay verticales y horizontales, y
+ * meter una horizontal en una caja vertical deja un pedazo que no se entiende. En escritorio,
+ * tres columnas que se acomodan solas (cada una baja a su ritmo); en el celular, una por fila:
+ * las horizontales a todo el ancho y las verticales un poco más angostas, alternando el lado.
+ * Tocar una foto la abre en grande y se recorre el grupo con las flechas.
  */
 import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
+import CabanaHero from '../components/CabanaHero.astro';
 import Franja from '../components/Franja.astro';
 import Ampliable from '../components/Ampliable.astro';
+import hero from '../assets/galeria/hero.jpg';
+import heroVertical from '../assets/galeria/hero-vertical.jpg';
 
 const archivos = import.meta.glob<{ default: ImageMetadata }>('../assets/galeria/*.jpg', { eager: true });
 const foto = (nombre: string, alt: string) => ({ src: archivos[`../assets/galeria/${nombre}.jpg`].default, alt });
-
-/** La foto que abre la página: la más linda del parque */
-const portada = foto('jardin_03', 'Rosas rojas en primer plano y Sumac Mayu desenfocada al fondo, junto a la pileta');
 
 const grupos = [
   {
     titulo: 'El parque',
     texto: 'Tres mil metros de parque, con árboles frutales y nativos, flores y senderos entre las dos casas.',
     fotos: [
-      foto('jardin_12', 'Sendero de piedras entre el pasto y los canteros con flores, a la sombra de los árboles del parque'),
-      foto('jardin_09', 'Sumac Mayu entre los árboles del parque, con flores lilas en primer plano'),
-      foto('jardin_04', 'Flores lilas en primer plano y la cúpula de Sumac Mayu desenfocada detrás de los árboles'),
-      foto('jardin_05', 'Flores rojas y el tronco de un árbol en primer plano, con la pileta al fondo'),
-      foto('jardin_14', 'Cantero con un agave, flores y piedras, con el tanque de agua detrás'),
-      foto('jardin_15', 'Agaves y flores bajo los árboles, junto a un portón de madera'),
+      foto('parque-sumac', 'El parque con Sumac Mayu entre los algarrobos, el fogón y la pileta al fondo'),
+      foto('parque-flores', 'Flores amarillas silvestres en el pasto del parque'),
+      foto('parque-tunas', 'El camino de ladrillo hacia Misky Wayra, entre dos grandes tunas'),
+      foto('parque-ventanal', 'El ventanal de Sumac Mayu entre las ramas y las flores del jardín'),
+      foto('parque-frutas', 'Frutos verdes en una rama, con Sumac Mayu desenfocada detrás'),
     ],
   },
   {
     titulo: 'La pileta',
-    texto: 'La pileta de temporada, con su muro de piedra, los decks y el Uritorco de fondo.',
+    texto: 'La pileta de temporada, con su escalera de piedra, el deck y los cerros de fondo.',
     fotos: [
-      foto('jardin_11', 'El Cerro Uritorco detrás de la pileta y su muro de piedra'),
-      foto('pileta_02', 'La pileta con Sumac Mayu detrás'),
-      foto('pileta_01', 'La pileta y el deck de madera con sillones, bajo una pérgola'),
-      foto('jardin_06', 'Flores lilas frente a la pileta, con las sierras al fondo'),
-      foto('pileta_03', 'Un sillón de madera en el deck junto a la pileta, con Sumac Mayu de fondo'),
-      foto('deck_01', 'Reposeras sobre el deck, bajo una pérgola, junto a la pileta'),
+      foto('pileta-simetrica', 'La pileta con los escalones de piedra y la pérgola del deck al fondo'),
+      foto('pileta-cerro', 'La pileta y el parque, con el Cerro Uritorco detrás'),
+      foto('pileta-sumac', 'La pileta con Sumac Mayu detrás'),
+      foto('pileta-flores', 'La pileta y el deck vistos entre flores'),
+      foto('pileta-ventanal', 'El ventanal de Sumac Mayu y la glorieta, desde el borde de la pileta'),
     ],
   },
   {
     titulo: 'El fogón y las pérgolas',
-    texto: 'El fogón con sus bancos, la parrilla y las pérgolas, para estar afuera a la sombra.',
+    texto: 'El fogón de piedra, la parrilla y las glorietas, para estar afuera a la sombra.',
     fotos: [
-      foto('fogon_02', 'El fogón con bancos de madera y hierro sobre el ripio, con la pileta al fondo'),
-      foto('jardin_08', 'Pérgola de hierro en arco sobre el pasto, con Sumac Mayu al fondo'),
-      foto('fogon_01', 'El fogón rodeado de piedras, bajo un árbol grande'),
-      foto('jardin_10', 'Sillones bajo una pérgola cubierta de plantas'),
-      foto('jardin_02', 'La parrilla y un brasero bajo los árboles, junto a una glorieta de hierro'),
-      foto('jardin_13', 'Sillones a la sombra de una glorieta de hierro con plantas'),
+      foto('fogon-rosas', 'El fogón de piedra, un farol y rosas rojas, con Sumac Mayu y la pileta detrás'),
+      foto('fogon-sillones', 'Sillones bajo la glorieta de hierro, a la sombra de un olivo'),
+      foto('fogon-glorieta', 'La glorieta de hierro cubierta de plantas, con sillones, frente a Sumac Mayu'),
+      foto('fogon-brasero', 'El brasero y la parrilla junto a la glorieta, al lado de Sumac Mayu'),
     ],
   },
 ];
@@ -65,45 +61,52 @@ const grupos = [
 <Base
   title="Galería de fotos: Misky Wayra, Capilla del Monte"
   description="Fotos del parque, la pileta, el fogón y las pérgolas de las cabañas Misky Wayra, frente al Uritorco en Capilla del Monte, Córdoba."
+  imagen={{ src: hero, alt: 'La pileta y el deck de Misky Wayra vistos entre flores' }}
 >
+  <CabanaHero
+    nombre="Galería"
+    significado="Misky Wayra · El parque"
+    frase="El parque, la pileta, el fogón y las pérgolas. Las casas por dentro están en la página de cada una."
+    foto={{ src: hero, vertical: heroVertical, alt: 'La pileta y el deck de Misky Wayra vistos entre flores', encuadre: '45% 55%' }}
+    transicion="hero-galeria"
+  />
   <Franja />
 
-  <section class="encabezado">
-    <div class="titulo">
-      <h1 data-revelar>Galería</h1>
-      <p class="intro" data-revelar style="--retraso: 0.08s">
-        El parque, la pileta, el fogón y las pérgolas. Las casas por dentro están en la página de cada una.
-      </p>
-    </div>
-    <div class="portada" data-galeria data-revelar="foto">
-      <Ampliable foto={portada} widths={[400, 550, 800, 1080]} sizes="(min-width: 48rem) 38vw, calc(100vw - 2rem)" prioridad />
-    </div>
-  </section>
-
   {
-    grupos.map((grupo, i) => (
-      <section class="grupo" aria-labelledby={`grupo-${i}`}>
-        <header class="cabeza" data-revelar>
-          <p class="numero">{String(i + 1).padStart(2, '0')}</p>
-          <h2 id={`grupo-${i}`}>{grupo.titulo}</h2>
-          <p class="texto">{grupo.texto}</p>
-        </header>
+    grupos.map((grupo, i) => {
+      let verticales = 0;
+      return (
+        <section class="grupo" aria-labelledby={`grupo-${i}`}>
+          <header class="cabeza" data-revelar>
+            <p class="numero">{String(i + 1).padStart(2, '0')}</p>
+            <h2 id={`grupo-${i}`}>{grupo.titulo}</h2>
+            <p class="texto">{grupo.texto}</p>
+          </header>
 
-        <ul class="fotos" data-galeria>
-          {grupo.fotos.map((f, j) => (
-            <li class="foto" data-revelar="foto" style={`--retraso: ${(j % 3) * 0.1}s`}>
-              <Ampliable
-                foto={f}
-                widths={[400, 550, 700, 1000, 1200]}
-                sizes={`(min-width: 72rem) 23rem, (min-width: 48rem) 30vw, ${j % 3 === 0 ? 'calc(100vw - 2rem)' : '72vw'}`}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
+          <ul class="fotos" data-galeria>
+            {grupo.fotos.map((f, j) => {
+              const vertical = f.src.height > f.src.width;
+              // En el celular, las verticales alternan de lado
+              const lado = vertical ? (verticales++ % 2 === 0 ? 'derecha' : 'izquierda') : '';
+              return (
+                <li
+                  class:list={['foto', vertical ? 'vertical' : 'horizontal', lado]}
+                  style={`aspect-ratio: ${f.src.width} / ${f.src.height}; --retraso: ${(j % 3) * 0.1}s`}
+                  data-revelar="foto"
+                >
+                  <Ampliable
+                    foto={f}
+                    widths={[400, 550, 700, 1000, 1200]}
+                    sizes={`(min-width: 72rem) 23rem, (min-width: 48rem) 30vw, ${vertical ? '78vw' : 'calc(100vw - 2rem)'}`}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
+    })
   }
-
 </Base>
 
 <script>
@@ -121,56 +124,6 @@ const grupos = [
 
   section :global(p) {
     margin-inline: 0;
-  }
-
-  /* ---------- El encabezado: el título contra la izquierda y la portada a la derecha ---------- */
-  .encabezado {
-    display: grid;
-    gap: var(--space-xl);
-    padding-block: var(--space-2xl);
-  }
-
-  .portada {
-    aspect-ratio: 2 / 3;
-    overflow: hidden;
-    background: var(--color-surface);
-  }
-
-  .portada :global(picture),
-  .portada :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Desktop: dos columnas, el título abajo a la izquierda, la foto alta a la derecha */
-  @media (width >= 48rem) {
-    .encabezado {
-      grid-template-columns: 1fr minmax(0, 38vw);
-      align-items: end;
-      gap: var(--space-2xl);
-      padding-block: var(--space-2xl) var(--space-3xl);
-    }
-
-    .portada {
-      max-height: calc(100svh - 8rem);
-      aspect-ratio: auto;
-      height: min(57vw, calc(100svh - 8rem)); /* 2:3 del ancho, sin pasarse de la pantalla */
-    }
-  }
-
-
-  h1 {
-    margin-block-start: var(--space-xs);
-    font-size: clamp(4rem, 2rem + 9vw, 10rem);
-    line-height: 0.9;
-    color: var(--color-text);
-  }
-
-  .intro {
-    margin-block-start: var(--space-l);
-    max-width: 34rem;
   }
 
   /* ---------- Cada grupo: la cabeza, como en los ambientes ---------- */
@@ -217,9 +170,9 @@ const grupos = [
     }
   }
 
-  /* ---------- Las fotos ----------
-     Celular: una por fila, con ritmo: ancha, angosta a la derecha, angosta a la izquierda.
-     Cada foto ocupa su pantalla y se aprecia sola. */
+  /* ---------- Las fotos, con su proporción natural ----------
+     Celular: una por fila; las horizontales a todo el ancho, las verticales al 78% y alternando
+     de lado (el ritmo de antes, sin recortar ninguna). */
   .fotos {
     display: grid;
     gap: var(--space-xl);
@@ -229,54 +182,33 @@ const grupos = [
   }
 
   .foto {
-    aspect-ratio: 2 / 3;
+    margin: 0;
     overflow: hidden;
     background: var(--color-surface);
   }
 
-  .foto:nth-child(3n + 2) {
-    width: 72%;
+  .foto.vertical {
+    width: 78%;
+  }
+
+  .foto.derecha {
     justify-self: end;
   }
 
-  .foto:nth-child(3n) {
-    width: 72%;
-    justify-self: start;
-  }
-
-  /* Desktop: tres columnas escalonadas, alineadas arriba (sin hueco bajo la regla).
-     La primera foto del medio es más alta (2:3.6) y la de la derecha un poco (2:3.3); el sobrante
-     no empuja la fila (margen negativo, en % del ancho), y las fotos siguientes de esas columnas
-     bajan lo mismo. Así el escalón queda solo abajo, donde se pierde en el espacio del grupo. */
+  /* Escritorio: tres columnas que se llenan de arriba a abajo; con verticales y horizontales
+     mezcladas, cada columna baja a su ritmo (el escalonado sale solo) */
   @media (width >= 48rem) {
     .fotos {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--space-2xl) clamp(1rem, 2.2vw, 2rem);
-      padding-block-end: 10%; /* % del ancho de la grilla: lo que baja la columna del medio (~30% de una foto) */
+      display: block;
+      columns: 3;
+      column-gap: clamp(1rem, 2.2vw, 2rem);
     }
 
-    .foto:nth-child(n) {
+    .foto,
+    .foto.vertical {
       width: auto;
-      justify-self: stretch;
-    }
-
-    .foto:nth-child(2) {
-      aspect-ratio: 2 / 3.6;
-      margin-block-end: -30%;
-    }
-
-    .foto:nth-child(3) {
-      aspect-ratio: 2 / 3.3;
-      margin-block-end: -15%;
-    }
-
-    /* 20% y 10% de su propia altura (1.5 × ancho) = 30% y 15% del ancho */
-    .foto:nth-child(3n + 2):not(:nth-child(2)) {
-      transform: translateY(20%);
-    }
-
-    .foto:nth-child(3n):not(:nth-child(3)) {
-      transform: translateY(10%);
+      margin-block-end: clamp(1rem, 2.2vw, 2rem);
+      break-inside: avoid;
     }
   }
 

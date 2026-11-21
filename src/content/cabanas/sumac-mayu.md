@@ -80,22 +80,22 @@ recorrido:
     texto: >-
       Adobe, piedra y un gran ventanal en arco.
     fotos:
-      - src: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
+      - src: ../../assets/cabanas/sumac-mayu/sumac-frente-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
         alt: "Sumac Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
-        encuadre: 55% 50%
-      - src: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
+      - src: ../../assets/cabanas/sumac-mayu/sumac-entrada-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
         alt: "La entrada de atrás de Sumac Mayu, bajo la cúpula, con su alero de hierro"
-        encuadre: 45% 50%
       - src: ../../assets/cabanas/sumac-mayu/sumac-rosas.jpg
         alt: "Sumac Mayu y la pileta entre rosas rojas y un farol"
       - src: ../../assets/cabanas/sumac-mayu/sumac-flores.jpg
         alt: "Sumac Mayu detrás de un colchón de flores amarillas"
-      - src: ../../assets/cabanas/sumac-mayu/sumac-ventanal.jpg
+      - src: ../../assets/cabanas/sumac-mayu/sumac-ventanal-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-ventanal.jpg
         alt: "El ventanal en arco de cerca, con el jazmín y los canteros de flores"
-        encuadre: 25% 50%
-      - src: ../../assets/cabanas/sumac-mayu/sumac-pileta.jpg
+      - src: ../../assets/cabanas/sumac-mayu/sumac-pileta-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-pileta.jpg
         alt: "Sumac Mayu con la pileta adelante"
-        encuadre: 35% 50%
 
   - titulo: El living comedor
     texto: >-

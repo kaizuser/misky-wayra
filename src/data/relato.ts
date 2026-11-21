@@ -1,21 +1,23 @@
 /**
  * El relato del inicio: el texto principal y las secciones de fotos (Secciones.astro).
- * Cuenta el lugar en tres partes, con las fotos de cámara de los exteriores (noviembre de 2026):
+ * Cuenta el lugar en tres partes, con las fotos de cámara de los exteriores (noviembre de 2026).
+ * Solo fotos tomadas en vertical: las cajas de las composiciones son verticales, y una horizontal
+ * pierde casi la mitad de su ancho (queda un pedazo que no se entiende).
  * Misky Wayra, donde empezó todo (trío) → Sumac Mayu, la que vino después (cinco, con su nombre
  * como titular en escalera) → el parque y los cerros (cruz, con el texto de cierre).
  * Los textos siguen en lorem ipsum hasta que lleguen los de la familia.
  */
 import miskyTunas from '../assets/home/relato/misky-tunas.jpg';
-import miskyFrente from '../assets/home/relato/misky-frente.jpg';
+import miskyCostado from '../assets/home/relato/misky-costado.jpg';
 import miskyJazmin from '../assets/home/relato/misky-jazmin.jpg';
 import sumacCupula from '../assets/home/relato/sumac-cupula.jpg';
 import sumacFollaje from '../assets/home/relato/sumac-follaje.jpg';
-import sumacAlero from '../assets/home/relato/sumac-alero.jpg';
 import sumacFrutas from '../assets/home/relato/sumac-frutas.jpg';
 import sumacVentanal from '../assets/home/relato/sumac-ventanal.jpg';
-import parqueCamino from '../assets/home/relato/parque-camino.jpg';
+import sumacCamino from '../assets/home/relato/sumac-camino.jpg';
 import parqueSierras from '../assets/home/relato/parque-sierras.jpg';
-import parqueFlores from '../assets/home/relato/parque-flores.jpg';
+import parqueFlores from '../assets/home/relato/parque-flores-naranjas.jpg';
+import parqueAlgarrobos from '../assets/home/relato/parque-algarrobos.jpg';
 import parquePileta from '../assets/home/relato/parque-pileta.jpg';
 
 export const principal = {
@@ -36,8 +38,8 @@ export const paradas = [
         encuadre: '50% 50%',
       },
       {
-        src: miskyFrente,
-        alt: 'Misky Wayra de frente: la casa redonda de techo verde, la pérgola de hierro y el camino de ladrillo',
+        src: miskyCostado,
+        alt: 'Misky Wayra de costado: la pared redonda de cal, el techo verde y un jazmín en flor',
         encuadre: '50% 50%',
       },
       {
@@ -70,9 +72,9 @@ export const paradas = [
         encuadre: '50% 50%',
       },
       {
-        src: sumacAlero,
-        alt: 'El alero ondulado de Sumac Mayu de cerca, con las ménsulas de madera y la base de piedra',
-        encuadre: '30% 50%',
+        src: sumacVentanal,
+        alt: 'El gran ventanal de Sumac Mayu con el jazmín trepando, sobre un cantero de flores',
+        encuadre: '50% 50%',
       },
       {
         src: sumacFrutas,
@@ -80,9 +82,9 @@ export const paradas = [
         encuadre: '50% 50%',
       },
       {
-        src: sumacVentanal,
-        alt: 'El gran ventanal de Sumac Mayu con el jazmín trepando, sobre un cantero de flores',
-        encuadre: '50% 50%',
+        src: sumacCamino,
+        alt: 'El camino de piedras por el pasto hacia Sumac Mayu y la pileta',
+        encuadre: '50% 60%',
       },
     ],
   },
@@ -98,23 +100,23 @@ export const paradas = [
     },
     fotos: [
       {
-        src: parqueCamino,
-        alt: 'El camino de piedras por el pasto hacia Sumac Mayu y la pileta',
-        encuadre: '50% 50%',
+        src: parquePileta,
+        alt: 'La pileta con los escalones de piedra y la pérgola del deck al fondo',
+        encuadre: '50% 55%',
       },
       {
         src: parqueSierras,
         alt: 'Las sierras detrás del monte, vistas desde el deck',
-        encuadre: '50% 55%',
+        encuadre: '50% 40%',
       },
       {
         src: parqueFlores,
-        alt: 'Flores amarillas silvestres en el pasto del parque',
-        encuadre: '50% 60%',
+        alt: 'Flores naranjas en primer plano, con el parque desenfocado detrás',
+        encuadre: '50% 40%',
       },
       {
-        src: parquePileta,
-        alt: 'La pileta con los escalones de piedra y la pérgola del deck al fondo',
+        src: parqueAlgarrobos,
+        alt: 'Los algarrobos del parque, con Misky Wayra a un lado y Sumac Mayu al fondo',
         encuadre: '50% 50%',
       },
     ],

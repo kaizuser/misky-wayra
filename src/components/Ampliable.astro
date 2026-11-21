@@ -12,7 +12,8 @@ import type { ImageMetadata } from 'astro';
 import 'photoswipe/style.css';
 
 interface Props {
-  foto?: { src: ImageMetadata; alt: string };
+  /** `completa`: la foto entera para verla en grande, si `src` es un recorte */
+  foto?: { src: ImageMetadata; alt: string; completa?: ImageMetadata };
   widths: number[];
   sizes: string;
   /** la foto principal de la página (LCP): se carga enseguida y con prioridad */
@@ -22,7 +23,12 @@ interface Props {
 const { foto, widths, sizes, prioridad = false } = Astro.props;
 
 const grande = foto
-  ? await getImage({ src: foto.src, width: Math.min(2048, foto.src.width), format: 'webp', quality: 82 })
+  ? await getImage({
+      src: foto.completa ?? foto.src,
+      width: Math.min(2048, (foto.completa ?? foto.src).width),
+      format: 'webp',
+      quality: 82,
+    })
   : null;
 
 // El gris de muestra: 4:5, para ver cómo se abre y se recorre sin fotos

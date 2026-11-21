@@ -24,9 +24,9 @@ const casas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.d
           data-theme={c.data.tema}
           style={`--retraso: ${i * 0.1}s`}
         >
-          <figure style={`--encuadre: ${c.data.foto.encuadre}`} data-revelar="foto">
+          <figure style={`--encuadre: ${c.data.foto.vertical ? '50% 50%' : c.data.foto.encuadre}`} data-revelar="foto">
             <Picture
-              src={c.data.foto.src}
+              src={c.data.foto.vertical ?? c.data.foto.src}
               alt={c.data.foto.alt}
               formats={['avif', 'webp']}
               widths={[600, 1000, 1200, 1400]}

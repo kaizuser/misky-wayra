@@ -80,21 +80,21 @@ recorrido:
     fotos:
       - src: ../../assets/cabanas/misky-wayra/misky-galeria.jpg
         alt: "La galería curva de Misky Wayra con la mesa de campo y las sillas de madera"
-      - src: ../../assets/cabanas/misky-wayra/misky-azulejos.jpg
+      - src: ../../assets/cabanas/misky-wayra/misky-azulejos-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-azulejos.jpg
         alt: "La pared de azulejos de la galería y la mesa, bajo la rama de un algarrobo"
-        encuadre: 40% 50%
-      - src: ../../assets/cabanas/misky-wayra/misky-parrilla.jpg
+      - src: ../../assets/cabanas/misky-wayra/misky-parrilla-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-parrilla.jpg
         alt: "La galería con la mesa de campo y la parrilla, frente al parque"
-        encuadre: 40% 50%
-      - src: ../../assets/cabanas/misky-wayra/misky-jazmin.jpg
+      - src: ../../assets/cabanas/misky-wayra/misky-jazmin-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-jazmin.jpg
         alt: "Misky Wayra de costado, con el jazmín trepando la galería"
-        encuadre: 45% 50%
-      - src: ../../assets/cabanas/misky-wayra/misky-arboles.jpg
+      - src: ../../assets/cabanas/misky-wayra/misky-arboles-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-arboles.jpg
         alt: "Misky Wayra entre los árboles del parque"
-        encuadre: 45% 50%
-      - src: ../../assets/cabanas/misky-wayra/misky-costado.jpg
+      - src: ../../assets/cabanas/misky-wayra/misky-costado-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-costado.jpg
         alt: "El camino de piedras al costado de Misky Wayra, entre agaves y flores"
-        encuadre: 35% 50%
 
   - titulo: El living comedor
     texto: >-
