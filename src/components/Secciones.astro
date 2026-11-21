@@ -23,6 +23,8 @@ interface Props {
     titulo: string;
     disposicion?: string;
     titular?: string;
+    /** dónde cortar el titular en escalera (si no, se corta solo) */
+    piezas?: string[];
     nota?: { titulo: string; subtitulo: string; estilo: 'centrada' | 'final' };
     fotos: Foto[];
   }[];
@@ -62,7 +64,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
       {parada.titular && (
         // La palabra como forma: entra de a un pedazo, como el texto principal
         <p class:list={['titular', parada.titular]} aria-hidden="true">
-          {pedazos(parada.titulo).map((pedazo, i) => (
+          {(parada.piezas ?? pedazos(parada.titulo)).map((pedazo, i) => (
             <span data-revelar style={`--i: ${i}; --retraso: ${(i * 0.12).toFixed(2)}s`}>
               {pedazo}
             </span>
@@ -145,7 +147,11 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
         // Texto corto debajo de las fotos: entra como el texto principal
         <div class:list={['nota', parada.nota.estilo]}>
           <p class="nota-titulo" data-revelar>{parada.nota.titulo}</p>
-          <p class="nota-subtitulo" data-revelar>{parada.nota.subtitulo}</p>
+          {parada.nota.subtitulo.split('\n\n').map((parrafo, i) => (
+            <p class="nota-subtitulo" data-revelar style={`--retraso: ${(0.15 + i * 0.1).toFixed(2)}s`}>
+              {parrafo}
+            </p>
+          ))}
         </div>
       )}
     </section>
@@ -197,13 +203,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     }
 
     .frase {
-      max-width: 13em;
-      font-size: min(7.4vw, 10rem);
-      line-height: 0.95;
+      max-width: 18em;
+      font-size: min(4.9vw, 6.5rem);
+      line-height: 1;
     }
 
     .texto {
-      max-width: 46ch;
+      max-width: 52ch;
       font-size: var(--step-1);
     }
   }
@@ -237,7 +243,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
   /* Pegado a la composición que presenta */
   .seccion:has(.cinco) .titular {
-    margin-block-end: var(--space-2xl); /* con dos palabras ("Sumac Mayu") el titular girado baja más */
+    margin-block-end: calc(var(--space-3xl) + var(--space-l)); /* el titular girado baja más de lo que mide: aire hasta las fotos */
   }
 
   .escalera span {
@@ -340,9 +346,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   .nota-subtitulo {
-    --retraso: 0.15s;
-
-    max-width: 46ch;
+    max-width: 56ch;
     margin: 0;
     font-size: var(--step-0);
     line-height: 1.6;
@@ -365,8 +369,8 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   .final .nota-titulo {
-    max-width: 7.5em;
-    font-size: clamp(3rem, 1.4rem + 5.2vw, 6.25rem);
+    max-width: 11em;
+    font-size: clamp(2.8rem, 1.3rem + 4.4vw, 5.5rem);
     line-height: 0.92;
     text-wrap: initial;
   }
@@ -374,6 +378,15 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   .final .nota-subtitulo {
     max-width: 40rem;
     line-height: 1.55;
+  }
+
+  /* Entre párrafos del subtítulo, menos aire que entre el título y el texto */
+  .nota-subtitulo + .nota-subtitulo {
+    margin-block-start: calc(var(--space-s) - var(--space-m));
+  }
+
+  .final .nota-subtitulo + .nota-subtitulo {
+    margin-block-start: calc(var(--space-s) - 3.5rem);
   }
 
   @media (width < 40rem) {
