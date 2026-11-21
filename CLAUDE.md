@@ -96,7 +96,7 @@ src/
 ├── pages/              index, cabanas/[slug], galeria, ubicacion-y-contacto, 404, robots.txt.ts
 ├── assets/             home/hero.jpg (home hero), home/hero-sumac.jpg (default OG image), cabanas/<slug>/*.jpg
 └── styles/             tokens.css → reset.css → global.css (import order matters)
-public/favicon.svg      compact emblem
+public/favicon.svg      compact emblem (favicon.ico = the same emblem, 16+32 px, generated from the svg; the Astro rocket was removed)
 ```
 
 Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
@@ -231,6 +231,8 @@ From the developer's `Frame.svg`: Sumac's body in a terracotta gradient, the dom
 ## 8. Photos
 
 - **Photo session delivered (Nov 12, 2026):** 95 edited JPGs from the family's photographer (zips in `fotos-drive-cabañas/`, extracted to `fotos-originales/drive/`, both gitignored): `Sumac` 41, `Misky` 32, `Jardin_y_Pileta` 22. All vertical **1080×1620 exports**, soft in full screen: **full resolution requested** (1707×2560 verticals / 2560×1707 horizontals, JPG 85–90 sRGB, same names). When they arrive, replace the files in `src/assets/cabanas/<slug>/` with the same names.
+- **Second delivery (Nov 13, 2026): "Redimensionadas"** (105 verticals 1707×2560 + 10 horizontals 2560×1707, renamed `1000567xxx.jpg` / `1100567xxx.jpg`, extracted to `fotos-originales/alta/`). The verticals were **upscaled in Photoshop from the 1080 exports**: no real new detail (measured: down-and-up-scaling loses about what an upscale of the old 1080 loses; 100% crops look the same), but a slightly more natural color and a bit crisper in full screen. The 10 horizontals are real, sharp and natural-colored. **`fotos-originales/alta/equivalencias.json`** maps every new name to its old name and where it's used (93 pairs, verified by eye on side-by-side sheets), lists the 12 new photos with no old equivalent, and the 2 old ones that didn't come (Sumac_bano_02, Sumac_dormitorio_13). Matching method: 24×36 greyscale fingerprints + visual check (crops/edits differ, the numbers alone misfire).
+- **Camera originals exist only for exteriors** (Nov 21, 2026; test file was a 6000×4000 Lightroom export from a Nikon NEF, natural edit). **Interiors stay as the Redimensionadas** (all 41 in-use interiors swapped on Nov 21, same file names, q88): slightly better color and full-screen than the 1080s; the carousels show ~1100 real px, which both versions cover.
 - Two edit styles: a newer warm, shallow-depth series (Sumac dormitorio_06–13, detalle_lampara, bano_03) is excellent; the rest (most of Misky) is saturated HDR with wide-angle distortion → one consistent, warmer, less saturated grade is pending.
 - In use: the cottage carousels (copied as-is, lowercase names). Best garden/pool picks for the home story and the Galería: Jardin_11 (Uritorco), Jardin_12, Jardin_08, Jardin_09, Pileta_01, Pileta_03, Fogon_02, Jardin_05.
 - Temporary heroes: home `src/assets/home/hero.jpg` (pool, deck and the Uritorco from Sumac's roof), Sumac `hero-sumac.jpg` (IMG_0389 frontal façade, also the default OG image), Misky `cabanas/misky-wayra/hero.jpg` (IMG_0416).
