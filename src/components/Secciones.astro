@@ -2,7 +2,7 @@
 /**
  * El relato del inicio: después del hero, el texto principal,
  * y una sección por parada que se cuenta con fotos, no con texto. Cada parada tiene su
- * composición (trío, cinco, fila, cruz, escalones, panorámica, par) y su propia forma de llegar al bajar.
+ * composición (trío, cinco, cruz; fila, panorámica y par sin construir) y su propia forma de llegar al bajar.
  * El título de cada sección queda para lectores de pantalla y buscadores.
  *
  * Las composiciones se construyen de a una; mientras tanto, las que faltan se ven como
@@ -31,7 +31,7 @@ interface Props {
 const { principal, paradas } = Astro.props;
 
 /** Cuántas fotos lleva cada composición */
-const cuantas: Record<string, number> = { trio: 3, cinco: 5, fila: 3, cruz: 4, escalones: 6, panoramica: 3, par: 2 };
+const cuantas: Record<string, number> = { trio: 3, cinco: 5, fila: 3, cruz: 4, panoramica: 3, par: 2 };
 
 /** El título expresivo en pedazos: palabras si hay varias; si es una, en tres partes ("Ad·en·tro") */
 function pedazos(titulo: string) {
@@ -119,27 +119,6 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
               </figure>
             );
           })}
-        </div>
-      ) : parada.disposicion === 'escalones' ? (
-        // Escalones: dos escaleras paralelas, pegadas, que bajan de derecha a izquierda por el
-        // centro. Cada escalón tiene dos fotos lado a lado (una de cada escalera).
-        <div class="escalones" data-galeria data-pista>
-          {[0, 1, 2].map((escalon) => (
-            <div class="escalon" style={`--i: ${escalon}`}>
-              {[0, 1].map((escalera) => {
-                const foto = parada.fotos[escalon * 2 + escalera];
-                return (
-                  <figure
-                    class:list={['foto', { pendiente: !foto }]}
-                    data-revelar
-                    style={`--retraso: ${escalera * 0.1}s${foto ? `; --encuadre: ${foto.encuadre}` : ''}`}
-                  >
-                    <Ampliable foto={foto} widths={[400, 700, 1000, 1200]} sizes="(min-width: 40rem) 22vw, calc(100vw - 2rem)" />
-                  </figure>
-                );
-              })}
-            </div>
-          ))}
         </div>
       ) : (
         <div class="composicion">
@@ -258,7 +237,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
   /* Pegado a la composición que presenta */
   .seccion:has(.cinco) .titular {
-    margin-block-end: var(--space-l);
+    margin-block-end: var(--space-2xl); /* con dos palabras ("Sumac Mayu") el titular girado baja más */
   }
 
   .escalera span {
@@ -494,53 +473,6 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
     background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
   }
 
-  /* ---------- Escalones: dos escaleras paralelas que bajan de derecha a izquierda ----------
-     Sobre el 80% del ancho: cada escalón es un par de fotos (22vw cada una, 4:5) con un
-     espacio chico entre ellas; cada escalón se corre a la izquierda y baja, del borde
-     derecho de la composición al izquierdo, así las dos escaleras pasan por el centro.
-     Va de derecha a izquierda porque el texto anterior está pegado a la izquierda: zigzag. */
-  .escalones {
-    --foto: 22vw;   /* ancho de cada foto */
-    --entre: 1.2vw; /* espacio entre las dos escaleras */
-    --ancho: 80vw;  /* ancho de la composición */
-
-    display: grid;
-    row-gap: var(--space-m);
-    width: var(--ancho);
-    margin-inline: calc((100% - var(--ancho)) / 2);
-  }
-
-  /* Cada escalón: el par de fotos; los tres recorren el ancho de borde a borde */
-  .escalon {
-    display: flex;
-    gap: var(--entre);
-    width: calc(2 * var(--foto) + var(--entre));
-    margin-inline-start: calc((2 - var(--i)) * (var(--ancho) - 2 * var(--foto) - var(--entre)) / 2);
-  }
-
-  .escalones .foto {
-    flex: 1;
-    aspect-ratio: 4 / 5;
-    margin: 0;
-    overflow: hidden;
-  }
-
-  .escalones :global(picture),
-  .escalones :global(img) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .escalones :global(img) {
-    object-fit: cover;
-    object-position: var(--encuadre, 50% 50%);
-  }
-
-  .escalones .pendiente {
-    background: color-mix(in srgb, var(--color-text) 16%, var(--color-bg));
-  }
-
   /* ---------- Las secciones de fotos (esqueleto provisorio) ---------- */
   .seccion {
     padding-block: var(--space-2xl);
@@ -573,8 +505,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   @media (width < 40rem) {
     .trio,
     .cinco,
-    .cruz,
-    .escalones {
+    .cruz {
       display: flex;
       justify-content: flex-start; /* el trío centra en desktop: acá cortaría la primera foto */
       gap: var(--space-s);
@@ -590,19 +521,13 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
     .trio::-webkit-scrollbar,
     .cinco::-webkit-scrollbar,
-    .cruz::-webkit-scrollbar,
-    .escalones::-webkit-scrollbar {
+    .cruz::-webkit-scrollbar {
       display: none;
-    }
-
-    .escalon {
-      display: contents;
     }
 
     .trio .foto,
     .cinco .foto,
-    .cruz .foto,
-    .escalones .foto {
+    .cruz .foto {
       flex: none;
       width: 100%;
       aspect-ratio: 4 / 5;
@@ -615,8 +540,7 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
 
     /* Las entradas disparadas no aplican adentro de un carrusel */
     :global(.revelar) .cinco .foto[data-revelar],
-    :global(.revelar) .cruz .foto[data-revelar],
-    :global(.revelar) .escalones .foto[data-revelar] {
+    :global(.revelar) .cruz .foto[data-revelar] {
       opacity: 1;
       translate: none;
       animation: none; /* las entradas ahora son animaciones (global.css): también se apagan */

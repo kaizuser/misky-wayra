@@ -20,7 +20,8 @@ const cabanas = defineCollection({
       seoTitle: z.string().max(60),
       seoDescription: z.string().max(160),
       frase: z.string(),
-      foto,
+      /** La foto del hero; `vertical`: su recorte 9:16 para celulares (solo baja lo que se ve) */
+      foto: foto.extend({ vertical: image().optional() }),
       datos: z.object({
         superficie: z.number(),
         huespedes: z.string(),

@@ -8,9 +8,10 @@ seoDescription: Casa de adobe de 140 m² con cúpula y ventanal en arco, para ha
 frase: Una casa de adobe de formas suaves, con cúpula y un gran ventanal en arco.
 
 foto:
-  src: ../../assets/home/hero-sumac.jpg
-  alt: Fachada de Sumac Mayu, casa de adobe con cúpula, alero ondulado y un gran ventanal en arco
-  encuadre: 42% 45%
+  src: ../../assets/cabanas/sumac-mayu/hero.jpg
+  vertical: ../../assets/cabanas/sumac-mayu/hero-vertical.jpg
+  alt: Sumac Mayu, casa de adobe con cúpula, torre, alero ondulado y un gran ventanal en arco, detrás de flores violetas
+  encuadre: 55% 50%
 
 datos:
   superficie: 140
@@ -79,14 +80,22 @@ recorrido:
     texto: >-
       Adobe, piedra y un gran ventanal en arco.
     fotos:
-      - src: ../../assets/cabanas/sumac-mayu/jardin_01.jpg
-        alt: "Fachada de Sumac Mayu con su gran ventanal en arco, enredaderas y el jardín"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_frente_01.jpg
-        alt: "Sumac Mayu de costado: el alero ondulado, la base de piedra y el sendero de cemento verde"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_frente_02.jpg
-        alt: "La entrada de Sumac Mayu, con el camino de ladrillo entre el pasto"
-      - src: ../../assets/cabanas/sumac-mayu/pileta_04.jpg
-        alt: "El ventanal en arco de Sumac Mayu de cerca, con jazmines y lavanda"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
+        alt: "Sumac Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
+        encuadre: 55% 50%
+      - src: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
+        alt: "La entrada de atrás de Sumac Mayu, bajo la cúpula, con su alero de hierro"
+        encuadre: 45% 50%
+      - src: ../../assets/cabanas/sumac-mayu/sumac-rosas.jpg
+        alt: "Sumac Mayu y la pileta entre rosas rojas y un farol"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-flores.jpg
+        alt: "Sumac Mayu detrás de un colchón de flores amarillas"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-ventanal.jpg
+        alt: "El ventanal en arco de cerca, con el jazmín y los canteros de flores"
+        encuadre: 25% 50%
+      - src: ../../assets/cabanas/sumac-mayu/sumac-pileta.jpg
+        alt: "Sumac Mayu con la pileta adelante"
+        encuadre: 35% 50%
 
   - titulo: El living comedor
     texto: >-

@@ -13,6 +13,7 @@ import Secciones from '../components/Secciones.astro';
 import Elegir from '../components/Elegir.astro';
 import { negocio } from '../lib/datos';
 import hero from '../assets/home/hero.jpg';
+import heroVertical from '../assets/home/hero-vertical.jpg';
 import { principal, paradas } from '../data/relato';
 
 const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b.data.orden);
@@ -30,8 +31,9 @@ const cabanas = (await getCollection('cabanas')).sort((a, b) => a.data.orden - b
     frase="Dos cabañas de adobe hechas a mano, en un parque frente al Uritorco."
     foto={{
       src: hero,
-      alt: 'El parque de Misky Wayra con la pileta, el deck y el Cerro Uritorco detrás',
-      encuadre: '50% 60%',
+      vertical: heroVertical,
+      alt: 'El parque de Misky Wayra: Sumac Mayu entre los algarrobos, el fogón y la pileta',
+      encuadre: '33% 60%',
     }}
     transicion="hero-inicio"
   />

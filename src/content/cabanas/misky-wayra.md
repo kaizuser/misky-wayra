@@ -7,11 +7,11 @@ seoTitle: La casa Misky Wayra, cabaña de adobe en Capilla del Monte
 seoDescription: La primera casa del complejo. Adobe, 80 m², dos dormitorios y galería con parrilla, para 4 o 5 personas, en un parque con vista a los cerros.
 frase: Donde empezó todo. Adobe, cal y un techo verde bajo los cerros.
 
-# Provisoria hasta la sesión de fotos
 foto:
   src: ../../assets/cabanas/misky-wayra/hero.jpg
-  alt: Misky Wayra, casa redonda de techo verde y paredes de cal, entre algarrobos, con las sierras detrás
-  encuadre: 60% 55%
+  vertical: ../../assets/cabanas/misky-wayra/hero-vertical.jpg
+  alt: Misky Wayra de frente, casa redonda de techo verde y paredes de cal, con la pérgola de hierro y el camino de ladrillo
+  encuadre: 50% 55%
 
 datos:
   superficie: 80
@@ -78,18 +78,23 @@ recorrido:
     texto: >-
       Una galería con mesa de campo y parrilla, rodeada de jazmines.
     fotos:
-      - src: ../../assets/cabanas/misky-wayra/misky_frente_01.jpg
-        alt: "El camino de ladrillo hacia Misky Wayra, bajo una pérgola de hierro"
-      - src: ../../assets/cabanas/misky-wayra/misky_galeria_01.jpg
-        alt: "La galería redonda de Misky Wayra con jazmín trepando la columna"
-      - src: ../../assets/cabanas/misky-wayra/misky_galeria_04.jpg
-        alt: "Jazmines en flor en la galería, con la mesa de campo detrás"
-      - src: ../../assets/cabanas/misky-wayra/misky_galeria_03.jpg
-        alt: "Mesa de campo con sillas de madera en la galería"
-      - src: ../../assets/cabanas/misky-wayra/misky_galeria_02.jpg
-        alt: "La mesa de campo de la galería, con el parque al fondo"
-      - src: ../../assets/cabanas/misky-wayra/misky_parrilla_01.jpg
-        alt: "La parrilla de Misky Wayra, frente a los árboles del parque"
+      - src: ../../assets/cabanas/misky-wayra/misky-galeria.jpg
+        alt: "La galería curva de Misky Wayra con la mesa de campo y las sillas de madera"
+      - src: ../../assets/cabanas/misky-wayra/misky-azulejos.jpg
+        alt: "La pared de azulejos de la galería y la mesa, bajo la rama de un algarrobo"
+        encuadre: 40% 50%
+      - src: ../../assets/cabanas/misky-wayra/misky-parrilla.jpg
+        alt: "La galería con la mesa de campo y la parrilla, frente al parque"
+        encuadre: 40% 50%
+      - src: ../../assets/cabanas/misky-wayra/misky-jazmin.jpg
+        alt: "Misky Wayra de costado, con el jazmín trepando la galería"
+        encuadre: 45% 50%
+      - src: ../../assets/cabanas/misky-wayra/misky-arboles.jpg
+        alt: "Misky Wayra entre los árboles del parque"
+        encuadre: 45% 50%
+      - src: ../../assets/cabanas/misky-wayra/misky-costado.jpg
+        alt: "El camino de piedras al costado de Misky Wayra, entre agaves y flores"
+        encuadre: 35% 50%
 
   - titulo: El living comedor
     texto: >-
