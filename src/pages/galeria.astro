@@ -19,37 +19,63 @@ import heroVertical from '../assets/galeria/hero-vertical.jpg';
 const archivos = import.meta.glob<{ default: ImageMetadata }>('../assets/galeria/*.jpg', { eager: true });
 const foto = (nombre: string, alt: string) => ({ src: archivos[`../assets/galeria/${nombre}.jpg`].default, alt });
 
-/** Todas las fotos, en el orden en que se recorren (mezclando parque, pileta y fogón) */
-const fotos = [
-  foto('parque-sumac', 'El parque con Sumac Mayu entre los algarrobos, el fogón y la pileta al fondo'),
-  foto('pileta-simetrica', 'La pileta con los escalones de piedra y la pérgola del deck al fondo'),
-  foto('parque-flores', 'Flores amarillas silvestres en el pasto del parque'),
-  foto('fogon-glorieta', 'La glorieta de hierro cubierta de plantas, con sillones, frente a Sumac Mayu'),
-  foto('parque-tunas', 'El camino de ladrillo hacia Misky Wayra, entre dos grandes tunas'),
-  foto('pileta-cerro', 'La pileta y el parque, con el Cerro Uritorco detrás'),
-  foto('fogon-sillones', 'Sillones bajo la glorieta de hierro, a la sombra de un olivo'),
-  foto('pileta-sumac', 'La pileta con Sumac Mayu detrás'),
-  foto('parque-ventanal', 'El ventanal de Sumac Mayu entre las ramas y las flores del jardín'),
-  foto('fogon-rosas', 'El fogón de piedra, un farol y rosas rojas, con Sumac Mayu y la pileta detrás'),
-  foto('pileta-flores', 'La pileta y el deck vistos entre flores'),
-  foto('parque-frutas', 'Frutos verdes en una rama, con Sumac Mayu desenfocada detrás'),
-  foto('fogon-brasero', 'El brasero y la parrilla junto a la glorieta, al lado de Sumac Mayu'),
-  foto('pileta-ventanal', 'El ventanal de Sumac Mayu y la glorieta, desde el borde de la pileta'),
+/** Texto alternativo de cada foto */
+const alts: Record<string, string> = {
+  // La sesión de noviembre (cámara, día nublado)
+  'parque-sumac': 'El parque con Sumac Mayu entre los algarrobos, el fogón y la pileta al fondo',
+  'pileta-simetrica': 'La pileta con los escalones de piedra y la pérgola del deck al fondo',
+  'parque-flores': 'Flores amarillas silvestres en el pasto del parque',
+  'fogon-glorieta': 'La glorieta de hierro cubierta de plantas, con sillones, frente a Sumac Mayu',
+  'parque-tunas': 'El camino de ladrillo hacia Misky Wayra, entre dos grandes tunas',
+  'pileta-cerro': 'La pileta y el parque, con el Cerro Uritorco detrás',
+  'fogon-sillones': 'Sillones bajo la glorieta de hierro, a la sombra de un olivo',
+  'pileta-sumac': 'La pileta con Sumac Mayu detrás',
+  'parque-ventanal': 'El ventanal de Sumac Mayu entre las ramas y las flores del jardín',
+  'fogon-rosas': 'El fogón de piedra, un farol y rosas rojas, con Sumac Mayu y la pileta detrás',
+  'pileta-flores': 'La pileta y el deck vistos entre flores',
+  'parque-frutas': 'Frutos verdes en una rama, con Sumac Mayu desenfocada detrás',
+  'fogon-brasero': 'El brasero y la parrilla junto a la glorieta, al lado de Sumac Mayu',
+  'pileta-ventanal': 'El ventanal de Sumac Mayu y la glorieta, desde el borde de la pileta',
+  // La primera entrega (con sol, más cálidas; 1080 px)
+  deck_01: 'Reposeras sobre el deck, bajo una pérgola, junto a la pileta',
+  fogon_01: 'El fogón rodeado de piedras, bajo un árbol grande',
+  fogon_02: 'El fogón con bancos de madera y hierro sobre el ripio, con la pileta al fondo',
+  jardin_02: 'La parrilla y un brasero bajo los árboles, junto a una glorieta de hierro',
+  jardin_03: 'Rosas rojas en primer plano y Sumac Mayu desenfocada al fondo, junto a la pileta',
+  jardin_04: 'Flores lilas en primer plano y la cúpula de Sumac Mayu desenfocada detrás de los árboles',
+  jardin_05: 'Flores rojas y el tronco de un árbol en primer plano, con la pileta al fondo',
+  jardin_06: 'Flores lilas frente a la pileta, con las sierras al fondo',
+  jardin_08: 'Pérgola de hierro en arco sobre el pasto, con Sumac Mayu al fondo',
+  jardin_09: 'Sumac Mayu entre los árboles del parque, con flores lilas en primer plano',
+  jardin_10: 'Sillones bajo una pérgola cubierta de plantas',
+  jardin_11: 'El Cerro Uritorco detrás de la pileta y su muro de piedra',
+  jardin_12: 'Sendero de piedras entre el pasto y los canteros con flores, a la sombra de los árboles del parque',
+  jardin_13: 'Sillones a la sombra de una glorieta de hierro con plantas',
+  jardin_14: 'Cantero con un agave, flores y piedras, con el tanque de agua detrás',
+  jardin_15: 'Agaves y flores bajo los árboles, junto a un portón de madera',
+  pileta_01: 'La pileta y el deck de madera con sillones, bajo una pérgola',
+  pileta_02: 'La pileta con Sumac Mayu detrás',
+  pileta_03: 'Un sillón de madera en el deck junto a la pileta, con Sumac Mayu de fondo',
+};
+
+// Mosaico armado a mano: tres columnas de 11 fotos (8 verticales y 3 horizontales cada una, así
+// miden casi lo mismo), con las horizontales a distinta altura en cada columna, y las fotos con
+// sol y las nubladas mezcladas para que ningún tono se agrupe. Si sobra diferencia, cada columna
+// se centra en la más alta (mitad del desfase arriba, mitad abajo).
+const disposicion = [
+  ['jardin_03', 'parque-flores', 'pileta-simetrica', 'jardin_12', 'jardin_09', 'fogon_01', 'fogon-rosas', 'jardin_14', 'jardin_06', 'parque-frutas', 'deck_01'],
+  ['pileta-sumac', 'jardin_11', 'jardin_08', 'parque-sumac', 'fogon-glorieta', 'jardin_04', 'pileta_03', 'jardin_13', 'parque-tunas', 'jardin_15', 'fogon-sillones'],
+  ['jardin_10', 'pileta_02', 'jardin_02', 'parque-ventanal', 'pileta-cerro', 'fogon_02', 'pileta-flores', 'fogon-brasero', 'pileta_01', 'jardin_05', 'pileta-ventanal'],
 ];
 
-// Mosaico armado a mano: casi todas las fotos son 2:3 o 3:2, así que ninguna combinación deja las
-// columnas parejas, y la que más se acerca apila horizontales (monótono). Las columnas alternan
-// verticales y horizontales; los costados miden lo mismo y el del medio es más alto: cada columna
-// se centra en la altura del medio (mitad del desfase arriba, mitad abajo), un escalonado simétrico.
-const porNombre = (n: string) => fotos.findIndex((f) => f.src.src.includes(`/${n}.`));
-const disposicion = [
-  ['parque-sumac', 'pileta-simetrica', 'fogon-sillones', 'fogon-rosas'],
-  ['pileta-sumac', 'parque-flores', 'fogon-glorieta', 'pileta-flores', 'parque-tunas'],
-  ['parque-ventanal', 'parque-frutas', 'pileta-cerro', 'fogon-brasero', 'pileta-ventanal'],
-];
+// El orden de recorrido (y el del celular): por filas, de izquierda a derecha
+const nombres = disposicion[0].flatMap((_, fila) => disposicion.map((col) => col[fila]));
+const fotos = nombres.map((n) => foto(n, alts[n]));
+const indice = (n: string) => nombres.indexOf(n);
+
 const HUECO = 0.075; // el espacio entre fotos, en anchos de columna (2rem sobre ~430px)
 const altoDe = (i: number) => fotos[i].src.height / fotos[i].src.width + HUECO;
-const indices = disposicion.map((col) => col.map(porNombre));
+const indices = disposicion.map((col) => col.map(indice));
 const altos = indices.map((col) => col.reduce((t, i) => t + altoDe(i), 0));
 const maximo = Math.max(...altos);
 const columnas = indices.map((col, c) => ({
