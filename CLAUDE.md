@@ -234,6 +234,7 @@ From the developer's `Frame.svg`: Sumaq's body in a terracotta gradient, the dom
 - In use: the cottage carousels (copied as-is, lowercase names). Best garden/pool picks for the home story and the Galería: Jardin_11 (Uritorco), Jardin_12, Jardin_08, Jardin_09, Pileta_01, Pileta_03, Fogon_02, Jardin_05.
 - Temporary heroes: home `src/assets/home/hero.jpg` (pool, deck and the Uritorco from Sumaq's roof), Sumaq `hero-sumac.jpg` (IMG_0389 frontal façade, also the default OG image), Misky `cabanas/misky-wayra/hero.jpg` (IMG_0416).
 - **Third delivery (Nov 21, 2026): 56 exterior camera originals** (Nikon, ~6000×4000, natural edit, one overcast day: very consistent), in `fotos-originales/exteriores/Misky Wayra exterior nuevas/`. **`fotos-originales/exteriores/seleccion.json`** maps each `src/assets` file to its original. Used: the three heroes, the home story (12), the two "La casa" carousels (6 + 6: Sumaq front/dome entrance/roses/yellow flowers/window/pool; Misky gallery/tiles/barbecue/jasmine/trees/side path). Watch out: **a blue pool hose is coiled on the deck in most pool shots** (3509, 3454, 3435 in the shade at the right): ask the photographer to remove it in Lightroom if a pool photo becomes prominent. Also 3529 (the entrance sign) shows the mother's phone number.
+- **Cleanup (Nov 21, 2026):** `fotos-originales/` keeps **only the originals of photos the site uses** (104: `alta/` 40 interiors, `drive/` 21 = the 19 sunny garden photos + Sumaq_bano_02 and Sumaq_dormitorio_13, `exteriores/` 43); 167 unused were deleted (486 MB), plus the old phone photos (`home/`, `cabanas/`) and the Drive zips. Each site photo was traced to its original (exteriores by `seleccion.json`, the rest by fingerprint, all matches < 8). The complete deliveries remain in the family's Drive. `equivalencias.json` and `seleccion.json` stay as the map.
 - Rules: start from originals (never WhatsApp copies); masters in `src/assets` ≤ 2560px (JPEG q88 via sharp; bigger files make `astro dev` slow); Astro generates AVIF/WebP. Remove distractions (hose, car, neighbors' roofs) where possible.
 
 ---
@@ -260,11 +261,11 @@ From the developer's `Frame.svg`: Sumaq's body in a terracotta gradient, the dom
 
 ## 10. Backlog
 
-**Next (agreed Nov 12, 2026, in this order unless the developer says otherwise):**
-1. **Color grade** proposal for the HDR photos.
-2. Real OG images per page (with the new photos).
+**State (Nov 21, 2026): the site is essentially done.** Final mobile Lighthouse: home 95, Sumaq 99, Misky 98, Galería 97, Ubicación 99 (accessibility, best practices and SEO 100 everywhere; CLS 0); 0 broken internal links; every page has its share image (the home uses Sumaq's façade).
 
-**Waiting on the family / photographer:** full-resolution photos; the home story texts (`src/data/relato.ts`) and the confirmation of the Ubicación texts (on their way); confirm beds (Sumaq 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
+**Next (the developer handles these):** remaining text changes; the `.com.ar` domain and final hosting (then drop `VISTA_PREVIA` so Google can index); Search Console + sitemap; Google profile category (hotel → cabins) and the site link. Optional: a redirect if the URL should say `sumaq-mayu`.
+
+**Waiting on the family:** the confirmation of the Ubicación texts (Cómo llegar, Qué hay cerca); confirm beds (Sumaq 1 king + 4 singles? Misky's 5th guest?), the streaming list, whether to show the 40% deposit step, and the names on Google/Booking/Airbnb.
 
 **Later / ideas:**
 - Home story with both houses (Misky first, then Sumaq, the park, the surroundings).
