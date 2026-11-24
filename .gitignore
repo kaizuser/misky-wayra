@@ -28,3 +28,7 @@ fotos-originales/
 
 # fotos del Drive tal como llegan (zips)
 fotos-drive-cabañas/
+
+# entregas de fotos tal como llegan y tableros de selección
+*.zip
+cambios/
