@@ -78,39 +78,39 @@ recorrido:
     texto: >-
       Una galería amplia con mesa de campo para ocho, parrilla propia y vista al parque.
     fotos:
-      - src: ../../assets/cabanas/misky-wayra/misky-galeria.jpg
-        alt: "La galería curva de Misky Wayra con la mesa de campo y las sillas de madera"
-      - src: ../../assets/cabanas/misky-wayra/misky-azulejos-4x5.jpg
-        completa: ../../assets/cabanas/misky-wayra/misky-azulejos.jpg
-        alt: "La pared de azulejos de la galería y la mesa, bajo la rama de un algarrobo"
-      - src: ../../assets/cabanas/misky-wayra/misky-parrilla-4x5.jpg
-        completa: ../../assets/cabanas/misky-wayra/misky-parrilla.jpg
-        alt: "La galería con la mesa de campo y la parrilla, frente al parque"
-      - src: ../../assets/cabanas/misky-wayra/misky-jazmin-4x5.jpg
-        completa: ../../assets/cabanas/misky-wayra/misky-jazmin.jpg
-        alt: "Misky Wayra de costado, con el jazmín trepando la galería"
-      - src: ../../assets/cabanas/misky-wayra/misky-arboles-4x5.jpg
-        completa: ../../assets/cabanas/misky-wayra/misky-arboles.jpg
-        alt: "Misky Wayra entre los árboles del parque"
-      - src: ../../assets/cabanas/misky-wayra/misky-costado-4x5.jpg
-        completa: ../../assets/cabanas/misky-wayra/misky-costado.jpg
-        alt: "El camino de piedras al costado de Misky Wayra, entre agaves y flores"
       - src: ../../assets/cabanas/misky-wayra/misky_frente_01.jpg
         alt: "El camino de ladrillo hacia la entrada de Misky Wayra, bajo la pérgola"
+      - src: ../../assets/cabanas/misky-wayra/misky-galeria.jpg
+        alt: "La galería curva de Misky Wayra con la mesa de campo y las sillas de madera"
       - src: ../../assets/cabanas/misky-wayra/misky-adobe-4x5.jpg
         completa: ../../assets/cabanas/misky-wayra/misky-adobe.jpg
         alt: "La casa redonda de adobe de Misky Wayra entre el parque, con un agave"
+      - src: ../../assets/cabanas/misky-wayra/misky-azulejos-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-azulejos.jpg
+        alt: "La pared de azulejos de la galería y la mesa, bajo la rama de un algarrobo"
       - src: ../../assets/cabanas/misky-wayra/misky-entrada-4x5.jpg
         completa: ../../assets/cabanas/misky-wayra/misky-entrada.jpg
         alt: "La entrada y la galería de Misky Wayra con el jazmín"
+      - src: ../../assets/cabanas/misky-wayra/misky-jazmin-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-jazmin.jpg
+        alt: "Misky Wayra de costado, con el jazmín trepando la galería"
       - src: ../../assets/cabanas/misky-wayra/misky_galeria_02.jpg
         alt: "La mesa de campo de la galería"
+      - src: ../../assets/cabanas/misky-wayra/misky-arboles-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-arboles.jpg
+        alt: "Misky Wayra entre los árboles del parque"
       - src: ../../assets/cabanas/misky-wayra/misky_galeria_04.jpg
         alt: "La galería enmarcada por un jazmín en flor"
+      - src: ../../assets/cabanas/misky-wayra/misky-parrilla-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-parrilla.jpg
+        alt: "La galería con la mesa de campo y la parrilla, frente al parque"
       - src: ../../assets/cabanas/misky-wayra/misky_galeria_03.jpg
         alt: "La mesa de la galería y la puerta de entrada"
       - src: ../../assets/cabanas/misky-wayra/misky_parrilla_01.jpg
         alt: "La parrilla bajo la galería, frente al parque"
+      - src: ../../assets/cabanas/misky-wayra/misky-costado-4x5.jpg
+        completa: ../../assets/cabanas/misky-wayra/misky-costado.jpg
+        alt: "El camino de piedras al costado de Misky Wayra, entre agaves y flores"
       - src: ../../assets/cabanas/misky-wayra/misky_parrilla_02.jpg
         alt: "La parrilla de ladrillo entre los árboles"
 

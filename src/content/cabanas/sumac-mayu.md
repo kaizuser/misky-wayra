@@ -78,7 +78,7 @@ resenas:
 recorrido:
   - titulo: La casa
     texto: >-
-      Adobe, piedra y un gran ventanal en arco.
+      Paredes de adobe, una cúpula que corona el playroom y un ventanal en arco que llena la casa de luz. La pileta está a unos pasos.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac-frente-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
@@ -99,7 +99,7 @@ recorrido:
 
   - titulo: El living comedor
     texto: >-
-      Un living comedor amplio, con la salamandra en un nicho de adobe.
+      Un living comedor amplio, con vigas de madera, nichos en arco y salamandra. TV, WiFi exclusivo y streaming incluidos.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_06.jpg
         alt: "El comedor de Sumaq Mayu: mesa para seis bajo las vigas de madera y nichos en arco"
@@ -114,7 +114,7 @@ recorrido:
 
   - titulo: La cocina
     texto: >-
-      Completa, con barra y banquetas de madera.
+      Cocina completa con barra, cocina a gas con horno, heladera y todo lo necesario para un grupo de seis.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_07.jpg
         alt: "La cocina de Sumaq Mayu con la barra y dos banquetas de madera"
@@ -129,7 +129,7 @@ recorrido:
 
   - titulo: La cúpula
     texto: >-
-      El playroom, arriba, bajo la cúpula: cincuenta metros cuadrados con sillones.
+      Arriba, bajo la cúpula, un playroom de 50 m² con sillones y TV: ideal para los chicos o para una tarde de lectura.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_escalera_01.jpg
         alt: "La escalera de madera que sube a la cúpula de Sumaq Mayu"
@@ -142,7 +142,7 @@ recorrido:
 
   - titulo: Los dormitorios
     texto: >-
-      Tres dormitorios: uno con cama king size y dos con camas de una plaza.
+      Tres dormitorios: uno con cama king y dos con camas de una plaza. Ropa de cama y toallas incluidas.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_dormitorio_10.jpg
         alt: "Dormitorio principal de Sumaq Mayu con cama king size y luz de la tarde"
@@ -159,9 +159,9 @@ recorrido:
       - src: ../../assets/cabanas/sumac-mayu/sumac_dormitorio_06.jpg
         alt: "Detalle de toallas y una flor seca sobre la cama"
 
-  - titulo: El baño
+  - titulo: Baños
     texto: >-
-      De adobe, con mesada de piedra y un espejo ondulado.
+      Dos baños: uno completo y otro de visitas.
     fotos:
       - src: ../../assets/cabanas/sumac-mayu/sumac_bano_01.jpg
         alt: "El baño de Sumaq Mayu con ducha, mesada y botellas de colores en la pared"
