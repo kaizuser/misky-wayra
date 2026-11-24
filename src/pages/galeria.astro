@@ -56,20 +56,25 @@ const alts: Record<string, string> = {
   pileta_01: 'La pileta y el deck de madera con sillones, bajo una pérgola',
   pileta_02: 'La pileta con Sumaq Mayu detrás',
   pileta_03: 'Un sillón de madera en el deck junto a la pileta, con Sumaq Mayu de fondo',
+  jardin_07: 'Flores fucsias junto a la pileta',
+  // Del celular de la familia (con sol)
+  'parque-aereo': 'Vista del parque, la pileta y el Uritorco, un día de sol',
+  'pileta-parque': 'La pileta en el parque, con el deck y los senderos de piedra',
+  'pileta-deck-sumaq': 'La pileta y Sumaq Mayu desde el deck',
 };
 
-// Mosaico armado a mano: tres columnas de 11 fotos (8 verticales y 3 horizontales cada una, así
-// miden casi lo mismo), con las horizontales a distinta altura en cada columna, y las fotos con
+// Mosaico armado a mano: tres columnas que miden casi lo mismo (verticales y horizontales repartidas), con las horizontales a distinta altura en cada columna, y las fotos con
 // sol y las nubladas mezcladas para que ningún tono se agrupe. Si sobra diferencia, cada columna
 // se centra en la más alta (mitad del desfase arriba, mitad abajo).
 const disposicion = [
-  ['jardin_03', 'parque-flores', 'pileta-simetrica', 'jardin_12', 'jardin_09', 'fogon_01', 'fogon-rosas', 'jardin_14', 'jardin_06', 'parque-frutas', 'deck_01'],
-  ['pileta-sumac', 'jardin_11', 'jardin_08', 'parque-sumac', 'fogon-glorieta', 'jardin_04', 'pileta_03', 'jardin_13', 'parque-tunas', 'jardin_15', 'fogon-sillones'],
-  ['jardin_10', 'pileta_02', 'jardin_02', 'parque-ventanal', 'pileta-cerro', 'fogon_02', 'pileta-flores', 'fogon-brasero', 'pileta_01', 'jardin_05', 'pileta-ventanal'],
+  ['jardin_03', 'parque-flores', 'pileta-simetrica', 'jardin_12', 'jardin_07', 'jardin_09', 'fogon_01', 'fogon-rosas', 'jardin_14', 'jardin_06', 'parque-frutas', 'deck_01'],
+  ['pileta-sumac', 'jardin_11', 'jardin_08', 'parque-aereo', 'parque-sumac', 'fogon-glorieta', 'jardin_04', 'pileta_03', 'jardin_13', 'parque-tunas', 'jardin_15', 'pileta-parque', 'fogon-sillones'],
+  ['jardin_10', 'pileta_02', 'jardin_02', 'parque-ventanal', 'pileta-cerro', 'fogon_02', 'pileta-deck-sumaq', 'pileta-flores', 'fogon-brasero', 'pileta_01', 'jardin_05', 'pileta-ventanal'],
 ];
 
 // El orden de recorrido (y el del celular): por filas, de izquierda a derecha
-const nombres = disposicion[0].flatMap((_, fila) => disposicion.map((col) => col[fila]));
+const filas = Math.max(...disposicion.map((col) => col.length));
+const nombres = Array.from({ length: filas }, (_, fila) => disposicion.map((col) => col[fila])).flat().filter(Boolean);
 const fotos = nombres.map((n) => foto(n, alts[n]));
 const indice = (n: string) => nombres.indexOf(n);
 

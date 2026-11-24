@@ -83,19 +83,38 @@ recorrido:
       - src: ../../assets/cabanas/sumac-mayu/sumac-frente-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
         alt: "Sumaq Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-frente-parque-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-frente-parque.jpg
+        alt: "El frente de Sumaq Mayu desde el parque, un día de sol"
       - src: ../../assets/cabanas/sumac-mayu/sumac-entrada-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
         alt: "La entrada de atrás de Sumaq Mayu, bajo la cúpula, con su alero de hierro"
-      - src: ../../assets/cabanas/sumac-mayu/sumac-rosas.jpg
-        alt: "Sumaq Mayu y la pileta entre rosas rojas y un farol"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_frente_01.jpg
+        alt: "El alero ondulado de Sumaq Mayu y el sendero de piedras"
       - src: ../../assets/cabanas/sumac-mayu/sumac-flores.jpg
         alt: "Sumaq Mayu detrás de un colchón de flores amarillas"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-torre-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-torre.jpg
+        alt: "La torre y la cúpula de adobe de Sumaq Mayu"
       - src: ../../assets/cabanas/sumac-mayu/sumac-ventanal-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-ventanal.jpg
         alt: "El ventanal en arco de cerca, con el jazmín y los canteros de flores"
+      - src: ../../assets/cabanas/sumac-mayu/jardin_03.jpg
+        alt: "Rosas rojas en primer plano y Sumaq Mayu al fondo"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_frente_02.jpg
+        alt: "El camino de ladrillo hacia la entrada de Sumaq Mayu"
       - src: ../../assets/cabanas/sumac-mayu/sumac-pileta-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-pileta.jpg
         alt: "Sumaq Mayu con la pileta adelante"
+      - src: ../../assets/cabanas/sumac-mayu/jardin_01.jpg
+        alt: "El ventanal en arco de Sumaq Mayu con el jazmín trepando"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-rosas.jpg
+        alt: "Sumaq Mayu y la pileta entre rosas rojas y un farol"
+      - src: ../../assets/cabanas/sumac-mayu/pileta_04.jpg
+        alt: "El ventanal de Sumaq Mayu visto desde el borde de la pileta"
+      - src: ../../assets/cabanas/sumac-mayu/sumac-pileta-deck-4x5.jpg
+        completa: ../../assets/cabanas/sumac-mayu/sumac-pileta-deck.jpg
+        alt: "Sumaq Mayu y la pileta con el deck de madera"
 
   - titulo: El living comedor
     texto: >-
@@ -105,25 +124,33 @@ recorrido:
         alt: "El comedor de Sumaq Mayu: mesa para seis bajo las vigas de madera y nichos en arco"
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_02.jpg
         alt: "La salamandra de Sumaq Mayu dentro de un nicho de adobe en arco"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_03.jpg
+        alt: "El comedor de Sumaq Mayu con la luz de la tarde"
       - src: ../../assets/cabanas/sumac-mayu/sumac_detalle_lampara_01.jpg
         alt: "Lámpara de hierro y cristales colgando de las vigas del living"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_05.jpg
-        alt: "El living de Sumaq Mayu con paredes de adobe y la puerta de madera"
       - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_01.jpg
         alt: "El comedor de Sumaq Mayu con la luz entrando por la ventana del fondo"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_comedor_05.jpg
+        alt: "El living de Sumaq Mayu con paredes de adobe y la puerta de madera"
 
   - titulo: La cocina
     texto: >-
       Cocina completa con barra, cocina a gas con horno, heladera y todo lo necesario para un grupo de seis.
     fotos:
+      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_01.jpg
+        alt: "La cocina de Sumaq Mayu con barra y banquetas"
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_07.jpg
         alt: "La cocina de Sumaq Mayu con la barra y dos banquetas de madera"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_05.jpg
-        alt: "Cocina a gas con horno junto a la barra y un tronco del techo"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_06.jpg
-        alt: "El aparador blanco y la heladera, con la puerta en arco al fondo"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_03.jpg
+        alt: "La cocina vista desde el comedor"
       - src: ../../assets/cabanas/sumac-mayu/sumac_aparador_02.jpg
         alt: "Aparador blanco con vajilla y cristalería"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_05.jpg
+        alt: "Cocina a gas con horno junto a la barra y un tronco del techo"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_02.jpg
+        alt: "La mesada de la cocina con el comedor detrás"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_06.jpg
+        alt: "El aparador blanco y la heladera, con la puerta en arco al fondo"
       - src: ../../assets/cabanas/sumac-mayu/sumac_cocina_08.jpg
         alt: "La mesa del comedor con el aparador y la cocina detrás"
 
@@ -135,10 +162,14 @@ recorrido:
         alt: "La escalera de madera que sube a la cúpula de Sumaq Mayu"
       - src: ../../assets/cabanas/sumac-mayu/sumac_living_04.jpg
         alt: "El playroom bajo la cúpula, con sillones, alfombra y televisor"
-      - src: ../../assets/cabanas/sumac-mayu/sumac_living_01.jpg
-        alt: "El playroom de Sumaq Mayu: mueble blanco, televisor y piso de madera"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_living_02.jpg
+        alt: "Sillones y TV en el playroom bajo la cúpula"
       - src: ../../assets/cabanas/sumac-mayu/sumac_living_03.jpg
         alt: "La cúpula de Sumaq Mayu con la ventana en arco y la baranda de la escalera"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_escalera_02.jpg
+        alt: "La escalera de madera vista desde arriba"
+      - src: ../../assets/cabanas/sumac-mayu/sumac_living_01.jpg
+        alt: "El playroom de Sumaq Mayu: mueble blanco, televisor y piso de madera"
 
   - titulo: Los dormitorios
     texto: >-
