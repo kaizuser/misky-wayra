@@ -87,9 +87,6 @@ recorrido:
       - src: ../../assets/cabanas/sumac-mayu/sumac-frente-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-frente.jpg
         alt: "Sumaq Mayu de frente: la torre, la cúpula, el alero ondulado y el ventanal en arco con el jazmín"
-      - src: ../../assets/cabanas/sumac-mayu/sumac-frente-parque-4x5.jpg
-        completa: ../../assets/cabanas/sumac-mayu/sumac-frente-parque.jpg
-        alt: "El frente de Sumaq Mayu desde el parque, un día de sol"
       - src: ../../assets/cabanas/sumac-mayu/sumac-entrada-4x5.jpg
         completa: ../../assets/cabanas/sumac-mayu/sumac-entrada.jpg
         alt: "La entrada de atrás de Sumaq Mayu, bajo la cúpula, con su alero de hierro"

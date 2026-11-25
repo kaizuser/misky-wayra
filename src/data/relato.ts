@@ -7,18 +7,22 @@
  * como titular en escalera) → el parque y los cerros (cruz, con el texto de cierre).
  * Textos de la familia (noviembre de 2026).
  */
-import miskyTunas from '../assets/home/relato/misky-tunas.jpg';
-import miskyCostado from '../assets/home/relato/misky-costado.jpg';
+import miskyAzulejos from '../assets/home/relato/misky-azulejos-2x3.jpg';
+import miskyParrilla from '../assets/home/relato/misky-parrilla-2x3.jpg';
+import miskyAzulejosEntera from '../assets/cabanas/misky-wayra/misky-azulejos.jpg';
+import miskyParrillaEntera from '../assets/cabanas/misky-wayra/misky-parrilla.jpg';
 import miskyJazmin from '../assets/home/relato/misky-jazmin.jpg';
-import sumacCupula from '../assets/home/relato/sumac-cupula.jpg';
-import sumacFollaje from '../assets/home/relato/sumac-follaje.jpg';
-import sumacFrutas from '../assets/home/relato/sumac-frutas.jpg';
-import sumacVentanal from '../assets/home/relato/sumac-ventanal.jpg';
-import sumacCamino from '../assets/home/relato/sumac-camino.jpg';
-import parqueSierras from '../assets/home/relato/parque-sierras.jpg';
-import parqueFlores from '../assets/home/relato/parque-flores-naranjas.jpg';
+// Sumaq: las fotos que mejor muestran su tamaño y sus formas
+import sumacAlero from '../assets/cabanas/sumac-mayu/sumac_frente_01.jpg';
+import sumacFlores from '../assets/cabanas/sumac-mayu/sumac-flores.jpg';
+import sumacDesdeLaPileta from '../assets/cabanas/sumac-mayu/pileta_04.jpg';
+import sumacEntreArboles from '../assets/galeria/jardin_09.jpg';
+import sumacPileta from '../assets/galeria/pileta_02.jpg';
+// El parque: su amplitud, el cerro y sus colores
+import parqueUritorco from '../assets/galeria/jardin_11.jpg';
+import parqueSendero from '../assets/galeria/jardin_12.jpg';
+import parqueLilas from '../assets/galeria/jardin_06.jpg';
 import parqueAlgarrobos from '../assets/home/relato/parque-algarrobos.jpg';
-import parquePileta from '../assets/home/relato/parque-pileta.jpg';
 
 export const principal = {
   frase:
@@ -34,13 +38,15 @@ export const paradas = [
     disposicion: 'trio',
     fotos: [
       {
-        src: miskyTunas,
-        alt: 'El camino de ladrillo hacia Misky Wayra, entre dos grandes tunas',
+        src: miskyAzulejos,
+        completa: miskyAzulejosEntera,
+        alt: 'La galería de Misky Wayra: la pared de azulejos y la mesa de campo, bajo la rama de un algarrobo',
         encuadre: '50% 50%',
       },
       {
-        src: miskyCostado,
-        alt: 'Misky Wayra de costado: la pared redonda de cal, el techo verde y un jazmín en flor',
+        src: miskyParrilla,
+        completa: miskyParrillaEntera,
+        alt: 'La galería curva de Misky Wayra con la mesa de campo, frente al parque',
         encuadre: '50% 50%',
       },
       {
@@ -64,28 +70,28 @@ export const paradas = [
     },
     fotos: [
       {
-        src: sumacCupula,
-        alt: 'La cúpula de Sumaq Mayu sobre la entrada de atrás, con su alero de hierro',
+        src: sumacAlero,
+        alt: 'Los aleros ondulados de Sumaq Mayu sobre la base de piedra, con el sendero que la rodea',
         encuadre: '50% 50%',
       },
       {
-        src: sumacFollaje,
-        alt: 'El ventanal de Sumaq Mayu entre las ramas y las flores del jardín',
+        src: sumacFlores,
+        alt: 'Sumaq Mayu entera detrás de un colchón de flores amarillas',
         encuadre: '50% 50%',
       },
       {
-        src: sumacVentanal,
-        alt: 'El gran ventanal de Sumaq Mayu con el jazmín trepando, sobre un cantero de flores',
+        src: sumacDesdeLaPileta,
+        alt: 'El ventanal en arco de Sumaq Mayu visto desde el borde de la pileta, bajo el alero',
         encuadre: '50% 50%',
       },
       {
-        src: sumacFrutas,
-        alt: 'Frutos verdes en una rama, con Sumaq Mayu y la pileta desenfocadas detrás',
+        src: sumacEntreArboles,
+        alt: 'Sumaq Mayu entre los árboles del parque, con flores lilas en primer plano',
         encuadre: '50% 50%',
       },
       {
-        src: sumacCamino,
-        alt: 'El camino de piedras por el pasto hacia Sumaq Mayu y la pileta',
+        src: sumacPileta,
+        alt: 'La pileta con Sumaq Mayu detrás, un día de sol',
         encuadre: '50% 60%',
       },
     ],
@@ -102,19 +108,19 @@ export const paradas = [
     },
     fotos: [
       {
-        src: parquePileta,
-        alt: 'La pileta con los escalones de piedra y la pérgola del deck al fondo',
+        src: parqueUritorco,
+        alt: 'El Cerro Uritorco detrás de la pileta y su muro de piedra',
+        encuadre: '50% 50%',
+      },
+      {
+        src: parqueSendero,
+        alt: 'Sendero de piedras entre el pasto y los canteros con flores, a la sombra de los árboles del parque',
+        encuadre: '50% 50%',
+      },
+      {
+        src: parqueLilas,
+        alt: 'Flores lilas frente a la pileta, con las sierras al fondo',
         encuadre: '50% 55%',
-      },
-      {
-        src: parqueSierras,
-        alt: 'Las sierras detrás del monte, vistas desde el deck',
-        encuadre: '50% 40%',
-      },
-      {
-        src: parqueFlores,
-        alt: 'Flores naranjas en primer plano, con el parque desenfocado detrás',
-        encuadre: '50% 40%',
       },
       {
         src: parqueAlgarrobos,

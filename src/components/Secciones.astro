@@ -15,6 +15,8 @@ interface Foto {
   src: ImageMetadata;
   alt: string;
   encuadre: string;
+  /** la foto entera, si `src` es un recorte: es la que se abre en grande */
+  completa?: ImageMetadata;
 }
 
 interface Props {
@@ -328,9 +330,11 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
      Como el texto principal, pero más chica y con menos texto. Después, más aire
      antes de la sección siguiente. */
   .nota {
+    --hueco-nota: var(--space-m); /* entre el título y el texto */
+
     display: grid;
     justify-items: center;
-    gap: var(--space-m);
+    gap: var(--hueco-nota);
     margin-block-start: var(--space-3xl);
     text-align: center;
   }
@@ -360,8 +364,9 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   /* Final: como el cierre de la referencia. Alineada a la izquierda, casi al borde;
      título muy grande en dos renglones y un párrafo ancho de cuatro */
   .nota.final {
+    --hueco-nota: 3.5rem;
+
     justify-items: start;
-    gap: 3.5rem;
     margin-block-start: calc(var(--space-3xl) * 2); /* bien separada de las fotos de arriba */
     /* Casi al borde izquierdo de la pantalla, más allá del margen del contenido */
     margin-inline-start: calc((100% - 100vw) / 2 + 4vw);
@@ -381,18 +386,17 @@ const lugaresTrio = ['izquierda', 'centro', 'derecha'];
   }
 
   /* Entre párrafos del subtítulo, menos aire que entre el título y el texto */
+  /* (el hueco de la grilla es el del título: se compensa para que entre párrafos quede --space-s;
+     antes se restaba el de escritorio fijo y en el celular los párrafos se pisaban) */
   .nota-subtitulo + .nota-subtitulo {
-    margin-block-start: calc(var(--space-s) - var(--space-m));
-  }
-
-  .final .nota-subtitulo + .nota-subtitulo {
-    margin-block-start: calc(var(--space-s) - 3.5rem);
+    margin-block-start: calc(var(--space-s) - var(--hueco-nota));
   }
 
   @media (width < 40rem) {
     .nota.final {
+      --hueco-nota: var(--space-l);
+
       margin-inline-start: 0;
-      gap: var(--space-l);
     }
   }
 
