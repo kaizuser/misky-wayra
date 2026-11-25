@@ -144,6 +144,8 @@ Folder is `cabanas` (no ñ: it gets percent-encoded when shared).
 
 **404 (redone Nov 12, 2026):** "Error 404" label, "Te perdiste en el monte" huge, one line ("…o se la llevó el viento. Seguí por acá:"), then the four exits as an index of rows between thin rules: name in big serif in its color (Sumaq adobe, Misky green, Galería and Ubicación olive), a small-caps line (the cottages' meanings, "El parque y la pileta", "Cómo llegar") and an arrow; on hover the row fills with its color like the nav links. Then a square "Volver al inicio" button.
 
+**Sunny heroes (Nov 25, 2026, test, the developer's call: the camera session was overcast; a better session will come later):** home = IMG_0451 (the park, pool and the Uritorco from above; also in the Galería mosaic as `parque-aereo`), Sumaq = IMG_0388 (front by the pool; also in its La casa carousel as `sumac-frente-parque`), Misky = a WhatsApp image (1536×1024: soft on retina desktop, vertical crop only 576px wide). Previous heroes (DSC_3435, 3479, 3425) are in `fotos-originales/exteriores` and git history. Mobile Lighthouse: home 96 / 2.8 s, Sumaq 96 / 2.7 s, Misky 99 / 2.1 s.
+
 **Heroes everywhere:** home, both cottages, Galería and Ubicación open with `CabanaHero` (Nov 21, 2026).
 
 ### Nav (`Franja.astro` + `scripts/franja.ts`), on every page

@@ -10,8 +10,8 @@ frase: Una casa de adobe de formas suaves, con cúpula y un gran ventanal en arc
 foto:
   src: ../../assets/cabanas/sumac-mayu/hero.jpg
   vertical: ../../assets/cabanas/sumac-mayu/hero-vertical.jpg
-  alt: Sumaq Mayu, casa de adobe con cúpula, torre, alero ondulado y un gran ventanal en arco, detrás de flores violetas
-  encuadre: 55% 50%
+  alt: Sumaq Mayu de frente, casa de adobe con torre, cúpula y un gran ventanal en arco, junto a la pileta
+  encuadre: 60% 50%
 
 datos:
   superficie: 140
