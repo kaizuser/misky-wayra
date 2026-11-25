@@ -55,6 +55,10 @@ equipamiento:
     - Ropa de cama y toallas
     - Alarma
 
+plataformas:
+  - nombre: Airbnb
+    url: https://www.airbnb.com.ar/h/sumaqmayu
+
 resenas:
   - texto: >-
       La casa es mágica! Está ubicada en un lugar increíble, tiene una energía única y fue muy
@@ -112,9 +116,6 @@ recorrido:
         alt: "Sumaq Mayu y la pileta entre rosas rojas y un farol"
       - src: ../../assets/cabanas/sumac-mayu/pileta_04.jpg
         alt: "El ventanal de Sumaq Mayu visto desde el borde de la pileta"
-      - src: ../../assets/cabanas/sumac-mayu/sumac-pileta-deck-4x5.jpg
-        completa: ../../assets/cabanas/sumac-mayu/sumac-pileta-deck.jpg
-        alt: "Sumaq Mayu y la pileta con el deck de madera"
 
   - titulo: El living comedor
     texto: >-

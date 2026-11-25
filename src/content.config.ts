@@ -33,6 +33,8 @@ const cabanas = defineCollection({
        * Reseñas reales de huéspedes, copiadas de Booking/Airbnb: solo se
        * recorta y se corrigen tildes o mayúsculas; nunca se reescribe. Nombre de pila y fecha.
        */
+      /** La casa en otras plataformas (link secundario en "Cómo reservar"; la reserva directa es por WhatsApp) */
+      plataformas: z.array(z.object({ nombre: z.enum(['Airbnb', 'Booking']), url: z.string().url() })).default([]),
       resenas: z
         .array(z.object({ texto: z.string(), nombre: z.string(), fecha: z.string(), fuente: z.enum(['Booking', 'Airbnb']) }))
         .default([]),

@@ -8,9 +8,11 @@ import { whatsappUrl } from '../config';
 
 interface Props {
   nombre: string;
+  /** la casa en Airbnb / Booking: links secundarios debajo del botón */
+  plataformas?: { nombre: string; url: string }[];
 }
 
-const { nombre } = Astro.props;
+const { nombre, plataformas = [] } = Astro.props;
 const mensaje = whatsappUrl(`¡Hola! Quería consultar disponibilidad en ${nombre} para `);
 
 const pasos = [
@@ -41,7 +43,23 @@ const pasos = [
     }
   </ol>
 
-  <a class="boton" href={mensaje} data-revelar="detalle" style="--retraso: 0.15s">Consultar por {nombre}</a>
+  <div class="acciones">
+    <a class="boton" href={mensaje} data-revelar="detalle" style="--retraso: 0.15s">Consultar por {nombre}</a>
+    {
+      plataformas.length > 0 && (
+        <p class="plataformas" data-revelar="detalle" style="--retraso: 0.25s">
+          <span>También en</span>
+          {plataformas.map((p) => (
+            <a href={p.url} target="_blank" rel="noopener">
+              {p.nombre}
+              <span aria-hidden="true">↗</span>
+              <span class="solo-lectores"> (se abre en otra pestaña)</span>
+            </a>
+          ))}
+        </p>
+      )
+    }
+  </div>
 </section>
 
 <script>
@@ -119,6 +137,44 @@ const pasos = [
     max-width: 30ch;
     margin: 0;
     line-height: 1.55;
+  }
+
+  /* El botón y, al lado, la casa en otras plataformas: links chicos, secundarios (la reserva
+     directa con la familia es por WhatsApp) */
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m) var(--space-xl);
+  }
+
+  .plataformas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-l);
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .plataformas > span {
+    color: color-mix(in srgb, var(--color-text) 65%, transparent);
+  }
+
+  .plataformas a {
+    padding-block-end: 0.2rem;
+    border-block-end: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: border-color 0.6s ease;
+  }
+
+  .plataformas a:hover,
+  .plataformas a:focus-visible {
+    border-color: var(--color-primary);
   }
 
   /* El botón: un bloque recto en el color de la casa */

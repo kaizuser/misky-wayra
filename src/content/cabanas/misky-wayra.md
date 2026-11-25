@@ -53,6 +53,12 @@ equipamiento:
     - Ropa de cama y toallones
     - Alarma
 
+plataformas:
+  - nombre: Airbnb
+    url: https://www.airbnb.com.ar/h/miskywayra
+  - nombre: Booking
+    url: https://www.booking.com/hotel/ar/misky-wayra.es.html
+
 resenas:
   - texto: >-
       La cabaña es mágica; tiene energía positiva, contenedora. Amplia, cálida, orgánica. Con todas
