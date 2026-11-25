@@ -7,9 +7,9 @@
  * como titular en escalera) → el parque y los cerros (cruz, con el texto de cierre).
  * Textos de la familia (noviembre de 2026).
  */
-import miskyAzulejos from '../assets/home/relato/misky-azulejos-2x3.jpg';
+import miskyJazminPared from '../assets/home/relato/misky-jazmin-2x3.jpg';
 import miskyParrilla from '../assets/home/relato/misky-parrilla-2x3.jpg';
-import miskyAzulejosEntera from '../assets/cabanas/misky-wayra/misky-azulejos.jpg';
+import miskyJazminParedEntera from '../assets/cabanas/misky-wayra/misky-jazmin.jpg';
 import miskyParrillaEntera from '../assets/cabanas/misky-wayra/misky-parrilla.jpg';
 import miskyJazmin from '../assets/home/relato/misky-jazmin.jpg';
 // Sumaq: las fotos que mejor muestran su tamaño y sus formas
@@ -38,9 +38,9 @@ export const paradas = [
     disposicion: 'trio',
     fotos: [
       {
-        src: miskyAzulejos,
-        completa: miskyAzulejosEntera,
-        alt: 'La galería de Misky Wayra: la pared de azulejos y la mesa de campo, bajo la rama de un algarrobo',
+        src: miskyJazminPared,
+        completa: miskyJazminParedEntera,
+        alt: 'Misky Wayra de costado: la pared redonda de cal, el techo verde y el jazmín en flor trepando la galería',
         encuadre: '50% 50%',
       },
       {
